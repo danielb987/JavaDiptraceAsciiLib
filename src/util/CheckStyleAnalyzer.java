@@ -63,12 +63,13 @@ public class CheckStyleAnalyzer {
      * This method is used to be able to run this class from a script.
      * @param args command line parameters
      */
-    public static final void main(final String[] args) {
+    public static final int main(final String[] args) {
         if ((args.length == 3) && (args[0].toLowerCase().equals("checkstyle"))) {
             new CheckStyleAnalyzer(args[1], args[2]).analyze();
+            return 0;
         }
         else {
-            System.exit(1);
+            return 1;
         }
     }
     
