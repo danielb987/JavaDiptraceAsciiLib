@@ -12,7 +12,7 @@ script:
 #  - ant test
 #  - travis_utility/run_coverage.sh
   - ls -al travis_utility/
-  - travis_utility/run_ant_and_coverage.sh
+#  - travis_utility/run_ant_and_coverage.sh  aaaaaa
 #  - travis_utility/push-javadoc-to-docs.sh  // Disable while setting up jacoco
 
 # after_success:
