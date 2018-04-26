@@ -37,8 +37,6 @@ import java.util.logging.Logger;
 
 /**
  * Find text files that has a ascii 0 character.
- * 
- * @author Daniel Bergqvist
  */
 public class FindFilesWithNullChar {
     
@@ -79,12 +77,12 @@ public class FindFilesWithNullChar {
                 return false;
             }
             
-            File file = new File(dir+"/"+name);
+            File file = new File(dir + "/"+name);
             if (file.isDirectory()) {
 //                System.out.println("AAAAA: Folder: "+dir+"/"+name);
                 
-                if (!foldersToIgnore.contains(dir+"/"+name)) {
-                    foundError.flag |= find(dir+"/"+name);
+                if (!foldersToIgnore.contains(dir + "/" + name)) {
+                    foundError.flag |= find(dir + "/" + name);
                 }
                 return false;
             }

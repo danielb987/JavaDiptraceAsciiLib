@@ -42,7 +42,6 @@ import org.xml.sax.helpers.DefaultHandler;
 
 /**
  * Analyze the report from CheckStyle.
- * @author Daniel Bergqvist
  */
 public class CheckStyleAnalyzer {
     
@@ -50,12 +49,12 @@ public class CheckStyleAnalyzer {
      * The file name of the xml file that checkstyle has generated and that this class will
      * analyze.
      */
-    private final String filename;
+    private final String fFilename;
     
     /**
      * The file name of the report that this class generates.
      */
-    private final String reportFilename;
+    private final String fReportFilename;
     
     
     /**
@@ -66,8 +65,7 @@ public class CheckStyleAnalyzer {
     public static final void main(final String[] args) {
         if ((args.length == 3) && (args[0].toLowerCase().equals("checkstyle"))) {
             new CheckStyleAnalyzer(args[1], args[2]).analyze();
-        }
-        else {
+        } else {
             System.err.println("Invalid parameters");
         }
     }
@@ -81,8 +79,8 @@ public class CheckStyleAnalyzer {
      * file is a html file.
      */
     public CheckStyleAnalyzer(final String aFilename, final String aReportFilename) {
-        this.filename = aFilename;
-        this.reportFilename = aReportFilename;
+        this.fFilename = aFilename;
+        this.fReportFilename = aReportFilename;
     }
     
     
@@ -92,8 +90,8 @@ public class CheckStyleAnalyzer {
     public void analyze() {
         
         try (PrintWriter writer = new PrintWriter(
-                                        new BufferedWriter(new FileWriter(reportFilename)))) {
-            File inputFile = new File(filename);
+                                        new BufferedWriter(new FileWriter(fReportFilename)))) {
+            File inputFile = new File(fFilename);
             SAXParserFactory factory = SAXParserFactory.newInstance();
             SAXParser saxParser = factory.newSAXParser();
             UserHandler userhandler = new UserHandler(writer);
@@ -114,64 +112,64 @@ public class CheckStyleAnalyzer {
         /**
          * The writer that the report is written to.
          */
-        private final PrintWriter writer;
+        private final PrintWriter fWriter;
         
         /**
          * The file name of the file that is currently analyzed in the checkstyle report.
          */
-        private String currentFilename = "";
+        private String fCurrentFilename = "";
         
         /**
          * The number of errors in the current file in the checkstyle report.
          */
-        private AtomicInteger currentFileTotalErrorCount;
+        private AtomicInteger fCurrentFileTotalErrorCount;
         
         /**
          * The total number of files in the checkstyle report.
          */
-        private int numFiles = 0;
+        private int fNumFiles = 0;
         
         /**
          * The number of files in the checkstyle report that has errors.
          */
-        private int numFilesWithError = 0;
+        private int fNumFilesWithError = 0;
         
         /**
          * The total number of errors in the checkstyle report.
          */
-        private int numErrors = 0;
+        private int fNumErrors = 0;
         
         /**
          * true if the current file in the checkstyle report has any errors.
          */
-        private boolean currentFileHasErrors = false;
+        private boolean fCurrentFileHasErrors = false;
         
         /**
          * A map of the error messages for each error in the checkstyle report.
          */
-        private final Map<String, String> errorMessages = new HashMap<>();
+        private final Map<String, String> fErrorMessages = new HashMap<>();
         
         /**
          * A map of the total number of errors for each error in the checkstyle report.
          */
-        private final Map<String, AtomicInteger> totalErrorCount = new HashMap<>();
+        private final Map<String, AtomicInteger> fTotalErrorCount = new HashMap<>();
         
         /**
          * A map of the total number of errors for each file name in the checkstyle report.
          */
-        private final Map<String, AtomicInteger> fileTotalErrorCount = new HashMap<>();
+        private final Map<String, AtomicInteger> fFileTotalErrorCount = new HashMap<>();
         
         /**
          * A map of a map of the total number of errors for each error for each file name in the
          * checkstyle report.
          */
-        private final Map<String, Map<String, AtomicInteger>> fileErrorCount = new HashMap<>();
+        private final Map<String, Map<String, AtomicInteger>> fFileErrorCount = new HashMap<>();
         
         /**
          * A map of the total number of errors for each error in the the current file in the
          * checkstyle report.
          */
-        private Map<String, AtomicInteger> currentFileErrorCount = new HashMap<>();
+        private Map<String, AtomicInteger> fCurrentFileErrorCount = new HashMap<>();
         
         
         /**
@@ -179,7 +177,7 @@ public class CheckStyleAnalyzer {
          * @param aWriter a writer there the report is written to
          */
         UserHandler(final PrintWriter aWriter) {
-            this.writer = aWriter;
+            this.fWriter = aWriter;
         }
         
         
@@ -208,32 +206,32 @@ public class CheckStyleAnalyzer {
                 };
 
             List<Map.Entry<String, AtomicInteger>> sortedTotalErrorCount =
-                    new LinkedList<>(totalErrorCount.entrySet());
+                    new LinkedList<>(fTotalErrorCount.entrySet());
             
             Collections.sort(sortedTotalErrorCount, comparator);
             
             
             List<Map.Entry<String, AtomicInteger>> sortedFileTotalErrorCount =
-                    new LinkedList<>(fileTotalErrorCount.entrySet());
+                    new LinkedList<>(fFileTotalErrorCount.entrySet());
             
             Collections.sort(sortedFileTotalErrorCount, comparator);
             
-            writer.println("<!DOCTYPE html>");
-            writer.println("<html dir=\"ltr\" lang=\"en\">");
-            writer.println("<head>");
-            writer.println("<meta charset=\"utf-8\" />");
-            writer.println("<title>Checkstyle report</title>");
-            writer.println("</head>");
-            writer.println("<body>");
+            fWriter.println("<!DOCTYPE html>");
+            fWriter.println("<html dir=\"ltr\" lang=\"en\">");
+            fWriter.println("<head>");
+            fWriter.println("<meta charset=\"utf-8\" />");
+            fWriter.println("<title>Checkstyle report</title>");
+            fWriter.println("</head>");
+            fWriter.println("<body>");
             
             
-            writer.format("<p>%d errors in %d files. %d files in total.</p>%n",
-                          numErrors, numFilesWithError, numFiles);
+            fWriter.format("<p>%d errors in %d files. %d files in total.</p>%n",
+                          fNumErrors, fNumFilesWithError, fNumFiles);
             
-            System.out.format("%d errors in %d files%n", numErrors, numFiles);
+            System.out.format("%d errors in %d files%n", fNumErrors, fNumFiles);
             
             
-            writer.println("<table>");
+            fWriter.println("<table>");
 //            writer.format(
 //                    "<tr style=\"background-color: coral;\"><td>%</td><td>%s</td></tr>%n",
 //                    item.getValue().get(),
@@ -242,21 +240,21 @@ public class CheckStyleAnalyzer {
 //            System.out.format("Filename: %s%n", item.getKey());
             
             for (Map.Entry<String, AtomicInteger> subEntry : sortedTotalErrorCount) {
-                writer.format("<tr><td>%d</td><td>%s</td></tr>%n",
+                fWriter.format("<tr><td>%d</td><td>%s</td></tr>%n",
                               subEntry.getValue().get(),
                               subEntry.getKey());
                 System.out.format("Error: %s, count: %d%n",
                                   subEntry.getKey(),
                                   subEntry.getValue().get());
             }
-            writer.println("</table>");
+            fWriter.println("</table>");
             
             
             for (Map.Entry<String, AtomicInteger> item : sortedFileTotalErrorCount) {
                 
-                Map<String, AtomicInteger> entry = fileErrorCount.get(item.getKey());
-                writer.println("<table>");
-                writer.format(
+                Map<String, AtomicInteger> entry = fFileErrorCount.get(item.getKey());
+                fWriter.println("<table>");
+                fWriter.format(
                         "<tr style=\"background-color: coral;\"><td>%d</td><td>%s</td></tr>%n",
                         item.getValue().get(),
                         item.getKey());
@@ -264,18 +262,18 @@ public class CheckStyleAnalyzer {
                 System.out.format("Filename: %s%n", item.getKey());
                 
                 for (Map.Entry<String, AtomicInteger> subEntry : entry.entrySet()) {
-                    writer.format("<tr><td>%d</td><td>%s</td></tr>%n",
+                    fWriter.format("<tr><td>%d</td><td>%s</td></tr>%n",
                                   subEntry.getValue().get(),
                                   subEntry.getKey());
                     System.out.format("Error: %s, count: %d%n",
                                       subEntry.getKey(),
                                       subEntry.getValue().get());
                 }
-                writer.println("</table>");
+                fWriter.println("</table>");
             }
             
-            writer.println("</body>");
-            writer.println("</html>");
+            fWriter.println("</body>");
+            fWriter.println("</html>");
         }
         
         /**
@@ -310,17 +308,17 @@ public class CheckStyleAnalyzer {
 //            }
             if ("file".equalsIgnoreCase(qName)) {
 //                System.out.format("file tag%n");
-                numFiles++;
-                currentFileHasErrors = false;
-                currentFilename = attributes.getValue("name");
-                currentFileErrorCount = new HashMap<>();
-                fileErrorCount.put(currentFilename, currentFileErrorCount);
-                currentFileTotalErrorCount = new AtomicInteger(0);
-                fileTotalErrorCount.put(currentFilename, currentFileTotalErrorCount);
+                fNumFiles++;
+                fCurrentFileHasErrors = false;
+                fCurrentFilename = attributes.getValue("name");
+                fCurrentFileErrorCount = new HashMap<>();
+                fFileErrorCount.put(fCurrentFilename, fCurrentFileErrorCount);
+                fCurrentFileTotalErrorCount = new AtomicInteger(0);
+                fFileTotalErrorCount.put(fCurrentFilename, fCurrentFileTotalErrorCount);
             }
             if ("error".equalsIgnoreCase(qName)) {
-                numErrors++;
-                currentFileHasErrors = true;
+                fNumErrors++;
+                fCurrentFileHasErrors = true;
                 String error = attributes.getValue("source");
                 String errorMessage = attributes.getValue("message");
                 if (error == null) {
@@ -332,16 +330,16 @@ public class CheckStyleAnalyzer {
                     }
                 }
                 
-                currentFileTotalErrorCount.addAndGet(1);
+                fCurrentFileTotalErrorCount.addAndGet(1);
                 
-                errorMessages.putIfAbsent(error, errorMessage);
-                AtomicInteger value = totalErrorCount.putIfAbsent(error, new AtomicInteger(1));
+                fErrorMessages.putIfAbsent(error, errorMessage);
+                AtomicInteger value = fTotalErrorCount.putIfAbsent(error, new AtomicInteger(1));
                 if (value != null) {
                     value.addAndGet(1);
                 }
                 
 //                currentFileErrorCount = new HashMap<>();
-                value = currentFileErrorCount.putIfAbsent(error, new AtomicInteger(1));
+                value = fCurrentFileErrorCount.putIfAbsent(error, new AtomicInteger(1));
                 if (value != null) {
                     value.addAndGet(1);
                 }
@@ -364,8 +362,8 @@ public class CheckStyleAnalyzer {
                 throws SAXException {
             
             if ("file".equalsIgnoreCase(qName)) {
-                if (currentFileHasErrors) {
-                    numFilesWithError++;
+                if (fCurrentFileHasErrors) {
+                    fNumFilesWithError++;
                 }
             }
         }
