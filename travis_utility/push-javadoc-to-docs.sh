@@ -40,6 +40,9 @@ if [ "$TRAVIS_REPO_SLUG" == "danielb987/JavaDiptraceAsciiLib" ] && [ "$TRAVIS_PU
   # Change directory to the repository
   cd JavaDiptraceAsciiLib.Documentation
 
+  # Change directory to the docs directory
+  cd docs
+
   # Remove the old distribution folder, create a new one, and
   # copy the JavaDiptraceAsciiLib.jar file to the distribution folder.
   rm -Rf distribution
