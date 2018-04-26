@@ -8,11 +8,6 @@ set -e
 # travis_utility/run_coverage.sh runs the jacoco test, generates the report and and upload it to Coveralls.
 
 ant test && \
-    travis_utility/run_findbugs.sh
-
-exit 2
-
-ant test && \
     travis_utility/run_findbugs.sh && \
     travis_utility/push-javadoc-to-docs.sh && \
     travis_utility/run_coverage.sh
