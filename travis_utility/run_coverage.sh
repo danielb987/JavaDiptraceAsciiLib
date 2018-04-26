@@ -13,6 +13,6 @@ if [ "$TRAVIS_REPO_SLUG" == "danielb987/JavaDiptraceAsciiLib" ] && [ "$TRAVIS_PU
   ant -v jacoco_report
 
   # Publish coverage report to https://coveralls.io/github/danielb987/JavaDiptraceAsciiLib
-  mvn coveralls:report
+#  mvn coveralls:report
 
 fi
