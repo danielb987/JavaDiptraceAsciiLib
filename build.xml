@@ -156,7 +156,7 @@
     
     <target name="checkstyle" description="Generates a report of code convention violations.">
         <!--    <checkstyle config="/path/to/site/sun_checks.xml"> -->
-        <checkstyle config="checkstyle/emojicode_checks.xml">
+        <checkstyle config="checkstyle/javadiptraceasciilib_checks.xml">
             <fileset dir="src" includes="**/*.java"/>
 
             <!-- Location of cache-file. Something that is project specific -->
