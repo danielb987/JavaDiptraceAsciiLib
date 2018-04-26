@@ -14,18 +14,14 @@ if [ "$TRAVIS_REPO_SLUG" == "danielb987/JavaDiptraceAsciiLib" ] && [ "$TRAVIS_PU
 
   # Create javadoc
   ant javadoc
-#exit 0
 
   # Check if this project's javadoc follows coding standard
   # We have a lot of errors at the moment, so don't stop on error at this point.
   # Later, change this to stop on error.
   ant checkstyle || true
-#exit 0
 
   # Get a summary of the checkstyle report
-#  java -jar dist/JavaDiptraceAsciiLib.jar checkstyle build/checkstyle_errors.xml build/checkstyle_report.html
   java -cp dist/JavaDiptraceAsciiLib.jar util.CheckStyleAnalyzer checkstyle build/checkstyle_errors.xml build/checkstyle_report.html
-exit 0
 
   echo -e "Publishing javadoc...\n"
 
@@ -70,5 +66,5 @@ exit 0
   git add -f .
   git commit -m "Latest javadoc on successful travis build $TRAVIS_BUILD_NUMBER auto-pushed to master"
   git push -fq origin master > /dev/null
-exit 0
+
 fi
