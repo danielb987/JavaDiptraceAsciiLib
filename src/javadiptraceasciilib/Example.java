@@ -1,13 +1,12 @@
 package javadiptraceasciilib;
 
 /**
- *
- * @author daniel
+ * Example class
  */
 public class Example {
-	
+    
 	public void something() {
-		System.out.println("Something");
-	}
-	
+        System.out.println("Something");
+    }
+    
 }
