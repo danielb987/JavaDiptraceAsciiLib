@@ -70,4 +70,102 @@
     nbproject/build-impl.xml file. 
 
     -->
+    
+    
+    <!-- We need to set class path properties for junit and hamcrest since Travis will fail if not set. -->
+    <target name="-pre-init">
+        <property name="libs.junit_4.classpath" value="lib/junit_4/junit-4.12.jar"/>
+        <property name="libs.hamcrest.classpath" value="lib/hamcrest/hamcrest-core-1.3.jar"/>
+    </target>
+    
+    
+    <!-- Setup properties for jacoco -->
+    <property name="jacoco_src.dir" location="./src/emojicodeeditor" />
+    <property name="jacoco_result.dir" location="./build" />
+    <property name="jacoco_result.classes.dir" location="${jacoco_result.dir}/classes" />
+    <property name="jacoco_result.test_classes.dir" location="${jacoco_result.dir}/test/classes" />
+    <property name="jacoco_result.report.dir" location="${jacoco_result.dir}/site/jacoco" />
+    <property name="jacoco_result.exec.file" location="${jacoco_result.dir}/jacoco.exec" />
+
+    <property name="jacoco.jar" location="jacoco/lib/jacocoant.jar" />
+    
+    <!-- Step 1: Import JaCoCo Ant tasks -->
+    <taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
+        <classpath path="./jacoco/lib/jacocoant.jar" />
+    </taskdef>
+    
+
+    <target name="jacoco_test" depends="compile">
+        <echo message="javac.debug: ${javac.debug}" />
+        <echo message="jacoco_result.classes.dir: ${jacoco_result.classes.dir}" />
+        <echo message="jacoco_result.test_classes.dir: ${jacoco_result.test_classes.dir}" />
+        <!-- Step 2: Wrap test execution with the JaCoCo coverage task -->
+        <jacoco:coverage destfile="${jacoco_result.exec.file}">
+            <junit fork="true" includeAntRuntime="true"          showoutput="true" printsummary="on" enabletestlistenerevents="true">
+                
+                <batchtest>
+                  <fileset dir="${jacoco_result.test_classes.dir}">
+                    <include name="**/*Test.class"/>
+                  </fileset>
+                </batchtest>
+
+                <classpath>
+                    <pathelement path="${jacoco_result.classes.dir}"/>
+                    <pathelement path="${jacoco_result.test_classes.dir}"/>
+                    <pathelement path="./lib/junit_4/junit-4.12.jar"/>
+                    <pathelement path="./lib/hamcrest/hamcrest-core-1.3.jar"/>
+                    <pathelement path="./jacoco/lib/jacocoant.jar"/>
+                </classpath>
+                                
+            </junit>
+            
+        </jacoco:coverage>
+    </target>
+    
+    <target name="jacoco_report" depends="jacoco_test">
+        <!-- Step 3: Create coverage report -->
+        <jacoco:report>
+
+            <!-- This task needs the collected execution data and ... -->
+            <executiondata>
+                <file file="${jacoco_result.exec.file}" />
+            </executiondata>
+
+            <!-- the class files and optional source files ... -->
+            <structure name="JaCoCo Ant Example">
+                <classfiles>
+                    <fileset dir="${jacoco_result.classes.dir}" />
+                </classfiles>
+                <sourcefiles encoding="UTF-8">
+                    <fileset dir="${jacoco_src.dir}" />
+                </sourcefiles>
+            </structure>
+
+            <!-- to produce reports in different formats. -->
+            <html destdir="${jacoco_result.report.dir}" />
+            <csv destfile="${jacoco_result.report.dir}/report.csv" />
+            <xml destfile="${jacoco_result.report.dir}/report.xml" />
+        </jacoco:report>
+    </target>
+    
+    
+    
+    <taskdef resource="com/puppycrawl/tools/checkstyle/ant/checkstyle-ant-task.properties"
+             classpath="./checkstyle/checkstyle-8.5-all.jar"/>
+    
+    
+    <target name="checkstyle" description="Generates a report of code convention violations.">
+        <!--    <checkstyle config="/path/to/site/sun_checks.xml"> -->
+        <checkstyle config="checkstyle/emojicode_checks.xml">
+            <fileset dir="src" includes="**/*.java"/>
+
+            <!-- Location of cache-file. Something that is project specific -->
+            <property key="checkstyle.cache.file" file="target/cachefile"/>
+
+            <formatter type="plain"/>
+            <formatter type="xml" toFile="build/checkstyle_errors.xml"/>
+        </checkstyle>
+    </target>
+    
+    
 </project>
