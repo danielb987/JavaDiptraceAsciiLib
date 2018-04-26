@@ -80,7 +80,7 @@
     
     
     <!-- Setup properties for jacoco -->
-    <property name="jacoco_src.dir" location="./src/emojicodeeditor" />
+    <property name="jacoco_src.dir" location="./src/javadiptraceasciilib" />
     <property name="jacoco_result.dir" location="./build" />
     <property name="jacoco_result.classes.dir" location="${jacoco_result.dir}/classes" />
     <property name="jacoco_result.test_classes.dir" location="${jacoco_result.dir}/test/classes" />
