@@ -13,4 +13,4 @@ ant test && \
     travis_utility/run_coverage.sh
 
 # exit 4
-exit 0
+# exit 0
