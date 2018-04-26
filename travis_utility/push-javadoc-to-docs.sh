@@ -14,6 +14,7 @@ if [ "$TRAVIS_REPO_SLUG" == "danielb987/JavaDiptraceAsciiLib" ] && [ "$TRAVIS_PU
 
   # Create javadoc
   ant javadoc
+exit 0
 
   # Check if this project's javadoc follows coding standard
   # We have a lot of errors at the moment, so don't stop on error at this point.
