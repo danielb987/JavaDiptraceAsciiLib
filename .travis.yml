@@ -1,0 +1,35 @@
+language: java
+jdk: oraclejdk8
+
+env:
+  global:
+    secure: QX94I5jTOjEUpIFfzrdEkrG2Xacci3wE92jAxcokRDNFI6hSL/4VjirShn1v/U6rmJIMQlwJVYSLpp/10S9cBCWVhVYtbRdhXZoRlzXPF9VSwEmUk+jT52Lf8AJHgwADwuSRHbLOPuFx9jEpQIYUFFc5VuFRaxWd8NY+vvQWd3umRP2ap2wEM3JAlB7BZKZO3rzCgcZWF/Cta1HbJdICR07unoCqwAF2eKjJQuRzz/wtPFzgAQ05hele6kyPjRwBSheeGHJmG8AXg6Q1m8jIeWP+AbF5gXbaeldUygS2WIM4LAw/N10ahGfrpGRihrqBVf8ozWnIymujFDwBU6wBa3HfjJEKZuV+06SyelNTb9bQyhqs5bN2qc9O28lKEp8dfdyxBA2z2+1mgCZhlh1A9F+tHqujNOaNU8ZQFYkLWy2TajtJOrRTYky6vMdasEmRcA0IXfC5ROXrsfe+UADzelooKCRYM1oONibvKaysFQPNdrbKNG2ZH3Nl9T8FgBCGvIyNcLwtwhMx+gVrPgyGaTlV+9wqKLMEcjCxQwHu20+eJPopIw7+io8zOD0IgcO10c7RukVDHpr0K7qnsgY7JCbfFGOaUvndnC2q19GDV9dxDxBnpwSHc3OyTg+VtepW/zP5gYFK6c1xrDiP/6xRevngoMqGgCiPCb8iuX3YPWM=
+
+before-script:
+  - ant clean
+  
+script:
+#  - ant test
+#  - travis_utility/run_coverage.sh
+  - travis_utility/run_ant_and_coverage.sh
+#  - travis_utility/push-javadoc-to-docs.sh  // Disable while setting up jacoco
+
+# after_success:
+#   travis_utility/run_coverage.sh
+#   - if [[ "$TRAVIS_OS_NAME" == "linux" ]] ; then mvn jacoco:report coveralls:report -U -P travis-coverage ; fi
+
+
+# If the token on GitHub needs to be changed:
+# On GitHub, create a personal access token.
+# https://github.com/settings/tokens
+#
+# Give it the text "A token so that Travis can send files to GitHub"
+# The token needs to have the scope "public_repo"
+#
+# Run the command "travis encrypt GH_TOKEN=<token> --add" on a linux box
+# This command needs to be run in the repository folder
+#
+# If travis is not installed, run first the command "gem install travis".
+#
+# See the file push-javadoc-to-docs.sh for how Travis commit to GitHub
+
