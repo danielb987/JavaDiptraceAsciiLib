@@ -3,6 +3,7 @@ jdk: oraclejdk8
 
 before_install:
   - chmod +x travis_utility/*.sh
+  - chmod +x travis_utility/run_ant_and_coverage.sh
 
 before-script:
   - ant clean
