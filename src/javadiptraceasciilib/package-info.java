@@ -1,1 +1,5 @@
 package javadiptraceasciilib;
+
+/**
+ * Main package.
+ */
