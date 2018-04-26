@@ -23,7 +23,8 @@ if [ "$TRAVIS_REPO_SLUG" == "danielb987/JavaDiptraceAsciiLib" ] && [ "$TRAVIS_PU
 exit 0
 
   # Get a summary of the checkstyle report
-  java -jar dist/JavaDiptraceAsciiLib.jar checkstyle build/checkstyle_errors.xml build/checkstyle_report.html
+#  java -jar dist/JavaDiptraceAsciiLib.jar checkstyle build/checkstyle_errors.xml build/checkstyle_report.html
+  java -cp dist/JavaDiptraceAsciiLib.jar util.CheckStyleAnalyzer checkstyle build/checkstyle_errors.xml build/checkstyle_report.html
 exit 0
 
   echo -e "Publishing javadoc...\n"
