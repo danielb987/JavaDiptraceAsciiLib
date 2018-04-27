@@ -23,10 +23,8 @@
  */
 package util;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
@@ -49,8 +47,8 @@ import org.xml.sax.helpers.DefaultHandler;
 public class CheckStyleAnalyzer {
     
     /**
-     * The file name of the xml file that checkstyle has generated and that this class will
-     * analyze.
+     * The file name of the xml file that checkstyle has generated and that
+     * this class will analyze.
      */
     private final String fFilename;
     
@@ -67,7 +65,8 @@ public class CheckStyleAnalyzer {
      */
     //CHECKSTYLE.OFF: MagicNumber - No reason to create a magic number
     public static final void main(final String[] args) {
-        if ((args.length == 3) && (args[0].toLowerCase().equals("checkstyle"))) {
+        if ((args.length == 3)
+            && (args[0].toLowerCase().equals("checkstyle"))) {
             new CheckStyleAnalyzer(args[1], args[2]).analyze();
         } else {
             System.err.println("Invalid parameters");
@@ -83,7 +82,10 @@ public class CheckStyleAnalyzer {
      * @param aReportFilename The file name of the report that this class generates. The result
      * file is a html file.
      */
-    public CheckStyleAnalyzer(final String aFilename, final String aReportFilename) {
+    public CheckStyleAnalyzer(
+        final String aFilename,
+        final String aReportFilename) {
+        
         this.fFilename = aFilename;
         this.fReportFilename = aReportFilename;
     }
@@ -94,8 +96,12 @@ public class CheckStyleAnalyzer {
      */
     public void analyze() {
         
-        try (PrintWriter writer = new PrintWriter(
-                                        new OutputStreamWriter(new FileOutputStream(fReportFilename), StandardCharsets.UTF_8))) {
+        try (PrintWriter writer =
+            new PrintWriter(
+                new OutputStreamWriter(
+                    new FileOutputStream(fReportFilename),
+                        StandardCharsets.UTF_8))) {
+            
             File inputFile = new File(fFilename);
             SAXParserFactory factory = SAXParserFactory.newInstance();
             SAXParser saxParser = factory.newSAXParser();
@@ -110,7 +116,8 @@ public class CheckStyleAnalyzer {
     
     
     /**
-     * Private helper class that receives the events from the SAX parser that parses the xml file.
+     * Private helper class that receives the events from the SAX parser that
+     * parses the xml file.
      */
     private static class UserHandler extends DefaultHandler {
         
@@ -120,7 +127,8 @@ public class CheckStyleAnalyzer {
         private final PrintWriter fWriter;
         
         /**
-         * The file name of the file that is currently analyzed in the checkstyle report.
+         * The file name of the file that is currently analyzed in the
+         * checkstyle report.
          */
         private String fCurrentFilename = "";
         
@@ -155,26 +163,33 @@ public class CheckStyleAnalyzer {
         private final Map<String, String> fErrorMessages = new HashMap<>();
         
         /**
-         * A map of the total number of errors for each error in the checkstyle report.
+         * A map of the total number of errors for each error in the checkstyle
+         * report.
          */
-        private final Map<String, AtomicInteger> fTotalErrorCount = new HashMap<>();
+        private final Map<String, AtomicInteger> fTotalErrorCount =
+            new HashMap<>();
         
         /**
-         * A map of the total number of errors for each file name in the checkstyle report.
-         */
-        private final Map<String, AtomicInteger> fFileTotalErrorCount = new HashMap<>();
-        
-        /**
-         * A map of a map of the total number of errors for each error for each file name in the
+         * A map of the total number of errors for each file name in the
          * checkstyle report.
          */
-        private final Map<String, Map<String, AtomicInteger>> fFileErrorCount = new HashMap<>();
+        private final Map<String, AtomicInteger> fFileTotalErrorCount =
+            new HashMap<>();
         
         /**
-         * A map of the total number of errors for each error in the the current file in the
+         * A map of a map of the total number of errors for each error for each
+         * file name in the
          * checkstyle report.
          */
-        private Map<String, AtomicInteger> fCurrentFileErrorCount = new HashMap<>();
+        private final Map<String, Map<String, AtomicInteger>> fFileErrorCount =
+            new HashMap<>();
+        
+        /**
+         * A map of the total number of errors for each error in the the current
+         * file in the checkstyle report.
+         */
+        private Map<String, AtomicInteger> fCurrentFileErrorCount =
+            new HashMap<>();
         
         
         /**
@@ -192,23 +207,21 @@ public class CheckStyleAnalyzer {
         public void createReport() {
             
             Comparator<Map.Entry<String, AtomicInteger>> comparator =
-                new Comparator<Map.Entry<String, AtomicInteger>>() {
-                    @Override
-                    public int compare(final Map.Entry<String, AtomicInteger> o1,
-                                       final Map.Entry<String, AtomicInteger> o2) {
-                        int a = o1.getValue().get();
-                        int b = o2.getValue().get();
-                        
-                        // Sort reverse order
-                        if (a > b) {
-                            return -1;
-                        } else if (a < b) {
-                            return 1;
-                        } else {
-                            return 0;
-                        }
+                (   final Map.Entry<String, AtomicInteger> o1,
+                    final Map.Entry<String, AtomicInteger> o2) -> {
+                    
+                    int a = o1.getValue().get();
+                    int b = o2.getValue().get();
+                    
+                    // Sort reverse order
+                    if (a > b) {
+                        return -1;
+                    } else if (a < b) {
+                        return 1;
+                    } else {
+                        return 0;
                     }
-                };
+            };
 
             List<Map.Entry<String, AtomicInteger>> sortedTotalErrorCount =
                     new LinkedList<>(fTotalErrorCount.entrySet());
@@ -238,13 +251,16 @@ public class CheckStyleAnalyzer {
             
             fWriter.println("<table>");
 //            writer.format(
-//                    "<tr style=\"background-color: coral;\"><td>%</td><td>%s</td></tr>%n",
+//                    "<tr style=\"background-color: coral;\">" +
+//                    "<td>%</td><td>%s</td></tr>%n",
 //                    item.getValue().get(),
 //                    item.getKey());
 
 //            System.out.format("Filename: %s%n", item.getKey());
             
-            for (Map.Entry<String, AtomicInteger> subEntry : sortedTotalErrorCount) {
+            for (Map.Entry<String, AtomicInteger> subEntry :
+                sortedTotalErrorCount) {
+                
                 fWriter.format("<tr><td>%d</td><td>%s</td></tr>%n",
                               subEntry.getValue().get(),
                               subEntry.getKey());
@@ -255,18 +271,23 @@ public class CheckStyleAnalyzer {
             fWriter.println("</table>");
             
             
-            for (Map.Entry<String, AtomicInteger> item : sortedFileTotalErrorCount) {
+            for (Map.Entry<String, AtomicInteger> item :
+                sortedFileTotalErrorCount) {
                 
-                Map<String, AtomicInteger> entry = fFileErrorCount.get(item.getKey());
+                Map<String, AtomicInteger> entry =
+                    fFileErrorCount.get(item.getKey());
                 fWriter.println("<table>");
                 fWriter.format(
-                        "<tr style=\"background-color: coral;\"><td>%d</td><td>%s</td></tr>%n",
+                        "<tr style=\"background-color: coral;\">" +
+                            "<td>%d</td><td>%s</td></tr>%n",
                         item.getValue().get(),
                         item.getKey());
                 
                 System.out.format("Filename: %s%n", item.getKey());
                 
-                for (Map.Entry<String, AtomicInteger> subEntry : entry.entrySet()) {
+                for (Map.Entry<String, AtomicInteger> subEntry :
+                    entry.entrySet()) {
+                    
                     fWriter.format("<tr><td>%d</td><td>%s</td></tr>%n",
                                   subEntry.getValue().get(),
                                   subEntry.getKey());
@@ -284,15 +305,16 @@ public class CheckStyleAnalyzer {
         /**
          * Receive notification of the start of an element.
          *
-         * @param uri The Namespace URI, or the empty string if the element has no Namespace
-         * URI or if Namespace processing is not being performed.
-         * @param localName The local name (without prefix), or the empty string if Namespace
-         * processing is not being performed.
-         * @param qName The qualified name (with prefix), or the empty string if qualified names
-         * are not available.
-         * @param attributes The attributes attached to the element. If there are no attributes,
-         * it shall be an empty Attributes object.
-         * @throws SAXException Any SAX exception, possibly wrapping another exception.
+         * @param uri The Namespace URI, or the empty string if the element has
+         * no Namespace URI or if Namespace processing is not being performed.
+         * @param localName The local name (without prefix), or the empty string
+         * if Namespace processing is not being performed.
+         * @param qName The qualified name (with prefix), or the empty string if
+         * qualified names are not available.
+         * @param attributes The attributes attached to the element. If there
+         * are no attributes, it shall be an empty Attributes object.
+         * @throws SAXException Any SAX exception, possibly wrapping another
+         * exception.
          */
         @edu.umd.cs.findbugs.annotations.SuppressFBWarnings(
             value = "DM_EXIT",
@@ -307,7 +329,8 @@ public class CheckStyleAnalyzer {
 //            System.out.println();
             
 //            for (int i=0;  i < attributes.getLength(); i++) {
-//                System.out.format("%s: %s: %s%n", qName, attributes.getQName(i),
+//                System.out.format("%s: %s: %s%n", qName,
+//                        attributes.getQName(i),
 //                        attributes.getValue(i));
 //            }
             
@@ -322,7 +345,9 @@ public class CheckStyleAnalyzer {
                 fCurrentFileErrorCount = new HashMap<>();
                 fFileErrorCount.put(fCurrentFilename, fCurrentFileErrorCount);
                 fCurrentFileTotalErrorCount = new AtomicInteger(0);
-                fFileTotalErrorCount.put(fCurrentFilename, fCurrentFileTotalErrorCount);
+                fFileTotalErrorCount.put(
+                    fCurrentFilename,
+                    fCurrentFileTotalErrorCount);
             }
             if ("error".equalsIgnoreCase(qName)) {
                 fNumErrors++;
@@ -342,13 +367,18 @@ public class CheckStyleAnalyzer {
                 fCurrentFileTotalErrorCount.addAndGet(1);
                 
                 fErrorMessages.putIfAbsent(error, errorMessage);
-                AtomicInteger value = fTotalErrorCount.putIfAbsent(error, new AtomicInteger(1));
+                AtomicInteger value =
+                    fTotalErrorCount.putIfAbsent(error, new AtomicInteger(1));
                 if (value != null) {
                     value.addAndGet(1);
                 }
                 
 //                currentFileErrorCount = new HashMap<>();
-                value = fCurrentFileErrorCount.putIfAbsent(error, new AtomicInteger(1));
+                value =
+                    fCurrentFileErrorCount.putIfAbsent(
+                        error,
+                        new AtomicInteger(1));
+                
                 if (value != null) {
                     value.addAndGet(1);
                 }
@@ -359,15 +389,18 @@ public class CheckStyleAnalyzer {
         /**
          * Receive notification of the end of an element.
          *
-         * @param uri The Namespace URI, or the empty string if the element has no Namespace
-         * URI or if Namespace processing is not being performed.
-         * @param localName The local name (without prefix), or the empty string if Namespace
-         * processing is not being performed.
-         * @param qName The qualified name (with prefix), or the empty string if qualified names
-         * are not available.
+         * @param uri The Namespace URI, or the empty string if the element has
+         * no Namespace URI or if Namespace processing is not being performed.
+         * @param localName The local name (without prefix), or the empty string
+         * if Namespace processing is not being performed.
+         * @param qName The qualified name (with prefix), or the empty string if
+         * qualified names are not available.
          */
         @Override
-        public void endElement(final String uri, final String localName, final String qName)
+        public void endElement(
+            final String uri,
+            final String localName,
+            final String qName)
                 throws SAXException {
             
             if ("file".equalsIgnoreCase(qName)) {
@@ -382,11 +415,16 @@ public class CheckStyleAnalyzer {
          * Receive notification of character data inside an element.
          * @param ch The characters
          * @param start The start position in the character array
-         * @param length The number of characters to use from the character array
-         * @throws SAXException Any SAX exception, possibly wrapping another exception
+         * @param length The number of characters to use from the character
+         * array
+         * @throws SAXException Any SAX exception, possibly wrapping another
+         * exception
          */
         @Override
-        public void characters(final char[] ch, final int start, final int length)
+        public void characters(
+            final char[] ch,
+            final int start,
+            final int length)
                 throws SAXException {
         }
         
