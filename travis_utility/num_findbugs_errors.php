@@ -16,6 +16,6 @@ print_r($matches);
 echo "Result: $result\n";
 
 // Return num total warnings
-exit $matches[1];
+exit($matches[1]);
 
 ?>
