@@ -15,6 +15,9 @@ $pattern = '/Total/s';
 
 echo "-------------------------------\n";
 
+$pattern = "/table/";
+$file = "abctabledaaaa";
+
 $result = preg_match($pattern, $file, $matches);
 
 echo "-------------------------------\n";
