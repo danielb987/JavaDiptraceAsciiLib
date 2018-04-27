@@ -328,9 +328,9 @@ public class CheckStyleAnalyzer {
                     for (int i = 0;  i < attributes.getLength(); i++) {
                         System.out.format("-- %s: %s%n",
                                           attributes.getQName(i), attributes.getValue(i));
-                //CHECKSTYLE.OFF: DM_EXIT - Need to exit program in this case.
+    //CHECKSTYLE.OFF: DM_EXIT - Need to exit program in this case.
                         System.exit(1);
-                //CHECKSTYLE.ON: DM_EXIT - Need to exit program in this case.
+    //CHECKSTYLE.ON: DM_EXIT - Need to exit program in this case.
                     }
                 }
                 
