@@ -81,7 +81,7 @@ public final class FindFilesWithNullChar {
                 return false;
             }
             
-            File file = new File(dir + "/"+name);
+            File file = new File(dir + "/" + name);
             if (file.isDirectory()) {
 //                System.out.println("AAAAA: Folder: "+dir+"/"+name);
                 
@@ -91,7 +91,7 @@ public final class FindFilesWithNullChar {
                 return false;
             }
             
-            return !fileExtensionsToIgnore.contains(name.substring(name.lastIndexOf('.')+1));
+            return !fileExtensionsToIgnore.contains(name.substring(name.lastIndexOf('.') + 1));
 //            if (filesToIgnore.contains(name))
 //                return false;
 //            return name.endsWith(".emojic");
@@ -121,13 +121,16 @@ public final class FindFilesWithNullChar {
         
 //        System.out.format("File: %s%n", filename);
         boolean foundError = false;
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(filename), StandardCharsets.UTF_8))) {
+        try (BufferedReader reader =
+            new BufferedReader(
+                new InputStreamReader(
+                    new FileInputStream(filename), StandardCharsets.UTF_8))) {
             
             String line;
             int lineNo = 1;
             while ((line = reader.readLine()) != null) {
                 if (line.indexOf(0) >= 0) {
-                    if (! foundError) {
+                    if (!foundError) {
                         System.out.format("File: %s%n", filename);
                     }
 //                    String line2 = line.replaceAll("/\\000/", "###");
@@ -145,10 +148,13 @@ public final class FindFilesWithNullChar {
         
         return foundError;
     }
-    
 
-    private FindFilesWithNullChar() {
-    }
+
+    /**
+     * Constructor.
+     */
+//    private FindFilesWithNullChar() {
+//    }
     
     
     
