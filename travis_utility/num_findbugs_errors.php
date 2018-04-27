@@ -4,9 +4,12 @@ echo "Run PHP program. /Daniel.";
 
 $file = readfile($argv[1]);
 
+echo "\n---------------------sssss----------\n";
+
 echo $file;
 
-echo "\n-------------------------------\n";
+echo "Type: ".gettype($file)."\n";
+echo "\n---------------------ttttt----------\n";
 
 $pattern = "/\\<b\\>Total Warnings\\<\\/b\\>/ims";
 $pattern = "/Total Warnings/ims";
@@ -16,7 +19,7 @@ $pattern = '/Total/s';
 echo "-------------------------------\n";
 
 $pattern = "/table/";
-// $file = "abctabledaaaa";
+$file = "abctabledaaaa";
 
 $result = preg_match($pattern, $file, $matches);
 
