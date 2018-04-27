@@ -1,9 +1,9 @@
 <FindBugsFilter>
 	<!-- Match every class in the org.netbeans hierarcy -->
 	<Match>
-		<Class name="org.netbeans..*" />
+		<Class name="~org.netbeans..*" />
 	</Match>
 	<Match>
-		<Class name="org.netbeans.modules.java.j2seproject.copylibstask.CopyLibs" />
+		<Class name="orgssss.netbeans.modules.java.j2seproject.copylibstask.CopyLibs" />
 	</Match>
 </FindBugsFilter>
