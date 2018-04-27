@@ -2,42 +2,17 @@
 
 echo "Run PHP program. /Daniel.";
 
-$file = readfile($argv[1]);
-
-echo "\n---------------------sssss----------\n";
+$file = file_get_contents($argv[1]);
 
 echo $file;
 
-echo "Type: ".gettype($file)."\n";
-echo "\n---------------------ttttt----------\n";
-
 $pattern = "/\\<b\\>Total Warnings\\<\\/b\\>/ims";
 $pattern = "/Total Warnings/ims";
-$pattern = "/Total/";
-$pattern = '/Total/s';
-
-echo "-------------------------------\n";
-
-$pattern = "/table/";
-$file = "abctabledaaaa";
 
 $result = preg_match($pattern, $file, $matches);
 
-echo "-------------------------------\n";
-
 print_r($matches);
-
-echo "-------------------------------\n";
 
 echo "Result: $result\n";
-
-echo "-------------------------------\n";
-
-echo "Type: ".gettype($file)."\n";
-
-echo "-------------------------------\n";
-
-preg_match('/(foo)(bar)(baz)/', 'foobarbaz', $matches, PREG_OFFSET_CAPTURE);
-print_r($matches);
 
 ?>
