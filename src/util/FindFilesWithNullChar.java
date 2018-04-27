@@ -160,6 +160,7 @@ public final class FindFilesWithNullChar {
     /**
      * Binary flag.
      */
+    //CHECKSTYLE.OFF: VisibilityModifier - Private class.
     private static class Flag {
         
         /**
@@ -167,5 +168,6 @@ public final class FindFilesWithNullChar {
          */
         boolean fFlag = false;
     }
+    //CHECKSTYLE.ON: VisibilityModifier - Private class.
     
 }

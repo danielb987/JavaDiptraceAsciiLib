@@ -62,6 +62,7 @@ public class CheckStyleAnalyzer {
      * This method is used to be able to run this class from a script.
      * @param args command line parameters
      */
+    //CHECKSTYLE.OFF: MagicNumber - No reason to create a magic number
     public static final void main(final String[] args) {
         if ((args.length == 3) && (args[0].toLowerCase().equals("checkstyle"))) {
             new CheckStyleAnalyzer(args[1], args[2]).analyze();
@@ -69,6 +70,7 @@ public class CheckStyleAnalyzer {
             System.err.println("Invalid parameters");
         }
     }
+    //CHECKSTYLE.ON: MagicNumber - No reason to create a magic number
     
     
     /**
