@@ -20,4 +20,9 @@
 		<Class name="~hamcrest..*" />
 	</Match>
 
+	<!-- Match every class in the org.hamcrest hierarcy -->
+	<Match>
+		<Class name="~org.hamcrest..*" />
+	</Match>
+
 </FindBugsFilter>
