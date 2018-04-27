@@ -25,8 +25,11 @@ package util;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -92,7 +95,7 @@ public class CheckStyleAnalyzer {
     public void analyze() {
         
         try (PrintWriter writer = new PrintWriter(
-                                        new BufferedWriter(new FileWriter(fReportFilename)))) {
+                                        new OutputStreamWriter(new FileOutputStream(fReportFilename), StandardCharsets.UTF_8))) {
             File inputFile = new File(fFilename);
             SAXParserFactory factory = SAXParserFactory.newInstance();
             SAXParser saxParser = factory.newSAXParser();
