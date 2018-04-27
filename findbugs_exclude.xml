@@ -1,9 +1,23 @@
 <FindBugsFilter>
+
 	<!-- Match every class in the org.netbeans hierarcy -->
 	<Match>
 		<Class name="~org.netbeans..*" />
 	</Match>
+
+	<!-- Match every class in the junit hierarcy -->
 	<Match>
-		<Class name="util.CheckStyleAnalyzeaaaar" />
+		<Class name="~junit..*" />
 	</Match>
+
+	<!-- Match every class in the org.junit hierarcy -->
+	<Match>
+		<Class name="~org.junit..*" />
+	</Match>
+
+	<!-- Match every class in the hamcrest hierarcy -->
+	<Match>
+		<Class name="~hamcrest..*" />
+	</Match>
+
 </FindBugsFilter>
