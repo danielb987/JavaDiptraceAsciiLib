@@ -1,0 +1,6 @@
+<FindBugsFilter>
+	<!-- Match every class in the org.netbeans hierarcy -->
+	<Match>
+		<Class name="org.netbeans..*" />
+	</Match>
+</FindBugsFilter>
