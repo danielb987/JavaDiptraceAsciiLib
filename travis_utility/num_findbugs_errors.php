@@ -1,6 +1,6 @@
 <?php
 
-echo "Run PHP program. /Daniel."
+echo "Run PHP program. /Daniel.";
 
 $file = readfile($argv[1]);
 
