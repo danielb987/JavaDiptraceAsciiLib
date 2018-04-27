@@ -86,7 +86,7 @@ public final class FindFilesWithNullChar {
 //                System.out.println("AAAAA: Folder: "+dir+"/"+name);
                 
                 if (!foldersToIgnore.contains(dir + "/" + name)) {
-                    foundError.flag |= find(dir + "/" + name);
+                    foundError.fFlag |= find(dir + "/" + name);
                 }
                 return false;
             }
@@ -103,12 +103,12 @@ public final class FindFilesWithNullChar {
         }
         
         for (File file : matchingFiles) {
-            foundError.flag |= scanFile(file.getAbsolutePath());
+            foundError.fFlag |= scanFile(file.getAbsolutePath());
 //            testFile(file.getAbsolutePath());
 //            testFile_other(file.getAbsolutePath());
         }
         
-        return foundError.flag;
+        return foundError.fFlag;
     }
     
     
@@ -148,18 +148,15 @@ public final class FindFilesWithNullChar {
         
         return foundError;
     }
-
-
-    /**
-     * Constructor.
-     */
-//    private FindFilesWithNullChar() {
-//    }
+    
+    
+    private FindFilesWithNullChar() {
+    }
     
     
     
     private static class Flag {
-        boolean flag = false;
+        boolean fFlag = false;
     }
     
 }
