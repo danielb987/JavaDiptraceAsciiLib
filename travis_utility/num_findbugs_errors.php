@@ -6,4 +6,10 @@ $file = readfile($argv[1]);
 
 echo $file;
 
+$pattern = "/\<b\>Total Warnings\<\/b\>/";
+
+$result = preg_match($pattern, $file, $matches);
+
+print_r($matches);
+
 ?>
