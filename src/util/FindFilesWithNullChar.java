@@ -38,12 +38,11 @@ import java.util.logging.Logger;
 /**
  * Find text files that has a ascii 0 character.
  */
-public class FindFilesWithNullChar {
+public final class FindFilesWithNullChar {
     
     
     /**
-     * Find text files with ascii 0 character in the current directory and sub directories
-     * 
+     * Find text files with ascii 0 character in the current directory and sub directories.
      * @return true if any text file with ascii 0 character is found
      */
     public static boolean find() {
@@ -51,6 +50,11 @@ public class FindFilesWithNullChar {
     }
     
     
+    /**
+     * Find files.
+     * @param folder the folder where to search files
+     * @return true if a file with null character is found
+     */
     public static boolean find(final String folder) {
         
         final Set<String> fileExtensionsToIgnore = new HashSet<>();
@@ -108,6 +112,11 @@ public class FindFilesWithNullChar {
     }
     
     
+    /**
+     * Scan a file for null characters.
+     * @param filename the file to scan
+     * @return true if a null character is found
+     */
     private static boolean scanFile(final String filename) {
         
 //        System.out.format("File: %s%n", filename);
