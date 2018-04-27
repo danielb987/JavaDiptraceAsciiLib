@@ -12,4 +12,6 @@ $result = preg_match($pattern, $file, $matches);
 
 print_r($matches);
 
+echo "Result: $result\n";
+
 ?>
