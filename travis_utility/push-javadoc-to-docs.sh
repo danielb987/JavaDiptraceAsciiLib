@@ -71,4 +71,8 @@ if [ "$TRAVIS_REPO_SLUG" == "danielb987/JavaDiptraceAsciiLib" ] && [ "$TRAVIS_PU
   git commit -m "Latest javadoc on successful travis build $TRAVIS_BUILD_NUMBER auto-pushed to master"
   git push -fq origin master > /dev/null
 
+  # Check if any findbugs errors
+  php --file $DIR/travis_utility/num_findbugs_errors.php
+#  grep --count --extended-regexp pattern findbugs.html
+
 fi
