@@ -11,12 +11,14 @@ $pattern = "/\\<b\\>Total Warnings\\<\\/b\\>\s+\\<\\/td\\>\s+\\<td align\\=\\\"r
 
 $result = preg_match($pattern, $file, $matches);
 
-print_r($matches);
+// print_r($matches);
 
-echo "Result: $result\n";
+// echo "Result: $result\n";
 
 // Return an error code if num total warnings is not zero
-if ($matches[1] != "0")
+if ($matches[1] != "0") {
+	echo "\n\nFindbugs has ".$matches[1]." warnings\n\n\n";
 	exit(1);
+}
 
 ?>
