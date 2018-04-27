@@ -9,6 +9,7 @@ echo $file;
 $pattern = "/\\<b\\>Total Warnings\\<\\/b\\>/ims";
 $pattern = "/Total Warnings/ims";
 $pattern = "/Total/";
+$pattern = '/Total/s';
 
 $result = preg_match($pattern, $file, $matches);
 
