@@ -291,6 +291,9 @@ public class CheckStyleAnalyzer {
          * it shall be an empty Attributes object.
          * @throws SAXException Any SAX exception, possibly wrapping another exception.
          */
+        @edu.umd.cs.findbugs.annotations.SuppressFBWarnings(
+            value="DM_EXIT", 
+            justification="We need to be able to abort")
         @Override
         public void startElement(final String uri,
                                  final String localName,
@@ -330,10 +333,7 @@ public class CheckStyleAnalyzer {
                             attributes.getQName(i),
                             attributes.getValue(i));
                     }
-                    
-                //CHECKSTYLE.OFF: DM_EXIT - Need to exit program in this case.
                     System.exit(1);
-                //CHECKSTYLE.ON: DM_EXIT - Private class.
                 }
                 
                 fCurrentFileTotalErrorCount.addAndGet(1);
