@@ -1,5 +1,5 @@
 <?php
 
-echo "Run PHP program. /Daniel"
+echo "Run PHP program. /Daniel."
 
 ?>
