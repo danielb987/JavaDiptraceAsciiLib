@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package javadiptraceasciilib.diptrace.tokenizer;
 
 /**
@@ -30,14 +25,22 @@ public class DiptraceToken {
 		this.floatValue = 0;
 	}
 	
-	public DiptraceToken(final DiptraceTokenType type, final String value, final int intValue) {
+	public DiptraceToken(
+        final DiptraceTokenType type,
+        final String value,
+        final int intValue) {
+        
 		this.type = type;
 		this.value = value;
 		this.intValue = intValue;
 		this.floatValue = 0;
 	}
 	
-	public DiptraceToken(final DiptraceTokenType type, final String value, final double floatValue) {
+	public DiptraceToken(
+        final DiptraceTokenType type,
+        final String value,
+        final double floatValue) {
+        
 		this.type = type;
 		this.value = value;
 		this.intValue = 0;
