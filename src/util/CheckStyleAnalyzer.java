@@ -207,7 +207,7 @@ public class CheckStyleAnalyzer {
         public void createReport() {
             
             Comparator<Map.Entry<String, AtomicInteger>> comparator =
-                (   final Map.Entry<String, AtomicInteger> o1,
+                (final Map.Entry<String, AtomicInteger> o1,
                     final Map.Entry<String, AtomicInteger> o2) -> {
                     
                     int a = o1.getValue().get();
@@ -258,8 +258,8 @@ public class CheckStyleAnalyzer {
 
 //            System.out.format("Filename: %s%n", item.getKey());
             
-            for (Map.Entry<String, AtomicInteger> subEntry :
-                sortedTotalErrorCount) {
+            for (Map.Entry<String, AtomicInteger> subEntry
+                : sortedTotalErrorCount) {
                 
                 fWriter.format("<tr><td>%d</td><td>%s</td></tr>%n",
                               subEntry.getValue().get(),
@@ -271,22 +271,22 @@ public class CheckStyleAnalyzer {
             fWriter.println("</table>");
             
             
-            for (Map.Entry<String, AtomicInteger> item :
-                sortedFileTotalErrorCount) {
+            for (Map.Entry<String, AtomicInteger> item
+                : sortedFileTotalErrorCount) {
                 
                 Map<String, AtomicInteger> entry =
                     fFileErrorCount.get(item.getKey());
                 fWriter.println("<table>");
                 fWriter.format(
-                        "<tr style=\"background-color: coral;\">" +
-                            "<td>%d</td><td>%s</td></tr>%n",
+                        "<tr style=\"background-color: coral;\">"
+                            + "<td>%d</td><td>%s</td></tr>%n",
                         item.getValue().get(),
                         item.getKey());
                 
                 System.out.format("Filename: %s%n", item.getKey());
                 
-                for (Map.Entry<String, AtomicInteger> subEntry :
-                    entry.entrySet()) {
+                for (Map.Entry<String, AtomicInteger> subEntry
+                    : entry.entrySet()) {
                     
                     fWriter.format("<tr><td>%d</td><td>%s</td></tr>%n",
                                   subEntry.getValue().get(),

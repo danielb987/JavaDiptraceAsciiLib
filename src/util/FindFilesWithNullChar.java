@@ -42,7 +42,8 @@ public final class FindFilesWithNullChar {
     
     
     /**
-     * Find text files with ascii 0 character in the current directory and sub directories.
+     * Find text files with ascii 0 character in the current directory and sub
+     * directories.
      * @return true if any text file with ascii 0 character is found
      */
     public static boolean find() {
@@ -91,7 +92,8 @@ public final class FindFilesWithNullChar {
                 return false;
             }
             
-            return !fileExtensionsToIgnore.contains(name.substring(name.lastIndexOf('.') + 1));
+            return !fileExtensionsToIgnore.contains(
+                name.substring(name.lastIndexOf('.') + 1));
 //            if (filesToIgnore.contains(name))
 //                return false;
 //            return name.endsWith(".emojic");
@@ -141,9 +143,17 @@ public final class FindFilesWithNullChar {
                 lineNo++;
             }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(FindFilesWithNullChar.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(
+                FindFilesWithNullChar.class.getName()).log(
+                    Level.SEVERE,
+                    null,
+                    ex);
         } catch (IOException ex) {
-            Logger.getLogger(FindFilesWithNullChar.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(
+                FindFilesWithNullChar.class.getName()).log(
+                    Level.SEVERE,
+                    null,
+                    ex);
         }
         
         return foundError;
