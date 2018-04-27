@@ -3,4 +3,7 @@
 	<Match>
 		<Class name="~org.netbeans..*" />
 	</Match>
+	<Match>
+		<Class name="util.CheckStyleAnalyzer" />
+	</Match>
 </FindBugsFilter>
