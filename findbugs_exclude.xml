@@ -4,6 +4,6 @@
 		<Class name="~org.netbeans..*" />
 	</Match>
 	<Match>
-		<Class name="util.CheckStyleAnalyzer" />
+		<Class name="util.CheckStyleAnalyzeaaaar" />
 	</Match>
 </FindBugsFilter>
