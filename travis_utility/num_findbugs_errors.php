@@ -15,4 +15,7 @@ print_r($matches);
 
 echo "Result: $result\n";
 
+// Return num total warnings
+exit $matches[1];
+
 ?>
