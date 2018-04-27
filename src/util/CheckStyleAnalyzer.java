@@ -291,7 +291,6 @@ public class CheckStyleAnalyzer {
          * it shall be an empty Attributes object.
          * @throws SAXException Any SAX exception, possibly wrapping another exception.
          */
-//CHECKSTYLE.OFF: DM_EXIT - Need to exit program in this case.
         @Override
         public void startElement(final String uri,
                                  final String localName,
@@ -328,9 +327,13 @@ public class CheckStyleAnalyzer {
                     System.out.println("Error is null");
                     for (int i = 0;  i < attributes.getLength(); i++) {
                         System.out.format("-- %s: %s%n",
-                                          attributes.getQName(i), attributes.getValue(i));
-                        System.exit(1);
+                            attributes.getQName(i),
+                            attributes.getValue(i));
                     }
+                    
+                //CHECKSTYLE.OFF: DM_EXIT - Need to exit program in this case.
+                    System.exit(1);
+                //CHECKSTYLE.ON: DM_EXIT - Private class.
                 }
                 
                 fCurrentFileTotalErrorCount.addAndGet(1);
@@ -348,7 +351,6 @@ public class CheckStyleAnalyzer {
                 }
             }
         }
-//CHECKSTYLE.ON: DM_EXIT - Need to exit program in this case.
         
         
         /**
