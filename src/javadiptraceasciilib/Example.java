@@ -9,7 +9,7 @@ public class Example {
      * Do something.
      */
     public void something() {
-        System.out.println("Something");
+        System.out.println("Something else");
     }
     
 }
