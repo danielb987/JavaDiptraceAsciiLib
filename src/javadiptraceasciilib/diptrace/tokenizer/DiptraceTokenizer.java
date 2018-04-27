@@ -27,10 +27,18 @@ public class DiptraceTokenizer {
 			nextToken = fetchNextToken();
 		
 		if (nextToken == null)
-			throw new RuntimeException(String.format("End of file has been reached premature. Token to eat: %s", type.name()));
+			throw new RuntimeException(
+                String.format(
+                    "End of file has been reached premature. Token to eat: %s",
+                    type.name()));
 		
 		if (nextToken.type != type)
-			throw new RuntimeException(String.format("Token is not a %s token: Type: %s, %s", type.name(), nextToken.type.name(), nextToken.value));
+			throw new RuntimeException(
+                String.format(
+                    "Token is not a %s token: Type: %s, %s",
+                    type.name(),
+                    nextToken.type.name(),
+                    nextToken.value));
 		
 		nextToken = null;
 	}
@@ -84,16 +92,23 @@ public class DiptraceTokenizer {
 			
 			if (currentLine.charAt(0) == '"') {
 				int pos = 1;
-				while ((pos < currentLine.length()) && (currentLine.charAt(pos) != '"'))
+				while ((pos < currentLine.length())
+                        && (currentLine.charAt(pos) != '"'))
 					pos++;
 				
 				if (pos == currentLine.length())
-					throw new RuntimeException(String.format("Invalid string token. No \" at end of string. LineNo: %d, %s", lineNo, currentLine));
+					throw new RuntimeException(
+                        String.format(
+                            "Invalid string token. No \" at end of string."
+                                + "LineNo: %d, %s",
+                            lineNo,
+                            currentLine));
 				
 				tokenValue = currentLine.substring(1, pos);
 				currentLine.delete(0, pos+1);
 				
-				while ((currentLine.length() > 0) && (currentLine.charAt(0) == ' '))
+				while ((currentLine.length() > 0)
+                        && (currentLine.charAt(0) == ' '))
 					currentLine.delete(0, 1);
 				
 				return new DiptraceToken(DiptraceTokenType.STRING, tokenValue);
@@ -120,23 +135,34 @@ public class DiptraceTokenizer {
 			
 			if (lastTokenWasLeftParentheses) {
 				lastTokenWasLeftParentheses = false;
-				return new DiptraceToken(DiptraceTokenType.IDENTIFIER, tokenValue);
+				return new DiptraceToken(
+                    DiptraceTokenType.IDENTIFIER,
+                    tokenValue);
 			}
 			else {
 				try {
 					int value = Integer.parseInt(tokenValue);
 					// If we are here, the value is a valid integer
-					return new DiptraceToken(DiptraceTokenType.INTEGER, tokenValue, value);
+					return new DiptraceToken(
+                        DiptraceTokenType.INTEGER,
+                        tokenValue, value);
 				}
 				catch (NumberFormatException e) {
 				}
 				
-				if ((tokenValue.length() > 0) && (tokenValue.charAt(tokenValue.length()-1) == '%')) {
-					String percentValue = tokenValue.substring(0, tokenValue.length()-1);
+				if ((tokenValue.length() > 0)
+                    && (tokenValue.charAt(tokenValue.length()-1) == '%')) {
+                    
+					String percentValue
+                        = tokenValue.substring(0, tokenValue.length()-1);
+                    
 					try {
 						double value = Double.parseDouble(percentValue);
 						// If we are here, the value is a valid double
-						return new DiptraceToken(DiptraceTokenType.PERCENT, tokenValue, value);
+						return new DiptraceToken(
+                                        DiptraceTokenType.PERCENT,
+                                        tokenValue,
+                                        value);
 					}
 					catch (NumberFormatException e) {
 					}
@@ -145,15 +171,24 @@ public class DiptraceTokenizer {
 				try {
 					double value = Double.parseDouble(tokenValue);
 					// If we are here, the value is a valid double
-					return new DiptraceToken(DiptraceTokenType.FLOAT, tokenValue, value);
+					return new DiptraceToken(
+                                    DiptraceTokenType.FLOAT,
+                                    tokenValue,
+                                    value);
 				}
 				catch (NumberFormatException e) {
 				}
 				
-//				if ((tokenValue.charAt(0) == '"') && (tokenValue.charAt(tokenValue.length()-1) == '"'))
-//					return new DiptraceToken(DiptraceTokenType.STRING, tokenValue);
+//				if ((tokenValue.charAt(0) == '"')
+//                    && (tokenValue.charAt(tokenValue.length()-1) == '"'))
+//					return new DiptraceToken(
+//                                DiptraceTokenType.STRING,
+//                                tokenValue);
 				
-				throw new RuntimeException(String.format("Unknown token type. LineNo: %d, %s", lineNo, tokenValue));
+				throw new RuntimeException(
+                            String.format("Unknown token type. LineNo: %d, %s",
+                                lineNo,
+                                tokenValue));
 			}
 			
 /*			
@@ -162,7 +197,8 @@ public class DiptraceTokenizer {
 				return new DiptraceToken(DiptraceTokenType.RIGHT_PARENTHESES);
 			}
 			else
-				throw new RuntimeException(String.format("Unknown token: %s", currentLine));
+				throw new RuntimeException(String.format("Unknown token: %s",
+                    currentLine));
 */			
 		}
 	}
