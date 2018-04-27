@@ -7,6 +7,7 @@ $file = readfile($argv[1]);
 echo $file;
 
 $pattern = "/\\<b\\>Total Warnings\\<\\/b\\>/ims";
+$pattern = "/Total Warnings/ims";
 
 $result = preg_match($pattern, $file, $matches);
 
