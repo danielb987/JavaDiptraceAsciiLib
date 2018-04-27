@@ -15,6 +15,8 @@ print_r($matches);
 
 echo "Result: $result\n";
 
+echo "Type: ".gettype($matches[1])."\n";
+
 // Return num total warnings
 exit($matches[1]);
 
