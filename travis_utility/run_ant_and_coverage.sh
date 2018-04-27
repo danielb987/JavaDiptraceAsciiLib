@@ -10,8 +10,7 @@ set -e
 ant test && \
     travis_utility/run_findbugs.sh && \
     travis_utility/push-javadoc-to-docs.sh && \
-    true
-#    travis_utility/run_coverage.sh
+    travis_utility/run_coverage.sh
 
 # exit 4
 # exit 0
