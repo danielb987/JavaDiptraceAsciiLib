@@ -6,26 +6,26 @@ $file = readfile($argv[1]);
 
 echo $file;
 
-echo "-------------------------------";
+echo "\n-------------------------------\n";
 
 $pattern = "/\\<b\\>Total Warnings\\<\\/b\\>/ims";
 $pattern = "/Total Warnings/ims";
 $pattern = "/Total/";
 $pattern = '/Total/s';
 
-echo "-------------------------------";
+echo "-------------------------------\n";
 
 $result = preg_match($pattern, $file, $matches);
 
-echo "-------------------------------";
+echo "-------------------------------\n";
 
 print_r($matches);
 
-echo "-------------------------------";
+echo "-------------------------------\n";
 
 echo "Result: $result\n";
 
-echo "-------------------------------";
+echo "-------------------------------\n";
 
 preg_match('/(foo)(bar)(baz)/', 'foobarbaz', $matches, PREG_OFFSET_CAPTURE);
 print_r($matches);
