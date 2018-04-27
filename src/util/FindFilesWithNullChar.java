@@ -150,12 +150,21 @@ public final class FindFilesWithNullChar {
     }
     
     
+    /**
+     * Private constructor to prevent creation of this class.
+     */
     private FindFilesWithNullChar() {
     }
     
     
-    
+    /**
+     * Binary flag.
+     */
     private static class Flag {
+        
+        /**
+         * The status of the flag.
+         */
         boolean fFlag = false;
     }
     
