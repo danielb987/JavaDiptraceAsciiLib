@@ -15,9 +15,8 @@ print_r($matches);
 
 echo "Result: $result\n";
 
-echo "Type: ".gettype($matches[1])."\n";
-
-// Return num total warnings
-exit($matches[1]);
+// Return an error code if num total warnings is not zero
+if ($matches[1] != "0")
+	exit(1);
 
 ?>
