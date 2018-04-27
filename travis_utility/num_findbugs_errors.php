@@ -15,4 +15,7 @@ print_r($matches);
 
 echo "Result: $result\n";
 
+preg_match('/(foo)(bar)(baz)/', 'foobarbaz', $matches, PREG_OFFSET_CAPTURE);
+print_r($matches);
+
 ?>
