@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 /**
- * Generates tokens of a Diptrace ascii file.
+ * This class has methods to parse a DipTrace ascii file into tokens.
  */
 public final class DiptraceTokenizer {
     

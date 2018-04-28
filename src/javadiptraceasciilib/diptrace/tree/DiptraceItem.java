@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * This class is the base class for items in the DipTrace ascii file.
  */
 public abstract class DiptraceItem {
     

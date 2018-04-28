@@ -1,7 +1,7 @@
 package javadiptraceasciilib.diptrace.tokenizer;
 
 /**
- * A token.
+ * This class represents a token in the DipTrace ascii file.
  */
 public final class DiptraceToken {
     

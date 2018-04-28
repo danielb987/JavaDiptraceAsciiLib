@@ -7,14 +7,20 @@ import javadiptraceasciilib.diptrace.tree.DiptraceRootItem;
 import java.io.IOException;
 
 /**
- * Diptrace project.
+ * This class is holds a diptrace project. It can have both the schematics
+ * and the pcb.
  */
 public final class DiptraceProject {
     
     /**
-     * Root of the diptrace project.
+     * Root of the diptrace schematics item tree.
      */
-    private final DiptraceRootItem fRoot = new DiptraceRootItem();
+    private final DiptraceRootItem fSchematicsRoot = new DiptraceRootItem();
+    
+    /**
+     * Root of the diptrace pcb item tree.
+     */
+    private final DiptraceRootItem fPCBRoot = new DiptraceRootItem();
     
     /**
      * Constructs a DiptraceProject.
@@ -23,45 +29,37 @@ public final class DiptraceProject {
     }
     
     /**
-     * Get the root item.
-     * @return the root item of the Diptrace item tree
+     * Get the root item of the schematics.
+     * @return the root item of the Diptrace schematics item tree
      */
-    public DiptraceRootItem getRoot() {
-        return fRoot;
+    public DiptraceRootItem getSchematicsRoot() {
+        return fSchematicsRoot;
     }
     
     /**
-     * Parse the project.
+     * Get the root item of the schematics.
+     * @return the root item of the Diptrace schematics item tree
+     */
+    public DiptraceRootItem getPCBRoot() {
+        return fPCBRoot;
+    }
+    
+    /**
+     * Parse a schematics file.
      * @param tokenizer the tokenizer that parses the Diptrace ascii file
      * @throws IOException when IO error occurs
      */
-    public void parse(final DiptraceTokenizer tokenizer) throws IOException {
-        
-//        try {
-//        fRoot = new DiptraceRootItem();
-        fRoot.parse(tokenizer);
-//        }
-//        catch (Throwable e) {
-//        }
-        
-//        fRoot.printTree("");
-/*
-        try {
-            DiptraceToken token;
-            while ((token = tokenizer.nextToken()) != null) {
-//                System.out.format("Token: %s: %s\n",
-//                    token.type.name(), token.getValue());
-//                System.err.format("Token: %s: %s\n",
-//                    token.type.name(), token.getValue());
-                
-                if (token.type == DiptraceTokenType.IDENTIFIER) {
-                    
-                }
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-*/
+    public void parseSchematics(final DiptraceTokenizer tokenizer) throws IOException {
+        fSchematicsRoot.parse(tokenizer);
+    }
+    
+    /**
+     * Parse a pcb file.
+     * @param tokenizer the tokenizer that parses the Diptrace ascii file
+     * @throws IOException when IO error occurs
+     */
+    public void parsePCB(final DiptraceTokenizer tokenizer) throws IOException {
+        fPCBRoot.parse(tokenizer);
     }
     
 }

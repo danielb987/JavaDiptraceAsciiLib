@@ -1,7 +1,7 @@
 package javadiptraceasciilib.diptrace.tokenizer;
 
 /**
- * Type of token.
+ * Constant definitions of token types.
  */
 public enum DiptraceTokenType {
     

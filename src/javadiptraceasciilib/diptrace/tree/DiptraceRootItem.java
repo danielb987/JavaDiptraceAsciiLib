@@ -4,7 +4,9 @@ import javadiptraceasciilib.diptrace.tokenizer.DiptraceTokenizer;
 import java.io.IOException;
 
 /**
- *
+ * This class is the root item of the tree in the DipTrace ascii file. This
+ * root is not included in the DipTrace ascii file but exists in this project
+ * to simplify handling of the item tree.
  */
 public final class DiptraceRootItem extends DiptraceItem {
     

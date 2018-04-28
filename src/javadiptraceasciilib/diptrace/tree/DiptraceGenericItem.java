@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * This class is a generic class for items in the DipTrace ascii file.
  */
 public class DiptraceGenericItem extends DiptraceItem {
     
