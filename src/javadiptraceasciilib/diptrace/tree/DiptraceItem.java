@@ -12,7 +12,14 @@ import java.util.List;
  */
 public abstract class DiptraceItem {
     
+    /**
+     * The identifier of this item.
+     */
     private final String fIdentifier;
+    
+    /**
+     * The sub items of this item.
+     */
     private final List<DiptraceItem> fSubItems = new ArrayList<>();
     
     /**
