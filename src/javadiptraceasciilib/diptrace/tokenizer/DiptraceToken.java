@@ -3,7 +3,7 @@ package javadiptraceasciilib.diptrace.tokenizer;
 /**
  * A token
  */
-public class DiptraceToken {
+public final class DiptraceToken {
     
     public final DiptraceTokenType type;
     public final String value;

@@ -6,7 +6,7 @@ import java.io.IOException;
 /**
  *
  */
-public class DiptraceRootItem extends DiptraceItem {
+public final class DiptraceRootItem extends DiptraceItem {
     
     public DiptraceRootItem() {
         super("root");

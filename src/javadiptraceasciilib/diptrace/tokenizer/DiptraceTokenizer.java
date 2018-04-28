@@ -6,7 +6,7 @@ import java.io.IOException;
 /**
  * Generates tokens of a Diptrace ascii file
  */
-public class DiptraceTokenizer {
+public final class DiptraceTokenizer {
     
     private final BufferedReader fReader;
     private StringBuilder fCurrentLine;
@@ -100,14 +100,15 @@ public class DiptraceTokenizer {
                 
                 if (pos == fCurrentLine.length()) {
                     throw new RuntimeException(
-                        String.format("Invalid string token. No \" at end of string."
-                                + "LineNo: %d, %s",
-                            fLineNo,
-                            fCurrentLine));
+                        String.format(
+                            "Invalid string token. No \" at end of string."
+                            + "LineNo: %d, %s",
+                        fLineNo,
+                        fCurrentLine));
                 }
                 
                 tokenValue = fCurrentLine.substring(1, pos);
-                fCurrentLine.delete(0, pos+1);
+                fCurrentLine.delete(0, pos + 1);
                 
                 while ((fCurrentLine.length() > 0)
                         && (fCurrentLine.charAt(0) == ' ')) {
@@ -118,15 +119,15 @@ public class DiptraceTokenizer {
             }
             
             
-            int spacePos;
-            if ((spacePos = fCurrentLine.indexOf(" ")) >= 0) {
+            int spacePos = fCurrentLine.indexOf(" ");
+            if (spacePos >= 0) {
                 tokenValue = fCurrentLine.substring(0, spacePos);
                 fCurrentLine.delete(0, spacePos + 1);
             } else {
                 int length = fCurrentLine.length();
                 
                 if (fCurrentLine.charAt(length - 1) == ')') {
-                    tokenValue = fCurrentLine.substring(0, length-1);
+                    tokenValue = fCurrentLine.substring(0, length - 1);
                     fCurrentLine.delete(0, length - 1);
                 } else {
                     tokenValue = fCurrentLine.substring(0, length);
@@ -152,7 +153,7 @@ public class DiptraceTokenizer {
                 }
                 
                 if ((tokenValue.length() > 0)
-                    && (tokenValue.charAt(tokenValue.length()-1) == '%')) {
+                    && (tokenValue.charAt(tokenValue.length() - 1) == '%')) {
                     
                     String percentValue
                         = tokenValue.substring(0, tokenValue.length() - 1);
@@ -194,7 +195,7 @@ public class DiptraceTokenizer {
                                 tokenValue));
             }
             
-/*            
+/*
             if (fCurrentLine.charAt(0) == ')') {
                 fCurrentLine.delete(0, 1);
                 return new DiptraceToken(DiptraceTokenType.RIGHT_PARENTHESES);
@@ -202,7 +203,7 @@ public class DiptraceTokenizer {
             else
                 throw new RuntimeException(String.format("Unknown token: %s",
                     fCurrentLine));
-*/            
+*/
         }
     }
 }

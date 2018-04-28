@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * Diptrace project
  */
-public class DiptraceProject {
+public final class DiptraceProject {
     
     /**
      * Root of the diptrace project
