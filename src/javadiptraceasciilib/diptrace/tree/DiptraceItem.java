@@ -5,7 +5,9 @@ import javadiptraceasciilib.diptrace.tokenizer.DiptraceTokenType;
 import javadiptraceasciilib.diptrace.tokenizer.DiptraceTokenizer;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class is the base class for items in the DipTrace ascii file.
@@ -21,6 +23,12 @@ public abstract class DiptraceItem {
      * The sub items of this item.
      */
     private final List<DiptraceItem> fSubItems = new ArrayList<>();
+    
+    /**
+     * A map with the sub items there the sub item identifier is the key
+     * to the map.
+     */
+    private final Map<String, DiptraceItem> fSubItemsMap = new HashMap();
     
     /**
      * Initializes a DiptraceItem object with an identifier.
@@ -44,6 +52,16 @@ public abstract class DiptraceItem {
      */
     public List<DiptraceItem> getSubItems() {
         return fSubItems;
+    }
+    
+    
+    /**
+     * Get a sub item by the item's identifier.
+     * @param identifier the items identifier
+     * @return a Diptrace item
+     */
+    public DiptraceItem getSubItem(final String identifier) {
+        return fSubItemsMap.get(identifier);
     }
     
     /**
@@ -78,9 +96,10 @@ public abstract class DiptraceItem {
                         token.getValue()));
             }
             
-            DiptraceItem item = getItemByIdentifier(token);
+            DiptraceItem item = createItemByIdentifier(token);
             item.parse(tokenizer);
             fSubItems.add(item);
+            fSubItemsMap.put(item.fIdentifier, item);
             
 //            System.err.format("DiptraceItem: %s\n", fIdentifier);
             
@@ -100,7 +119,7 @@ public abstract class DiptraceItem {
      * @param token the token
      * @return an instance of a sub class to DiptraceItem
      */
-    private DiptraceItem getItemByIdentifier(final DiptraceToken token) {
+    private DiptraceItem createItemByIdentifier(final DiptraceToken token) {
         
         switch (token.getValue()) {
 /*
