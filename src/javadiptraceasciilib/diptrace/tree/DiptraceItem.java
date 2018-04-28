@@ -38,8 +38,8 @@ public abstract class DiptraceItem {
     //CHECKSTYLE.OFF: InnerAssignment - Allow assignment in while loop
     /**
      * Parse the sub items.
-     * @param tokenizer
-     * @throws IOException
+     * @param tokenizer the tokenizer that parses the document
+     * @throws IOException on any I/O error
      */
     public void parseSubItems(final DiptraceTokenizer tokenizer)
         throws IOException {
