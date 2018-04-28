@@ -45,6 +45,12 @@ public final class DiptraceProject {
         return fPCBRoot;
     }
     
+    
+    /**
+     * Get the components of the schematics.
+     * @return the DiptraceItem that has all the components as DiptraceItem
+     * children
+     */
     public DiptraceItem getSchematicsComponents() {
         return fSchematicsRoot.getSubItem("Schematic").getSubItem("Components");
     }
