@@ -1,7 +1,7 @@
 package javadiptraceasciilib.diptrace.tokenizer;
 
 /**
- * A token
+ * A token.
  */
 public final class DiptraceToken {
     
@@ -52,10 +52,11 @@ public final class DiptraceToken {
     }
     
     public String getValue() {
-        if (fValue != null)
+        if (fValue != null) {
             return fValue;
-        else
+        } else {
             return "";
+        }
     }
     
     public int getIntValue() {

@@ -7,17 +7,17 @@ import javadiptraceasciilib.diptrace.tree.DiptraceRootItem;
 import java.io.IOException;
 
 /**
- * Diptrace project
+ * Diptrace project.
  */
 public final class DiptraceProject {
     
     /**
-     * Root of the diptrace project
+     * Root of the diptrace project.
      */
     private final DiptraceRootItem fRoot = new DiptraceRootItem();
     
     /**
-     * Constructs a DiptraceProject
+     * Constructs a DiptraceProject.
      */
     public DiptraceProject() {
     }
@@ -31,7 +31,7 @@ public final class DiptraceProject {
     }
     
     /**
-     * Parse the project
+     * Parse the project.
      * @param tokenizer the tokenizer that parses the Diptrace ascii file
      * @throws IOException when IO error occurs
      */
@@ -45,7 +45,7 @@ public final class DiptraceProject {
 //        }
         
 //        fRoot.printTree("");
-/*        
+/*
         try {
             DiptraceToken token;
             while ((token = tokenizer.nextToken()) != null) {
@@ -61,7 +61,7 @@ public final class DiptraceProject {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-*/        
+*/
     }
     
 }

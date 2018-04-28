@@ -46,11 +46,12 @@ public abstract class DiptraceItem {
             tokenizer.nextToken();
             
             token = tokenizer.nextToken();
-            if (token.getType() != DiptraceTokenType.IDENTIFIER)
+            if (token.getType() != DiptraceTokenType.IDENTIFIER) {
                 throw new RuntimeException(
                     String.format("Token is not an identifier: Type: %s, %s\n",
                         token.getType().name(),
                         token.getValue()));
+            }
             
             DiptraceItem item = getItemByIdentifier(token);
             item.parse(tokenizer);
@@ -59,8 +60,9 @@ public abstract class DiptraceItem {
 //            System.err.format("DiptraceItem: %s\n", fIdentifier);
             
             if ( (tokenizer.previewNextToken() == null)
-                && (this instanceof DiptraceRootItem) )
+                && (this instanceof DiptraceRootItem) ) {
                 return;
+            }
             
             tokenizer.eatToken(DiptraceTokenType.RIGHT_PARENTHESES);
         }
@@ -108,8 +110,9 @@ public abstract class DiptraceItem {
     
     public void printTree(final String indent) {
         System.out.format("%s%s\n", indent, fIdentifier);
-        for (DiptraceItem subItem : fSubItems)
+        for (DiptraceItem subItem : fSubItems) {
             subItem.printTree(indent+"   ");
+        }
     }
     
     

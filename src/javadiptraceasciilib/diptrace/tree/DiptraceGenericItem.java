@@ -19,12 +19,12 @@ public class DiptraceGenericItem extends DiptraceItem {
         super(identifier);
     }
     
-    public List<DiptraceToken> getParameters() {
+    public final List<DiptraceToken> getParameters() {
         return fParameters;
     }
     
     /**
-     * Parse the project
+     * Parse the project.
      * @param tokenizer the tokenizer that parses the Diptrace ascii file
      * @throws IOException when IO error occurs
      */
@@ -51,10 +51,11 @@ public class DiptraceGenericItem extends DiptraceItem {
         
         for (DiptraceToken parameter : fParameters) {
             sb.append(" ");
-            if (parameter.getType() == DiptraceTokenType.STRING)
+            if (parameter.getType() == DiptraceTokenType.STRING) {
                 sb.append("\"").append(parameter.getValue()).append("\"");
-            else
+            } else {
                 sb.append(parameter.getValue());
+            }
         }
         
         return sb.toString();
