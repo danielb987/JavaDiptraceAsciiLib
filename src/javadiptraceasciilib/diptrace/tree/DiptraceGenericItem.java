@@ -33,14 +33,14 @@ public class DiptraceGenericItem extends DiptraceItem {
         
         DiptraceToken token;
         while (((token = tokenizer.previewNextToken()) != null)
-            && (token.type != DiptraceTokenType.LEFT_PARENTHESES)
-            && (token.type != DiptraceTokenType.RIGHT_PARENTHESES)) {
+            && (token.getType() != DiptraceTokenType.LEFT_PARENTHESES)
+            && (token.getType() != DiptraceTokenType.RIGHT_PARENTHESES)) {
             
             token = tokenizer.nextToken();
             fParameters.add(token);
         }
         
-        if (token.type == DiptraceTokenType.LEFT_PARENTHESES)
+        if (token.getType() == DiptraceTokenType.LEFT_PARENTHESES)
             parseSubItems(tokenizer);
     }
     
@@ -51,10 +51,10 @@ public class DiptraceGenericItem extends DiptraceItem {
         
         for (DiptraceToken parameter : fParameters) {
             sb.append(" ");
-            if (parameter.type == DiptraceTokenType.STRING)
-                sb.append("\"").append(parameter.value).append("\"");
+            if (parameter.getType() == DiptraceTokenType.STRING)
+                sb.append("\"").append(parameter.getValue()).append("\"");
             else
-                sb.append(parameter.value);
+                sb.append(parameter.getValue());
         }
         
         return sb.toString();

@@ -5,23 +5,23 @@ package javadiptraceasciilib.diptrace.tokenizer;
  */
 public final class DiptraceToken {
     
-    public final DiptraceTokenType type;
-    public final String value;
-    public final int intValue;
-    public final double floatValue;
+    private final DiptraceTokenType fType;
+    private final String fValue;
+    private final int fIntValue;
+    private final double fFloatValue;
     
     public DiptraceToken(final DiptraceTokenType type) {
-        this.type = type;
-        this.value = null;
-        this.intValue = 0;
-        this.floatValue = 0;
+        this.fType = type;
+        this.fValue = null;
+        this.fIntValue = 0;
+        this.fFloatValue = 0;
     }
     
     public DiptraceToken(final DiptraceTokenType type, final String value) {
-        this.type = type;
-        this.value = value;
-        this.intValue = 0;
-        this.floatValue = 0;
+        this.fType = type;
+        this.fValue = value;
+        this.fIntValue = 0;
+        this.fFloatValue = 0;
     }
     
     public DiptraceToken(
@@ -29,10 +29,10 @@ public final class DiptraceToken {
         final String value,
         final int intValue) {
         
-        this.type = type;
-        this.value = value;
-        this.intValue = intValue;
-        this.floatValue = 0;
+        this.fType = type;
+        this.fValue = value;
+        this.fIntValue = intValue;
+        this.fFloatValue = 0;
     }
     
     public DiptraceToken(
@@ -40,17 +40,30 @@ public final class DiptraceToken {
         final String value,
         final double floatValue) {
         
-        this.type = type;
-        this.value = value;
-        this.intValue = 0;
-        this.floatValue = floatValue;
+        this.fType = type;
+        this.fValue = value;
+        this.fIntValue = 0;
+        this.fFloatValue = floatValue;
+    }
+    
+    
+    public DiptraceTokenType getType() {
+        return fType;
     }
     
     public String getValue() {
-        if (value != null)
-            return value;
+        if (fValue != null)
+            return fValue;
         else
             return "";
+    }
+    
+    public int getIntValue() {
+        return fIntValue;
+    }
+    
+    public double getFloatValue() {
+        return fFloatValue;
     }
     
 }

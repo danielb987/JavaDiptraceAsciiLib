@@ -34,12 +34,12 @@ public final class DiptraceTokenizer {
                     type.name()));
         }
         
-        if (fNextToken.type != type) {
+        if (fNextToken.getType() != type) {
             throw new RuntimeException(
                 String.format("Token is not a %s token: Type: %s, %s",
                     type.name(),
-                    fNextToken.type.name(),
-                    fNextToken.value));
+                    fNextToken.getType().name(),
+                    fNextToken.getValue()));
         }
         
         fNextToken = null;
@@ -143,12 +143,12 @@ public final class DiptraceTokenizer {
             } else {
                 try {
                     int value = Integer.parseInt(tokenValue);
-                    // If we are here, the value is a valid integer
+                    // If we are here, the fValue is a valid integer
                     return new DiptraceToken(
                         DiptraceTokenType.INTEGER,
                         tokenValue, value);
                 } catch (NumberFormatException e) {
-                    // If we are here, value is not an integer so we just
+                    // If we are here, fValue is not an integer so we just
                     // continue to the next statement.
                 }
                 
@@ -160,26 +160,26 @@ public final class DiptraceTokenizer {
                     
                     try {
                         double value = Double.parseDouble(percentValue);
-                        // If we are here, the value is a valid double
+                        // If we are here, the fValue is a valid double
                         return new DiptraceToken(
                                         DiptraceTokenType.PERCENT,
                                         tokenValue,
                                         value);
                     } catch (NumberFormatException e) {
-                        // If we are here, value is not a double so we just
+                        // If we are here, fValue is not a double so we just
                         // continue to the next statement.
                     }
                 }
                 
                 try {
                     double value = Double.parseDouble(tokenValue);
-                    // If we are here, the value is a valid double
+                    // If we are here, the fValue is a valid double
                     return new DiptraceToken(
                                     DiptraceTokenType.FLOAT,
                                     tokenValue,
                                     value);
                 } catch (NumberFormatException e) {
-                    // If we are here, value is not a double so we just
+                    // If we are here, fValue is not a double so we just
                     // continue to the next statement.
                 }
                 

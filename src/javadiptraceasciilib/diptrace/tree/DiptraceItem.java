@@ -40,18 +40,17 @@ public abstract class DiptraceItem {
         
         DiptraceToken token;
         while (((token = tokenizer.previewNextToken()) != null)
-            && (token.type == DiptraceTokenType.LEFT_PARENTHESES)) {
+            && (token.getType() == DiptraceTokenType.LEFT_PARENTHESES)) {
             
             // Eat the token
             tokenizer.nextToken();
             
             token = tokenizer.nextToken();
-            if (token.type != DiptraceTokenType.IDENTIFIER)
+            if (token.getType() != DiptraceTokenType.IDENTIFIER)
                 throw new RuntimeException(
-                    String.format(
-                        "Token is not an identifier: Type: %s, %s\n",
-                        token.type.name(),
-                        token.value));
+                    String.format("Token is not an identifier: Type: %s, %s\n",
+                        token.getType().name(),
+                        token.getValue()));
             
             DiptraceItem item = getItemByIdentifier(token);
             item.parse(tokenizer);
@@ -70,7 +69,7 @@ public abstract class DiptraceItem {
     
     private DiptraceItem getItemByIdentifier(final DiptraceToken token) {
         
-        switch (token.value) {
+        switch (token.getValue()) {
 /*            
             case "Source":
             case "Units":
@@ -102,7 +101,7 @@ public abstract class DiptraceItem {
             case "Ypos":
 */
             default:
-                return new DiptraceGenericItem(token.value);
+                return new DiptraceGenericItem(token.getValue());
         }
     }
     
