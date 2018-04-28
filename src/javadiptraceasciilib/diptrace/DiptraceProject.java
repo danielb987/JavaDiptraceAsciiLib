@@ -49,7 +49,9 @@ public final class DiptraceProject {
      * @param tokenizer the tokenizer that parses the Diptrace ascii file
      * @throws IOException when IO error occurs
      */
-    public void parseSchematics(final DiptraceTokenizer tokenizer) throws IOException {
+    public void parseSchematics(final DiptraceTokenizer tokenizer)
+        throws IOException {
+        
         fSchematicsRoot.parse(tokenizer);
     }
     
@@ -58,7 +60,9 @@ public final class DiptraceProject {
      * @param tokenizer the tokenizer that parses the Diptrace ascii file
      * @throws IOException when IO error occurs
      */
-    public void parsePCB(final DiptraceTokenizer tokenizer) throws IOException {
+    public void parsePCB(final DiptraceTokenizer tokenizer)
+        throws IOException {
+        
         fPCBRoot.parse(tokenizer);
     }
     

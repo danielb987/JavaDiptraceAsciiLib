@@ -35,12 +35,12 @@ public abstract class DiptraceItem {
     public abstract void parse(DiptraceTokenizer tokenizer)
         throws IOException;
     
+    //CHECKSTYLE.OFF: InnerAssignment - Allow assignment in while loop
     /**
      * Parse the sub items.
      * @param tokenizer
      * @throws IOException
      */
-    //CHECKSTYLE.OFF: InnerAssignment - Allow assignment in while loop
     public void parseSubItems(final DiptraceTokenizer tokenizer)
         throws IOException {
         
