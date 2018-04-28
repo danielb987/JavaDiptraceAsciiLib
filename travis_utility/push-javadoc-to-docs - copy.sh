@@ -5,31 +5,24 @@ set -e
 
 # Don't create javadoc and JavaDiptraceAsciiLib.jar if the repository is a fork, or if it is a pull request or if the branch is not master
 
-# if [ "$TRAVIS_REPO_SLUG" == "danielb987/JavaDiptraceAsciiLib" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; then
+if [ "$TRAVIS_REPO_SLUG" == "danielb987/JavaDiptraceAsciiLib" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; then
 
-echo -e "Create jar file and run javadoc"
+  echo -e "Create jar file and run javadoc"
 
-# Create jar file
-ant jar
+  # Create jar file
+  ant jar
 
-# Create javadoc
-ant javadoc
+  # Create javadoc
+  ant javadoc
 
-# Check if this project's javadoc follows coding standard
-# We have a lot of errors at the moment, so don't stop on error at this point.
-# Later, change this to stop on error.
-ant checkstyle
+  # Check if this project's javadoc follows coding standard
+  # We have a lot of errors at the moment, so don't stop on error at this point.
+  # Later, change this to stop on error.
+  ant checkstyle
 #  ant checkstyle || true
 
-# Get a summary of the checkstyle report
-java -cp dist/JavaDiptraceAsciiLib.jar util.CheckStyleAnalyzer checkstyle build/checkstyle_errors.xml build/checkstyle_report.html
-
-
-
-
-# Don't publish anything if the repository is a fork, or if it is a pull request or if the branch is not master
-
-if [ "$TRAVIS_REPO_SLUG" == "danielb987/JavaDiptraceAsciiLib" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; then
+  # Get a summary of the checkstyle report
+  java -cp dist/JavaDiptraceAsciiLib.jar util.CheckStyleAnalyzer checkstyle build/checkstyle_errors.xml build/checkstyle_report.html
 
   echo -e "Publishing javadoc...\n"
 

@@ -5,6 +5,7 @@ import javadiptraceasciilib.diptrace.tokenizer.DiptraceTokenizer;
 // import javadiptraceasciilib.diptrace.tokenizer.DiptraceToken;
 import javadiptraceasciilib.diptrace.tree.DiptraceRootItem;
 import java.io.IOException;
+import javadiptraceasciilib.diptrace.tree.DiptraceItem;
 
 /**
  * This class is holds a diptrace project. It can have both the schematics
@@ -42,6 +43,16 @@ public final class DiptraceProject {
      */
     public DiptraceRootItem getPCBRoot() {
         return fPCBRoot;
+    }
+    
+    
+    /**
+     * Get the components of the schematics.
+     * @return the DiptraceItem that has all the components as DiptraceItem
+     * children
+     */
+    public DiptraceItem getSchematicsComponents() {
+        return fSchematicsRoot.getSubItem("Schematic").getSubItem("Components");
     }
     
     /**
