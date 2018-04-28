@@ -14,7 +14,6 @@ import java.util.List;
 
 /**
  *
- * @author daniel
  */
 public class DiptraceGenericItem extends DiptraceItem {
 	

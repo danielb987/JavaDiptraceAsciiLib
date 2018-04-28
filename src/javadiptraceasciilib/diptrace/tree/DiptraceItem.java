@@ -14,7 +14,6 @@ import java.util.List;
 
 /**
  *
- * @author daniel
  */
 public abstract class DiptraceItem {
 	
