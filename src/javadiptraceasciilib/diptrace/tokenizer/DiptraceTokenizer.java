@@ -8,10 +8,29 @@ import java.io.IOException;
  */
 public final class DiptraceTokenizer {
     
+    /**
+     * The reader that the tokenizer reads from.
+     */
     private final BufferedReader fReader;
+    
+    /**
+     * The current line that the tokenizer reads from.
+     */
     private StringBuilder fCurrentLine;
+    
+    /**
+     * The line number of the current line.
+     */
     private int fLineNo = 1;
+    
+    /**
+     * True if the last token was a left parentheses.
+     */
     private boolean fLastTokenWasLeftParentheses = false;
+    
+    /**
+     * The next token.
+     */
     private DiptraceToken fNextToken;
     
     
