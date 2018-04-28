@@ -15,6 +15,12 @@ public final class DiptraceTokenizer {
     private DiptraceToken fNextToken;
     
     
+    /**
+     * Initializes a DiptraceTokenizer object with a reader that reads a
+     * Diptrace ASCII file.
+     * @param reader the reader
+     * @throws IOException on any I/O error
+     */
     public DiptraceTokenizer(final BufferedReader reader) throws IOException {
         
         this.fReader = reader;
@@ -22,6 +28,12 @@ public final class DiptraceTokenizer {
     }
     
     
+    /**
+     * Eat the current token. It checks that the token is of a particular type.
+     * @param type the type of token that is expected.
+     * @throws RuntimeException if the token is not of the expected type
+     * @throws IOException on any I/O error
+     */
     public void eatToken(final DiptraceTokenType type) throws IOException {
         if (fNextToken == null) {
             fNextToken = fetchNextToken();
@@ -46,6 +58,11 @@ public final class DiptraceTokenizer {
     }
     
     
+    /**
+     * Returns the next token.
+     * @return the token
+     * @throws IOException on any I/O error
+     */
     public DiptraceToken nextToken() throws IOException {
         if (fNextToken != null) {
             DiptraceToken token = fNextToken;
@@ -56,6 +73,11 @@ public final class DiptraceTokenizer {
     }
     
     
+    /**
+     * Returns the next token but keeps it in the queue.
+     * @return the next token
+     * @throws IOException on any I/O error
+     */
     public DiptraceToken previewNextToken() throws IOException {
         if (fNextToken == null) {
             fNextToken = fetchNextToken();
@@ -64,6 +86,11 @@ public final class DiptraceTokenizer {
     }
     
     
+    /**
+     * Fetch the next token from the reader.
+     * @return the next token
+     * @throws IOException on any I/O error
+     */
     private DiptraceToken fetchNextToken() throws IOException {
         
         while ((fCurrentLine != null) && (fCurrentLine.length() == 0)) {

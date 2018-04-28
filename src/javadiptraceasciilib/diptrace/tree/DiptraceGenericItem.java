@@ -48,6 +48,10 @@ public class DiptraceGenericItem extends DiptraceItem {
     //CHECKSTYLE.ON: InnerAssignment - Allow assignment in while loop
     
     
+    /**
+     * Returns a string representation of this object.
+     * @return a string
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(getIdentifier());

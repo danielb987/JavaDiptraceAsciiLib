@@ -26,6 +26,10 @@ public final class DiptraceRootItem extends DiptraceItem {
 //        tokenizer.eatToken(DiptraceTokenType.RIGHT_PARENTHESES);
     }
     
+    /**
+     * Returns a string representation of this object.
+     * @return a string
+     */
     @Override
     public String toString() {
         return getIdentifier();

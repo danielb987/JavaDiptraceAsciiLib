@@ -15,14 +15,26 @@ public abstract class DiptraceItem {
     private final String fIdentifier;
     private final List<DiptraceItem> fSubItems = new ArrayList<>();
     
+    /**
+     * Initializes a DiptraceItem object with an identifier
+     * @param identifier 
+     */
     public DiptraceItem(final String identifier) {
         this.fIdentifier = identifier;
     }
     
+    /**
+     * Returns the identifier.
+     * @return the identifier
+     */
     public String getIdentifier() {
         return fIdentifier;
     }
     
+    /**
+     * Returns the sub items.
+     * @return the sub items
+     */
     public List<DiptraceItem> getSubItems() {
         return fSubItems;
     }
@@ -75,7 +87,12 @@ public abstract class DiptraceItem {
     }
     //CHECKSTYLE.ON: InnerAssignment - Allow assignment in while loop
     
-    
+    /**
+     * Creates and returns an instance of a class that inherits DiptraceItem.
+     * It decides what type of class by the identifier of the token.
+     * @param token the token
+     * @return an instance of a sub class to DiptraceItem
+     */
     private DiptraceItem getItemByIdentifier(final DiptraceToken token) {
         
         switch (token.getValue()) {
@@ -115,7 +132,11 @@ public abstract class DiptraceItem {
     }
     
     
-    public void printTree(final String indent) {
+    /**
+     * Prints the tree of this item and its sub items.
+     * @param indent a string of spaces to indent the tree
+     */
+    public final void printTree(final String indent) {
         System.out.format("%s%s\n", indent, fIdentifier);
         for (DiptraceItem subItem : fSubItems) {
             subItem.printTree(indent + "   ");
@@ -123,6 +144,10 @@ public abstract class DiptraceItem {
     }
     
     
+    /**
+     * Returns a string representation of this object.
+     * @return a string
+     */
     @Override
     public abstract String toString();
     
