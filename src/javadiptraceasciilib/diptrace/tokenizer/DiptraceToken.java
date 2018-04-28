@@ -2,7 +2,6 @@ package javadiptraceasciilib.diptrace.tokenizer;
 
 /**
  *
- * @author daniel
  */
 public class DiptraceToken {
 	

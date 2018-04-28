@@ -8,7 +8,6 @@ import java.io.IOException;
 
 /**
  *
- * @author daniel
  */
 public class DiptraceProject {
 	
