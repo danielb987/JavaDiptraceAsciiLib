@@ -16,8 +16,8 @@ public abstract class DiptraceItem {
     private final List<DiptraceItem> fSubItems = new ArrayList<>();
     
     /**
-     * Initializes a DiptraceItem object with an identifier
-     * @param identifier 
+     * Initializes a DiptraceItem object with an identifier.
+     * @param identifier the identifier
      */
     public DiptraceItem(final String identifier) {
         this.fIdentifier = identifier;
