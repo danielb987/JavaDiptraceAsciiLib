@@ -28,6 +28,7 @@ public class DiptraceGenericItem extends DiptraceItem {
      * @param tokenizer the tokenizer that parses the Diptrace ascii file
      * @throws IOException when IO error occurs
      */
+    //CHECKSTYLE.OFF: InnerAssignment - Allow assignment in while loop
     @Override
     public void parse(final DiptraceTokenizer tokenizer) throws IOException {
         
@@ -43,6 +44,7 @@ public class DiptraceGenericItem extends DiptraceItem {
         if (token.getType() == DiptraceTokenType.LEFT_PARENTHESES)
             parseSubItems(tokenizer);
     }
+    //CHECKSTYLE.ON: InnerAssignment - Allow assignment in while loop
     
     
     @Override

@@ -28,13 +28,19 @@ public abstract class DiptraceItem {
     }
     
     /**
-     * Parse the project
+     * Parse the project.
      * @param tokenizer the tokenizer that parses the Diptrace ascii file
      * @throws IOException when IO error occurs
      */
-    public abstract void parse(final DiptraceTokenizer tokenizer)
+    public abstract void parse(DiptraceTokenizer tokenizer)
         throws IOException;
     
+    /**
+     * Parse the sub items.
+     * @param tokenizer
+     * @throws IOException 
+     */
+    //CHECKSTYLE.OFF: InnerAssignment - Allow assignment in while loop
     public void parseSubItems(final DiptraceTokenizer tokenizer)
         throws IOException {
         
@@ -59,20 +65,21 @@ public abstract class DiptraceItem {
             
 //            System.err.format("DiptraceItem: %s\n", fIdentifier);
             
-            if ( (tokenizer.previewNextToken() == null)
-                && (this instanceof DiptraceRootItem) ) {
+            if ((tokenizer.previewNextToken() == null)
+                && (this instanceof DiptraceRootItem)) {
                 return;
             }
             
             tokenizer.eatToken(DiptraceTokenType.RIGHT_PARENTHESES);
         }
     }
+    //CHECKSTYLE.ON: InnerAssignment - Allow assignment in while loop
     
     
     private DiptraceItem getItemByIdentifier(final DiptraceToken token) {
         
         switch (token.getValue()) {
-/*            
+/*
             case "Source":
             case "Units":
             case "Scale":
@@ -92,7 +99,7 @@ public abstract class DiptraceItem {
             case "ZoneBorder":
             case "HorzZoneBorder":
             case "VertZoneBorder":
-/*            
+/*
             case "Ypos":
             case "Ypos":
             case "Ypos":
@@ -111,7 +118,7 @@ public abstract class DiptraceItem {
     public void printTree(final String indent) {
         System.out.format("%s%s\n", indent, fIdentifier);
         for (DiptraceItem subItem : fSubItems) {
-            subItem.printTree(indent+"   ");
+            subItem.printTree(indent + "   ");
         }
     }
     

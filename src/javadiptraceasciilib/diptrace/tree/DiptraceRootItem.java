@@ -13,7 +13,7 @@ public final class DiptraceRootItem extends DiptraceItem {
     }
     
     /**
-     * Parse the project
+     * Parse the project.
      * @param tokenizer the tokenizer that parses the Diptrace ascii file
      * @throws IOException when IO error occurs
      */
