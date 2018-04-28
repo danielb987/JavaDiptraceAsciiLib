@@ -12,13 +12,24 @@ import java.util.List;
  */
 public class DiptraceGenericItem extends DiptraceItem {
     
+    /**
+     * The list of parameters.
+     */
     private final List<DiptraceToken> fParameters = new ArrayList<>();
     
     
+    /**
+     * Initializes a DiptraceGenericItem with an identifier.
+     * @param identifier the identifier
+     */
     public DiptraceGenericItem(final String identifier) {
         super(identifier);
     }
     
+    /**
+     * Returns the list of parameters.
+     * @return the parameters
+     */
     public final List<DiptraceToken> getParameters() {
         return fParameters;
     }
