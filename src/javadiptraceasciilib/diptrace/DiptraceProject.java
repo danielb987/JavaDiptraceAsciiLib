@@ -23,6 +23,14 @@ public class DiptraceProject {
     }
     
     /**
+     * Get the root item.
+     * @return the root item of the Diptrace item tree
+     */
+    public DiptraceRootItem getRoot() {
+        return fRoot;
+    }
+    
+    /**
      * Parse the project
      * @param tokenizer the tokenizer that parses the Diptrace ascii file
      * @throws IOException when IO error occurs
