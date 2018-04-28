@@ -17,39 +17,50 @@ import java.util.List;
  */
 public abstract class DiptraceItem {
 	
-	public final String identifier;
-	public final List<DiptraceItem> subItems = new ArrayList<>();
+	private final String fIdentifier;
+	private final List<DiptraceItem> fSubItems = new ArrayList<>();
 	
 	public DiptraceItem(String identifier) {
-		this.identifier = identifier;
+		this.fIdentifier = identifier;
 	}
+    
+    public String getIdentifier() {
+        return fIdentifier;
+    }
 	
-	public abstract void parse(final DiptraceTokenizer tokenizer) throws IOException;
+    public List<DiptraceItem> getSubItems() {
+        return fSubItems;
+    }
 	
-	public void parseSubItems(final DiptraceTokenizer tokenizer) throws IOException {
+	public abstract void parse(final DiptraceTokenizer tokenizer)
+        throws IOException;
+	
+	public void parseSubItems(final DiptraceTokenizer tokenizer)
+        throws IOException {
+        
 		DiptraceToken token;
-		while (((token = tokenizer.previewNextToken()) != null) && (token.type == DiptraceTokenType.LEFT_PARENTHESES)) {
-			
-//			System.out.format("%s: Token: %s, %s\n", identifier, token.type.name(), token.value);
-//			System.err.format("Token: %s, %s\n", token.type.name(), token.value);
+		while (((token = tokenizer.previewNextToken()) != null)
+            && (token.type == DiptraceTokenType.LEFT_PARENTHESES)) {
 			
 			// Eat the token
 			tokenizer.nextToken();
 			
 			token = tokenizer.nextToken();
-//			System.out.format("%s: Token: %s, %s\n", identifier, token.type.name(), token.value);
-//			System.err.format("%s: Token: %s, %s\n", identifier, token.type.name(), token.value);
-//			System.err.format("Token: %s, %s\n", token.type.name(), token.value);
 			if (token.type != DiptraceTokenType.IDENTIFIER)
-				throw new RuntimeException(String.format("Token is not an identifier: Type: %s, %s\n", token.type.name(), token.value));
+				throw new RuntimeException(
+                    String.format(
+                        "Token is not an identifier: Type: %s, %s\n",
+                        token.type.name(),
+                        token.value));
 			
 			DiptraceItem item = getItemByIdentifier(token);
 			item.parse(tokenizer);
-			subItems.add(item);
+			fSubItems.add(item);
 			
-//			System.err.format("DiptraceItem: %s\n", identifier);
+//			System.err.format("DiptraceItem: %s\n", fIdentifier);
 			
-			if ( (tokenizer.previewNextToken() == null) && (this instanceof DiptraceRootItem) )
+			if ( (tokenizer.previewNextToken() == null)
+                && (this instanceof DiptraceRootItem) )
 				return;
 			
 			tokenizer.eatToken(DiptraceTokenType.RIGHT_PARENTHESES);
@@ -93,14 +104,12 @@ public abstract class DiptraceItem {
 			default:
 				return new DiptraceGenericItem(token.value);
 		}
-		
-//		throw new RuntimeException(String.format("Unknown identifier: %s\n", token.value));
 	}
 	
 	
 	public void printTree(String indent) {
-		System.out.format("%s%s\n", indent, identifier);
-		for (DiptraceItem subItem : subItems)
+		System.out.format("%s%s\n", indent, fIdentifier);
+		for (DiptraceItem subItem : fSubItems)
 			subItem.printTree(indent+"   ");
 	}
 	

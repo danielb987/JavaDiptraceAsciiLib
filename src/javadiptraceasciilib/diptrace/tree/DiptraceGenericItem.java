@@ -17,37 +17,39 @@ import java.util.List;
  */
 public class DiptraceGenericItem extends DiptraceItem {
 	
-	final List<DiptraceToken> parameters = new ArrayList<>();
+	private final List<DiptraceToken> fParameters = new ArrayList<>();
 	
 	
 	public DiptraceGenericItem(String identifier) {
 		super(identifier);
 	}
 	
+    public List<DiptraceToken> getParameters() {
+        return fParameters;
+    }
 	
 	@Override
 	public void parse(DiptraceTokenizer tokenizer) throws IOException {
 		
 		DiptraceToken token;
-		while (((token = tokenizer.previewNextToken()) != null) && (token.type != DiptraceTokenType.LEFT_PARENTHESES) && (token.type != DiptraceTokenType.RIGHT_PARENTHESES)) {
+		while (((token = tokenizer.previewNextToken()) != null)
+            && (token.type != DiptraceTokenType.LEFT_PARENTHESES)
+            && (token.type != DiptraceTokenType.RIGHT_PARENTHESES)) {
+            
 			token = tokenizer.nextToken();
-			parameters.add(token);
-//			System.err.format("Token: %s, %s\n", token.type.name(), token.value);
+			fParameters.add(token);
 		}
 		
 		if (token.type == DiptraceTokenType.LEFT_PARENTHESES)
 			parseSubItems(tokenizer);
-
-//		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//		parseSubItems(tokenizer);
 	}
 	
 	
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder(identifier);
+		StringBuilder sb = new StringBuilder(getIdentifier());
 		
-		for (DiptraceToken parameter : parameters) {
+		for (DiptraceToken parameter : fParameters) {
 			sb.append(" ");
 			if (parameter.type == DiptraceTokenType.STRING)
 				sb.append("\"").append(parameter.value).append("\"");

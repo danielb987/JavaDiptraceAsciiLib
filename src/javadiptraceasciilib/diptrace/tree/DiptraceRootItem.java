@@ -26,7 +26,7 @@ public class DiptraceRootItem extends DiptraceItem {
 	
 	@Override
 	public String toString() {
-		return identifier;
+		return getIdentifier();
 	}
 	
 }
