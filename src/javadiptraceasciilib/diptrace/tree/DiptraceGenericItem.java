@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package javadiptraceasciilib.diptrace.tree;
 
 import javadiptraceasciilib.diptrace.tokenizer.DiptraceToken;
@@ -16,48 +11,48 @@ import java.util.List;
  *
  */
 public class DiptraceGenericItem extends DiptraceItem {
-	
-	private final List<DiptraceToken> fParameters = new ArrayList<>();
-	
-	
-	public DiptraceGenericItem(String identifier) {
-		super(identifier);
-	}
-	
+    
+    private final List<DiptraceToken> fParameters = new ArrayList<>();
+    
+    
+    public DiptraceGenericItem(String identifier) {
+        super(identifier);
+    }
+    
     public List<DiptraceToken> getParameters() {
         return fParameters;
     }
-	
-	@Override
-	public void parse(DiptraceTokenizer tokenizer) throws IOException {
-		
-		DiptraceToken token;
-		while (((token = tokenizer.previewNextToken()) != null)
+    
+    @Override
+    public void parse(DiptraceTokenizer tokenizer) throws IOException {
+        
+        DiptraceToken token;
+        while (((token = tokenizer.previewNextToken()) != null)
             && (token.type != DiptraceTokenType.LEFT_PARENTHESES)
             && (token.type != DiptraceTokenType.RIGHT_PARENTHESES)) {
             
-			token = tokenizer.nextToken();
-			fParameters.add(token);
-		}
-		
-		if (token.type == DiptraceTokenType.LEFT_PARENTHESES)
-			parseSubItems(tokenizer);
-	}
-	
-	
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder(getIdentifier());
-		
-		for (DiptraceToken parameter : fParameters) {
-			sb.append(" ");
-			if (parameter.type == DiptraceTokenType.STRING)
-				sb.append("\"").append(parameter.value).append("\"");
-			else
-				sb.append(parameter.value);
-		}
-		
-		return sb.toString();
-	}
-	
+            token = tokenizer.nextToken();
+            fParameters.add(token);
+        }
+        
+        if (token.type == DiptraceTokenType.LEFT_PARENTHESES)
+            parseSubItems(tokenizer);
+    }
+    
+    
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder(getIdentifier());
+        
+        for (DiptraceToken parameter : fParameters) {
+            sb.append(" ");
+            if (parameter.type == DiptraceTokenType.STRING)
+                sb.append("\"").append(parameter.value).append("\"");
+            else
+                sb.append(parameter.value);
+        }
+        
+        return sb.toString();
+    }
+    
 }
