@@ -8,46 +8,48 @@ import java.io.IOException;
  */
 public class DiptraceTokenizer {
     
-    private final BufferedReader reader;
-//    String currentLine;
-    StringBuilder currentLine;
-    int lineNo = 1;
-    boolean lastTokenWasLeftParentheses = false;
-    DiptraceToken nextToken;
+    private final BufferedReader fReader;
+    private StringBuilder fCurrentLine;
+    private int fLineNo = 1;
+    private boolean fLastTokenWasLeftParentheses = false;
+    private DiptraceToken fNextToken;
+    
     
     public DiptraceTokenizer(final BufferedReader reader) throws IOException {
         
-        this.reader = reader;
-        this.currentLine = new StringBuilder(reader.readLine().trim());
+        this.fReader = reader;
+        this.fCurrentLine = new StringBuilder(reader.readLine().trim());
     }
     
     
     public void eatToken(final DiptraceTokenType type) throws IOException {
-        if (nextToken == null)
-            nextToken = fetchNextToken();
+        if (fNextToken == null) {
+            fNextToken = fetchNextToken();
+        }
         
-        if (nextToken == null)
+        if (fNextToken == null) {
             throw new RuntimeException(
                 String.format(
                     "End of file has been reached premature. Token to eat: %s",
                     type.name()));
+        }
         
-        if (nextToken.type != type)
+        if (fNextToken.type != type) {
             throw new RuntimeException(
-                String.format(
-                    "Token is not a %s token: Type: %s, %s",
+                String.format("Token is not a %s token: Type: %s, %s",
                     type.name(),
-                    nextToken.type.name(),
-                    nextToken.value));
+                    fNextToken.type.name(),
+                    fNextToken.value));
+        }
         
-        nextToken = null;
+        fNextToken = null;
     }
     
     
     public DiptraceToken nextToken() throws IOException {
-        if (nextToken != null) {
-            DiptraceToken token = nextToken;
-            nextToken = null;
+        if (fNextToken != null) {
+            DiptraceToken token = fNextToken;
+            fNextToken = null;
             return token;
         }
         return fetchNextToken();
@@ -55,106 +57,105 @@ public class DiptraceTokenizer {
     
     
     public DiptraceToken previewNextToken() throws IOException {
-        if (nextToken == null)
-            nextToken = fetchNextToken();
-        return nextToken;
+        if (fNextToken == null) {
+            fNextToken = fetchNextToken();
+        }
+        return fNextToken;
     }
     
     
     private DiptraceToken fetchNextToken() throws IOException {
         
-        while ((currentLine != null) && (currentLine.length() == 0)) {
-            currentLine.setLength(0);
-            String line = reader.readLine();
+        while ((fCurrentLine != null) && (fCurrentLine.length() == 0)) {
+            fCurrentLine.setLength(0);
+            String line = fReader.readLine();
             
             // End of file?
-            if (line == null)
+            if (line == null) {
                 return null;
+            }
             
-            currentLine.append(line.trim());
-            lineNo++;
+            fCurrentLine.append(line.trim());
+            fLineNo++;
         }
         
-        if (currentLine == null) {
+        if (fCurrentLine == null) {
             return null;
-        }
-        else if (currentLine.charAt(0) == '(') {
-            currentLine.delete(0, 1);
-            lastTokenWasLeftParentheses = true;
+        } else if (fCurrentLine.charAt(0) == '(') {
+            fCurrentLine.delete(0, 1);
+            fLastTokenWasLeftParentheses = true;
             return new DiptraceToken(DiptraceTokenType.LEFT_PARENTHESES);
-        }
-        else if (currentLine.charAt(0) == ')') {
-            currentLine.delete(0, 1);
+        } else if (fCurrentLine.charAt(0) == ')') {
+            fCurrentLine.delete(0, 1);
             return new DiptraceToken(DiptraceTokenType.RIGHT_PARENTHESES);
-        }
-        else {
+        } else {
             String tokenValue;
             
-            if (currentLine.charAt(0) == '"') {
+            if (fCurrentLine.charAt(0) == '"') {
                 int pos = 1;
-                while ((pos < currentLine.length())
-                        && (currentLine.charAt(pos) != '"'))
+                while ((pos < fCurrentLine.length())
+                        && (fCurrentLine.charAt(pos) != '"')) {
                     pos++;
+                }
                 
-                if (pos == currentLine.length())
+                if (pos == fCurrentLine.length()) {
                     throw new RuntimeException(
-                        String.format(
-                            "Invalid string token. No \" at end of string."
+                        String.format("Invalid string token. No \" at end of string."
                                 + "LineNo: %d, %s",
-                            lineNo,
-                            currentLine));
+                            fLineNo,
+                            fCurrentLine));
+                }
                 
-                tokenValue = currentLine.substring(1, pos);
-                currentLine.delete(0, pos+1);
+                tokenValue = fCurrentLine.substring(1, pos);
+                fCurrentLine.delete(0, pos+1);
                 
-                while ((currentLine.length() > 0)
-                        && (currentLine.charAt(0) == ' '))
-                    currentLine.delete(0, 1);
+                while ((fCurrentLine.length() > 0)
+                        && (fCurrentLine.charAt(0) == ' ')) {
+                    fCurrentLine.delete(0, 1);
+                }
                 
                 return new DiptraceToken(DiptraceTokenType.STRING, tokenValue);
             }
             
             
             int spacePos;
-            if ((spacePos = currentLine.indexOf(" ")) >= 0) {
-                tokenValue = currentLine.substring(0, spacePos);
-                currentLine.delete(0, spacePos+1);
-            }
-            else {
-                int length = currentLine.length();
+            if ((spacePos = fCurrentLine.indexOf(" ")) >= 0) {
+                tokenValue = fCurrentLine.substring(0, spacePos);
+                fCurrentLine.delete(0, spacePos + 1);
+            } else {
+                int length = fCurrentLine.length();
                 
-                if (currentLine.charAt(length-1) == ')') {
-                    tokenValue = currentLine.substring(0, length-1);
-                    currentLine.delete(0, length-1);
-                }
-                else {
-                    tokenValue = currentLine.substring(0, length);
-                    currentLine.setLength(0);    // Clear string
+                if (fCurrentLine.charAt(length - 1) == ')') {
+                    tokenValue = fCurrentLine.substring(0, length-1);
+                    fCurrentLine.delete(0, length - 1);
+                } else {
+                    tokenValue = fCurrentLine.substring(0, length);
+                    fCurrentLine.setLength(0);    // Clear string
                 }
             }
             
-            if (lastTokenWasLeftParentheses) {
-                lastTokenWasLeftParentheses = false;
+            if (fLastTokenWasLeftParentheses) {
+                fLastTokenWasLeftParentheses = false;
                 return new DiptraceToken(
                     DiptraceTokenType.IDENTIFIER,
                     tokenValue);
-            }
-            else {
+            } else {
                 try {
                     int value = Integer.parseInt(tokenValue);
                     // If we are here, the value is a valid integer
                     return new DiptraceToken(
                         DiptraceTokenType.INTEGER,
                         tokenValue, value);
-                }
-                catch (NumberFormatException e) {
+                } catch (NumberFormatException e) {
+                    // If we are here, value is not an integer so we just
+                    // continue to the next statement.
                 }
                 
                 if ((tokenValue.length() > 0)
                     && (tokenValue.charAt(tokenValue.length()-1) == '%')) {
                     
                     String percentValue
-                        = tokenValue.substring(0, tokenValue.length()-1);
+                        = tokenValue.substring(0, tokenValue.length() - 1);
                     
                     try {
                         double value = Double.parseDouble(percentValue);
@@ -163,8 +164,9 @@ public class DiptraceTokenizer {
                                         DiptraceTokenType.PERCENT,
                                         tokenValue,
                                         value);
-                    }
-                    catch (NumberFormatException e) {
+                    } catch (NumberFormatException e) {
+                        // If we are here, value is not a double so we just
+                        // continue to the next statement.
                     }
                 }
                 
@@ -175,8 +177,9 @@ public class DiptraceTokenizer {
                                     DiptraceTokenType.FLOAT,
                                     tokenValue,
                                     value);
-                }
-                catch (NumberFormatException e) {
+                } catch (NumberFormatException e) {
+                    // If we are here, value is not a double so we just
+                    // continue to the next statement.
                 }
                 
 //                if ((tokenValue.charAt(0) == '"')
@@ -187,18 +190,18 @@ public class DiptraceTokenizer {
                 
                 throw new RuntimeException(
                             String.format("Unknown token type. LineNo: %d, %s",
-                                lineNo,
+                                fLineNo,
                                 tokenValue));
             }
             
 /*            
-            if (currentLine.charAt(0) == ')') {
-                currentLine.delete(0, 1);
+            if (fCurrentLine.charAt(0) == ')') {
+                fCurrentLine.delete(0, 1);
                 return new DiptraceToken(DiptraceTokenType.RIGHT_PARENTHESES);
             }
             else
                 throw new RuntimeException(String.format("Unknown token: %s",
-                    currentLine));
+                    fCurrentLine));
 */            
         }
     }
