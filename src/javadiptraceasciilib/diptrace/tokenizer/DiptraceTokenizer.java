@@ -16,7 +16,7 @@ public final class DiptraceTokenizer {
     /**
      * The current line that the tokenizer reads from.
      */
-    private StringBuilder fCurrentLine;
+    private final StringBuilder fCurrentLine;
     
     /**
      * The line number of the current line.
@@ -43,7 +43,13 @@ public final class DiptraceTokenizer {
     public DiptraceTokenizer(final BufferedReader reader) throws IOException {
         
         this.fReader = reader;
-        this.fCurrentLine = new StringBuilder(reader.readLine().trim());
+        
+        String line = reader.readLine();
+        if (line != null) {
+            this.fCurrentLine = new StringBuilder(line.trim());
+        } else {
+            this.fCurrentLine = null;
+        }
     }
     
     

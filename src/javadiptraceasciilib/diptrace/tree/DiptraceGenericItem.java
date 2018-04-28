@@ -52,7 +52,7 @@ public class DiptraceGenericItem extends DiptraceItem {
             fParameters.add(token);
         }
         
-        if (token.getType() == DiptraceTokenType.LEFT_PARENTHESES) {
+        if ((token != null) && (token.getType() == DiptraceTokenType.LEFT_PARENTHESES)) {
             parseSubItems(tokenizer);
         }
     }

@@ -73,7 +73,7 @@ public abstract class DiptraceItem {
             token = tokenizer.nextToken();
             if (token.getType() != DiptraceTokenType.IDENTIFIER) {
                 throw new RuntimeException(
-                    String.format("Token is not an identifier: Type: %s, %s\n",
+                    String.format("Token is not an identifier: Type: %s, %s%n",
                         token.getType().name(),
                         token.getValue()));
             }
@@ -133,6 +133,7 @@ public abstract class DiptraceItem {
             case "Ypos":
             case "Ypos":
 */
+            case "Schematic":
             default:
                 return new DiptraceGenericItem(token.getValue());
         }
@@ -144,7 +145,7 @@ public abstract class DiptraceItem {
      * @param indent a string of spaces to indent the tree
      */
     public final void printTree(final String indent) {
-        System.out.format("%s%s\n", indent, fIdentifier);
+        System.out.format("%s%s%n", indent, fIdentifier);
         for (DiptraceItem subItem : fSubItems) {
             subItem.printTree(indent + "   ");
         }
