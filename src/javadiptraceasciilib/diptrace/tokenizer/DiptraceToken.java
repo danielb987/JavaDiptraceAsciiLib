@@ -1,7 +1,7 @@
 package javadiptraceasciilib.diptrace.tokenizer;
 
 /**
- *
+ * A token
  */
 public class DiptraceToken {
     

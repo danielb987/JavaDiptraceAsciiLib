@@ -12,6 +12,11 @@ public class DiptraceRootItem extends DiptraceItem {
         super("root");
     }
     
+    /**
+     * Parse the project
+     * @param tokenizer the tokenizer that parses the Diptrace ascii file
+     * @throws IOException when IO error occurs
+     */
     @Override
     public void parse(final DiptraceTokenizer tokenizer) throws IOException {
         parseSubItems(tokenizer);

@@ -7,25 +7,36 @@ import javadiptraceasciilib.diptrace.tree.DiptraceRootItem;
 import java.io.IOException;
 
 /**
- *
+ * Diptrace project
  */
 public class DiptraceProject {
     
-    public final DiptraceRootItem root = new DiptraceRootItem();
+    /**
+     * Root of the diptrace project
+     */
+    private final DiptraceRootItem fRoot = new DiptraceRootItem();
     
+    /**
+     * Constructs a DiptraceProject
+     */
     public DiptraceProject() {
     }
     
+    /**
+     * Parse the project
+     * @param tokenizer the tokenizer that parses the Diptrace ascii file
+     * @throws IOException when IO error occurs
+     */
     public void parse(final DiptraceTokenizer tokenizer) throws IOException {
         
 //        try {
-//        root = new DiptraceRootItem();
-        root.parse(tokenizer);
+//        fRoot = new DiptraceRootItem();
+        fRoot.parse(tokenizer);
 //        }
 //        catch (Throwable e) {
 //        }
         
-//        root.printTree("");
+//        fRoot.printTree("");
 /*        
         try {
             DiptraceToken token;

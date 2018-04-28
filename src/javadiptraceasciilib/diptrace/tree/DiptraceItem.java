@@ -27,6 +27,11 @@ public abstract class DiptraceItem {
         return fSubItems;
     }
     
+    /**
+     * Parse the project
+     * @param tokenizer the tokenizer that parses the Diptrace ascii file
+     * @throws IOException when IO error occurs
+     */
     public abstract void parse(final DiptraceTokenizer tokenizer)
         throws IOException;
     
