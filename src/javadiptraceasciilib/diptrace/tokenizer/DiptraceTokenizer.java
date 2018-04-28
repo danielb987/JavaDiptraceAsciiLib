@@ -22,7 +22,7 @@ public class DiptraceTokenizer {
     }
     
     
-    public void eatToken(DiptraceTokenType type) throws IOException {
+    public void eatToken(final DiptraceTokenType type) throws IOException {
         if (nextToken == null)
             nextToken = fetchNextToken();
         

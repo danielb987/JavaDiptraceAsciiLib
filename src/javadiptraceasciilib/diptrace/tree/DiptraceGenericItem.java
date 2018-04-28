@@ -15,7 +15,7 @@ public class DiptraceGenericItem extends DiptraceItem {
     private final List<DiptraceToken> fParameters = new ArrayList<>();
     
     
-    public DiptraceGenericItem(String identifier) {
+    public DiptraceGenericItem(final String identifier) {
         super(identifier);
     }
     
@@ -24,7 +24,7 @@ public class DiptraceGenericItem extends DiptraceItem {
     }
     
     @Override
-    public void parse(DiptraceTokenizer tokenizer) throws IOException {
+    public void parse(final DiptraceTokenizer tokenizer) throws IOException {
         
         DiptraceToken token;
         while (((token = tokenizer.previewNextToken()) != null)

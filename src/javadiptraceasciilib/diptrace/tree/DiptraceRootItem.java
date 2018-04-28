@@ -13,7 +13,7 @@ public class DiptraceRootItem extends DiptraceItem {
     }
     
     @Override
-    public void parse(DiptraceTokenizer tokenizer) throws IOException {
+    public void parse(final DiptraceTokenizer tokenizer) throws IOException {
         parseSubItems(tokenizer);
         
 //        tokenizer.eatToken(DiptraceTokenType.RIGHT_PARENTHESES);

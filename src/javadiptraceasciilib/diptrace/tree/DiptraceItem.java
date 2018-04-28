@@ -15,7 +15,7 @@ public abstract class DiptraceItem {
     private final String fIdentifier;
     private final List<DiptraceItem> fSubItems = new ArrayList<>();
     
-    public DiptraceItem(String identifier) {
+    public DiptraceItem(final String identifier) {
         this.fIdentifier = identifier;
     }
     
@@ -63,7 +63,7 @@ public abstract class DiptraceItem {
     }
     
     
-    private DiptraceItem getItemByIdentifier(DiptraceToken token) {
+    private DiptraceItem getItemByIdentifier(final DiptraceToken token) {
         
         switch (token.value) {
 /*            
@@ -102,7 +102,7 @@ public abstract class DiptraceItem {
     }
     
     
-    public void printTree(String indent) {
+    public void printTree(final String indent) {
         System.out.format("%s%s\n", indent, fIdentifier);
         for (DiptraceItem subItem : fSubItems)
             subItem.printTree(indent+"   ");
