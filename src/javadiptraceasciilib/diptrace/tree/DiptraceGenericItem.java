@@ -37,7 +37,8 @@ public class DiptraceGenericItem extends DiptraceItem {
      */
     @Override
     public DiptraceItem duplicate(DiptraceItem parent) {
-        DiptraceGenericItem newItem = new DiptraceGenericItem(parent, getIdentifier());
+        DiptraceGenericItem newItem =
+            new DiptraceGenericItem(parent, getIdentifier());
         for (DiptraceToken parameter : fParameters) {
             newItem.fParameters.add(new DiptraceToken(parameter));
         }
