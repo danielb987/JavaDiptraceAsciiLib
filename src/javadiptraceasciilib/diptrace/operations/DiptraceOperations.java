@@ -25,6 +25,20 @@ public class DiptraceOperations {
     }
     
     /**
+     * Duplicate an item with all its children and adds the new item to the
+     * tree.
+     * @param item the item to duplicate
+     * @return the new item
+     */
+    public DiptraceItem duplicateItem(DiptraceItem item) {
+        DiptraceItem newItem = item.duplicate(item.getParent());
+        
+        item.getSubItems().add(newItem);
+        
+        return newItem;
+    }
+    
+    /**
      * Duplicate a component to a lot of other components of the same type
      * in both schematics and pcb.
      * @param number the number of the component to duplicate

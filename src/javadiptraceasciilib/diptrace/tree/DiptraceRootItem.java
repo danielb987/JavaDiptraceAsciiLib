@@ -19,6 +19,17 @@ public final class DiptraceRootItem extends DiptraceItem {
     }
     
     /**
+     * Duplicate this item. This method always throws a RuntimeException since
+     * the root must not be duplicated.
+     * @param parent the parent of the new item
+     * @return this method always throws a RuntimeException
+     */
+    @Override
+    public DiptraceItem duplicate(DiptraceItem parent) {
+        throw new RuntimeException("The root item must not be duplicated.");
+    }
+    
+    /**
      * Parse the project.
      * @param tokenizer the tokenizer that parses the Diptrace ascii file
      * @throws IOException when IO error occurs
@@ -39,5 +50,5 @@ public final class DiptraceRootItem extends DiptraceItem {
     public String toString() {
         return getIdentifier();
     }
-    
+
 }

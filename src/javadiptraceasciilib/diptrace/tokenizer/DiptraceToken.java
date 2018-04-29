@@ -84,6 +84,19 @@ public final class DiptraceToken {
     
     
     /**
+     * Initialize a DiptraceToken object with another DiptraceToken. The new
+     * token will be a copy of the old token.
+     * @param token the token to copy
+     */
+    public DiptraceToken(final DiptraceToken token) {
+        this.fType = token.fType;
+        this.fValue = token.fValue;
+        this.fIntValue = token.fIntValue;
+        this.fFloatValue = token.fFloatValue;
+    }
+    
+    
+    /**
      * Returns the type of the token.
      * @return the type
      */

@@ -31,6 +31,23 @@ public class DiptraceGenericItem extends DiptraceItem {
     }
     
     /**
+     * Duplicate this item and all its children.
+     * @param parent the parent of the new item
+     * @return the copy of this item
+     */
+    @Override
+    public DiptraceItem duplicate(DiptraceItem parent) {
+        DiptraceGenericItem newItem = new DiptraceGenericItem(parent, getIdentifier());
+        for (DiptraceToken parameter : fParameters) {
+            newItem.fParameters.add(new DiptraceToken(parameter));
+        }
+        for (DiptraceItem subItem : getSubItems()) {
+            newItem.getSubItems().add(subItem.duplicate(newItem));
+        }
+        return newItem;
+    }
+    
+    /**
      * Returns the list of parameters.
      * @return the parameters
      */
