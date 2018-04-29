@@ -28,7 +28,7 @@ java -cp dist/JavaDiptraceAsciiLib.jar util.CheckStyleAnalyzer checkstyle build/
 export DIR=$(pwd)
 
 # Check if any findbugs errors
-php --file $DIR/travis_utility/num_findbugs_errors.php -- findbugs.html
+php --file $DIR/travis_utility/num_findbugs_errors.php -- $DIR/build/findbugs/findbugs.html
 
 
 
