@@ -143,8 +143,16 @@ public final class DiptraceProject {
      */
     private class SchematicsPCBFlags {
         
+        /**
+         * Flag for schematics.
+         */
         private boolean fSchematics;
+        
+        /**
+         * Flag for pcb.
+         */
         private boolean fPCB;
+        
     }
     
 }
