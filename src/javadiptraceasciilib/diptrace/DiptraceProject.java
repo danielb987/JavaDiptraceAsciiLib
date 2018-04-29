@@ -71,6 +71,16 @@ public final class DiptraceProject {
     
     
     /**
+     * Get the map of the numbers used as component numbers with flags that
+     * tells whenether a number is used in the schematics and/or the pcb.
+     * @return a map of the used component numbers
+     */
+    public Map<Integer, SchematicsAndPCBFlags> getUsedComponentNumbers() {
+        return fUsedComponentNumbers;
+    }
+    
+    
+    /**
      * Get the components of the schematics.
      * @return the DiptraceItem that has all the components as DiptraceItem
      * children
@@ -99,10 +109,10 @@ public final class DiptraceProject {
             SchematicsAndPCBFlags schematicsAndPCBFlags
                 = fUsedComponentNumbers.get(number);
             if (schematicsAndPCBFlags != null) {
-                schematicsAndPCBFlags.fSchematics = true;
+                schematicsAndPCBFlags.fSchematicsFlag = true;
             } else {
                 schematicsAndPCBFlags = new SchematicsAndPCBFlags();
-                schematicsAndPCBFlags.fSchematics = true;
+                schematicsAndPCBFlags.fSchematicsFlag = true;
                 fUsedComponentNumbers.put(number, schematicsAndPCBFlags);
             }
         }
@@ -128,10 +138,10 @@ public final class DiptraceProject {
             SchematicsAndPCBFlags schematicsAndPCBFlags
                 = fUsedComponentNumbers.get(number);
             if (schematicsAndPCBFlags != null) {
-                schematicsAndPCBFlags.fPCB = true;
+                schematicsAndPCBFlags.fPCBFlag = true;
             } else {
                 schematicsAndPCBFlags = new SchematicsAndPCBFlags();
-                schematicsAndPCBFlags.fPCB = true;
+                schematicsAndPCBFlags.fPCBFlag = true;
                 fUsedComponentNumbers.put(number, schematicsAndPCBFlags);
             }
         }
@@ -141,17 +151,38 @@ public final class DiptraceProject {
     /**
      * Holds flags for schematics and pcb.
      */
-    private static class SchematicsAndPCBFlags {
+    public static class SchematicsAndPCBFlags {
         
         /**
          * Flag for schematics.
          */
-        private boolean fSchematics;
+        private boolean fSchematicsFlag;
         
         /**
          * Flag for pcb.
          */
-        private boolean fPCB;
+        private boolean fPCBFlag;
+        
+        private SchematicsAndPCBFlags() {
+            // This class is not intended to be created outside the class
+            // DiptraceProject.
+        }
+        
+        /**
+         * Get the schematics flag.
+         * @return the flag
+         */
+        public boolean getSchematicsFlag() {
+            return fSchematicsFlag;
+        }
+        
+        /**
+         * Get the pcb flag.
+         * @return the flag
+         */
+        public boolean getPCBFlag() {
+            return fPCBFlag;
+        }
         
     }
     
