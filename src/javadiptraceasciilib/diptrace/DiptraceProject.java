@@ -91,11 +91,13 @@ public final class DiptraceProject {
         
         DiptraceItem components = getSchematicsComponents();
         for (DiptraceItem parts : components.getSubItems()) {
-            DiptraceGenericItem numberItem = (DiptraceGenericItem)parts.getSubItem("Number");
+            DiptraceGenericItem numberItem
+                = (DiptraceGenericItem) parts.getSubItem("Number");
             int number = numberItem.getParameters().get(0).getIntValue();
             System.out.format("Number: %d%n", number);
             fSchematicsComponentsNumberMap.put(number, parts);
-            SchematicsPCBFlags schematicsPCBFlags = fUsedComponentNumbers.get(number);
+            SchematicsPCBFlags schematicsPCBFlags
+                = fUsedComponentNumbers.get(number);
             if (schematicsPCBFlags != null) {
                 schematicsPCBFlags.fSchematics = true;
             } else {
@@ -118,11 +120,13 @@ public final class DiptraceProject {
         
         DiptraceItem components = getSchematicsComponents();
         for (DiptraceItem component : components.getSubItems()) {
-            DiptraceGenericItem numberItem = (DiptraceGenericItem)component.getSubItem("Number");
+            DiptraceGenericItem numberItem
+                = (DiptraceGenericItem) component.getSubItem("Number");
             int number = numberItem.getParameters().get(0).getIntValue();
             System.out.format("Number: %d%n", number);
             fSchematicsComponentsNumberMap.put(number, component);
-            SchematicsPCBFlags schematicsPCBFlags = fUsedComponentNumbers.get(number);
+            SchematicsPCBFlags schematicsPCBFlags
+                = fUsedComponentNumbers.get(number);
             if (schematicsPCBFlags != null) {
                 schematicsPCBFlags.fPCB = true;
             } else {
@@ -134,6 +138,9 @@ public final class DiptraceProject {
     }
     
     
+    /**
+     * Holds flags for schematics and pcb.
+     */
     private class SchematicsPCBFlags {
         
         private boolean fSchematics;
