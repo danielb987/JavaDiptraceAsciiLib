@@ -2,7 +2,6 @@ package javadiptraceasciilib.diptrace.tokenizer;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import javadiptraceasciilib.diptrace.tree.DiptraceRootItem;
 
 /**
  * This class has methods to parse a DipTrace ascii file into tokens.
@@ -235,18 +234,12 @@ public final class DiptraceTokenizer {
                     // continue to the next statement.
                 }
                 
-//                if ((tokenValue.charAt(0) == '"')
-//                    && (tokenValue.charAt(tokenValue.length()-1) == '"'))
-//                    return new DiptraceToken(
-//                                DiptraceTokenType.STRING,
-//                                tokenValue);
-                
                 // Check if token value is a identifier
                 boolean isIdentifier =
                     (tokenValue.length() > 0)
                     && (Character.isAlphabetic(tokenValue.charAt(0)));
                 
-                for (int i=0; i < tokenValue.length(); i++) {
+                for (int i = 0; i < tokenValue.length(); i++) {
                     if (!Character.isLetterOrDigit(tokenValue.charAt(i))) {
                         isIdentifier = false;
                     }
@@ -263,20 +256,11 @@ public final class DiptraceTokenizer {
                 return new DiptraceToken(DiptraceTokenType.STRING, tokenValue);
                 
 //                throw new RuntimeException(
-//                            String.format("Unknown token type. LineNo: %d, %s",
+//                            String.format(
+//                                "Unknown token type. LineNo: %d, %s",
 //                                fLineNo,
 //                                tokenValue));
             }
-            
-/*
-            if (fCurrentLine.charAt(0) == ')') {
-                fCurrentLine.delete(0, 1);
-                return new DiptraceToken(DiptraceTokenType.RIGHT_PARENTHESES);
-            }
-            else
-                throw new RuntimeException(String.format("Unknown token: %s",
-                    fCurrentLine));
-*/
         }
     }
 }
