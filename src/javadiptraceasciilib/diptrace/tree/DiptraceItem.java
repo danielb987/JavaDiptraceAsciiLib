@@ -15,6 +15,11 @@ import java.util.Map;
 public abstract class DiptraceItem {
     
     /**
+     * The parent of this item.
+     */
+    private final DiptraceItem fParent;
+    
+    /**
      * The identifier of this item.
      */
     private final String fIdentifier;
@@ -32,10 +37,20 @@ public abstract class DiptraceItem {
     
     /**
      * Initializes a DiptraceItem object with an identifier.
+     * @param parent the parent of this item
      * @param identifier the identifier
      */
-    public DiptraceItem(final String identifier) {
+    public DiptraceItem(final DiptraceItem parent, final String identifier) {
+        this.fParent = parent;
         this.fIdentifier = identifier;
+    }
+    
+    /**
+     * Returns the parent.
+     * @return the parent
+     */
+    public DiptraceItem getParent() {
+        return fParent;
     }
     
     /**
@@ -154,7 +169,7 @@ public abstract class DiptraceItem {
 */
             case "Schematic":
             default:
-                return new DiptraceGenericItem(token.getValue());
+                return new DiptraceGenericItem(this, token.getValue());
         }
     }
     
