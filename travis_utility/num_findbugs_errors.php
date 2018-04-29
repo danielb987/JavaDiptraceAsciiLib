@@ -8,6 +8,11 @@ $result = preg_match($pattern, $file, $matches);
 
 // Return an error code if num total warnings is not zero
 if ($matches[1] != "0") {
+	
+	echo "\n\n\nFindbugs has found potential errors\n\n";
+
+	readfile("./build/findbugs/findbugs.txt");
+	
 	echo "\n\nFindbugs has ".$matches[1]." warnings\n\n\n";
 	exit(1);
 }

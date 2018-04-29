@@ -25,6 +25,12 @@ ant checkstyle
 java -cp dist/JavaDiptraceAsciiLib.jar util.CheckStyleAnalyzer checkstyle build/checkstyle_errors.xml build/checkstyle_report.html
 
 
+export DIR=$(pwd)
+
+# Check if any findbugs errors
+php --file $DIR/travis_utility/num_findbugs_errors.php -- $DIR/build/findbugs/findbugs.html
+
+
 
 
 # Don't publish anything if the repository is a fork, or if it is a pull request or if the branch is not master
@@ -32,8 +38,6 @@ java -cp dist/JavaDiptraceAsciiLib.jar util.CheckStyleAnalyzer checkstyle build/
 if [ "$TRAVIS_REPO_SLUG" == "danielb987/JavaDiptraceAsciiLib" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; then
 
   echo -e "Publishing javadoc...\n"
-
-  export DIR=$(pwd)
 
   # Create a temp directory
   cd $HOME
@@ -77,9 +81,5 @@ if [ "$TRAVIS_REPO_SLUG" == "danielb987/JavaDiptraceAsciiLib" ] && [ "$TRAVIS_PU
   git add -f .
   git commit -m "Latest javadoc on successful travis build $TRAVIS_BUILD_NUMBER auto-pushed to master"
   git push -fq origin master > /dev/null
-
-  # Check if any findbugs errors
-  php --file $DIR/travis_utility/num_findbugs_errors.php -- findbugs.html
-#  grep --count --extended-regexp pattern findbugs.html
 
 fi

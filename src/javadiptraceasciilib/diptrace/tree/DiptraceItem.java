@@ -46,6 +46,13 @@ public abstract class DiptraceItem {
     }
     
     /**
+     * Duplicate this item and all its children.
+     * @param parent the parent of the new item
+     * @return the copy of this item
+     */
+    public abstract DiptraceItem duplicate(DiptraceItem parent);
+    
+    /**
      * Returns the parent.
      * @return the parent
      */

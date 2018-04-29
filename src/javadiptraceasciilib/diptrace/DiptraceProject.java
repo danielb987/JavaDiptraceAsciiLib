@@ -44,7 +44,7 @@ public final class DiptraceProject {
      * Map of the numbers used as component numbers with flags that tells
      * whenether a number is used in the schematics and/or the pcb.
      */
-    private final Map<Integer, SchematicsPCBFlags> fUsedComponentNumbers
+    private final Map<Integer, SchematicsAndPCBFlags> fUsedComponentNumbers
         = new HashMap<>();
     
     /**
@@ -67,6 +67,16 @@ public final class DiptraceProject {
      */
     public DiptraceRootItem getPCBRoot() {
         return fPCBRoot;
+    }
+    
+    
+    /**
+     * Get the map of the numbers used as component numbers with flags that
+     * tells whenether a number is used in the schematics and/or the pcb.
+     * @return a map of the used component numbers
+     */
+    public Map<Integer, SchematicsAndPCBFlags> getUsedComponentNumbers() {
+        return fUsedComponentNumbers;
     }
     
     
@@ -96,14 +106,14 @@ public final class DiptraceProject {
             int number = numberItem.getParameters().get(0).getIntValue();
             System.out.format("Number: %d%n", number);
             fSchematicsComponentsNumberMap.put(number, parts);
-            SchematicsPCBFlags schematicsPCBFlags
+            SchematicsAndPCBFlags schematicsAndPCBFlags
                 = fUsedComponentNumbers.get(number);
-            if (schematicsPCBFlags != null) {
-                schematicsPCBFlags.fSchematics = true;
+            if (schematicsAndPCBFlags != null) {
+                schematicsAndPCBFlags.fSchematicsFlag = true;
             } else {
-                schematicsPCBFlags = new SchematicsPCBFlags();
-                schematicsPCBFlags.fSchematics = true;
-                fUsedComponentNumbers.put(number, schematicsPCBFlags);
+                schematicsAndPCBFlags = new SchematicsAndPCBFlags();
+                schematicsAndPCBFlags.fSchematicsFlag = true;
+                fUsedComponentNumbers.put(number, schematicsAndPCBFlags);
             }
         }
     }
@@ -124,15 +134,15 @@ public final class DiptraceProject {
                 = (DiptraceGenericItem) component.getSubItem("Number");
             int number = numberItem.getParameters().get(0).getIntValue();
             System.out.format("Number: %d%n", number);
-            fSchematicsComponentsNumberMap.put(number, component);
-            SchematicsPCBFlags schematicsPCBFlags
+            fPCBComponentsNumberMap.put(number, component);
+            SchematicsAndPCBFlags schematicsAndPCBFlags
                 = fUsedComponentNumbers.get(number);
-            if (schematicsPCBFlags != null) {
-                schematicsPCBFlags.fPCB = true;
+            if (schematicsAndPCBFlags != null) {
+                schematicsAndPCBFlags.fPCBFlag = true;
             } else {
-                schematicsPCBFlags = new SchematicsPCBFlags();
-                schematicsPCBFlags.fPCB = true;
-                fUsedComponentNumbers.put(number, schematicsPCBFlags);
+                schematicsAndPCBFlags = new SchematicsAndPCBFlags();
+                schematicsAndPCBFlags.fPCBFlag = true;
+                fUsedComponentNumbers.put(number, schematicsAndPCBFlags);
             }
         }
     }
@@ -141,17 +151,41 @@ public final class DiptraceProject {
     /**
      * Holds flags for schematics and pcb.
      */
-    private class SchematicsPCBFlags {
+    public static final class SchematicsAndPCBFlags {
         
         /**
          * Flag for schematics.
          */
-        private boolean fSchematics;
+        private boolean fSchematicsFlag;
         
         /**
          * Flag for pcb.
          */
-        private boolean fPCB;
+        private boolean fPCBFlag;
+        
+        /**
+         * Initialize a SchematicsAndPCBFlags object.
+         */
+        private SchematicsAndPCBFlags() {
+            // This class is not intended to be created outside the class
+            // DiptraceProject.
+        }
+        
+        /**
+         * Get the schematics flag.
+         * @return the flag
+         */
+        public boolean getSchematicsFlag() {
+            return fSchematicsFlag;
+        }
+        
+        /**
+         * Get the pcb flag.
+         * @return the flag
+         */
+        public boolean getPCBFlag() {
+            return fPCBFlag;
+        }
         
     }
     
