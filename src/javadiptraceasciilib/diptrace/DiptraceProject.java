@@ -5,6 +5,9 @@ import javadiptraceasciilib.diptrace.tokenizer.DiptraceTokenizer;
 // import javadiptraceasciilib.diptrace.tokenizer.DiptraceToken;
 import javadiptraceasciilib.diptrace.tree.DiptraceRootItem;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import javadiptraceasciilib.diptrace.tree.DiptraceGenericItem;
 import javadiptraceasciilib.diptrace.tree.DiptraceItem;
 
 /**
@@ -22,6 +25,27 @@ public final class DiptraceProject {
      * Root of the diptrace pcb item tree.
      */
     private final DiptraceRootItem fPCBRoot = new DiptraceRootItem();
+    
+    /**
+     * Map of the components in the schematics where the key is the component's
+     * number.
+     */
+    private final Map<Integer, DiptraceItem> fSchematicsComponentsNumberMap
+        = new HashMap<>();
+    
+    /**
+     * Map of the components in the pcb where the key is the component's
+     * number.
+     */
+    private final Map<Integer, DiptraceItem> fPCBComponentsNumberMap
+        = new HashMap<>();
+    
+    /**
+     * Map of the numbers used as component numbers with flags that tells
+     * whenether a number is used in the schematics and/or the pcb.
+     */
+    private final Map<Integer, SchematicsPCBFlags> fUsedComponentNumbers
+        = new HashMap<>();
     
     /**
      * Constructs a DiptraceProject.
@@ -64,6 +88,22 @@ public final class DiptraceProject {
         throws IOException {
         
         fSchematicsRoot.parse(tokenizer);
+        
+        DiptraceItem components = getSchematicsComponents();
+        for (DiptraceItem parts : components.getSubItems()) {
+            DiptraceGenericItem numberItem = (DiptraceGenericItem)parts.getSubItem("Number");
+            int number = numberItem.getParameters().get(0).getIntValue();
+            System.out.format("Number: %d%n", number);
+            fSchematicsComponentsNumberMap.put(number, parts);
+            SchematicsPCBFlags schematicsPCBFlags = fUsedComponentNumbers.get(number);
+            if (schematicsPCBFlags != null) {
+                schematicsPCBFlags.fSchematics = true;
+            } else {
+                schematicsPCBFlags = new SchematicsPCBFlags();
+                schematicsPCBFlags.fSchematics = true;
+                fUsedComponentNumbers.put(number, schematicsPCBFlags);
+            }
+        }
     }
     
     /**
@@ -75,6 +115,29 @@ public final class DiptraceProject {
         throws IOException {
         
         fPCBRoot.parse(tokenizer);
+        
+        DiptraceItem components = getSchematicsComponents();
+        for (DiptraceItem component : components.getSubItems()) {
+            DiptraceGenericItem numberItem = (DiptraceGenericItem)component.getSubItem("Number");
+            int number = numberItem.getParameters().get(0).getIntValue();
+            System.out.format("Number: %d%n", number);
+            fSchematicsComponentsNumberMap.put(number, component);
+            SchematicsPCBFlags schematicsPCBFlags = fUsedComponentNumbers.get(number);
+            if (schematicsPCBFlags != null) {
+                schematicsPCBFlags.fPCB = true;
+            } else {
+                schematicsPCBFlags = new SchematicsPCBFlags();
+                schematicsPCBFlags.fPCB = true;
+                fUsedComponentNumbers.put(number, schematicsPCBFlags);
+            }
+        }
+    }
+    
+    
+    private class SchematicsPCBFlags {
+        
+        private boolean fSchematics;
+        private boolean fPCB;
     }
     
 }
