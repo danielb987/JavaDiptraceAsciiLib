@@ -151,7 +151,7 @@ public final class DiptraceProject {
     /**
      * Holds flags for schematics and pcb.
      */
-    public static class SchematicsAndPCBFlags {
+    public final static class SchematicsAndPCBFlags {
         
         /**
          * Flag for schematics.
@@ -163,6 +163,9 @@ public final class DiptraceProject {
          */
         private boolean fPCBFlag;
         
+        /**
+         * Initialize a SchematicsAndPCBFlags object.
+         */
         private SchematicsAndPCBFlags() {
             // This class is not intended to be created outside the class
             // DiptraceProject.
