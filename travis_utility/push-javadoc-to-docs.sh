@@ -24,6 +24,9 @@ ant checkstyle
 # Get a summary of the checkstyle report
 java -cp dist/JavaDiptraceAsciiLib.jar util.CheckStyleAnalyzer checkstyle build/checkstyle_errors.xml build/checkstyle_report.html
 
+
+export DIR=$(pwd)
+
 # Check if any findbugs errors
 php --file $DIR/travis_utility/num_findbugs_errors.php -- findbugs.html
 
@@ -35,8 +38,6 @@ php --file $DIR/travis_utility/num_findbugs_errors.php -- findbugs.html
 if [ "$TRAVIS_REPO_SLUG" == "danielb987/JavaDiptraceAsciiLib" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; then
 
   echo -e "Publishing javadoc...\n"
-
-  export DIR=$(pwd)
 
   # Create a temp directory
   cd $HOME
