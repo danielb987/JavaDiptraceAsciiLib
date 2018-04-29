@@ -44,7 +44,7 @@ public final class DiptraceProject {
      * Map of the numbers used as component numbers with flags that tells
      * whenether a number is used in the schematics and/or the pcb.
      */
-    private final Map<Integer, SchematicsPCBFlags> fUsedComponentNumbers
+    private final Map<Integer, SchematicsAndPCBFlags> fUsedComponentNumbers
         = new HashMap<>();
     
     /**
@@ -96,14 +96,14 @@ public final class DiptraceProject {
             int number = numberItem.getParameters().get(0).getIntValue();
             System.out.format("Number: %d%n", number);
             fSchematicsComponentsNumberMap.put(number, parts);
-            SchematicsPCBFlags schematicsPCBFlags
+            SchematicsAndPCBFlags schematicsAndPCBFlags
                 = fUsedComponentNumbers.get(number);
-            if (schematicsPCBFlags != null) {
-                schematicsPCBFlags.fSchematics = true;
+            if (schematicsAndPCBFlags != null) {
+                schematicsAndPCBFlags.fSchematics = true;
             } else {
-                schematicsPCBFlags = new SchematicsPCBFlags();
-                schematicsPCBFlags.fSchematics = true;
-                fUsedComponentNumbers.put(number, schematicsPCBFlags);
+                schematicsAndPCBFlags = new SchematicsAndPCBFlags();
+                schematicsAndPCBFlags.fSchematics = true;
+                fUsedComponentNumbers.put(number, schematicsAndPCBFlags);
             }
         }
     }
@@ -124,15 +124,15 @@ public final class DiptraceProject {
                 = (DiptraceGenericItem) component.getSubItem("Number");
             int number = numberItem.getParameters().get(0).getIntValue();
             System.out.format("Number: %d%n", number);
-            fSchematicsComponentsNumberMap.put(number, component);
-            SchematicsPCBFlags schematicsPCBFlags
+            fPCBComponentsNumberMap.put(number, component);
+            SchematicsAndPCBFlags schematicsAndPCBFlags
                 = fUsedComponentNumbers.get(number);
-            if (schematicsPCBFlags != null) {
-                schematicsPCBFlags.fPCB = true;
+            if (schematicsAndPCBFlags != null) {
+                schematicsAndPCBFlags.fPCB = true;
             } else {
-                schematicsPCBFlags = new SchematicsPCBFlags();
-                schematicsPCBFlags.fPCB = true;
-                fUsedComponentNumbers.put(number, schematicsPCBFlags);
+                schematicsAndPCBFlags = new SchematicsAndPCBFlags();
+                schematicsAndPCBFlags.fPCB = true;
+                fUsedComponentNumbers.put(number, schematicsAndPCBFlags);
             }
         }
     }
@@ -141,7 +141,7 @@ public final class DiptraceProject {
     /**
      * Holds flags for schematics and pcb.
      */
-    private class SchematicsPCBFlags {
+    private static class SchematicsAndPCBFlags {
         
         /**
          * Flag for schematics.
