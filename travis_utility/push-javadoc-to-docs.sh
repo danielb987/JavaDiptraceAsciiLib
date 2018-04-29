@@ -24,6 +24,9 @@ ant checkstyle
 # Get a summary of the checkstyle report
 java -cp dist/JavaDiptraceAsciiLib.jar util.CheckStyleAnalyzer checkstyle build/checkstyle_errors.xml build/checkstyle_report.html
 
+# Check if any findbugs errors
+php --file $DIR/travis_utility/num_findbugs_errors.php -- findbugs.html
+
 
 
 
@@ -77,9 +80,5 @@ if [ "$TRAVIS_REPO_SLUG" == "danielb987/JavaDiptraceAsciiLib" ] && [ "$TRAVIS_PU
   git add -f .
   git commit -m "Latest javadoc on successful travis build $TRAVIS_BUILD_NUMBER auto-pushed to master"
   git push -fq origin master > /dev/null
-
-  # Check if any findbugs errors
-  php --file $DIR/travis_utility/num_findbugs_errors.php -- findbugs.html
-#  grep --count --extended-regexp pattern findbugs.html
 
 fi
