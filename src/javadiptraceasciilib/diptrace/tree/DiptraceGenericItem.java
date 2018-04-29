@@ -36,7 +36,7 @@ public class DiptraceGenericItem extends DiptraceItem {
      * @return the copy of this item
      */
     @Override
-    public DiptraceItem duplicate(DiptraceItem parent) {
+    public DiptraceItem duplicate(final DiptraceItem parent) {
         DiptraceGenericItem newItem =
             new DiptraceGenericItem(parent, getIdentifier());
         for (DiptraceToken parameter : fParameters) {

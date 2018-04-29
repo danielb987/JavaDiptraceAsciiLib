@@ -30,7 +30,7 @@ public class DiptraceOperations {
      * @param item the item to duplicate
      * @return the new item
      */
-    public DiptraceItem duplicateItem(DiptraceItem item) {
+    public DiptraceItem duplicateItem(final DiptraceItem item) {
         DiptraceItem newItem = item.duplicate(item.getParent());
         
         item.getSubItems().add(newItem);

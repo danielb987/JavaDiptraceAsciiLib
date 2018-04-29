@@ -25,7 +25,7 @@ public final class DiptraceRootItem extends DiptraceItem {
      * @return this method always throws a RuntimeException
      */
     @Override
-    public DiptraceItem duplicate(DiptraceItem parent) {
+    public DiptraceItem duplicate(final DiptraceItem parent) {
         throw new RuntimeException("The root item must not be duplicated.");
     }
     
