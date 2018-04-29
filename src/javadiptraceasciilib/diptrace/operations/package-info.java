@@ -1,4 +1,4 @@
 /**
- * Operations on a DiptraceProject
+ * Operations on a DiptraceProject.
  */
 package javadiptraceasciilib.diptrace.operations;
