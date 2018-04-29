@@ -2,6 +2,7 @@ package javadiptraceasciilib.diptrace.tokenizer;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import javadiptraceasciilib.diptrace.tree.DiptraceRootItem;
 
 /**
  * This class has methods to parse a DipTrace ascii file into tokens.
@@ -51,7 +52,6 @@ public final class DiptraceTokenizer {
             this.fCurrentLine = null;
         }
     }
-    
     
     /**
      * Eat the current token. It checks that the token is of a particular type.
@@ -241,10 +241,31 @@ public final class DiptraceTokenizer {
 //                                DiptraceTokenType.STRING,
 //                                tokenValue);
                 
-                throw new RuntimeException(
-                            String.format("Unknown token type. LineNo: %d, %s",
-                                fLineNo,
-                                tokenValue));
+                // Check if token value is a identifier
+                boolean isIdentifier =
+                    (tokenValue.length() > 0)
+                    && (Character.isAlphabetic(tokenValue.charAt(0)));
+                
+                for (int i=0; i < tokenValue.length(); i++) {
+                    if (!Character.isLetterOrDigit(tokenValue.charAt(i))) {
+                        isIdentifier = false;
+                    }
+                }
+                
+                if (isIdentifier) {
+                    return new DiptraceToken(
+                        DiptraceTokenType.IDENTIFIER,
+                        tokenValue);
+                }
+                
+                // Bug fix. Diptrace PCB ascii files not always put strings
+                // in " and ".
+                return new DiptraceToken(DiptraceTokenType.STRING, tokenValue);
+                
+//                throw new RuntimeException(
+//                            String.format("Unknown token type. LineNo: %d, %s",
+//                                fLineNo,
+//                                tokenValue));
             }
             
 /*
