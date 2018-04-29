@@ -13,6 +13,12 @@ public enum DiptraceTokenType {
     INTEGER,
     FLOAT,
     PERCENT,
+    /**
+     * A string without double quotes. This is a bug in Diptrace and is found
+     * in the Diptrace PCB ascii file.
+     */
+    NON_QUOTED_STRING,
+    
     //CHECKSTYLE.ON: JavadocVariable - Self explaining enums
     
 }

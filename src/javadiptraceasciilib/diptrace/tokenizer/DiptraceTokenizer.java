@@ -253,7 +253,8 @@ public final class DiptraceTokenizer {
                 
                 // Bug fix. Diptrace PCB ascii files not always put strings
                 // in " and ".
-                return new DiptraceToken(DiptraceTokenType.STRING, tokenValue);
+                return new DiptraceToken(
+                    DiptraceTokenType.NON_QUOTED_STRING, tokenValue);
                 
 //                throw new RuntimeException(
 //                            String.format(

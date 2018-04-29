@@ -22,8 +22,8 @@ public class DiptraceGenericItem extends DiptraceItem {
      * Initializes a DiptraceGenericItem with an identifier.
      * @param identifier the identifier
      */
-    public DiptraceGenericItem(final String identifier) {
-        super(identifier);
+    public DiptraceGenericItem(final DiptraceItem parent, final String identifier) {
+        super(parent, identifier);
     }
     
     /**
