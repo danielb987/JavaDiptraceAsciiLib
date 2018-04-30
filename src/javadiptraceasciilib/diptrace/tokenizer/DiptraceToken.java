@@ -148,7 +148,8 @@ public final class DiptraceToken {
      * non quoted string token
      */
     public void setValue(final String value) throws IllegalTokenValue {
-        if ((fType == DiptraceTokenType.STRING)
+        if ((fType == DiptraceTokenType.IDENTIFIER)
+            || (fType == DiptraceTokenType.STRING)
             || (fType == DiptraceTokenType.NON_QUOTED_STRING)) {
             
             fValue = value;

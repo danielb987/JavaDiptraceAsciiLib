@@ -103,21 +103,30 @@ public class DiptraceOperations {
      * the new item to the tree.
      * @param item the item to duplicate
      * @param newNumber the new number for this item
+     * @param newName the new name of this item
      * @return the new item
      * @throws IllegalTokenValue if the token cannot be updated with the
      * desired value
      */
     public DiptraceItem duplicateComponent(
         final DiptraceItem item,
-        final int newNumber)
+        final int newNumber,
+        final String newName)
         throws IllegalTokenValue {
         
-        DiptraceItem newItem = item.duplicate(item.getParent());
+        DiptraceGenericItem newItem = (DiptraceGenericItem) item.duplicate(item.getParent());
+        
+        newItem.getParameters().get(1).setValue(newName);
         
         ((DiptraceGenericItem) newItem.getSubItem("Number"))
             .getParameters()
             .get(0)
             .setIntValue(newNumber);
+        
+        ((DiptraceGenericItem) newItem.getSubItem("HiddenId"))
+            .getParameters()
+            .get(0)
+            .setIntValue(newNumber+10);
         
         item.getParent().getSubItems().add(newItem);
         
