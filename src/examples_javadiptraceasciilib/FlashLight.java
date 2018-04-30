@@ -1,15 +1,17 @@
 package examples_javadiptraceasciilib;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javadiptraceasciilib.diptrace.DiptraceProject;
 
 /**
- * Create a flash light PCB
+ * Create a flash light PCB.
  */
 public final class FlashLight {
     
+    /**
+     * Main class.
+     * @param args command line arguments.
+     */
     public static void main(String args[]) {
         
 		try {
@@ -21,7 +23,8 @@ public final class FlashLight {
             
             
             // Write the diptrace ascii files
-			diptraceProject.writeSchematicsAndPCB("schematics_new.asc", "pcb_new.asc");
+			diptraceProject.writeSchematicsAndPCB(
+                "schematics_new.asc", "pcb_new.asc");
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
