@@ -1,16 +1,17 @@
 package javadiptraceasciilib.diptrace;
 
-// import javadiptraceasciilib.diptrace.tokenizer.DiptraceTokenType;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import javadiptraceasciilib.diptrace.tokenizer.DiptraceTokenizer;
-// import javadiptraceasciilib.diptrace.tokenizer.DiptraceToken;
 import javadiptraceasciilib.diptrace.tree.DiptraceRootItem;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import javadiptraceasciilib.diptrace.tree.DiptraceGenericItem;
@@ -194,14 +195,20 @@ public final class DiptraceProject {
      * @throws IOException if any I/O error occurs
      */
     public void readSchematicsAndPCB(
-                    final String schematicsFilename,
-                    final String pcbFilename)
+        final String schematicsFilename,
+        final String pcbFilename)
         throws FileNotFoundException, IOException {
         
         try (BufferedReader br
-                = new BufferedReader(new FileReader(schematicsFilename));
+                = new BufferedReader(
+                    new InputStreamReader(
+                        new FileInputStream(schematicsFilename),
+                        StandardCharsets.UTF_8));
             BufferedReader br2
-                = new BufferedReader(new FileReader(pcbFilename))) {
+                = new BufferedReader(
+                    new InputStreamReader(
+                        new FileInputStream(pcbFilename),
+                        StandardCharsets.UTF_8))) {
             
             DiptraceTokenizer tokenizer = new DiptraceTokenizer(br);
             parseSchematics(tokenizer);
@@ -240,14 +247,20 @@ public final class DiptraceProject {
      * @throws IOException if any I/O error occurs
      */
     public void writeSchematicsAndPCB(
-                    final String schematicsFilename,
-                    final String pcbFilename)
+        final String schematicsFilename,
+        final String pcbFilename)
         throws IOException {
         
         try (BufferedWriter writer
-                = new BufferedWriter(new FileWriter(schematicsFilename));
+                = new BufferedWriter(
+                    new OutputStreamWriter(
+                        new FileOutputStream(schematicsFilename),
+                        StandardCharsets.UTF_8));
             BufferedWriter writer2
-                = new BufferedWriter(new FileWriter(pcbFilename))) {
+                = new BufferedWriter(
+                    new OutputStreamWriter(
+                        new FileOutputStream(pcbFilename),
+                        StandardCharsets.UTF_8))) {
             
             writeSchematics(writer);
             writePCB(writer2);
