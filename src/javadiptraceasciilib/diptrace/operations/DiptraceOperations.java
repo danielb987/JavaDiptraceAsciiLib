@@ -1,9 +1,12 @@
 
 package javadiptraceasciilib.diptrace.operations;
 
+import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.Map;
 import javadiptraceasciilib.diptrace.DiptraceProject;
+import javadiptraceasciilib.diptrace.exceptions.NotFoundException;
+import javadiptraceasciilib.diptrace.tree.DiptraceGenericItem;
 import javadiptraceasciilib.diptrace.tree.DiptraceItem;
 
 /**
@@ -22,6 +25,36 @@ public class DiptraceOperations {
      */
     public DiptraceOperations(final DiptraceProject project) {
         this.fProject = project;
+    }
+    
+    /**
+     * Get the component part in the schematics by its part name.
+     * @param partName the name of the part
+     * @return the part
+     * @throws NotFoundException if the component part is not found
+     */
+    public DiptraceItem getSchematicsComponentPart(String partName)
+        throws NotFoundException {
+        
+        DiptraceItem components = fProject.getSchematicsComponents();
+        for (DiptraceItem part : components.getSubItems()) {
+            
+            DiptraceGenericItem theItem = (DiptraceGenericItem)part;
+            
+            if (partName.equals(theItem.getParameters().get(1).getValue().equals(partName))) {
+                
+//                DiptraceGenericItem numberItem
+//                    = (DiptraceGenericItem) part.getSubItem("Number");
+//                int number = numberItem.getParameters().get(0).getIntValue();
+//                System.out.format("Number: %d%n", number);
+                return part;
+            }
+        }
+        
+        throw new NotFoundException(
+                    String.format(
+                        "Component part %s is not found in schematics",
+                        partName));
     }
     
     /**
@@ -49,5 +82,6 @@ public class DiptraceOperations {
         
         return newComponents;
     }
+    
     
 }

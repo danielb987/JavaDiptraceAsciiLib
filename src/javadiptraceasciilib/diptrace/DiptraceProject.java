@@ -101,12 +101,12 @@ public final class DiptraceProject {
         fSchematicsRoot.parse(tokenizer);
         
         DiptraceItem components = getSchematicsComponents();
-        for (DiptraceItem parts : components.getSubItems()) {
+        for (DiptraceItem part : components.getSubItems()) {
             DiptraceGenericItem numberItem
-                = (DiptraceGenericItem) parts.getSubItem("Number");
+                = (DiptraceGenericItem) part.getSubItem("Number");
             int number = numberItem.getParameters().get(0).getIntValue();
             System.out.format("Number: %d%n", number);
-            fSchematicsComponentsNumberMap.put(number, parts);
+            fSchematicsComponentsNumberMap.put(number, part);
             SchematicsAndPCBFlags schematicsAndPCBFlags
                 = fUsedComponentNumbers.get(number);
             if (schematicsAndPCBFlags != null) {
