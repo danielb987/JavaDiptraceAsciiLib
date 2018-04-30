@@ -41,14 +41,14 @@ public final class FlashLight {
         final int numCircles = 4;
         
         final double x0 = 0;
-        final double y0 = 0;
-        final double radius = 10;
+        final double y0 = -100;
+        final double radius = 15;
         final int numLEDInFirstCircle = 4;
         final int degrees90 = 90;
         final int degrees360 = 360;
         
         final int moveSchematicsComponentsX = 0;
-        final int moveSchematicsComponentsY = 10;
+        final int moveSchematicsComponentsY = 25;
         
         try {
             // Create a diptrace project
@@ -75,16 +75,23 @@ public final class FlashLight {
             DiptraceItem pcbPartR1
                 = diptraceOperations.getPCBComponentPart("D1");
             
+            
+            int numDiodes = 1;
+            int numResistors = 1;
+            
             for (int circleNo = 1; circleNo <= numCircles; circleNo++) {
-//                for (int angle = 0; angle < 360; angle += 360/(circleNo*4)) {
+                
                 for (int index = 0;
+                    
                     index < numLEDInFirstCircle * circleNo;
                     index++) {
                     
                     double angle
                         = degrees360 / (numLEDInFirstCircle * circleNo) * index;
-                    double x = x0 + radius * Math.cos(Math.toRadians(angle));
-                    double y = y0 + radius * Math.sin(Math.toRadians(angle));
+                    double x = x0
+                        + circleNo * radius * Math.cos(Math.toRadians(angle));
+                    double y = y0
+                        + circleNo * radius * Math.sin(Math.toRadians(angle));
                     double partAngle = angle + degrees90;
                     
                     int newDiodeNumber
@@ -92,34 +99,50 @@ public final class FlashLight {
                     int newResistorNumber
                         = diptraceProject.getNewComponentNumber();
                     
+                    String newDiodeName = String.format("D%d", ++numDiodes);
+                    String newResistorName
+                        = String.format("R%d", ++numResistors);
+                    
                     DiptraceItem newSchematicsPartDiode
                         = diptraceOperations.duplicateComponent(
-                            schematicsPartD1, newDiodeNumber);
+                            schematicsPartD1,
+                            newDiodeNumber,
+                            newDiodeName);
+                    
                     DiptraceItem newPCBPartDiode
                         = diptraceOperations.duplicateComponent(
-                            pcbPartD1, newDiodeNumber);
+                            pcbPartD1,
+                            newDiodeNumber,
+                            newDiodeName);
+                    
                     DiptraceItem newSchematicsPartResistor
                         = diptraceOperations.duplicateComponent(
-                            schematicsPartR1, newResistorNumber);
+                            schematicsPartR1,
+                            newResistorNumber,
+                            newResistorName);
+                    
                     DiptraceItem newPCBPartResistor
                         = diptraceOperations.duplicateComponent(
-                            pcbPartR1, newResistorNumber);
+                            pcbPartR1,
+                            newResistorNumber,
+                            newResistorName);
                     
                     diptraceOperations.moveItemRelative(
                         newSchematicsPartDiode,
-                        moveSchematicsComponentsX,
-                        moveSchematicsComponentsY);
+                        moveSchematicsComponentsX * numDiodes,
+                        moveSchematicsComponentsY * numDiodes);
                     
                     diptraceOperations.moveItemAbsolute(
                         newPCBPartDiode, x, y);
                     
                     diptraceOperations.moveItemRelative(
                         newSchematicsPartResistor,
-                        moveSchematicsComponentsX,
-                        moveSchematicsComponentsY);
+                        moveSchematicsComponentsX * numResistors,
+                        moveSchematicsComponentsY * numResistors);
                     
                     diptraceOperations.moveItemAbsolute(
                         newPCBPartResistor, x, y);
+                    
                 }
             }
             

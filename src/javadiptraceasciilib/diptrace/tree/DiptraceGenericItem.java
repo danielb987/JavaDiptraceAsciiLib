@@ -40,6 +40,9 @@ public class DiptraceGenericItem extends DiptraceItem {
     public DiptraceItem duplicate(final DiptraceItem parent) {
         DiptraceGenericItem newItem =
             new DiptraceGenericItem(parent, getIdentifier());
+        
+        newItem.setMayHaveSubItems(this.getMayHaveSubItems());
+        
         for (DiptraceToken parameter : fParameters) {
             newItem.fParameters.add(new DiptraceToken(parameter));
         }
