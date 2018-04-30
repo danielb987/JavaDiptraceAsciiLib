@@ -79,6 +79,14 @@ public class DiptraceGenericItem extends DiptraceItem {
             && (token.getType() == DiptraceTokenType.LEFT_PARENTHESES)) {
             
             parseSubItems(tokenizer);
+        } else {
+            
+            if (tokenizer.previewNextToken().getType()
+                == DiptraceTokenType.RIGHT_PARENTHESES) {
+                
+                setMayHaveSubItems(
+                    tokenizer.previewNextToken().getPrecededWithNewline());
+            }
         }
     }
     //CHECKSTYLE.ON: InnerAssignment - Allow assignment in while loop
@@ -96,11 +104,19 @@ public class DiptraceGenericItem extends DiptraceItem {
         writer.append(indent).append("(").append(getIdentifier());
         
         for (DiptraceToken parameter : fParameters) {
-            writer.append(" ").append(parameter.getValue());
+            if (parameter.getType() == DiptraceTokenType.STRING) {
+                writer.append(" \"").append(parameter.getValue()).append("\"");
+            } else {
+                writer.append(" ").append(parameter.getValue());
+            }
         }
         
         if (writeSubItems(writer, indent, IsTopLevel.SUB_LEVEL)) {
             writer.append(indent);
+        } else {
+            if (getMayHaveSubItems()) {
+                writer.append(System.lineSeparator()).append(indent);
+            }
         }
         
         writer.append(")");

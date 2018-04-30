@@ -47,6 +47,11 @@ public abstract class DiptraceItem {
     private final List<DiptraceItem> fSubItems = new ArrayList<>();
     
     /**
+     * May this item have sub items?
+     */
+    private boolean fMayHaveSubItems;
+    
+    /**
      * A map with the sub items there the sub item identifier is the key
      * to the map.
      */
@@ -93,7 +98,6 @@ public abstract class DiptraceItem {
         return fSubItems;
     }
     
-    
     /**
      * Get a sub item by the item's identifier.
      * @param identifier the items identifier
@@ -101,6 +105,22 @@ public abstract class DiptraceItem {
      */
     public DiptraceItem getSubItem(final String identifier) {
         return fSubItemsMap.get(identifier);
+    }
+    
+    /**
+     * May this item have sub items?
+     * @return true if this item may have sub items
+     */
+    public boolean getMayHaveSubItems() {
+        return fMayHaveSubItems;
+    }
+    
+    /**
+     * May this item have sub items?
+     * @param mayHaveSubItems true if this item may have sub items
+     */
+    public void setMayHaveSubItems(final boolean mayHaveSubItems) {
+        fMayHaveSubItems = mayHaveSubItems;
     }
     
     /**
@@ -117,7 +137,7 @@ public abstract class DiptraceItem {
      * @throws IOException on any I/O error
      */
     //CHECKSTYLE.OFF: InnerAssignment - Allow assignment in while loop
-    public void parseSubItems(final DiptraceTokenizer tokenizer)
+    protected void parseSubItems(final DiptraceTokenizer tokenizer)
         throws IOException {
         
         DiptraceToken token;
@@ -170,7 +190,7 @@ public abstract class DiptraceItem {
      * @return true if item has sub items
      * @throws IOException when IO error occurs
      */
-    public boolean writeSubItems(
+    protected boolean writeSubItems(
         final Writer writer,
         final String indent,
         final IsTopLevel addNewLineFlag)
@@ -186,8 +206,12 @@ public abstract class DiptraceItem {
                 newIndent = indent;
             }
             
-            for (DiptraceItem subItem : fSubItems) {
-                subItem.write(writer, newIndent);
+            if (!fSubItems.isEmpty()) {
+                for (DiptraceItem subItem : fSubItems) {
+                    subItem.write(writer, newIndent);
+                }
+            } else {
+                writer.append(System.lineSeparator());
             }
             
             return true;
