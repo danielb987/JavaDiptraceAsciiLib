@@ -114,6 +114,7 @@ public final class DiptraceTokenizer {
      * @return the next token
      * @throws IOException on any I/O error
      */
+    //CHECKSTYLE.OFF: MethodLength - Difficult to split method
     private DiptraceToken fetchNextToken() throws IOException {
         
         boolean firstTokenOnLine = false;
@@ -275,4 +276,6 @@ public final class DiptraceTokenizer {
             }
         }
     }
+    //CHECKSTYLE.ON: MethodLength - Difficult to split method
+    
 }
