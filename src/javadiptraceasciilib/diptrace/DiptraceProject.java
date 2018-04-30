@@ -176,7 +176,7 @@ public final class DiptraceProject {
             tokenizer = new DiptraceTokenizer(br2);
             parsePCB(tokenizer);
         }
-	}
+    }
     
     /**
      * Write a schematics file.
