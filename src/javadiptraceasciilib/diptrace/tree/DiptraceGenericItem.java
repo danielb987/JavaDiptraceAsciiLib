@@ -78,6 +78,7 @@ public class DiptraceGenericItem extends DiptraceItem {
         if ((token != null)
             && (token.getType() == DiptraceTokenType.LEFT_PARENTHESES)) {
             
+            setMayHaveSubItems(true);
             parseSubItems(tokenizer);
         } else {
             
