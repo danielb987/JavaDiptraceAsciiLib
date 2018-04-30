@@ -4,7 +4,7 @@ import javadiptraceasciilib.diptrace.tokenizer.DiptraceToken;
 import javadiptraceasciilib.diptrace.tokenizer.DiptraceTokenType;
 import javadiptraceasciilib.diptrace.tokenizer.DiptraceTokenizer;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,7 +90,7 @@ public class DiptraceGenericItem extends DiptraceItem {
      * @throws IOException when IO error occurs
      */
     @Override
-    public void write(final PrintWriter writer, final String indent)
+    public void write(final Writer writer, final String indent)
         throws IOException {
         
         writer.append(indent).append("(").append(getIdentifier());
@@ -99,10 +99,12 @@ public class DiptraceGenericItem extends DiptraceItem {
             writer.append(" ").append(parameter.getValue());
         }
         
-        writeSubItems(writer, indent);
+        if (writeSubItems(writer, indent, IsTopLevel.SUB_LEVEL)) {
+            writer.append(indent);
+        }
         
         writer.append(")");
-        writer.println();
+        writer.append(System.lineSeparator());
     }
     
     

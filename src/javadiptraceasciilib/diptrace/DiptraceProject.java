@@ -5,7 +5,7 @@ import javadiptraceasciilib.diptrace.tokenizer.DiptraceTokenizer;
 // import javadiptraceasciilib.diptrace.tokenizer.DiptraceToken;
 import javadiptraceasciilib.diptrace.tree.DiptraceRootItem;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 import javadiptraceasciilib.diptrace.tree.DiptraceGenericItem;
@@ -153,7 +153,7 @@ public final class DiptraceProject {
      * @param writer the writer that writes to the Diptrace ascii file
      * @throws IOException when IO error occurs
      */
-    public void writeSchematics(final PrintWriter writer)
+    public void writeSchematics(final Writer writer)
         throws IOException {
         
         fSchematicsRoot.write(writer, "");
@@ -164,7 +164,7 @@ public final class DiptraceProject {
      * @param writer the writer that writes to the Diptrace ascii file
      * @throws IOException when IO error occurs
      */
-    public void writePCB(final PrintWriter writer)
+    public void writePCB(final Writer writer)
         throws IOException {
         
         fPCBRoot.write(writer, "");
