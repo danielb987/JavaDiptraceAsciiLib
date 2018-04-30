@@ -147,7 +147,7 @@ public final class DiptraceToken {
      * @throws IllegalTokenValue if the token is not a string or
      * non quoted string token
      */
-    public void setValue(String value) throws IllegalTokenValue {
+    public void setValue(final String value) throws IllegalTokenValue {
         if ((fType == DiptraceTokenType.STRING)
             || (fType == DiptraceTokenType.NON_QUOTED_STRING)) {
             
@@ -173,7 +173,7 @@ public final class DiptraceToken {
      * @param value the new value
      * @throws IllegalTokenValue if the token is not an integer token
      */
-    public void setIntValue(int value) throws IllegalTokenValue {
+    public void setIntValue(final int value) throws IllegalTokenValue {
         if ((fType == DiptraceTokenType.INTEGER)
             || (fType == DiptraceTokenType.NON_QUOTED_STRING)) {
             
@@ -200,7 +200,7 @@ public final class DiptraceToken {
      * @param value the new value
      * @throws IllegalTokenValue if the token is not a double token
      */
-    public void setDoubleValue(double  value) throws IllegalTokenValue {
+    public void setDoubleValue(final double  value) throws IllegalTokenValue {
         if ((fType == DiptraceTokenType.STRING)
             || (fType == DiptraceTokenType.NON_QUOTED_STRING)) {
             

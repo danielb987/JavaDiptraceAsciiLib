@@ -104,7 +104,8 @@ public class DiptraceOperations {
      * @param item the item to duplicate
      * @param newNumber the new number for this item
      * @return the new item
-     * @throws IllegalTokenValue
+     * @throws IllegalTokenValue if the token cannot be updated with the
+     * desired value
      */
     public DiptraceItem duplicateComponent(
         final DiptraceItem item,
@@ -128,7 +129,8 @@ public class DiptraceOperations {
      * @param item the item to move
      * @param x where to move the item along the x axis
      * @param y where to move the item along the y axis
-     * @throws IllegalTokenValue
+     * @throws IllegalTokenValue if the token cannot be updated with the
+     * desired value
      */
     public void moveItemAbsolute(
         final DiptraceItem item,
@@ -152,7 +154,8 @@ public class DiptraceOperations {
      * @param item the item to move
      * @param x how long distance to move the item along the x axis
      * @param y how long distance to move the item along the y axis
-     * @throws IllegalTokenValue
+     * @throws IllegalTokenValue if the token cannot be updated with the
+     * desired value
      */
     public void moveItemRelative(
         final DiptraceItem item,
