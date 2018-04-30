@@ -28,14 +28,16 @@ public class DiptraceOperations {
     
     /**
      * Get the component part in the schematics by its part name.
+     * @param components the DiptraceItem with the components
      * @param partName the name of the part
      * @return the part
      * @throws NotFoundException if the component part is not found
      */
-    public DiptraceItem getSchematicsComponentPart(final String partName)
+    private DiptraceItem getComponentPart(
+        final DiptraceItem components,
+        final String partName)
         throws NotFoundException {
         
-        DiptraceItem components = fProject.getSchematicsComponents();
         for (DiptraceItem part : components.getSubItems()) {
             
             DiptraceGenericItem theItem = (DiptraceGenericItem) part;
@@ -54,6 +56,30 @@ public class DiptraceOperations {
                     String.format(
                         "Component part %s is not found in schematics",
                         partName));
+    }
+    
+    /**
+     * Get the component part in the schematics by its part name.
+     * @param partName the name of the part
+     * @return the part
+     * @throws NotFoundException if the component part is not found
+     */
+    public DiptraceItem getSchematicsComponentPart(final String partName)
+        throws NotFoundException {
+        
+        return getComponentPart(fProject.getSchematicsComponents(), partName);
+    }
+    
+    /**
+     * Get the component part in the schematics by its part name.
+     * @param partName the name of the part
+     * @return the part
+     * @throws NotFoundException if the component part is not found
+     */
+    public DiptraceItem getPCBComponentPart(final String partName)
+        throws NotFoundException {
+        
+        return getComponentPart(fProject.getPCBComponents(), partName);
     }
     
     /**

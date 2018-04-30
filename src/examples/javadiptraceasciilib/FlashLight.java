@@ -30,9 +30,15 @@ public final class FlashLight {
             // on the Diptrace project.
     		DiptraceOperations diptraceOperations
                 = new DiptraceOperations(diptraceProject);
-			DiptraceItem part
-                = diptraceOperations.getSchematicsComponentPart("aaa");
-			diptraceOperations.duplicateItem(part);
+			DiptraceItem schematicsPartD1
+                = diptraceOperations.getSchematicsComponentPart("D1");
+			DiptraceItem pcbPartD1
+                = diptraceOperations.getPCBComponentPart("D1");
+			DiptraceItem schematicsPartR1
+                = diptraceOperations.getSchematicsComponentPart("R1");
+			DiptraceItem pcbPartR1
+                = diptraceOperations.getPCBComponentPart("D1");
+			diptraceOperations.duplicateItem(schematicsPartD1);
             
             // Write the diptrace ascii files
             diptraceProject.writeSchematicsAndPCB(

@@ -85,7 +85,6 @@ public final class DiptraceProject {
         return fUsedComponentNumbers;
     }
     
-    
     /**
      * Get the components of the schematics.
      * @return the DiptraceItem that has all the components as DiptraceItem
@@ -93,6 +92,15 @@ public final class DiptraceProject {
      */
     public DiptraceItem getSchematicsComponents() {
         return fSchematicsRoot.getSubItem("Schematic").getSubItem("Components");
+    }
+    
+    /**
+     * Get the components of the pcb.
+     * @return the DiptraceItem that has all the components as DiptraceItem
+     * children
+     */
+    public DiptraceItem getPCBComponents() {
+        return fPCBRoot.getSubItem("Board").getSubItem("Components");
     }
     
     /**
