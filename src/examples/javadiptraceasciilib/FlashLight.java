@@ -2,6 +2,7 @@ package examples.javadiptraceasciilib;
 
 import java.io.IOException;
 import javadiptraceasciilib.diptrace.DiptraceProject;
+import javadiptraceasciilib.diptrace.exceptions.NotFoundException;
 import javadiptraceasciilib.diptrace.operations.DiptraceOperations;
 import javadiptraceasciilib.diptrace.tree.DiptraceItem;
 
@@ -36,7 +37,8 @@ public final class FlashLight {
             // Write the diptrace ascii files
             diptraceProject.writeSchematicsAndPCB(
                 "flashlight_schematics_new.asc", "flashlight_pcb_new.asc");
-        } catch (IOException ex) {
+            
+        } catch (NotFoundException | IOException ex) {
             ex.printStackTrace();
         }
     }
