@@ -1,6 +1,11 @@
 package javadiptraceasciilib.diptrace;
 
 // import javadiptraceasciilib.diptrace.tokenizer.DiptraceTokenType;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import javadiptraceasciilib.diptrace.tokenizer.DiptraceTokenizer;
 // import javadiptraceasciilib.diptrace.tokenizer.DiptraceToken;
 import javadiptraceasciilib.diptrace.tree.DiptraceRootItem;
@@ -8,6 +13,8 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javadiptraceasciilib.diptrace.tree.DiptraceGenericItem;
 import javadiptraceasciilib.diptrace.tree.DiptraceItem;
 
@@ -149,6 +156,31 @@ public final class DiptraceProject {
     }
     
     /**
+     * Read schematics and pcb to files.
+     * @param schematicsFilename the schematics file name
+     * @param pcbFilename the pcb file name
+     * @throws FileNotFoundException if the file is not found
+     * @throws IOException if any I/O error occurs
+     */
+    public void readSchematicsAndPCB(final String schematicsFilename, final String pcbFilename) throws FileNotFoundException, IOException {
+        
+        try (BufferedReader br = new BufferedReader(new FileReader(schematicsFilename)); BufferedReader br2 = new BufferedReader(new FileReader(pcbFilename))) {
+            
+            DiptraceTokenizer tokenizer = new DiptraceTokenizer(br);
+            parseSchematics(tokenizer);
+            
+            tokenizer = new DiptraceTokenizer(br2);
+            parsePCB(tokenizer);
+        }
+        
+//        } catch (FileNotFoundException ex) {
+//            Logger.getLogger(JFrame_MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (IOException ex) {
+//            Logger.getLogger(JFrame_MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+	}
+    
+    /**
      * Write a schematics file.
      * @param writer the writer that writes to the Diptrace ascii file
      * @throws IOException when IO error occurs
@@ -170,6 +202,28 @@ public final class DiptraceProject {
         fPCBRoot.write(writer, "");
     }
     
+    /**
+     * Write schematics and pcb to files.
+     * @param schematicsFilename the schematics file name
+     * @param pcbFilename the pcb file name
+     * @throws IOException if any I/O error occurs
+     */
+    public void writeSchematicsAndPCB(final String schematicsFilename, final String pcbFilename) throws IOException {
+        
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(schematicsFilename)); BufferedWriter writer2 = new BufferedWriter(new FileWriter(pcbFilename))) {
+            
+            writeSchematics(writer);
+            writePCB(writer2);
+            
+        }
+        
+//        } catch (FileNotFoundException ex) {
+//            Logger.getLogger(JFrame_MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (IOException ex) {
+//            Logger.getLogger(JFrame_MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+	}
+
     
     /**
      * Holds flags for schematics and pcb.
