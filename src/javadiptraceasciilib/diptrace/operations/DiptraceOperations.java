@@ -4,7 +4,9 @@ package javadiptraceasciilib.diptrace.operations;
 import java.util.HashMap;
 import java.util.Map;
 import javadiptraceasciilib.diptrace.DiptraceProject;
+import javadiptraceasciilib.diptrace.exceptions.IllegalTokenValue;
 import javadiptraceasciilib.diptrace.exceptions.NotFoundException;
+import javadiptraceasciilib.diptrace.tokenizer.DiptraceToken;
 import javadiptraceasciilib.diptrace.tree.DiptraceGenericItem;
 import javadiptraceasciilib.diptrace.tree.DiptraceItem;
 
@@ -94,6 +96,77 @@ public class DiptraceOperations {
         item.getSubItems().add(newItem);
         
         return newItem;
+    }
+    
+    /**
+     * Duplicate an item with all its children, gives it a new number and adds
+     * the new item to the tree.
+     * @param item the item to duplicate
+     * @param newNumber the new number for this item
+     * @return the new item
+     * @throws IllegalTokenValue
+     */
+    public DiptraceItem duplicateComponent(
+        final DiptraceItem item,
+        int newNumber)
+        throws IllegalTokenValue {
+        
+        DiptraceItem newItem = item.duplicate(item.getParent());
+        
+        ((DiptraceGenericItem) newItem.getSubItem("Number"))
+            .getParameters()
+            .get(0)
+            .setIntValue(newNumber);
+        
+        item.getSubItems().add(newItem);
+        
+        return newItem;
+    }
+    
+    /**
+     * Move an item to an absolute position.
+     * @param item the item to move
+     * @param x where to move the item along the x axis
+     * @param y where to move the item along the y axis
+     * @throws IllegalTokenValue 
+     */
+    public void moveItemAbsolute(final DiptraceItem item, double x, double y)
+        throws IllegalTokenValue {
+        
+        ((DiptraceGenericItem) item.getSubItem("X"))
+            .getParameters()
+            .get(0)
+            .setDoubleValue(x);
+        
+        ((DiptraceGenericItem) item.getSubItem("Y"))
+            .getParameters()
+            .get(0)
+            .setDoubleValue(y);
+    }
+    
+    /**
+     * Move an item a distance.
+     * @param item the item to move
+     * @param x how long distance to move the item along the x axis
+     * @param y how long distance to move the item along the y axis
+     * @throws IllegalTokenValue 
+     */
+    public void moveItemRelative(final DiptraceItem item, double x, double y)
+        throws IllegalTokenValue {
+        
+        DiptraceToken tokenPosX
+            = ((DiptraceGenericItem) item.getSubItem("X"))
+                .getParameters()
+                .get(0);
+        
+        tokenPosX.setDoubleValue(tokenPosX.getDoubleValue() + x);
+        
+        DiptraceToken tokenPosY
+            = ((DiptraceGenericItem) item.getSubItem("Y"))
+                .getParameters()
+                .get(0);
+        
+        tokenPosY.setDoubleValue(tokenPosY.getDoubleValue() + y);
     }
     
     /**

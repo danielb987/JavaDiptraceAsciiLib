@@ -54,6 +54,11 @@ public final class DiptraceProject {
         = new HashMap<>();
     
     /**
+     * The last used number of any component on either schematics or pcb.
+     */
+    private int fLastComponentNumber = 0;
+    
+    /**
      * Constructs a DiptraceProject.
      */
     public DiptraceProject() {
@@ -83,6 +88,23 @@ public final class DiptraceProject {
      */
     public Map<Integer, SchematicsAndPCBFlags> getUsedComponentNumbers() {
         return fUsedComponentNumbers;
+    }
+    
+    /**
+     * Update the last component number.
+     */
+    private void updateLastComponentNumber(final int number) {
+        if (fLastComponentNumber < number) {
+            fLastComponentNumber = number;
+        }
+    }
+    
+    /**
+     * Returns a unused component number.
+     * @return a new component number
+     */
+    public int getNewComponentNumber() {
+        return ++fLastComponentNumber;
     }
     
     /**
@@ -119,6 +141,7 @@ public final class DiptraceProject {
                 = (DiptraceGenericItem) part.getSubItem("Number");
             int number = numberItem.getParameters().get(0).getIntValue();
             System.out.format("Number: %d%n", number);
+            updateLastComponentNumber(number);
             fSchematicsComponentsNumberMap.put(number, part);
             SchematicsAndPCBFlags schematicsAndPCBFlags
                 = fUsedComponentNumbers.get(number);
@@ -148,6 +171,7 @@ public final class DiptraceProject {
                 = (DiptraceGenericItem) component.getSubItem("Number");
             int number = numberItem.getParameters().get(0).getIntValue();
             System.out.format("Number: %d%n", number);
+            updateLastComponentNumber(number);
             fPCBComponentsNumberMap.put(number, component);
             SchematicsAndPCBFlags schematicsAndPCBFlags
                 = fUsedComponentNumbers.get(number);
