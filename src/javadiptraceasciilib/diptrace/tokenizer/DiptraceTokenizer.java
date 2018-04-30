@@ -272,12 +272,6 @@ public final class DiptraceTokenizer {
                     DiptraceTokenType.NON_QUOTED_STRING,
                     tokenValue,
                     firstTokenOnLine);
-                
-//                throw new RuntimeException(
-//                            String.format(
-//                                "Unknown token type. LineNo: %d, %s",
-//                                fLineNo,
-//                                tokenValue));
             }
         }
     }

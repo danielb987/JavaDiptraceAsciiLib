@@ -26,7 +26,7 @@ public final class DiptraceToken {
     private final double fFloatValue;
     
     /**
-     * True if this token was preceded by a new line
+     * True if this token was preceded by a new line.
      */
     private final boolean fPrecededWithNewline;
     
