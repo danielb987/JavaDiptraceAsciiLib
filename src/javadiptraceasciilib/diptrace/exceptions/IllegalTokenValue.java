@@ -7,17 +7,19 @@ package javadiptraceasciilib.diptrace.exceptions;
 public class IllegalTokenValue extends Exception {
 
     /**
-     * Creates a new instance of <code>IllegalTokenValue</code> without detail message.
+     * Creates a new instance of <code>IllegalTokenValue</code> without detail
+     * message.
      */
     public IllegalTokenValue() {
     }
 
 
     /**
-     * Constructs an instance of <code>IllegalTokenValue</code> with the specified detail message.
+     * Constructs an instance of <code>IllegalTokenValue</code> with the
+     * specified detail message.
      * @param msg the detail message.
      */
-    public IllegalTokenValue(String msg) {
+    public IllegalTokenValue(final String msg) {
         super(msg);
     }
 }

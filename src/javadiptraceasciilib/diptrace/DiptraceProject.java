@@ -92,6 +92,7 @@ public final class DiptraceProject {
     
     /**
      * Update the last component number.
+     * @param number a component number
      */
     private void updateLastComponentNumber(final int number) {
         if (fLastComponentNumber < number) {
@@ -252,8 +253,8 @@ public final class DiptraceProject {
             writePCB(writer2);
             
         }
-	}
-
+    }
+    
     
     /**
      * Holds flags for schematics and pcb.

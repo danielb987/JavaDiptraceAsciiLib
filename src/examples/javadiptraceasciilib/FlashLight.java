@@ -18,6 +18,8 @@ public final class FlashLight {
      */
     public static void main(final String[] args) {
         
+        final int numCircles = 4;
+        
         final double x0 = 0;
         final double y0 = 0;
         final double radius = 10;
@@ -53,10 +55,14 @@ public final class FlashLight {
             DiptraceItem pcbPartR1
                 = diptraceOperations.getPCBComponentPart("D1");
             
-            for (int circleNo = 1; circleNo <= 4; circleNo++) {
+            for (int circleNo = 1; circleNo <= numCircles; circleNo++) {
 //                for (int angle = 0; angle < 360; angle += 360/(circleNo*4)) {
-                for (int index=0; index < numLEDInFirstCircle * circleNo; index++) {
-                    double angle = degrees360 / (numLEDInFirstCircle * circleNo) * index;
+                for (int index = 0;
+                    index < numLEDInFirstCircle * circleNo;
+                    index++) {
+                    
+                    double angle
+                        = degrees360 / (numLEDInFirstCircle * circleNo) * index;
                     double x = x0 + radius * Math.cos(Math.toRadians(angle));
                     double y = y0 + radius * Math.sin(Math.toRadians(angle));
                     double partAngle = angle + degrees90;
