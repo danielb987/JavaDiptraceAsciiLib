@@ -172,12 +172,6 @@ public final class DiptraceProject {
             tokenizer = new DiptraceTokenizer(br2);
             parsePCB(tokenizer);
         }
-        
-//        } catch (FileNotFoundException ex) {
-//            Logger.getLogger(JFrame_MainWindow.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (IOException ex) {
-//            Logger.getLogger(JFrame_MainWindow.class.getName()).log(Level.SEVERE, null, ex);
-//        }
 	}
     
     /**
@@ -208,20 +202,20 @@ public final class DiptraceProject {
      * @param pcbFilename the pcb file name
      * @throws IOException if any I/O error occurs
      */
-    public void writeSchematicsAndPCB(final String schematicsFilename, final String pcbFilename) throws IOException {
+    public void writeSchematicsAndPCB(
+                    final String schematicsFilename,
+                    final String pcbFilename)
+        throws IOException {
         
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(schematicsFilename)); BufferedWriter writer2 = new BufferedWriter(new FileWriter(pcbFilename))) {
+        try (BufferedWriter writer
+                = new BufferedWriter(new FileWriter(schematicsFilename));
+            BufferedWriter writer2
+                = new BufferedWriter(new FileWriter(pcbFilename))) {
             
             writeSchematics(writer);
             writePCB(writer2);
             
         }
-        
-//        } catch (FileNotFoundException ex) {
-//            Logger.getLogger(JFrame_MainWindow.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (IOException ex) {
-//            Logger.getLogger(JFrame_MainWindow.class.getName()).log(Level.SEVERE, null, ex);
-//        }
 	}
 
     

@@ -1,4 +1,4 @@
-package examples_javadiptraceasciilib;
+package examples.javadiptraceasciilib;
 
 import java.io.IOException;
 import javadiptraceasciilib.diptrace.DiptraceProject;
@@ -12,22 +12,29 @@ public final class FlashLight {
      * Main class.
      * @param args command line arguments.
      */
-    public static void main(String args[]) {
+    public static void main(final String[] args) {
         
-		try {
+        try {
             // Create a diptrace project
             DiptraceProject diptraceProject = new DiptraceProject();
             
             // Read the diptrace ascii files
-			diptraceProject.readSchematicsAndPCB("schematics.asc", "pcb.asc");
+            diptraceProject.readSchematicsAndPCB("schematics.asc", "pcb.asc");
             
             
             // Write the diptrace ascii files
-			diptraceProject.writeSchematicsAndPCB(
+            diptraceProject.writeSchematicsAndPCB(
                 "schematics_new.asc", "pcb_new.asc");
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    
+    /**
+     * This class should never be instanciated.
+     */
+    private FlashLight() {
     }
     
 }
