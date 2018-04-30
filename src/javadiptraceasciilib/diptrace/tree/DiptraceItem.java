@@ -104,7 +104,18 @@ public abstract class DiptraceItem {
      * @return a Diptrace item
      */
     public DiptraceItem getSubItem(final String identifier) {
+        
         return fSubItemsMap.get(identifier);
+    }
+    
+    /**
+     * Adds a sub item to this item.
+     * @param item the item to add
+     */
+    public void addSubItem(final DiptraceItem item) {
+        
+        fSubItems.add(item);
+        fSubItemsMap.put(item.fIdentifier, item);
     }
     
     /**
@@ -278,6 +289,17 @@ public abstract class DiptraceItem {
         }
     }
     
+    /**
+     * Get the total number of children including myself.
+     * @return the number of children
+     */
+    public final int numChildren() {
+        int count = 1;
+        for (DiptraceItem subItem : fSubItems) {
+            count += subItem.numChildren();
+        }
+        return count;
+    }
     
     /**
      * Returns a string representation of this object.

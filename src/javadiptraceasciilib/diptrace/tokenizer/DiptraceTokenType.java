@@ -11,7 +11,7 @@ public enum DiptraceTokenType {
     IDENTIFIER,
     STRING,
     INTEGER,
-    FLOAT,
+    DOUBLE,
     PERCENT,
     /**
      * A string without double quotes. This is a bug in Diptrace and is found
