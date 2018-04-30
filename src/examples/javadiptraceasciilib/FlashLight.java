@@ -88,8 +88,10 @@ public final class FlashLight {
                     
                     double angle
                         = degrees360 / (numLEDInFirstCircle * circleNo) * index;
-                    double x = x0 + circleNo * radius * Math.cos(Math.toRadians(angle));
-                    double y = y0 + circleNo * radius * Math.sin(Math.toRadians(angle));
+                    double x = x0
+                        + circleNo * radius * Math.cos(Math.toRadians(angle));
+                    double y = y0
+                        + circleNo * radius * Math.sin(Math.toRadians(angle));
                     double partAngle = angle + degrees90;
                     
                     int newDiodeNumber
@@ -98,7 +100,8 @@ public final class FlashLight {
                         = diptraceProject.getNewComponentNumber();
                     
                     String newDiodeName = String.format("D%d", ++numDiodes);
-                    String newResistorName = String.format("R%d", ++numResistors);
+                    String newResistorName
+                        = String.format("R%d", ++numResistors);
                     
                     DiptraceItem newSchematicsPartDiode
                         = diptraceOperations.duplicateComponent(

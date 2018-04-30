@@ -114,7 +114,8 @@ public class DiptraceOperations {
         final String newName)
         throws IllegalTokenValue {
         
-        DiptraceGenericItem newItem = (DiptraceGenericItem) item.duplicate(item.getParent());
+        DiptraceGenericItem newItem
+            = (DiptraceGenericItem) item.duplicate(item.getParent());
         
         newItem.getParameters().get(1).setValue(newName);
         
@@ -126,7 +127,7 @@ public class DiptraceOperations {
         ((DiptraceGenericItem) newItem.getSubItem("HiddenId"))
             .getParameters()
             .get(0)
-            .setIntValue(newNumber+10);
+            .setIntValue(newNumber);
         
         item.getParent().getSubItems().add(newItem);
         
