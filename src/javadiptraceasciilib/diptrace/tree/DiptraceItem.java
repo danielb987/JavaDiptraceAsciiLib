@@ -142,7 +142,7 @@ public abstract class DiptraceItem {
      * @param indent a string of spaces to indent the tree in the ascii file
      * @throws IOException when IO error occurs
      */
-    public abstract void write(final PrintWriter writer, final String indent)
+    public abstract void write(PrintWriter writer, String indent)
         throws IOException;
     
     /**
@@ -152,8 +152,8 @@ public abstract class DiptraceItem {
      * @throws IOException when IO error occurs
      */
     public void writeSubItems(final PrintWriter writer, final String indent)
-        throws IOException
-    {
+        throws IOException {
+        
         if (!fSubItems.isEmpty()) {
             writer.println();
             

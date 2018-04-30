@@ -91,8 +91,8 @@ public class DiptraceGenericItem extends DiptraceItem {
      */
     @Override
     public void write(final PrintWriter writer, final String indent)
-        throws IOException
-    {
+        throws IOException {
+        
         writer.append(indent).append("(").append(getIdentifier());
         
         for (DiptraceToken parameter : fParameters) {

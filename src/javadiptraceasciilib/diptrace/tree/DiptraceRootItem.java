@@ -50,8 +50,8 @@ public final class DiptraceRootItem extends DiptraceItem {
      */
     @Override
     public void write(final PrintWriter writer, final String indent)
-        throws IOException
-    {
+        throws IOException {
+        
         // Do nothing. The root isn't represented in the Diptrace ascii file.
     }
     
