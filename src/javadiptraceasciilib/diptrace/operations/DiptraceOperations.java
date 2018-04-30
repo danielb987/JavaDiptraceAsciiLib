@@ -108,7 +108,7 @@ public class DiptraceOperations {
      */
     public DiptraceItem duplicateComponent(
         final DiptraceItem item,
-        int newNumber)
+        final int newNumber)
         throws IllegalTokenValue {
         
         DiptraceItem newItem = item.duplicate(item.getParent());
@@ -128,9 +128,12 @@ public class DiptraceOperations {
      * @param item the item to move
      * @param x where to move the item along the x axis
      * @param y where to move the item along the y axis
-     * @throws IllegalTokenValue 
+     * @throws IllegalTokenValue
      */
-    public void moveItemAbsolute(final DiptraceItem item, double x, double y)
+    public void moveItemAbsolute(
+        final DiptraceItem item,
+        final double x,
+        final double y)
         throws IllegalTokenValue {
         
         ((DiptraceGenericItem) item.getSubItem("X"))
@@ -149,9 +152,12 @@ public class DiptraceOperations {
      * @param item the item to move
      * @param x how long distance to move the item along the x axis
      * @param y how long distance to move the item along the y axis
-     * @throws IllegalTokenValue 
+     * @throws IllegalTokenValue
      */
-    public void moveItemRelative(final DiptraceItem item, double x, double y)
+    public void moveItemRelative(
+        final DiptraceItem item,
+        final double x,
+        final double y)
         throws IllegalTokenValue {
         
         DiptraceToken tokenPosX

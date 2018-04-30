@@ -21,6 +21,12 @@ public final class FlashLight {
         final double x0 = 0;
         final double y0 = 0;
         final double radius = 10;
+        final int numLEDInFirstCircle = 4;
+        final int degrees90 = 90;
+        final int degrees360 = 360;
+        
+        final int moveSchematicsComponentsX = 0;
+        final int moveSchematicsComponentsY = 10;
         
         try {
             // Create a diptrace project
@@ -33,7 +39,7 @@ public final class FlashLight {
             
             // The class DiptraceOperations is used to do different operations
             // on the Diptrace project.
-    		DiptraceOperations diptraceOperations
+            DiptraceOperations diptraceOperations
                 = new DiptraceOperations(diptraceProject);
             
             // Get the LED D1 and the resistor R1 for both the schematics
@@ -49,11 +55,11 @@ public final class FlashLight {
             
             for (int circleNo = 1; circleNo <= 4; circleNo++) {
 //                for (int angle = 0; angle < 360; angle += 360/(circleNo*4)) {
-                for (int index=0; index < 4*circleNo; index++) {
-                    double angle = 360 / (4 * circleNo) * index;
+                for (int index=0; index < numLEDInFirstCircle * circleNo; index++) {
+                    double angle = degrees360 / (numLEDInFirstCircle * circleNo) * index;
                     double x = x0 + radius * Math.cos(Math.toRadians(angle));
                     double y = y0 + radius * Math.sin(Math.toRadians(angle));
-                    double partAngle = angle + 90;
+                    double partAngle = angle + degrees90;
                     
                     int newDiodeNumber
                         = diptraceProject.getNewComponentNumber();
@@ -73,10 +79,21 @@ public final class FlashLight {
                         = diptraceOperations.duplicateComponent(
                             pcbPartR1, newResistorNumber);
                     
-                    diptraceOperations.moveItemRelative(newSchematicsPartDiode, 0, 10);
-                    diptraceOperations.moveItemAbsolute(newPCBPartDiode, x, y);
-                    diptraceOperations.moveItemRelative(newSchematicsPartResistor, 0, 10);
-                    diptraceOperations.moveItemAbsolute(newPCBPartResistor, x, y);
+                    diptraceOperations.moveItemRelative(
+                        newSchematicsPartDiode,
+                        moveSchematicsComponentsX,
+                        moveSchematicsComponentsY);
+                    
+                    diptraceOperations.moveItemAbsolute(
+                        newPCBPartDiode, x, y);
+                    
+                    diptraceOperations.moveItemRelative(
+                        newSchematicsPartResistor,
+                        moveSchematicsComponentsX,
+                        moveSchematicsComponentsY);
+                    
+                    diptraceOperations.moveItemAbsolute(
+                        newPCBPartResistor, x, y);
                 }
             }
             
