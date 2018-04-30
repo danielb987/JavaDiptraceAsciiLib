@@ -13,8 +13,6 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javadiptraceasciilib.diptrace.tree.DiptraceGenericItem;
 import javadiptraceasciilib.diptrace.tree.DiptraceItem;
 
@@ -162,9 +160,15 @@ public final class DiptraceProject {
      * @throws FileNotFoundException if the file is not found
      * @throws IOException if any I/O error occurs
      */
-    public void readSchematicsAndPCB(final String schematicsFilename, final String pcbFilename) throws FileNotFoundException, IOException {
+    public void readSchematicsAndPCB(
+                    final String schematicsFilename,
+                    final String pcbFilename)
+        throws FileNotFoundException, IOException {
         
-        try (BufferedReader br = new BufferedReader(new FileReader(schematicsFilename)); BufferedReader br2 = new BufferedReader(new FileReader(pcbFilename))) {
+        try (BufferedReader br
+                = new BufferedReader(new FileReader(schematicsFilename));
+            BufferedReader br2
+                = new BufferedReader(new FileReader(pcbFilename))) {
             
             DiptraceTokenizer tokenizer = new DiptraceTokenizer(br);
             parseSchematics(tokenizer);
