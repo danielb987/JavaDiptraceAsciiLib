@@ -73,7 +73,7 @@ public final class FlashLight {
             DiptraceItem schematicsPartR1
                 = diptraceOperations.getSchematicsComponentPart("R1");
             DiptraceItem pcbPartR1
-                = diptraceOperations.getPCBComponentPart("D1");
+                = diptraceOperations.getPCBComponentPart("R1");
             
             
             int numDiodes = 1;
