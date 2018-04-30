@@ -44,8 +44,8 @@ public final class FlashLight {
         final double y0 = -100;
         final double radius = 15;
         final int numLEDInFirstCircle = 4;
-        final int degrees90 = 90;
-        final int degrees360 = 360;
+        final double degrees90 = 90;
+        final double degrees360 = 360;
         
         final int moveSchematicsComponentsX = 0;
         final int moveSchematicsComponentsY = 25;
