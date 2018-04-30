@@ -2,6 +2,7 @@ package javadiptraceasciilib.diptrace.tree;
 
 import javadiptraceasciilib.diptrace.tokenizer.DiptraceTokenizer;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * This class is the root item of the tree in the DipTrace ascii file. This
@@ -39,6 +40,19 @@ public final class DiptraceRootItem extends DiptraceItem {
         parseSubItems(tokenizer);
         
 //        tokenizer.eatToken(DiptraceTokenType.RIGHT_PARENTHESES);
+    }
+    
+    /**
+     * Write the item.
+     * @param writer the writer that writes to the Diptrace ascii file
+     * @param indent a string of spaces to indent the tree in the ascii file
+     * @throws IOException when IO error occurs
+     */
+    @Override
+    public void write(final PrintWriter writer, final String indent)
+        throws IOException {
+        
+        // Do nothing. The root isn't represented in the Diptrace ascii file.
     }
     
     

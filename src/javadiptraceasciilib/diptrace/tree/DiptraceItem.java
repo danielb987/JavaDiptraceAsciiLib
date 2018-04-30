@@ -4,6 +4,7 @@ import javadiptraceasciilib.diptrace.tokenizer.DiptraceToken;
 import javadiptraceasciilib.diptrace.tokenizer.DiptraceTokenType;
 import javadiptraceasciilib.diptrace.tokenizer.DiptraceTokenizer;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -87,7 +88,7 @@ public abstract class DiptraceItem {
     }
     
     /**
-     * Parse the project.
+     * Parse the item.
      * @param tokenizer the tokenizer that parses the Diptrace ascii file
      * @throws IOException when IO error occurs
      */
@@ -134,6 +135,35 @@ public abstract class DiptraceItem {
         }
     }
     //CHECKSTYLE.ON: InnerAssignment - Allow assignment in while loop
+    
+    /**
+     * Write the item.
+     * @param writer the writer that writes to the Diptrace ascii file
+     * @param indent a string of spaces to indent the tree in the ascii file
+     * @throws IOException when IO error occurs
+     */
+    public abstract void write(PrintWriter writer, String indent)
+        throws IOException;
+    
+    /**
+     * Write the sub items.
+     * @param writer the writer that writes to the Diptrace ascii file
+     * @param indent a string of spaces to indent the tree in the ascii file
+     * @throws IOException when IO error occurs
+     */
+    public void writeSubItems(final PrintWriter writer, final String indent)
+        throws IOException {
+        
+        if (!fSubItems.isEmpty()) {
+            writer.println();
+            
+            String newIndent = indent + "  ";
+            for (DiptraceItem subItem : fSubItems) {
+                subItem.write(writer, newIndent);
+                writer.println();
+            }
+        }
+    }
     
     /**
      * Creates and returns an instance of a class that inherits DiptraceItem.
@@ -187,8 +217,9 @@ public abstract class DiptraceItem {
      */
     public final void printTree(final String indent) {
         System.out.format("%s%s%n", indent, fIdentifier);
+        String newIndent = indent + "   ";
         for (DiptraceItem subItem : fSubItems) {
-            subItem.printTree(indent + "   ");
+            subItem.printTree(newIndent);
         }
     }
     

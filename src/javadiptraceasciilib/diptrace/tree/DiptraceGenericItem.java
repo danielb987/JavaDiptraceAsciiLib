@@ -4,6 +4,7 @@ import javadiptraceasciilib.diptrace.tokenizer.DiptraceToken;
 import javadiptraceasciilib.diptrace.tokenizer.DiptraceTokenType;
 import javadiptraceasciilib.diptrace.tokenizer.DiptraceTokenizer;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,6 +82,28 @@ public class DiptraceGenericItem extends DiptraceItem {
         }
     }
     //CHECKSTYLE.ON: InnerAssignment - Allow assignment in while loop
+    
+    /**
+     * Write the item.
+     * @param writer the writer that writes to the Diptrace ascii file
+     * @param indent a string of spaces to indent the tree in the ascii file
+     * @throws IOException when IO error occurs
+     */
+    @Override
+    public void write(final PrintWriter writer, final String indent)
+        throws IOException {
+        
+        writer.append(indent).append("(").append(getIdentifier());
+        
+        for (DiptraceToken parameter : fParameters) {
+            writer.append(" ").append(parameter.getValue());
+        }
+        
+        writeSubItems(writer, indent);
+        
+        writer.append(")");
+        writer.println();
+    }
     
     
     /**
