@@ -119,7 +119,7 @@ public class DiptraceOperations {
             .get(0)
             .setIntValue(newNumber);
         
-        item.getSubItems().add(newItem);
+        item.getParent().getSubItems().add(newItem);
         
         return newItem;
     }

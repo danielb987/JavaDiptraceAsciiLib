@@ -44,7 +44,7 @@ public class DiptraceGenericItem extends DiptraceItem {
             newItem.fParameters.add(new DiptraceToken(parameter));
         }
         for (DiptraceItem subItem : getSubItems()) {
-            newItem.getSubItems().add(subItem.duplicate(newItem));
+            newItem.addSubItem(subItem.duplicate(newItem));
         }
         return newItem;
     }

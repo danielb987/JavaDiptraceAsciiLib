@@ -23,7 +23,7 @@ public final class DiptraceToken {
     private int fIntValue;
     
     /**
-     * The value of the token as a float, if the token is of type FLOAT.
+     * The value of the token as a float, if the token is of type DOUBLE.
      */
     private double fDoubleValue;
     
@@ -174,10 +174,9 @@ public final class DiptraceToken {
      * @throws IllegalTokenValue if the token is not an integer token
      */
     public void setIntValue(final int value) throws IllegalTokenValue {
-        if ((fType == DiptraceTokenType.INTEGER)
-            || (fType == DiptraceTokenType.NON_QUOTED_STRING)) {
+        if (fType == DiptraceTokenType.INTEGER) {
             
-            fDoubleValue = value;
+            fIntValue = value;
             fValue = String.format("%d", value);
         } else {
             throw new IllegalTokenValue(
@@ -201,8 +200,7 @@ public final class DiptraceToken {
      * @throws IllegalTokenValue if the token is not a double token
      */
     public void setDoubleValue(final double  value) throws IllegalTokenValue {
-        if ((fType == DiptraceTokenType.STRING)
-            || (fType == DiptraceTokenType.NON_QUOTED_STRING)) {
+        if (fType == DiptraceTokenType.DOUBLE) {
             
             fDoubleValue = value;
             fValue = String.format("%1.3f", value);

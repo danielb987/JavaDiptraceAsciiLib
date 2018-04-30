@@ -240,7 +240,7 @@ public final class DiptraceTokenizer {
                     double value = Double.parseDouble(tokenValue);
                     // If we are here, the fValue is a valid double
                     return new DiptraceToken(
-                                    DiptraceTokenType.FLOAT,
+                                    DiptraceTokenType.DOUBLE,
                                     tokenValue,
                                     value,
                                     firstTokenOnLine);

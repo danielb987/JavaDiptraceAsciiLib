@@ -24,7 +24,7 @@ public final class FlashLight {
             "flashlight_pcb.asc",
             "flashlight_pcb_new.asc");
     }
-        
+    
     /**
      * Main class.
      * @param schematicsInputFile the schematics input file
