@@ -40,8 +40,7 @@ public class DiptraceOperations {
             
             DiptraceGenericItem theItem = (DiptraceGenericItem) part;
             
-            if (partName.equals(
-                theItem.getParameters().get(1).getValue().equals(partName))) {
+            if (partName.equals(theItem.getParameters().get(1).getValue())) {
                 
 //                DiptraceGenericItem numberItem
 //                    = (DiptraceGenericItem) part.getSubItem("Number");
