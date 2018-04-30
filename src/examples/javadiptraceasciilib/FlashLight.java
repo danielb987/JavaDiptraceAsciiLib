@@ -2,6 +2,8 @@ package examples.javadiptraceasciilib;
 
 import java.io.IOException;
 import javadiptraceasciilib.diptrace.DiptraceProject;
+import javadiptraceasciilib.diptrace.operations.DiptraceOperations;
+import javadiptraceasciilib.diptrace.tree.DiptraceItem;
 
 /**
  * Create a flash light PCB.
@@ -19,12 +21,21 @@ public final class FlashLight {
             DiptraceProject diptraceProject = new DiptraceProject();
             
             // Read the diptrace ascii files
-            diptraceProject.readSchematicsAndPCB("schematics.asc", "pcb.asc");
+            diptraceProject.readSchematicsAndPCB(
+                "flashlight_schematics.asc",
+                "flashlight_pcb.asc");
             
+            // The class DiptraceOperations is used to do different operations
+            // on the Diptrace project.
+    		DiptraceOperations diptraceOperations
+                = new DiptraceOperations(diptraceProject);
+			DiptraceItem part
+                = diptraceOperations.getSchematicsComponentPart("aaa");
+			diptraceOperations.duplicateItem(part);
             
             // Write the diptrace ascii files
             diptraceProject.writeSchematicsAndPCB(
-                "schematics_new.asc", "pcb_new.asc");
+                "flashlight_schematics_new.asc", "flashlight_pcb_new.asc");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
