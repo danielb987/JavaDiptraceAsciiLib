@@ -18,6 +18,26 @@ public final class FlashLight {
      */
     public static void main(final String[] args) {
         
+        createFlashLight(
+            "flashlight_schematics.asc",
+            "flashlight_schematics_new.asc",
+            "flashlight_pcb.asc",
+            "flashlight_pcb_new.asc");
+    }
+        
+    /**
+     * Main class.
+     * @param schematicsInputFile the schematics input file
+     * @param schematicsOutputFile the schematics output file
+     * @param pcbInputFile the pcb input file
+     * @param pcbOutputFile the pcb outputfile
+     */
+    public static void createFlashLight(
+        final String schematicsInputFile,
+        final String schematicsOutputFile,
+        final String pcbInputFile,
+        final String pcbOutputFile) {
+        
         final int numCircles = 4;
         
         final double x0 = 0;
@@ -36,8 +56,8 @@ public final class FlashLight {
             
             // Read the diptrace ascii files
             diptraceProject.readSchematicsAndPCB(
-                "flashlight_schematics.asc",
-                "flashlight_pcb.asc");
+                schematicsInputFile,
+                pcbInputFile);
             
             // The class DiptraceOperations is used to do different operations
             // on the Diptrace project.
@@ -105,7 +125,7 @@ public final class FlashLight {
             
             // Write the diptrace ascii files
             diptraceProject.writeSchematicsAndPCB(
-                "flashlight_schematics_new.asc", "flashlight_pcb_new.asc");
+                schematicsOutputFile, pcbOutputFile);
             
         } catch (IllegalTokenValue | NotFoundException | IOException ex) {
             ex.printStackTrace();
