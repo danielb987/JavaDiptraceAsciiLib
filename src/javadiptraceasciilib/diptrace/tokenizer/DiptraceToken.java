@@ -26,26 +26,42 @@ public final class DiptraceToken {
     private final double fFloatValue;
     
     /**
+     * True if this token was preceded by a new line.
+     */
+    private final boolean fPrecededWithNewline;
+    
+    /**
      * Initialize a DiptraceToken object with a type.
      * @param type the type of the token
+     * @param precededWithNewline true if this token was preceded by a new line
      */
-    public DiptraceToken(final DiptraceTokenType type) {
+    public DiptraceToken(
+        final DiptraceTokenType type,
+        final boolean precededWithNewline) {
+        
         this.fType = type;
         this.fValue = null;
         this.fIntValue = 0;
         this.fFloatValue = 0;
+        this.fPrecededWithNewline = precededWithNewline;
     }
     
     /**
      * Initialize a DiptraceToken object with a type and a value.
      * @param type the type of the token
      * @param value the value of the token
+     * @param precededWithNewline true if this token was preceded by a new line
      */
-    public DiptraceToken(final DiptraceTokenType type, final String value) {
+    public DiptraceToken(
+        final DiptraceTokenType type,
+        final String value,
+        final boolean precededWithNewline) {
+        
         this.fType = type;
         this.fValue = value;
         this.fIntValue = 0;
         this.fFloatValue = 0;
+        this.fPrecededWithNewline = precededWithNewline;
     }
     
     /**
@@ -53,16 +69,19 @@ public final class DiptraceToken {
      * @param type the type of the token
      * @param value the value of the token
      * @param intValue the integer value of the token
+     * @param precededWithNewline true if this token was preceded by a new line
      */
     public DiptraceToken(
         final DiptraceTokenType type,
         final String value,
-        final int intValue) {
+        final int intValue,
+        final boolean precededWithNewline) {
         
         this.fType = type;
         this.fValue = value;
         this.fIntValue = intValue;
         this.fFloatValue = 0;
+        this.fPrecededWithNewline = precededWithNewline;
     }
     
     /**
@@ -70,16 +89,19 @@ public final class DiptraceToken {
      * @param type the type of the token
      * @param value the value of the token
      * @param floatValue the float value of the token
+     * @param precededWithNewline true if this token was preceded by a new line
      */
     public DiptraceToken(
         final DiptraceTokenType type,
         final String value,
-        final double floatValue) {
+        final double floatValue,
+        final boolean precededWithNewline) {
         
         this.fType = type;
         this.fValue = value;
         this.fIntValue = 0;
         this.fFloatValue = floatValue;
+        this.fPrecededWithNewline = precededWithNewline;
     }
     
     
@@ -93,11 +115,12 @@ public final class DiptraceToken {
         this.fValue = token.fValue;
         this.fIntValue = token.fIntValue;
         this.fFloatValue = token.fFloatValue;
+        this.fPrecededWithNewline = token.fPrecededWithNewline;
     }
     
     
     /**
-     * Returns the type of the token.
+     * Get the type of the token.
      * @return the type
      */
     public DiptraceTokenType getType() {
@@ -105,7 +128,7 @@ public final class DiptraceToken {
     }
     
     /**
-     * Returns the value of the token.
+     * Get the value of the token.
      * @return the value
      */
     public String getValue() {
@@ -117,7 +140,7 @@ public final class DiptraceToken {
     }
     
     /**
-     * Returns the integer value of the token.
+     * Get the integer value of the token.
      * @return the integer value
      */
     public int getIntValue() {
@@ -125,11 +148,19 @@ public final class DiptraceToken {
     }
     
     /**
-     * Returns the float value of the token.
+     * Get the float value of the token.
      * @return the float value
      */
     public double getFloatValue() {
         return fFloatValue;
+    }
+    
+    /**
+     * Get whenether this token was preceded by a new line or not.
+     * @return true if this token was preceded by a new line
+     */
+    public boolean getPrecededWithNewline() {
+        return fPrecededWithNewline;
     }
     
 }

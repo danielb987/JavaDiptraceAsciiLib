@@ -33,7 +33,6 @@ public final class DiptraceTokenizer {
      */
     private DiptraceToken fNextToken;
     
-    
     /**
      * Initializes a DiptraceTokenizer object with a reader that reads a
      * Diptrace ASCII file.
@@ -115,7 +114,10 @@ public final class DiptraceTokenizer {
      * @return the next token
      * @throws IOException on any I/O error
      */
+    //CHECKSTYLE.OFF: MethodLength - Difficult to split method
     private DiptraceToken fetchNextToken() throws IOException {
+        
+        boolean firstTokenOnLine = false;
         
         while ((fCurrentLine != null) && (fCurrentLine.length() == 0)) {
             fCurrentLine.setLength(0);
@@ -128,6 +130,8 @@ public final class DiptraceTokenizer {
             
             fCurrentLine.append(line.trim());
             fLineNo++;
+            
+            firstTokenOnLine = true;
         }
         
         if (fCurrentLine == null) {
@@ -135,10 +139,14 @@ public final class DiptraceTokenizer {
         } else if (fCurrentLine.charAt(0) == '(') {
             fCurrentLine.delete(0, 1);
             fLastTokenWasLeftParentheses = true;
-            return new DiptraceToken(DiptraceTokenType.LEFT_PARENTHESES);
+            return new DiptraceToken(
+                            DiptraceTokenType.LEFT_PARENTHESES,
+                            firstTokenOnLine);
         } else if (fCurrentLine.charAt(0) == ')') {
             fCurrentLine.delete(0, 1);
-            return new DiptraceToken(DiptraceTokenType.RIGHT_PARENTHESES);
+            return new DiptraceToken(
+                            DiptraceTokenType.RIGHT_PARENTHESES,
+                            firstTokenOnLine);
         } else {
             String tokenValue;
             
@@ -166,7 +174,10 @@ public final class DiptraceTokenizer {
                     fCurrentLine.delete(0, 1);
                 }
                 
-                return new DiptraceToken(DiptraceTokenType.STRING, tokenValue);
+                return new DiptraceToken(
+                                DiptraceTokenType.STRING,
+                                tokenValue,
+                                firstTokenOnLine);
             }
             
             
@@ -190,14 +201,16 @@ public final class DiptraceTokenizer {
                 fLastTokenWasLeftParentheses = false;
                 return new DiptraceToken(
                     DiptraceTokenType.IDENTIFIER,
-                    tokenValue);
+                    tokenValue,
+                    firstTokenOnLine);
             } else {
                 try {
                     int value = Integer.parseInt(tokenValue);
                     // If we are here, the fValue is a valid integer
                     return new DiptraceToken(
                         DiptraceTokenType.INTEGER,
-                        tokenValue, value);
+                        tokenValue, value,
+                        firstTokenOnLine);
                 } catch (NumberFormatException e) {
                     // If we are here, fValue is not an integer so we just
                     // continue to the next statement.
@@ -215,7 +228,8 @@ public final class DiptraceTokenizer {
                         return new DiptraceToken(
                                         DiptraceTokenType.PERCENT,
                                         tokenValue,
-                                        value);
+                                        value,
+                                        firstTokenOnLine);
                     } catch (NumberFormatException e) {
                         // If we are here, fValue is not a double so we just
                         // continue to the next statement.
@@ -228,7 +242,8 @@ public final class DiptraceTokenizer {
                     return new DiptraceToken(
                                     DiptraceTokenType.FLOAT,
                                     tokenValue,
-                                    value);
+                                    value,
+                                    firstTokenOnLine);
                 } catch (NumberFormatException e) {
                     // If we are here, fValue is not a double so we just
                     // continue to the next statement.
@@ -248,20 +263,19 @@ public final class DiptraceTokenizer {
                 if (isIdentifier) {
                     return new DiptraceToken(
                         DiptraceTokenType.IDENTIFIER,
-                        tokenValue);
+                        tokenValue,
+                        firstTokenOnLine);
                 }
                 
                 // Bug fix. Diptrace PCB ascii files not always put strings
                 // in " and ".
                 return new DiptraceToken(
-                    DiptraceTokenType.NON_QUOTED_STRING, tokenValue);
-                
-//                throw new RuntimeException(
-//                            String.format(
-//                                "Unknown token type. LineNo: %d, %s",
-//                                fLineNo,
-//                                tokenValue));
+                    DiptraceTokenType.NON_QUOTED_STRING,
+                    tokenValue,
+                    firstTokenOnLine);
             }
         }
     }
+    //CHECKSTYLE.ON: MethodLength - Difficult to split method
+    
 }
