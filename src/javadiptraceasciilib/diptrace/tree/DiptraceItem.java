@@ -4,7 +4,7 @@ import javadiptraceasciilib.diptrace.tokenizer.DiptraceToken;
 import javadiptraceasciilib.diptrace.tokenizer.DiptraceTokenType;
 import javadiptraceasciilib.diptrace.tokenizer.DiptraceTokenizer;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +14,22 @@ import java.util.Map;
  * This class is the base class for items in the DipTrace ascii file.
  */
 public abstract class DiptraceItem {
+    
+    /**
+     * A flag about whenether this level is at the top or not.
+     */
+    protected enum IsTopLevel {
+        
+        /**
+         * Top level.
+         */
+        TOP_LEVEL,
+        
+        /**
+         * Don't add a new line.
+         */
+        SUB_LEVEL,
+    }
     
     /**
      * The parent of this item.
@@ -142,26 +158,41 @@ public abstract class DiptraceItem {
      * @param indent a string of spaces to indent the tree in the ascii file
      * @throws IOException when IO error occurs
      */
-    public abstract void write(PrintWriter writer, String indent)
+    public abstract void write(Writer writer, String indent)
         throws IOException;
     
     /**
      * Write the sub items.
      * @param writer the writer that writes to the Diptrace ascii file
      * @param indent a string of spaces to indent the tree in the ascii file
+     * @param addNewLineFlag should a new line be added first or not if there
+     * are any sub items?
+     * @return true if item has sub items
      * @throws IOException when IO error occurs
      */
-    public void writeSubItems(final PrintWriter writer, final String indent)
+    public boolean writeSubItems(
+        final Writer writer,
+        final String indent,
+        final IsTopLevel addNewLineFlag)
         throws IOException {
         
         if (!fSubItems.isEmpty()) {
-            writer.println();
+            String newIndent;
             
-            String newIndent = indent + "  ";
+            if (addNewLineFlag == IsTopLevel.SUB_LEVEL) {
+                writer.append(System.lineSeparator());
+                newIndent = indent + "  ";
+            } else {
+                newIndent = indent;
+            }
+            
             for (DiptraceItem subItem : fSubItems) {
                 subItem.write(writer, newIndent);
-                writer.println();
             }
+            
+            return true;
+        } else {
+            return false;
         }
     }
     
