@@ -1,7 +1,7 @@
 package javadiptraceasciilib.diptrace.exceptions;
 
 /**
- * Item not found exception
+ * Item not found exception.
  */
 public class NotFoundException extends Exception {
 
@@ -17,7 +17,7 @@ public class NotFoundException extends Exception {
      *
      * @param msg the detail message.
      */
-    public NotFoundException(String msg) {
+    public NotFoundException(final String msg) {
         super(msg);
     }
     

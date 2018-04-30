@@ -1,7 +1,6 @@
 
 package javadiptraceasciilib.diptrace.operations;
 
-import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.Map;
 import javadiptraceasciilib.diptrace.DiptraceProject;
@@ -33,15 +32,16 @@ public class DiptraceOperations {
      * @return the part
      * @throws NotFoundException if the component part is not found
      */
-    public DiptraceItem getSchematicsComponentPart(String partName)
+    public DiptraceItem getSchematicsComponentPart(final String partName)
         throws NotFoundException {
         
         DiptraceItem components = fProject.getSchematicsComponents();
         for (DiptraceItem part : components.getSubItems()) {
             
-            DiptraceGenericItem theItem = (DiptraceGenericItem)part;
+            DiptraceGenericItem theItem = (DiptraceGenericItem) part;
             
-            if (partName.equals(theItem.getParameters().get(1).getValue().equals(partName))) {
+            if (partName.equals(
+                theItem.getParameters().get(1).getValue().equals(partName))) {
                 
 //                DiptraceGenericItem numberItem
 //                    = (DiptraceGenericItem) part.getSubItem("Number");
