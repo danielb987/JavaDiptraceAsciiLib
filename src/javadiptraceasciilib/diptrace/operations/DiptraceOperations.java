@@ -1,8 +1,6 @@
 
 package javadiptraceasciilib.diptrace.operations;
 
-import java.util.HashMap;
-import java.util.Map;
 import javadiptraceasciilib.diptrace.DiptraceProject;
 import javadiptraceasciilib.diptrace.exceptions.IllegalTokenValue;
 import javadiptraceasciilib.diptrace.exceptions.NotFoundException;
@@ -103,6 +101,7 @@ public class DiptraceOperations {
      * the new item to the tree.
      * @param item the item to duplicate
      * @param newNumber the new number for this item
+     * @param newHiddenIdentifier the new hidden identifier for this item
      * @param newName the new name of this item
      * @return the new item
      * @throws IllegalTokenValue if the token cannot be updated with the

@@ -169,7 +169,8 @@ public final class DiptraceProject {
             updateLastComponentNumber(number);
             DiptraceGenericItem hiddenIdentifierItem
                 = (DiptraceGenericItem) part.getSubItem("HiddenId");
-            int hiddenIdentifier = hiddenIdentifierItem.getParameters().get(0).getIntValue();
+            int hiddenIdentifier
+                = hiddenIdentifierItem.getParameters().get(0).getIntValue();
             updateLastComponentHiddenIdentifier(hiddenIdentifier);
             fSchematicsComponentsNumberMap.put(number, part);
             SchematicsAndPCBFlags schematicsAndPCBFlags
