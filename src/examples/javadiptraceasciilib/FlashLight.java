@@ -26,6 +26,108 @@ public final class FlashLight {
     }
     
     /**
+     * Duplicate a diode and a resistor at the desired place
+     * @param diptraceProject
+     * @param diptraceOperations
+     * @param schematicsPartD1
+     * @param pcbPartD1
+     * @param schematicsPartR1
+     * @param pcbPartR1
+     * @param schematicsX
+     * @param schematicsY
+     * @param schematicsAngle 
+     * @param pcbX
+     * @param pcbY
+     * @param pcbAngle 
+     */
+    private static void addDiodeAndResistor(
+        DiptraceProject diptraceProject,
+        DiptraceOperations diptraceOperations,
+        DiptraceItem schematicsPartD1,
+        DiptraceItem pcbPartD1,
+        DiptraceItem schematicsPartR1,
+        DiptraceItem pcbPartR1,
+        String newDiodeName,
+        String newResistorName,
+        double schematicsX,
+        double schematicsY,
+        int schematicsAngle,
+        double pcbX,
+        double pcbY,
+        int pcbAngle
+    ) throws IllegalTokenValue {
+        
+                    // All new components need a new unique number.
+                    int newDiodeNumber
+                        = diptraceProject.getNewComponentNumber();
+                    int newResistorNumber
+                        = diptraceProject.getNewComponentNumber();
+                    
+                    // All new components need a new unique hidden number.
+                    int newDiodeHiddenIdentifier
+                        = diptraceProject.getNewComponentHiddenIdentifier();
+                    int newResistorHiddenIdentifier
+                        = diptraceProject.getNewComponentHiddenIdentifier();
+                    
+                    // Create the new components, both LED and resistor, and
+                    // both on the schematics and on the pcb.
+                    DiptraceItem newSchematicsPartDiode
+                        = diptraceOperations.duplicateComponent(
+                            schematicsPartD1,
+                            newDiodeNumber,
+                            newDiodeHiddenIdentifier,
+                            newDiodeName);
+                    
+                    DiptraceItem newPCBPartDiode
+                        = diptraceOperations.duplicateComponent(
+                            pcbPartD1,
+                            newDiodeNumber,
+                            newDiodeHiddenIdentifier,
+                            newDiodeName);
+                    
+                    DiptraceItem newSchematicsPartResistor
+                        = diptraceOperations.duplicateComponent(
+                            schematicsPartR1,
+                            newResistorNumber,
+                            newResistorHiddenIdentifier,
+                            newResistorName);
+                    
+                    DiptraceItem newPCBPartResistor
+                        = diptraceOperations.duplicateComponent(
+                            pcbPartR1,
+                            newResistorNumber,
+                            newResistorHiddenIdentifier,
+                            newResistorName);
+                    
+                    // We want to move the components so they don't end up at
+                    // the same spot. We move the components on the schematic
+                    // a relative distance and the components on the pcb to
+                    // an absolute position.
+                    diptraceOperations.moveItemRelative(
+                        newSchematicsPartDiode,
+                        schematicsX,
+                        schematicsY);
+                    
+                    diptraceOperations.moveItemAbsolute(
+                        newPCBPartDiode, pcbX, pcbY);
+                    
+                    diptraceOperations.moveItemRelative(
+                        newSchematicsPartResistor,
+                        schematicsX,
+                        schematicsY);
+                    
+                    diptraceOperations.moveItemAbsolute(
+                        newPCBPartResistor, pcbX, pcbY);
+                    
+                    // We also want to rotate the components on the pcb.
+                    diptraceOperations.rotateItemAbsolute(
+                        newPCBPartDiode, pcbAngle);
+                    
+                    diptraceOperations.rotateItemAbsolute(
+                        newPCBPartResistor, pcbAngle);
+    }
+    
+    /**
      * Create a flash light.
      * This class reads a schematics file and a pcb file that has a LED, a
      * resistor and a USB connector. The USB connector is only used for power
@@ -112,91 +214,42 @@ public final class FlashLight {
                     index++) {
                     
                     // Calculate where to put the new LED and the new resistor
+                    // on the schematics
+                    double schematicsX = moveSchematicsComponentsX * numDiodes;
+                    double schematicsY = moveSchematicsComponentsY * numDiodes;
+                    int schematicsAngle = 0;
+                    
+                    // Calculate where to put the new LED and the new resistor
                     // on the pcb.
                     double angle
                         = degrees360 / (numLEDInFirstCircle * circleNo) * index;
-                    double x = x0
+                    double pcbX = x0
                         + circleNo * radius * Math.cos(Math.toRadians(angle));
-                    double y = y0
+                    double pcbY = y0
                         + circleNo * radius * Math.sin(Math.toRadians(angle));
                     
                     // We want to rotate the new components as well.
-                    int partAngle = (int) Math.round(angle + degrees90);
-                    
-                    // All new components need a new unique number.
-                    int newDiodeNumber
-                        = diptraceProject.getNewComponentNumber();
-                    int newResistorNumber
-                        = diptraceProject.getNewComponentNumber();
-                    
-                    // All new components need a new unique hidden number.
-                    int newDiodeHiddenIdentifier
-                        = diptraceProject.getNewComponentHiddenIdentifier();
-                    int newResistorHiddenIdentifier
-                        = diptraceProject.getNewComponentHiddenIdentifier();
+                    int pcbAngle = (int) Math.round(angle + degrees90);
                     
                     // What name should the new components have?
                     String newDiodeName = String.format("D%d", ++numDiodes);
                     String newResistorName
                         = String.format("R%d", ++numResistors);
                     
-                    // Create the new components, both LED and resistor, and
-                    // both on the schematics and on the pcb.
-                    DiptraceItem newSchematicsPartDiode
-                        = diptraceOperations.duplicateComponent(
-                            schematicsPartD1,
-                            newDiodeNumber,
-                            newDiodeHiddenIdentifier,
-                            newDiodeName);
-                    
-                    DiptraceItem newPCBPartDiode
-                        = diptraceOperations.duplicateComponent(
-                            pcbPartD1,
-                            newDiodeNumber,
-                            newDiodeHiddenIdentifier,
-                            newDiodeName);
-                    
-                    DiptraceItem newSchematicsPartResistor
-                        = diptraceOperations.duplicateComponent(
-                            schematicsPartR1,
-                            newResistorNumber,
-                            newResistorHiddenIdentifier,
-                            newResistorName);
-                    
-                    DiptraceItem newPCBPartResistor
-                        = diptraceOperations.duplicateComponent(
-                            pcbPartR1,
-                            newResistorNumber,
-                            newResistorHiddenIdentifier,
-                            newResistorName);
-                    
-                    // We want to move the components so they don't end up at
-                    // the same spot. We move the components on the schematic
-                    // a relative distance and the components on the pcb to
-                    // an absolute position.
-                    diptraceOperations.moveItemRelative(
-                        newSchematicsPartDiode,
-                        moveSchematicsComponentsX * numDiodes,
-                        moveSchematicsComponentsY * numDiodes);
-                    
-                    diptraceOperations.moveItemAbsolute(
-                        newPCBPartDiode, x, y);
-                    
-                    diptraceOperations.moveItemRelative(
-                        newSchematicsPartResistor,
-                        moveSchematicsComponentsX * numResistors,
-                        moveSchematicsComponentsY * numResistors);
-                    
-                    diptraceOperations.moveItemAbsolute(
-                        newPCBPartResistor, x, y);
-                    
-                    // We also want to rotate the components on the pcb.
-                    diptraceOperations.rotateItemAbsolute(
-                        newPCBPartDiode, partAngle);
-                    
-                    diptraceOperations.rotateItemAbsolute(
-                        newPCBPartResistor, partAngle);
-                    
+                    addDiodeAndResistor(
+                        diptraceProject,
+                        diptraceOperations,
+                        schematicsPartD1,
+                        pcbPartD1,
+                        schematicsPartR1,
+                        pcbPartR1,
+                        newDiodeName,
+                        newResistorName,
+                        schematicsX,
+                        schematicsY,
+                        schematicsAngle,
+                        pcbX, pcbY,
+                        pcbAngle);
                 }
             }
             
