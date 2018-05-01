@@ -12,7 +12,7 @@ import javadiptraceasciilib.diptrace.tree.DiptraceItem;
 /**
  * Create a flash light PCB.
  */
-public final class FlashLight {
+public final class FlashLightExtended {
     
     /**
      * Main class.
@@ -39,8 +39,10 @@ public final class FlashLight {
      * @param newResistorName the new name of the resistor
      * @param schematicsDistX how long to move the parts on the schematics
      * @param schematicsDistY how long to move the parts on the schematics
+     * @param schematicsAngle the new angle on the schematics
      * @param pcbX where to put the parts on the pcb
      * @param pcbY where to put the parts on the pcb
+     * @param pcbAngle the new angle on the pcb
      * @throws IllegalTokenValue then a token cannot be given the desired value
      */
     private static void addDiodeAndResistor(
@@ -54,8 +56,10 @@ public final class FlashLight {
         final String newResistorName,
         final double schematicsDistX,
         final double schematicsDistY,
+        final int schematicsAngle,
         final double pcbX,
-        final double pcbY
+        final double pcbY,
+        final int pcbAngle
     ) throws IllegalTokenValue {
         
                     // All new components need a new unique number.
@@ -119,6 +123,13 @@ public final class FlashLight {
                     
                     diptraceOperations.moveItemAbsolute(
                         newPCBPartResistor, pcbX, pcbY);
+                    
+                    // We also want to rotate the components on the pcb.
+                    diptraceOperations.rotateItemAbsolute(
+                        newPCBPartDiode, pcbAngle);
+                    
+                    diptraceOperations.rotateItemAbsolute(
+                        newPCBPartResistor, pcbAngle);
     }
     
     /**
@@ -142,8 +153,7 @@ public final class FlashLight {
         final String pcbOutputFile) {
         
         // How many circles of LEDs do we want on the pcb?
-//        final int numCircles = 4;
-        final int numCircles = 5;
+        final int numCircles = 4;
         
         // Where on the pcb do we want the center of the flasch light?
         final double x0 = 0;
@@ -195,12 +205,6 @@ public final class FlashLight {
             DiptraceItem pcbPartR1
                 = diptraceOperations.getPCBComponentPart("R1");
             
-            // Move the diode and the resistor to the center of the circle
-            diptraceOperations.moveItemAbsolute(
-                pcbPartD1, x0, y0);
-            
-            diptraceOperations.moveItemAbsolute(
-                pcbPartR1, x0, y0);
             
             // Count how many LEDs and resistors we have. We start with one
             // since we already have one item of each in the Diptrace ascii
@@ -218,6 +222,7 @@ public final class FlashLight {
                     // on the schematics
                     double schematicsX = moveSchematicsComponentsX * numDiodes;
                     double schematicsY = moveSchematicsComponentsY * numDiodes;
+                    int schematicsAngle = 0;
                     
                     // Calculate where to put the new LED and the new resistor
                     // on the pcb.
@@ -227,6 +232,9 @@ public final class FlashLight {
                         + circleNo * radius * Math.cos(Math.toRadians(angle));
                     double pcbY = y0
                         + circleNo * radius * Math.sin(Math.toRadians(angle));
+                    
+                    // We want to rotate the new components as well.
+                    int pcbAngle = (int) Math.round(angle + degrees90);
                     
                     // What name should the new components have?
                     String newDiodeName = String.format("D%d", ++numDiodes);
@@ -244,15 +252,11 @@ public final class FlashLight {
                         newResistorName,
                         schematicsX,
                         schematicsY,
-                        pcbX, pcbY);
+                        schematicsAngle,
+                        pcbX, pcbY,
+                        pcbAngle);
                 }
             }
-            
-            //CHECKSTYLE.OFF: MagicNumber - Only for printout
-            System.out.format(
-                "Total num components: %d, Num pins: %d%n",
-                numDiodes * 2 + 1, numDiodes * 4 + 11);
-            //CHECKSTYLE.ON: MagicNumber - Only for printout
             
             // Write the diptrace ascii files.
             diptraceProject.writeSchematicsAndPCB(
@@ -269,7 +273,7 @@ public final class FlashLight {
      * This class has static methods and should never be instanciated.
      * A private constructor prevents the class from being instanciated.
      */
-    private FlashLight() {
+    private FlashLightExtended() {
     }
     
 }
