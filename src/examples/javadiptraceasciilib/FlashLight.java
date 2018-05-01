@@ -7,6 +7,8 @@ import javadiptraceasciilib.diptrace.exceptions.NotFoundException;
 import javadiptraceasciilib.diptrace.operations.DiptraceOperations;
 import javadiptraceasciilib.diptrace.tree.DiptraceItem;
 
+//CHECKSTYLE.OFF: ParameterNumber - Accept many parameters
+
 /**
  * Create a flash light PCB.
  */
@@ -275,3 +277,5 @@ public final class FlashLight {
     }
     
 }
+
+//CHECKSTYLE.ON: ParameterNumber - Accept many parameters
