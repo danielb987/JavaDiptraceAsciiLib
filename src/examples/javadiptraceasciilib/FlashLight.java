@@ -26,35 +26,36 @@ public final class FlashLight {
     }
     
     /**
-     * Duplicate a diode and a resistor at the desired place
-     * @param diptraceProject
-     * @param diptraceOperations
-     * @param schematicsPartD1
-     * @param pcbPartD1
-     * @param schematicsPartR1
-     * @param pcbPartR1
-     * @param schematicsX
-     * @param schematicsY
-     * @param schematicsAngle 
-     * @param pcbX
-     * @param pcbY
-     * @param pcbAngle 
+     * Duplicate a diode and a resistor at the desired place.
+     * @param diptraceProject the DiptraceProject instance
+     * @param diptraceOperations the DiptraceOperations instance
+     * @param schematicsPartD1 the diode D1 on the schematics
+     * @param pcbPartD1 the diode D1 on the pcb
+     * @param schematicsPartR1 the resistor R1 on the schematics
+     * @param pcbPartR1 the resistor R1 on the pcb
+     * @param schematicsDistX how long to move the parts on the schematics
+     * @param schematicsDistY how long to move the parts on the schematics
+     * @param schematicsAngle the new angle on the schematics 
+     * @param pcbX where to put the parts on the pcb
+     * @param pcbY where to put the parts on the pcb
+     * @param pcbAngle the new angle on the pcb
+     * throws IllegalTokenValue
      */
     private static void addDiodeAndResistor(
-        DiptraceProject diptraceProject,
-        DiptraceOperations diptraceOperations,
-        DiptraceItem schematicsPartD1,
-        DiptraceItem pcbPartD1,
-        DiptraceItem schematicsPartR1,
-        DiptraceItem pcbPartR1,
-        String newDiodeName,
-        String newResistorName,
-        double schematicsX,
-        double schematicsY,
-        int schematicsAngle,
-        double pcbX,
-        double pcbY,
-        int pcbAngle
+        final DiptraceProject diptraceProject,
+        final DiptraceOperations diptraceOperations,
+        final DiptraceItem schematicsPartD1,
+        final DiptraceItem pcbPartD1,
+        final DiptraceItem schematicsPartR1,
+        final DiptraceItem pcbPartR1,
+        final String newDiodeName,
+        final String newResistorName,
+        final double schematicsDistX,
+        final double schematicsDistY,
+        final int schematicsAngle,
+        final double pcbX,
+        final double pcbY,
+        final int pcbAngle
     ) throws IllegalTokenValue {
         
                     // All new components need a new unique number.
@@ -105,16 +106,16 @@ public final class FlashLight {
                     // an absolute position.
                     diptraceOperations.moveItemRelative(
                         newSchematicsPartDiode,
-                        schematicsX,
-                        schematicsY);
+                        schematicsDistX,
+                        schematicsDistY);
                     
                     diptraceOperations.moveItemAbsolute(
                         newPCBPartDiode, pcbX, pcbY);
                     
                     diptraceOperations.moveItemRelative(
                         newSchematicsPartResistor,
-                        schematicsX,
-                        schematicsY);
+                        schematicsDistX,
+                        schematicsDistY);
                     
                     diptraceOperations.moveItemAbsolute(
                         newPCBPartResistor, pcbX, pcbY);
