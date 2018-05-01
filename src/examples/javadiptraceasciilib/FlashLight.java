@@ -35,11 +35,11 @@ public final class FlashLight {
      * @param pcbPartR1 the resistor R1 on the pcb
      * @param schematicsDistX how long to move the parts on the schematics
      * @param schematicsDistY how long to move the parts on the schematics
-     * @param schematicsAngle the new angle on the schematics 
+     * @param schematicsAngle the new angle on the schematics
      * @param pcbX where to put the parts on the pcb
      * @param pcbY where to put the parts on the pcb
      * @param pcbAngle the new angle on the pcb
-     * throws IllegalTokenValue
+     * throws IllegalTokenValue then a token cannot be given the desired value
      */
     private static void addDiodeAndResistor(
         final DiptraceProject diptraceProject,
