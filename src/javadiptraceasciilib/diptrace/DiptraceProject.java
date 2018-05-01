@@ -60,6 +60,11 @@ public final class DiptraceProject {
     private int fLastComponentNumber = 0;
     
     /**
+     * The last used hidden number of any component on either schematics or pcb.
+     */
+    private int fLastComponentHiddenIdentifier = 0;
+    
+    /**
      * Constructs a DiptraceProject.
      */
     public DiptraceProject() {
@@ -102,11 +107,29 @@ public final class DiptraceProject {
     }
     
     /**
+     * Update the last component hidden number.
+     * @param number a component number
+     */
+    private void updateLastComponentHiddenIdentifier(final int number) {
+        if (fLastComponentHiddenIdentifier < number) {
+            fLastComponentHiddenIdentifier = number;
+        }
+    }
+    
+    /**
      * Returns a unused component number.
      * @return a new component number
      */
     public int getNewComponentNumber() {
         return ++fLastComponentNumber;
+    }
+    
+    /**
+     * Returns a unused component hidden number.
+     * @return a new component number
+     */
+    public int getNewComponentHiddenIdentifier() {
+        return ++fLastComponentHiddenIdentifier;
     }
     
     /**
@@ -144,6 +167,10 @@ public final class DiptraceProject {
             int number = numberItem.getParameters().get(0).getIntValue();
             System.out.format("Number: %d%n", number);
             updateLastComponentNumber(number);
+            DiptraceGenericItem hiddenIdentifierItem
+                = (DiptraceGenericItem) part.getSubItem("HiddenId");
+            int hiddenIdentifier = hiddenIdentifierItem.getParameters().get(0).getIntValue();
+            updateLastComponentHiddenIdentifier(hiddenIdentifier);
             fSchematicsComponentsNumberMap.put(number, part);
             SchematicsAndPCBFlags schematicsAndPCBFlags
                 = fUsedComponentNumbers.get(number);

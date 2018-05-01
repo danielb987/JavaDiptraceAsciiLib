@@ -111,6 +111,7 @@ public class DiptraceOperations {
     public DiptraceItem duplicateComponent(
         final DiptraceItem item,
         final int newNumber,
+        final int newHiddenIdentifier,
         final String newName)
         throws IllegalTokenValue {
         
@@ -123,6 +124,11 @@ public class DiptraceOperations {
             .getParameters()
             .get(0)
             .setIntValue(newNumber);
+        
+        ((DiptraceGenericItem) newItem.getSubItem("HiddenId"))
+            .getParameters()
+            .get(0)
+            .setIntValue(newHiddenIdentifier);
         
         ((DiptraceGenericItem) newItem.getSubItem("HiddenId"))
             .getParameters()
@@ -189,16 +195,54 @@ public class DiptraceOperations {
     }
     
     /**
+     * Rotate an item to an absolute angle.
+     * @param item the item to rotate
+     * @param angle the angle in degrees
+     * @throws IllegalTokenValue if the token cannot be updated with the
+     * desired value
+     */
+    public void rotateItemAbsolute(
+        final DiptraceItem item,
+        final int angle)
+        throws IllegalTokenValue {
+        
+        ((DiptraceGenericItem) item.getSubItem("Angle"))
+            .getParameters()
+            .get(0)
+            .setIntValue(angle);
+    }
+    
+    /**
+     * Rotate an item some degrees.
+     * @param item the item to rotate
+     * @param angle the angle in degrees
+     * @throws IllegalTokenValue if the token cannot be updated with the
+     * desired value
+     */
+    public void rotateItemRelative(
+        final DiptraceItem item,
+        final int angle)
+        throws IllegalTokenValue {
+        
+        DiptraceToken tokenAngle
+            = ((DiptraceGenericItem) item.getSubItem("Angle"))
+                .getParameters()
+                .get(0);
+        
+        tokenAngle.setIntValue(tokenAngle.getIntValue() + angle);
+    }
+    
+    /**
      * Duplicate a component to a lot of other components of the same type
      * in both schematics and pcb.
      * @param number the number of the component to duplicate
      * @return a map of the new components with the component number as key
      */
-    public Map<Integer, DiptraceItem> duplicateComponents(final int number) {
-        Map<Integer, DiptraceItem> newComponents = new HashMap<>();
+//    public Map<Integer, DiptraceItem> duplicateComponents(final int number) {
+//        Map<Integer, DiptraceItem> newComponents = new HashMap<>();
         
-        return newComponents;
-    }
+//        return newComponents;
+//    }
     
     
 }
