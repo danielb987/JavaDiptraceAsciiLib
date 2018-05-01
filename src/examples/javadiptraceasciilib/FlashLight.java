@@ -41,7 +41,7 @@ public final class FlashLight {
      * @param pcbX where to put the parts on the pcb
      * @param pcbY where to put the parts on the pcb
      * @param pcbAngle the new angle on the pcb
-     * throws IllegalTokenValue then a token cannot be given the desired value
+     * @throws IllegalTokenValue then a token cannot be given the desired value
      */
     private static void addDiodeAndResistor(
         final DiptraceProject diptraceProject,
