@@ -1,4 +1,4 @@
-package javadiptraceasciilib2;
+package javadiptraceasciilib;
 
 /**
  * Constant definitions of token types.

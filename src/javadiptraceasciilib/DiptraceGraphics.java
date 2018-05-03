@@ -1,5 +1,5 @@
 
-package javadiptraceasciilib2;
+package javadiptraceasciilib;
 
 import java.awt.Graphics2D;
 import javadiptraceasciilib_old.diptrace.DiptraceProject;

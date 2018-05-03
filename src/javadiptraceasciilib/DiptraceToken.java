@@ -1,4 +1,4 @@
-package javadiptraceasciilib2;
+package javadiptraceasciilib;
 
 /**
  * This class represents a token in the DipTrace ascii file.

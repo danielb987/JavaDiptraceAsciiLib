@@ -1,4 +1,4 @@
-package javadiptraceasciilib2;
+package javadiptraceasciilib;
 
 /**
  * Item not found exception.

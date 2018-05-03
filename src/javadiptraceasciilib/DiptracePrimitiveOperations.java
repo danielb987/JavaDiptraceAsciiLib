@@ -1,4 +1,4 @@
-package javadiptraceasciilib2;
+package javadiptraceasciilib;
 
 /**
  * Do different operations on a DiptraceProject.

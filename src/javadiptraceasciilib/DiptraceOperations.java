@@ -1,4 +1,4 @@
-package javadiptraceasciilib2;
+package javadiptraceasciilib;
 
 /**
  * Extended operations on a DiptraceProject which includes both schematics

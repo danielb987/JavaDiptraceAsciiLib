@@ -9,8 +9,8 @@ import javadiptraceasciilib.diptrace.operations.DiptraceOperations;
 import javadiptraceasciilib.diptrace.operations.DiptraceSchematicsAndPCBOperations;
 import javadiptraceasciilib.diptrace.tree.DiptraceItem;
 */
-import javadiptraceasciilib2.DiptraceProject;
-import javadiptraceasciilib2.DiptraceOperations;
+import javadiptraceasciilib.DiptraceProject;
+import javadiptraceasciilib.DiptraceOperations;
 
 //CHECKSTYLE.OFF: ParameterNumber - Accept many parameters
 

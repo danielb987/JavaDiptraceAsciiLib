@@ -1,4 +1,4 @@
-package javadiptraceasciilib2;
+package javadiptraceasciilib;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
