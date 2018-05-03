@@ -1,11 +1,11 @@
 package examples.javadiptraceasciilib;
 
 import java.io.IOException;
-import javadiptraceasciilib.diptrace.DiptraceProject;
-import javadiptraceasciilib.diptrace.exceptions.IllegalTokenValue;
-import javadiptraceasciilib.diptrace.exceptions.NotFoundException;
-import javadiptraceasciilib.diptrace.operations.DiptraceOperations;
-import javadiptraceasciilib.diptrace.tree.DiptraceItem;
+import javadiptraceasciilib.old.diptrace.DiptraceProject;
+import javadiptraceasciilib.old.diptrace.exceptions.IllegalTokenValue;
+import javadiptraceasciilib.old.diptrace.exceptions.NotFoundException;
+import javadiptraceasciilib.old.diptrace.operations.DiptraceOperations;
+import javadiptraceasciilib.old.diptrace.tree.DiptraceItem;
 
 //CHECKSTYLE.OFF: ParameterNumber - Accept many parameters
 

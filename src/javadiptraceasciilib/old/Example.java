@@ -1,4 +1,4 @@
-package javadiptraceasciilib;
+package javadiptraceasciilib.old;
 
 /**
  * Example class.

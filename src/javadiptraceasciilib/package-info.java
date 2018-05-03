@@ -1,5 +1,5 @@
 /**
- * Main package.
+ * javadiptraceasciilib package.
  */
 
 package javadiptraceasciilib;

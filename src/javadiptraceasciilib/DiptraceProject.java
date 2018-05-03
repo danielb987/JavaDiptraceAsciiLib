@@ -1,12 +1,10 @@
-package javadiptraceasciilib.diptrace;
+package javadiptraceasciilib;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import javadiptraceasciilib.diptrace.tokenizer.DiptraceTokenizer;
-import javadiptraceasciilib.diptrace.tree.DiptraceRootItem;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -14,8 +12,6 @@ import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
-import javadiptraceasciilib.diptrace.tree.DiptraceGenericItem;
-import javadiptraceasciilib.diptrace.tree.DiptraceItem;
 
 /**
  * This class is holds a diptrace project. It can have both the schematics
@@ -74,7 +70,7 @@ public final class DiptraceProject {
      * Get the root item of the schematics.
      * @return the root item of the Diptrace schematics item tree
      */
-    public DiptraceRootItem getSchematicsRoot() {
+    protected DiptraceRootItem getSchematicsRoot() {
         return fSchematicsRoot;
     }
     
@@ -82,7 +78,7 @@ public final class DiptraceProject {
      * Get the root item of the schematics.
      * @return the root item of the Diptrace schematics item tree
      */
-    public DiptraceRootItem getPCBRoot() {
+    protected DiptraceRootItem getPCBRoot() {
         return fPCBRoot;
     }
     
@@ -92,7 +88,7 @@ public final class DiptraceProject {
      * tells whenether a number is used in the schematics and/or the pcb.
      * @return a map of the used component numbers
      */
-    public Map<Integer, SchematicsAndPCBFlags> getUsedComponentNumbers() {
+    protected Map<Integer, SchematicsAndPCBFlags> getUsedComponentNumbers() {
         return fUsedComponentNumbers;
     }
     
@@ -120,7 +116,7 @@ public final class DiptraceProject {
      * Returns a unused component number.
      * @return a new component number
      */
-    public int getNewComponentNumber() {
+    protected int getNewComponentNumber() {
         return ++fLastComponentNumber;
     }
     
@@ -128,7 +124,7 @@ public final class DiptraceProject {
      * Returns a unused component hidden number.
      * @return a new component number
      */
-    public int getNewComponentHiddenIdentifier() {
+    protected int getNewComponentHiddenIdentifier() {
         return ++fLastComponentHiddenIdentifier;
     }
     
@@ -137,7 +133,7 @@ public final class DiptraceProject {
      * @return the DiptraceItem that has all the components as DiptraceItem
      * children
      */
-    public DiptraceItem getSchematicsComponents() {
+    protected DiptraceItem getSchematicsComponents() {
         return fSchematicsRoot.getSubItem("Schematic").getSubItem("Components");
     }
     
@@ -146,7 +142,7 @@ public final class DiptraceProject {
      * @return the DiptraceItem that has all the components as DiptraceItem
      * children
      */
-    public DiptraceItem getPCBComponents() {
+    protected DiptraceItem getPCBComponents() {
         return fPCBRoot.getSubItem("Board").getSubItem("Components");
     }
     
@@ -155,7 +151,7 @@ public final class DiptraceProject {
      * @param tokenizer the tokenizer that parses the Diptrace ascii file
      * @throws IOException when IO error occurs
      */
-    public void parseSchematics(final DiptraceTokenizer tokenizer)
+    protected void parseSchematics(final DiptraceTokenizer tokenizer)
         throws IOException {
         
         fSchematicsRoot.parse(tokenizer);
@@ -190,7 +186,7 @@ public final class DiptraceProject {
      * @param tokenizer the tokenizer that parses the Diptrace ascii file
      * @throws IOException when IO error occurs
      */
-    public void parsePCB(final DiptraceTokenizer tokenizer)
+    protected void parsePCB(final DiptraceTokenizer tokenizer)
         throws IOException {
         
         fPCBRoot.parse(tokenizer);
@@ -251,7 +247,7 @@ public final class DiptraceProject {
      * @param writer the writer that writes to the Diptrace ascii file
      * @throws IOException when IO error occurs
      */
-    public void writeSchematics(final Writer writer)
+    protected void writeSchematics(final Writer writer)
         throws IOException {
         
         fSchematicsRoot.write(writer, "");
@@ -262,7 +258,7 @@ public final class DiptraceProject {
      * @param writer the writer that writes to the Diptrace ascii file
      * @throws IOException when IO error occurs
      */
-    public void writePCB(final Writer writer)
+    protected void writePCB(final Writer writer)
         throws IOException {
         
         fPCBRoot.write(writer, "");
@@ -300,7 +296,7 @@ public final class DiptraceProject {
     /**
      * Holds flags for schematics and pcb.
      */
-    public static final class SchematicsAndPCBFlags {
+    protected static final class SchematicsAndPCBFlags {
         
         /**
          * Flag for schematics.
@@ -324,7 +320,7 @@ public final class DiptraceProject {
          * Get the schematics flag.
          * @return the flag
          */
-        public boolean getSchematicsFlag() {
+        protected boolean getSchematicsFlag() {
             return fSchematicsFlag;
         }
         
@@ -332,7 +328,7 @@ public final class DiptraceProject {
          * Get the pcb flag.
          * @return the flag
          */
-        public boolean getPCBFlag() {
+        protected boolean getPCBFlag() {
             return fPCBFlag;
         }
         

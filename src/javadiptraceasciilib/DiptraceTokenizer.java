@@ -1,4 +1,4 @@
-package javadiptraceasciilib.diptrace.tokenizer;
+package javadiptraceasciilib;
 
 import java.io.BufferedReader;
 import java.io.IOException;

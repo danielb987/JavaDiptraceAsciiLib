@@ -1,8 +1,8 @@
-package javadiptraceasciilib.diptrace.tree;
+package javadiptraceasciilib.old.diptrace.tree;
 
-import javadiptraceasciilib.diptrace.tokenizer.DiptraceToken;
-import javadiptraceasciilib.diptrace.tokenizer.DiptraceTokenType;
-import javadiptraceasciilib.diptrace.tokenizer.DiptraceTokenizer;
+import javadiptraceasciilib.old.diptrace.tokenizer.DiptraceToken;
+import javadiptraceasciilib.old.diptrace.tokenizer.DiptraceTokenType;
+import javadiptraceasciilib.old.diptrace.tokenizer.DiptraceTokenizer;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;

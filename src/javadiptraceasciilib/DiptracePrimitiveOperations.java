@@ -1,17 +1,9 @@
-
-package javadiptraceasciilib.diptrace.operations;
-
-import javadiptraceasciilib.diptrace.DiptraceProject;
-import javadiptraceasciilib.diptrace.exceptions.IllegalTokenValue;
-import javadiptraceasciilib.diptrace.exceptions.NotFoundException;
-import javadiptraceasciilib.diptrace.tokenizer.DiptraceToken;
-import javadiptraceasciilib.diptrace.tree.DiptraceGenericItem;
-import javadiptraceasciilib.diptrace.tree.DiptraceItem;
+package javadiptraceasciilib;
 
 /**
  * Do different operations on a DiptraceProject.
  */
-public class DiptraceOperations {
+final class DiptracePrimitiveOperations {
     
     /**
      * The project that the operations are done at.
@@ -22,7 +14,7 @@ public class DiptraceOperations {
      * Initialize a DiptraceOperations object.
      * @param project the project
      */
-    public DiptraceOperations(final DiptraceProject project) {
+    DiptracePrimitiveOperations(final DiptraceProject project) {
         this.fProject = project;
     }
     
