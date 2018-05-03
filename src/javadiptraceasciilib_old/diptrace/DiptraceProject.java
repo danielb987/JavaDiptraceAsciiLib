@@ -1,12 +1,12 @@
-package javadiptraceasciilib.diptrace;
+package javadiptraceasciilib_old.diptrace;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import javadiptraceasciilib.diptrace.tokenizer.DiptraceTokenizer;
-import javadiptraceasciilib.diptrace.tree.DiptraceRootItem;
+import javadiptraceasciilib_old.diptrace.tokenizer.DiptraceTokenizer;
+import javadiptraceasciilib_old.diptrace.tree.DiptraceRootItem;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -14,8 +14,8 @@ import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
-import javadiptraceasciilib.diptrace.tree.DiptraceGenericItem;
-import javadiptraceasciilib.diptrace.tree.DiptraceItem;
+import javadiptraceasciilib_old.diptrace.tree.DiptraceGenericItem;
+import javadiptraceasciilib_old.diptrace.tree.DiptraceItem;
 
 /**
  * This class is holds a diptrace project. It can have both the schematics

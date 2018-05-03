@@ -1,8 +1,8 @@
 
-package javadiptraceasciilib.diptrace.operations;
+package javadiptraceasciilib_old.diptrace.operations;
 
 import java.util.List;
-import javadiptraceasciilib.diptrace.tree.DiptraceItem;
+import javadiptraceasciilib_old.diptrace.tree.DiptraceItem;
 
 /**
  * Holds an item from both the schematics and pcb tree.

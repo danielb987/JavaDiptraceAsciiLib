@@ -1,6 +1,6 @@
-package javadiptraceasciilib.diptrace.tokenizer;
+package javadiptraceasciilib_old.diptrace.tokenizer;
 
-import javadiptraceasciilib.diptrace.exceptions.IllegalTokenValue;
+import javadiptraceasciilib_old.diptrace.exceptions.IllegalTokenValue;
 
 /**
  * This class represents a token in the DipTrace ascii file.
