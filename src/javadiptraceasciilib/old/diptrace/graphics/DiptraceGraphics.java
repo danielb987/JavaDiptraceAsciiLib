@@ -31,6 +31,8 @@ public class DiptraceGraphics {
         if (fProject == null)
             return;
         
+        if (1==0)
+            throw new RuntimeException("Test");
 //        graphics.drawOval(0, 0, 100, 100);
     }
     
