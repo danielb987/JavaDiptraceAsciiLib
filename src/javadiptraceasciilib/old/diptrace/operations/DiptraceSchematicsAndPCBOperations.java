@@ -2,8 +2,6 @@
 package javadiptraceasciilib.old.diptrace.operations;
 
 import javadiptraceasciilib.old.diptrace.DiptraceProject;
-import javadiptraceasciilib.old.diptrace.exceptions.NotFoundException;
-import javadiptraceasciilib.old.diptrace.tree.DiptraceItem;
 
 /**
  * Extended operations on a DiptraceProject which includes both schematics
@@ -19,25 +17,57 @@ public class DiptraceSchematicsAndPCBOperations extends DiptraceOperations {
         super(project);
     }
     
-    public void duplicateComponent(String originalRefDes, String newRefDes) {
+    /**
+     * A
+     * @param originalRefDes a
+     * @param newRefDes a
+     */
+    public void duplicateComponent(
+        final String originalRefDes, final String newRefDes) {
         
     }
     
+    /**
+     * A
+     * @param refDes a
+     * @param x a
+     * @param y a
+     */
     public void moveComponentAbsoluteOnSchematics(
-        String refDes, double x, double y) {
+        final String refDes, final double x, final double y) {
         
     }
     
+    /**
+     * A
+     * @param refDes a
+     * @param x a
+     * @param y a
+     */
     public void moveComponentRelativeOnSchematics(
-        String refDes, double x, double y) {
+        final String refDes, final double x, final double y) {
         
     }
     
-    public void moveComponentAbsoluteOnPCB(String refDes, double x, double y) {
+    /**
+     * A
+     * @param refDes a
+     * @param x a
+     * @param y a
+     */
+    public void moveComponentAbsoluteOnPCB(
+        final String refDes, final double x, final double y) {
         
     }
     
-    public void moveComponentRelativeOnPCB(String refDes, double x, double y) {
+    /**
+     * A
+     * @param refDes a
+     * @param x a
+     * @param y a
+     */
+    public void moveComponentRelativeOnPCB(
+        final String refDes, final double x, final double y) {
         
     }
     
