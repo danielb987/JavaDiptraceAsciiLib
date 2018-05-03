@@ -228,7 +228,8 @@ public final class FlashLightExtended {
                     String newResistorName
                         = String.format("R%d", ++numResistors);
                     
-                    diptraceOperations.duplicateComponent(newDiodeName, newResistorName);
+                    diptraceOperations.duplicateComponent(
+                        newDiodeName, newResistorName);
                     
                     diptraceOperations
                         .moveComponentRelativeOnSchematics(
@@ -240,8 +241,9 @@ public final class FlashLightExtended {
                     diptraceOperations
                         .moveComponentAbsoluteOnPCB(newDiodeName, pcbX, pcbY);
                     diptraceOperations
-                        .moveComponentAbsoluteOnPCB(newResistorName, pcbX, pcbY);
-/*                    
+                        .moveComponentAbsoluteOnPCB(
+                            newResistorName, pcbX, pcbY);
+/*
                     addDiodeAndResistor(
                         diptraceProject,
                         diptraceOperations,
@@ -267,12 +269,12 @@ public final class FlashLightExtended {
             // Write the diptrace ascii files.
             diptraceProject.writeSchematicsAndPCB(
                 schematicsOutputFile, pcbOutputFile);
-/*            
+/*
             if (1==0)
                 throw new IllegalTokenValue("Test");
             if (1==0)
                 throw new NotFoundException("Test");
-*/            
+*/
         // Since thise is an example, we don't do any fancy error handling.
 //        } catch (IllegalTokenValue | NotFoundException | IOException ex) {
 //            ex.printStackTrace();

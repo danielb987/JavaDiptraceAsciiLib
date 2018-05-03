@@ -22,7 +22,7 @@ class DiptraceSchematicsAndPCBItem {
      * @param schematicsItems a list of the schematics items
      * @param pcbItem the pcb item
      */
-    public DiptraceSchematicsAndPCBItem(
+    DiptraceSchematicsAndPCBItem(
         final List<DiptraceItem> schematicsItems,
         final DiptraceItem pcbItem) {
         

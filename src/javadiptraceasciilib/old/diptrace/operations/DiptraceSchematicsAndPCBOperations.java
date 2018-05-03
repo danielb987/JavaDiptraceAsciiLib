@@ -18,7 +18,7 @@ public class DiptraceSchematicsAndPCBOperations extends DiptraceOperations {
     }
     
     /**
-     * A
+     * A.
      * @param originalRefDes a
      * @param newRefDes a
      */
@@ -28,7 +28,7 @@ public class DiptraceSchematicsAndPCBOperations extends DiptraceOperations {
     }
     
     /**
-     * A
+     * A.
      * @param refDes a
      * @param x a
      * @param y a
@@ -39,7 +39,7 @@ public class DiptraceSchematicsAndPCBOperations extends DiptraceOperations {
     }
     
     /**
-     * A
+     * A.
      * @param refDes a
      * @param x a
      * @param y a
@@ -50,7 +50,7 @@ public class DiptraceSchematicsAndPCBOperations extends DiptraceOperations {
     }
     
     /**
-     * A
+     * A.
      * @param refDes a
      * @param x a
      * @param y a
@@ -61,7 +61,7 @@ public class DiptraceSchematicsAndPCBOperations extends DiptraceOperations {
     }
     
     /**
-     * A
+     * A.
      * @param refDes a
      * @param x a
      * @param y a
@@ -72,7 +72,8 @@ public class DiptraceSchematicsAndPCBOperations extends DiptraceOperations {
     }
     
 /*
-    public DiptraceSchematicsAndPCBItem getComponentByRefDes(String refDes) throws NotFoundException {
+    public DiptraceSchematicsAndPCBItem getComponentByRefDes(String refDes)
+        throws NotFoundException {
         
         DiptraceItem schematicsParts
             = getSchematicsComponentPart("D1");

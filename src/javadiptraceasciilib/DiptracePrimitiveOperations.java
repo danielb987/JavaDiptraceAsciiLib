@@ -14,7 +14,7 @@ final class DiptracePrimitiveOperations {
      * Initialize a DiptraceOperations object.
      * @param project the project
      */
-    public DiptracePrimitiveOperations(final DiptraceProject project) {
+    DiptracePrimitiveOperations(final DiptraceProject project) {
         this.fProject = project;
     }
     

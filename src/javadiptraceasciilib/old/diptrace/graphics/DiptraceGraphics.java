@@ -6,7 +6,7 @@ import javadiptraceasciilib.old.diptrace.DiptraceProject;
 /**
  * Draw a schematics or a pcb on a Java Graphics2D object.
  */
-public class DiptraceGraphics {
+public final class DiptraceGraphics {
     
     /**
      * The Diptrace project.
@@ -17,7 +17,7 @@ public class DiptraceGraphics {
      * Initialize a DiptraceGraphics object.
      * @param project the DiptraceProject
      */
-    public DiptraceGraphics(DiptraceProject project) {
+    public DiptraceGraphics(final DiptraceProject project) {
         
         this.fProject = project;
     }
@@ -26,13 +26,15 @@ public class DiptraceGraphics {
      * Draw a schematics or pcb on a Java Graphics2D object.
      * @param graphics the graphics to draw on
      */
-    public void draw(Graphics2D graphics) {
+    public void draw(final Graphics2D graphics) {
         
-        if (fProject == null)
+        if (fProject == null) {
             return;
+        }
         
-        if (1==0)
+        if (1==0) {
             throw new RuntimeException("Test");
+        }
 //        graphics.drawOval(0, 0, 100, 100);
     }
     

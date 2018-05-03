@@ -1,0 +1,5 @@
+/**
+ * javadiptraceasciilib package.
+ */
+
+package javadiptraceasciilib;
