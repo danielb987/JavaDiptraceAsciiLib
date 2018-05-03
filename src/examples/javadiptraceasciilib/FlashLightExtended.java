@@ -125,7 +125,7 @@ public final class FlashLightExtended {
         diptraceOperations.moveItemAbsolute(
             newPCBPartResistor, pcbX, pcbY);
     }
-*/    
+*/
     /**
      * Create a flash light.
      * This class reads a schematics file and a pcb file that has a LED, a

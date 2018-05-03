@@ -32,7 +32,7 @@ public final class DiptraceGraphics {
             return;
         }
         
-        if (1==0) {
+        if (1 == 0) {
             throw new RuntimeException("Test");
         }
 //        graphics.drawOval(0, 0, 100, 100);

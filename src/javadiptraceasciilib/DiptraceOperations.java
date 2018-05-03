@@ -6,14 +6,17 @@ package javadiptraceasciilib;
  */
 public class DiptraceOperations {
     
-    private final DiptracePrimitiveOperations diptracePrimitiveOperations;
+    /**
+     * Primitive operations object.
+     */
+    private final DiptracePrimitiveOperations fDiptracePrimitiveOperations;
     
     /**
      * Initialize a DiptracePrimitiveOperations object.
      * @param project the project
      */
     public DiptraceOperations(final DiptraceProject project) {
-        diptracePrimitiveOperations = new DiptracePrimitiveOperations(project);
+        fDiptracePrimitiveOperations = new DiptracePrimitiveOperations(project);
     }
     
     /**
@@ -72,7 +75,8 @@ public class DiptraceOperations {
     }
     
 /*
-    public DiptraceSchematicsAndPCBItem getComponentByRefDes(String refDes) throws NotFoundException {
+    public DiptraceSchematicsAndPCBItem getComponentByRefDes(String refDes)
+        throws NotFoundException {
         
         DiptraceItem schematicsParts
             = getSchematicsComponentPart("D1");
