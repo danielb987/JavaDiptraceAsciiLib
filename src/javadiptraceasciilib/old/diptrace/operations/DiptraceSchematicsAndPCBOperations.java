@@ -1,9 +1,9 @@
 
-package javadiptraceasciilib_old.diptrace.operations;
+package javadiptraceasciilib.old.diptrace.operations;
 
-import javadiptraceasciilib_old.diptrace.DiptraceProject;
-import javadiptraceasciilib_old.diptrace.exceptions.NotFoundException;
-import javadiptraceasciilib_old.diptrace.tree.DiptraceItem;
+import javadiptraceasciilib.old.diptrace.DiptraceProject;
+import javadiptraceasciilib.old.diptrace.exceptions.NotFoundException;
+import javadiptraceasciilib.old.diptrace.tree.DiptraceItem;
 
 /**
  * Extended operations on a DiptraceProject which includes both schematics

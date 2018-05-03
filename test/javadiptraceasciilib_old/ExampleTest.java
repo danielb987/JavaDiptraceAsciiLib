@@ -2,7 +2,7 @@ package javadiptraceasciilib_old;
 
 // import util.FindFilesWithNullChar;
 // import org.junit.Assert;
-import javadiptraceasciilib_old.Example;
+import javadiptraceasciilib.old.Example;
 import org.junit.Test;
 
 /**

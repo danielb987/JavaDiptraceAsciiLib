@@ -1,6 +1,6 @@
-package javadiptraceasciilib_old.diptrace.tree;
+package javadiptraceasciilib.old.diptrace.tree;
 
-import javadiptraceasciilib_old.diptrace.tokenizer.DiptraceTokenizer;
+import javadiptraceasciilib.old.diptrace.tokenizer.DiptraceTokenizer;
 import java.io.IOException;
 import java.io.Writer;
 

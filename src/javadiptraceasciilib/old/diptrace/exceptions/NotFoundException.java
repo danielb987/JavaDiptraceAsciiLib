@@ -1,4 +1,4 @@
-package javadiptraceasciilib_old.diptrace.exceptions;
+package javadiptraceasciilib.old.diptrace.exceptions;
 
 /**
  * Item not found exception.

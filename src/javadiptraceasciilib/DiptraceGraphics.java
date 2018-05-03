@@ -2,7 +2,7 @@
 package javadiptraceasciilib;
 
 import java.awt.Graphics2D;
-import javadiptraceasciilib_old.diptrace.DiptraceProject;
+import javadiptraceasciilib.old.diptrace.DiptraceProject;
 
 /**
  *

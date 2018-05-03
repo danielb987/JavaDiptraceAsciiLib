@@ -1,8 +1,8 @@
 
-package javadiptraceasciilib_old.diptrace.graphics;
+package javadiptraceasciilib.old.diptrace.graphics;
 
 import java.awt.Graphics2D;
-import javadiptraceasciilib_old.diptrace.DiptraceProject;
+import javadiptraceasciilib.old.diptrace.DiptraceProject;
 
 /**
  *

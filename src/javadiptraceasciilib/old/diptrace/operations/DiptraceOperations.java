@@ -1,12 +1,12 @@
 
-package javadiptraceasciilib_old.diptrace.operations;
+package javadiptraceasciilib.old.diptrace.operations;
 
-import javadiptraceasciilib_old.diptrace.DiptraceProject;
-import javadiptraceasciilib_old.diptrace.exceptions.IllegalTokenValue;
-import javadiptraceasciilib_old.diptrace.exceptions.NotFoundException;
-import javadiptraceasciilib_old.diptrace.tokenizer.DiptraceToken;
-import javadiptraceasciilib_old.diptrace.tree.DiptraceGenericItem;
-import javadiptraceasciilib_old.diptrace.tree.DiptraceItem;
+import javadiptraceasciilib.old.diptrace.DiptraceProject;
+import javadiptraceasciilib.old.diptrace.exceptions.IllegalTokenValue;
+import javadiptraceasciilib.old.diptrace.exceptions.NotFoundException;
+import javadiptraceasciilib.old.diptrace.tokenizer.DiptraceToken;
+import javadiptraceasciilib.old.diptrace.tree.DiptraceGenericItem;
+import javadiptraceasciilib.old.diptrace.tree.DiptraceItem;
 
 /**
  * Do different operations on a DiptraceProject.

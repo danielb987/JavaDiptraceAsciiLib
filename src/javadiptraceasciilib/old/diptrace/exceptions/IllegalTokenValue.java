@@ -1,4 +1,4 @@
-package javadiptraceasciilib_old.diptrace.exceptions;
+package javadiptraceasciilib.old.diptrace.exceptions;
 
 /**
  * Thrown to indicate that an attempt has been done to give a token an invalid

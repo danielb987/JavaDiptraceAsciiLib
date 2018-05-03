@@ -1,4 +1,4 @@
-package javadiptraceasciilib_old.diptrace.tokenizer;
+package javadiptraceasciilib.old.diptrace.tokenizer;
 
 /**
  * Constant definitions of token types.
