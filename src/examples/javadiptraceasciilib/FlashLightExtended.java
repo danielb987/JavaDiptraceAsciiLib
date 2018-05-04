@@ -268,33 +268,6 @@ public final class FlashLightExtended {
                     diptraceOperations
                         .moveComponentAbsoluteOnPCB(
                             newResistorComponent, pcbX, pcbY);
-/*
-                    diptraceOperations
-                        .moveComponentRelativeOnSchematics(
-                            newDiodeName, schematicsX, schematicsY);
-                    diptraceOperations
-                        .moveComponentRelativeOnSchematics(
-                            newResistorName, schematicsX, schematicsY);
-                    
-                    diptraceOperations
-                        .moveComponentAbsoluteOnPCB(newDiodeName, pcbX, pcbY);
-                    diptraceOperations
-                        .moveComponentAbsoluteOnPCB(
-                            newResistorName, pcbX, pcbY);
-/*
-                    addDiodeAndResistor(
-                        diptraceProject,
-                        diptraceOperations,
-                        schematicsPartD1,
-                        pcbPartD1,
-                        schematicsPartR1,
-                        pcbPartR1,
-                        newDiodeName,
-                        newResistorName,
-                        schematicsX,
-                        schematicsY,
-                        pcbX, pcbY);
-*/
                 }
             }
             
@@ -307,15 +280,8 @@ public final class FlashLightExtended {
             // Write the diptrace ascii files.
             diptraceProject.writeSchematicsAndPCB(
                 schematicsOutputFile, pcbOutputFile);
-/*
-            if (1==0)
-                throw new IllegalTokenValue("Test");
-            if (1==0)
-                throw new NotFoundException("Test");
-*/
+            
         // Since thise is an example, we don't do any fancy error handling.
-//        } catch (IllegalTokenValue | NotFoundException | IOException ex) {
-//            ex.printStackTrace();
         } catch (IllegalTokenValue | NotFoundException | IOException ex) {
             ex.printStackTrace();
         }

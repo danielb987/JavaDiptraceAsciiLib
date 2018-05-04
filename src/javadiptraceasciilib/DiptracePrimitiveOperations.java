@@ -22,7 +22,7 @@ final class DiptracePrimitiveOperations {
     }
     
     /**
-     * Get the DiptraceProject
+     * Get the DiptraceProject.
      * @return the project
      */
     DiptraceProject getProject() {
@@ -31,8 +31,8 @@ final class DiptracePrimitiveOperations {
     
     /**
      * Get the component parts in the schematics by its part name.
-     * @param components the DiptraceItem with the components
-     * @param partName the name of the part
+     * @param parent the parent DiptraceItem
+     * @param matchItem an object that tells if this item is a match
      * @return the part
      * @throws NotFoundException if the component part is not found
      */
@@ -115,7 +115,6 @@ final class DiptracePrimitiveOperations {
                 return (partName.equals(
                     genericItem.getParameters().get(1).getValue()));
             });
-//        return getComponentParts(fProject.getSchematicsComponents(), partName);
     }
     
     /**

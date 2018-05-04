@@ -1,28 +1,21 @@
 package javadiptraceasciilib;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * A Diptrace component.
  */
-public class DiptraceComponent {
+public final class DiptraceComponent {
     
     /**
-     * A list of the parts of this component.
+     * A list of the schematics component parts of this component.
      */
     private final List<DiptraceItem> fSchematicsComponentParts;
     
-    private final DiptraceItem fPCBComponent;
-    
     /**
-     * Initialize a DiptraceComponent object.
-     * @param diptraceOperations the diptraceOperations obhject
-     * @param refDes the RefDes of the component
+     * The pcb component of this component.
      */
-//    DiptraceComponent(DiptraceOperations diptraceOperations, String refDes) {
-//
-//    }
+    private final DiptraceItem fPCBComponent;
     
     /**
      * Initialize a DiptraceComponent object.
@@ -30,8 +23,8 @@ public class DiptraceComponent {
      * @param pcbComponent the pcb component
      */
     DiptraceComponent(
-        List<DiptraceItem> schematicsComponentPart,
-        DiptraceItem pcbComponent) {
+        final List<DiptraceItem> schematicsComponentPart,
+        final DiptraceItem pcbComponent) {
         
         this.fSchematicsComponentParts = schematicsComponentPart;
         this.fPCBComponent = pcbComponent;

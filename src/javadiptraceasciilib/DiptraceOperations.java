@@ -46,7 +46,7 @@ public class DiptraceOperations {
      * @param component the component to copy
      * @param newRefDes the RefDes that the new component is going to get
      * @return the new component
-     * @throws javadiptraceasciilib.IllegalTokenValue if a token cannot be
+     * @throws IllegalTokenValue if a token cannot be
      * given the desired value
      */
     public DiptraceComponent duplicateComponent(
@@ -54,7 +54,8 @@ public class DiptraceOperations {
         final String newRefDes)
         throws IllegalTokenValue {
         
-        DiptraceProject diptraceProject = fDiptracePrimitiveOperations.getProject();
+        DiptraceProject diptraceProject
+            = fDiptracePrimitiveOperations.getProject();
         
         // All new components need a new unique number.
         int newComponentNumber
@@ -66,7 +67,9 @@ public class DiptraceOperations {
         
         List<DiptraceItem> newSchematicsComponentParts = new ArrayList<>();
         
-        for (DiptraceItem componentPart : component.getSchematicsComponentParts()) {
+        for (DiptraceItem componentPart
+            : component.getSchematicsComponentParts()) {
+            
             DiptraceItem newSchematicsPartComponent
                 = fDiptracePrimitiveOperations.duplicateComponent(
                     componentPart,
