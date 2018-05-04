@@ -99,8 +99,19 @@ public class DiptraceOperations {
      * @param y the y position
      */
     public void moveComponentAbsoluteOnSchematics(
-        final DiptraceComponent component, final double x, final double y) {
+        final DiptraceComponent component, final double x, final double y) throws IllegalTokenValue {
         
+        for (DiptraceItem part : component.getSchematicsComponentParts()) {
+            ((DiptraceGenericItem) part.getSubItem("X"))
+                .getParameters()
+                .get(0)
+                .setDoubleValue(x);
+            
+            ((DiptraceGenericItem) part.getSubItem("Y"))
+                .getParameters()
+                .get(0)
+                .setDoubleValue(y);
+        }
     }
     
     /**
@@ -110,8 +121,23 @@ public class DiptraceOperations {
      * @param y the y distance
      */
     public void moveComponentRelativeOnSchematics(
-        final DiptraceComponent component, final double x, final double y) {
+        final DiptraceComponent component, final double x, final double y) throws IllegalTokenValue {
         
+        for (DiptraceItem part : component.getSchematicsComponentParts()) {
+            DiptraceToken tokenPosX
+                = ((DiptraceGenericItem) part.getSubItem("X"))
+                    .getParameters()
+                    .get(0);
+
+            tokenPosX.setDoubleValue(tokenPosX.getDoubleValue() + x);
+
+            DiptraceToken tokenPosY
+                = ((DiptraceGenericItem) part.getSubItem("Y"))
+                    .getParameters()
+                    .get(0);
+
+            tokenPosY.setDoubleValue(tokenPosY.getDoubleValue() + y);
+        }
     }
     
     /**

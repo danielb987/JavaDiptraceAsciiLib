@@ -199,18 +199,16 @@ public final class FlashLightExtended {
             
             diptraceOperations.moveComponentAbsoluteOnPCB(
                 diptraceComponentD1, 0, 0);
+            diptraceOperations.moveComponentAbsoluteOnPCB(
+                diptraceComponentR1, 0, 0);
 //            diptraceOperations.moveComponentAbsoluteOnPCB("D1", 0, 0);
             
             // Move the diode and the resistor to the center of the circle
-            diptraceOperations.moveComponentAbsoluteOnSchematics(
-                diptraceComponentD1, x0, y0);
 //            diptraceOperations.moveComponentAbsoluteOnSchematics(
-//                "D1", x0, y0);
+//                diptraceComponentD1, x0, y0);
             
-            diptraceOperations.moveComponentAbsoluteOnSchematics(
-                diptraceComponentR1, x0, y0);
 //            diptraceOperations.moveComponentAbsoluteOnSchematics(
-//                "R1", x0, y0);
+//                diptraceComponentR1, x0, y0);
             
             // Count how many LEDs and resistors we have. We start with one
             // since we already have one item of each in the Diptrace ascii
