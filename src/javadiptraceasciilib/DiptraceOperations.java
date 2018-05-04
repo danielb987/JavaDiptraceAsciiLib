@@ -28,7 +28,8 @@ public class DiptraceOperations {
      * @return the component
      * @throws NotFoundException if component not found
      */
-    public DiptraceComponent getComponentByRefDes(String refDes) throws NotFoundException {
+    public DiptraceComponent getComponentByRefDes(final String refDes)
+        throws NotFoundException {
         
         List<DiptraceItem> schematicsComponentPart
             = fDiptracePrimitiveOperations.getSchematicsComponentParts(refDes);
