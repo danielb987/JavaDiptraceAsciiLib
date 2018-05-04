@@ -1,6 +1,7 @@
 package examples.javadiptraceasciilib;
 
 import java.io.IOException;
+import javadiptraceasciilib.DiptraceComponent;
 /*
 import javadiptraceasciilib.diptrace.DiptraceProject;
 import javadiptraceasciilib.diptrace.exceptions.IllegalTokenValue;
@@ -11,6 +12,8 @@ import javadiptraceasciilib.diptrace.tree.DiptraceItem;
 */
 import javadiptraceasciilib.DiptraceProject;
 import javadiptraceasciilib.DiptraceOperations;
+import javadiptraceasciilib.IllegalTokenValue;
+import javadiptraceasciilib.NotFoundException;
 
 //CHECKSTYLE.OFF: ParameterNumber - Accept many parameters
 
@@ -183,19 +186,31 @@ public final class FlashLightExtended {
             DiptraceOperations diptraceOperations
                 = new DiptraceOperations(diptraceProject);
             
+            // Get the D1 component and the R1 component.
+            DiptraceComponent diptraceComponentD1
+                = diptraceOperations.getComponentByRefDes("D1");
+            DiptraceComponent diptraceComponentR1
+                = diptraceOperations.getComponentByRefDes("R1");
+            
             // The DipTrace ascii files keeps the data in a tree structure
             // and a DiptraceItem is a node in that tree. Note that the
             // schematics has one tree and the pcb as another tree. So we work
             // with both these two trees at the same time.
             
-            diptraceOperations.moveComponentAbsoluteOnPCB("D1", 0, 0);
+            diptraceOperations.moveComponentAbsoluteOnPCB(
+                diptraceComponentD1, 0, 0);
+//            diptraceOperations.moveComponentAbsoluteOnPCB("D1", 0, 0);
             
             // Move the diode and the resistor to the center of the circle
             diptraceOperations.moveComponentAbsoluteOnSchematics(
-                "D1", x0, y0);
+                diptraceComponentD1, x0, y0);
+//            diptraceOperations.moveComponentAbsoluteOnSchematics(
+//                "D1", x0, y0);
             
             diptraceOperations.moveComponentAbsoluteOnSchematics(
-                "R1", x0, y0);
+                diptraceComponentR1, x0, y0);
+//            diptraceOperations.moveComponentAbsoluteOnSchematics(
+//                "R1", x0, y0);
             
             // Count how many LEDs and resistors we have. We start with one
             // since we already have one item of each in the Diptrace ascii
@@ -228,35 +243,31 @@ public final class FlashLightExtended {
                     String newResistorName
                         = String.format("R%d", ++numResistors);
                     
-                    diptraceOperations.duplicateComponent(
-                        newDiodeName, newResistorName);
+                    DiptraceComponent newDiodeComponent =
+                        diptraceOperations.duplicateComponent(
+                            diptraceComponentD1, newDiodeName);
+//                    diptraceOperations.duplicateComponent(
+//                        "D1", newDiodeName);
+                    
+                    DiptraceComponent newResistorComponent =
+                        diptraceOperations.duplicateComponent(
+                            diptraceComponentR1, newResistorName);
+//                    diptraceOperations.duplicateComponent(
+//                        "R1", newResistorName);
                     
                     diptraceOperations
                         .moveComponentRelativeOnSchematics(
-                            newDiodeName, schematicsX, schematicsY);
+                            newDiodeComponent, schematicsX, schematicsY);
                     diptraceOperations
                         .moveComponentRelativeOnSchematics(
-                            newResistorName, schematicsX, schematicsY);
+                            newResistorComponent, schematicsX, schematicsY);
                     
-                    diptraceOperations
-                        .moveComponentAbsoluteOnPCB(newDiodeName, pcbX, pcbY);
                     diptraceOperations
                         .moveComponentAbsoluteOnPCB(
-                            newResistorName, pcbX, pcbY);
-/*
-                    addDiodeAndResistor(
-                        diptraceProject,
-                        diptraceOperations,
-                        schematicsPartD1,
-                        pcbPartD1,
-                        schematicsPartR1,
-                        pcbPartR1,
-                        newDiodeName,
-                        newResistorName,
-                        schematicsX,
-                        schematicsY,
-                        pcbX, pcbY);
-*/
+                            newDiodeComponent, pcbX, pcbY);
+                    diptraceOperations
+                        .moveComponentAbsoluteOnPCB(
+                            newResistorComponent, pcbX, pcbY);
                 }
             }
             
@@ -269,16 +280,9 @@ public final class FlashLightExtended {
             // Write the diptrace ascii files.
             diptraceProject.writeSchematicsAndPCB(
                 schematicsOutputFile, pcbOutputFile);
-/*
-            if (1==0)
-                throw new IllegalTokenValue("Test");
-            if (1==0)
-                throw new NotFoundException("Test");
-*/
+            
         // Since thise is an example, we don't do any fancy error handling.
-//        } catch (IllegalTokenValue | NotFoundException | IOException ex) {
-//            ex.printStackTrace();
-        } catch (IOException ex) {
+        } catch (IllegalTokenValue | NotFoundException | IOException ex) {
             ex.printStackTrace();
         }
     }

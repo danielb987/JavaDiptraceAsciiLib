@@ -55,7 +55,7 @@ public abstract class DiptraceItem {
      * A map with the sub items there the sub item identifier is the key
      * to the map.
      */
-    private final Map<String, DiptraceItem> fSubItemsMap = new HashMap();
+    private final Map<String, DiptraceItem> fSubItemsMap = new HashMap<>();
     
     /**
      * Initializes a DiptraceItem object with an identifier.
