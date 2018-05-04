@@ -1,5 +1,8 @@
 package javadiptraceasciilib;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Do different operations on a DiptraceProject.
  */
@@ -19,16 +22,57 @@ final class DiptracePrimitiveOperations {
     }
     
     /**
-     * Get the component part in the schematics by its part name.
+     * Get the DiptraceProject
+     * @return the project
+     */
+    DiptraceProject getProject() {
+        return fProject;
+    }
+    
+    /**
+     * Get the component parts in the schematics by its part name.
      * @param components the DiptraceItem with the components
      * @param partName the name of the part
      * @return the part
      * @throws NotFoundException if the component part is not found
      */
-    private DiptraceItem getComponentPart(
+    private List<DiptraceItem> getDiptraceItems(
+        final DiptraceItem parent,
+        final MatchDiptraceItem matchItem)
+        throws NotFoundException {
+        
+        List<DiptraceItem> diptraceItems = new ArrayList<>();
+        
+        for (DiptraceItem child : parent.getSubItems()) {
+            if (matchItem.match(child)) {
+                diptraceItems.add(child);
+            }
+            
+//            DiptraceGenericItem theItem = (DiptraceGenericItem) part;
+            
+//            if (partName.equals(theItem.getParameters().get(1).getValue())) {
+        }
+        
+        if (diptraceItems.isEmpty()) {
+            throw new NotFoundException(String.format("No item is not found"));
+        }
+        
+        return diptraceItems;
+    }
+    
+    /**
+     * Get the component parts in the schematics by its part name.
+     * @param components the DiptraceItem with the components
+     * @param partName the name of the part
+     * @return the part
+     * @throws NotFoundException if the component part is not found
+     */
+/*    private List<DiptraceItem> getComponentParts(
         final DiptraceItem components,
         final String partName)
         throws NotFoundException {
+        
+        List<DiptraceItem> diptraceItems = new ArrayList<>();
         
         for (DiptraceItem part : components.getSubItems()) {
             
@@ -40,14 +84,38 @@ final class DiptracePrimitiveOperations {
 //                    = (DiptraceGenericItem) part.getSubItem("Number");
 //                int number = numberItem.getParameters().get(0).getIntValue();
 //                System.out.format("Number: %d%n", number);
-                return part;
+                diptraceItems.add(part);
+//                return part;
             }
         }
         
-        throw new NotFoundException(
-                    String.format(
-                        "Component part %s is not found in schematics",
-                        partName));
+        if (diptraceItems.isEmpty())
+            throw new NotFoundException(
+                        String.format(
+                            "Component part %s is not found in schematics",
+                            partName));
+        
+        return diptraceItems;
+    }
+*/
+    /**
+     * Get the component part in the schematics by its part name.
+     * @param partName the name of the part
+     * @return the part
+     * @throws NotFoundException if the component part is not found
+     */
+    public List<DiptraceItem> getSchematicsComponentParts(final String partName)
+        throws NotFoundException {
+        
+        return getDiptraceItems(
+            fProject.getSchematicsComponents(),
+            (DiptraceItem item) -> {
+                DiptraceGenericItem genericItem
+                    = (DiptraceGenericItem) item;
+                return (partName.equals(
+                    genericItem.getParameters().get(1).getValue()));
+            });
+//        return getComponentParts(fProject.getSchematicsComponents(), partName);
     }
     
     /**
@@ -56,22 +124,21 @@ final class DiptracePrimitiveOperations {
      * @return the part
      * @throws NotFoundException if the component part is not found
      */
-    public DiptraceItem getSchematicsComponentPart(final String partName)
+    public DiptraceItem getPCBComponent(final String partName)
         throws NotFoundException {
         
-        return getComponentPart(fProject.getSchematicsComponents(), partName);
-    }
-    
-    /**
-     * Get the component part in the schematics by its part name.
-     * @param partName the name of the part
-     * @return the part
-     * @throws NotFoundException if the component part is not found
-     */
-    public DiptraceItem getPCBComponentPart(final String partName)
-        throws NotFoundException {
+//        return getComponentParts(fProject.getPCBComponents(), partName);
+        List<DiptraceItem> list
+            = getDiptraceItems(
+                fProject.getSchematicsComponents(),
+                (DiptraceItem item) -> {
+                    DiptraceGenericItem genericItem
+                        = (DiptraceGenericItem) item;
+                    return (partName.equals(
+                        genericItem.getParameters().get(1).getValue()));
+                });
         
-        return getComponentPart(fProject.getPCBComponents(), partName);
+        return list.get(0);
     }
     
     /**
@@ -234,6 +301,22 @@ final class DiptracePrimitiveOperations {
         
 //        return newComponents;
 //    }
+    
+    
+    
+    
+    /**
+     * An interface that answers whenether the item is a match.
+     */
+    private interface MatchDiptraceItem {
+        
+        /**
+         * Is this item a match?
+         * @param item the item
+         * @return true if it's a match
+         */
+        boolean match(DiptraceItem item);
+    }
     
     
 }
