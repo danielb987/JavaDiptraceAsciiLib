@@ -116,7 +116,7 @@ public abstract class DiptraceItem {
     }
     
     /**
-     * May this item have sub items?
+     * Get whenether this item have sub items.
      * @return true if this item may have sub items
      */
     boolean getMayHaveSubItems() {
@@ -124,7 +124,7 @@ public abstract class DiptraceItem {
     }
     
     /**
-     * May this item have sub items?
+     * Set whenether this item have sub items.
      * @param mayHaveSubItems true if this item may have sub items
      */
     void setMayHaveSubItems(final boolean mayHaveSubItems) {
