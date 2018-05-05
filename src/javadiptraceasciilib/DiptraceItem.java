@@ -75,7 +75,7 @@ public abstract class DiptraceItem {
      * Returns the parent.
      * @return the parent
      */
-    DiptraceItem getParent() {
+    final DiptraceItem getParent() {
         return fParent;
     }
     
@@ -83,7 +83,7 @@ public abstract class DiptraceItem {
      * Returns the identifier.
      * @return the identifier
      */
-    String getIdentifier() {
+    final String getIdentifier() {
         return fIdentifier;
     }
     
@@ -91,7 +91,7 @@ public abstract class DiptraceItem {
      * Returns the sub items.
      * @return the sub items
      */
-    public List<DiptraceItem> getSubItems() {
+    final public List<DiptraceItem> getSubItems() {
         return fSubItems;
     }
     
@@ -100,7 +100,7 @@ public abstract class DiptraceItem {
      * @param identifier the items identifier
      * @return a Diptrace item
      */
-    DiptraceItem getSubItem(final String identifier) {
+    final DiptraceItem getSubItem(final String identifier) {
         
         return fSubItemsMap.get(identifier);
     }
@@ -109,7 +109,7 @@ public abstract class DiptraceItem {
      * Adds a sub item to this item.
      * @param item the item to add
      */
-    void addSubItem(final DiptraceItem item) {
+    final void addSubItem(final DiptraceItem item) {
         
         fSubItems.add(item);
         fSubItemsMap.put(item.fIdentifier, item);
@@ -119,7 +119,7 @@ public abstract class DiptraceItem {
      * Get whenether this item have sub items.
      * @return true if this item may have sub items
      */
-    boolean getMayHaveSubItems() {
+    final boolean getMayHaveSubItems() {
         return fMayHaveSubItems;
     }
     
@@ -127,7 +127,7 @@ public abstract class DiptraceItem {
      * Set whenether this item have sub items.
      * @param mayHaveSubItems true if this item may have sub items
      */
-    void setMayHaveSubItems(final boolean mayHaveSubItems) {
+    final void setMayHaveSubItems(final boolean mayHaveSubItems) {
         fMayHaveSubItems = mayHaveSubItems;
     }
     
@@ -145,7 +145,7 @@ public abstract class DiptraceItem {
      * @throws IOException on any I/O error
      */
     //CHECKSTYLE.OFF: InnerAssignment - Allow assignment in while loop
-    protected void parseSubItems(final DiptraceTokenizer tokenizer)
+    protected final void parseSubItems(final DiptraceTokenizer tokenizer)
         throws IOException {
         
         DiptraceToken token;
@@ -198,7 +198,7 @@ public abstract class DiptraceItem {
      * @return true if item has sub items
      * @throws IOException when IO error occurs
      */
-    protected boolean writeSubItems(
+    protected final boolean writeSubItems(
         final Writer writer,
         final String indent,
         final IsTopLevel addNewLineFlag)
