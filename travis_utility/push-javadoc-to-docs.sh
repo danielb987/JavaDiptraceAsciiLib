@@ -67,7 +67,7 @@ if [ "$TRAVIS_REPO_SLUG" == "danielb987/JavaDiptraceAsciiLib" ] && [ "$TRAVIS_PU
 
   # Run javadoc and generate only for public classes and methods
   cd $DIR
-  ant javadoc -D-public
+  ant javadoc -Daccess="public"
   mv javadoc javadoc_public
   cd $HOME/JavaDiptraceAsciiLib.Documentation/docs
   rm -Rf javadoc_public
