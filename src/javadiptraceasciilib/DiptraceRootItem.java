@@ -51,7 +51,7 @@ final class DiptraceRootItem extends DiptraceItem {
     public void write(final Writer writer, final String indent)
         throws IOException {
         
-        this.writeSubItems(writer, indent, IsTopLevel.TOP_LEVEL);
+        this.writeSubItems(writer, indent);
     }
     
     

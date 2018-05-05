@@ -161,7 +161,7 @@ public class DiptraceGenericItem extends DiptraceItem {
 //            }
         }
         
-        if (writeSubItems(writer, indent, IsTopLevel.SUB_LEVEL)) {
+        if (writeSubItems(writer, indent)) {
             writer.append(indent);
         } else {
             if (getMayHaveSubItems()) {
