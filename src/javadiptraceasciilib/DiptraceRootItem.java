@@ -14,7 +14,7 @@ final class DiptraceRootItem extends DiptraceItem {
     /**
      * Initializes the DiptraceRootItem object.
      */
-    public DiptraceRootItem() {
+    DiptraceRootItem() {
         super(null, "root");
     }
     

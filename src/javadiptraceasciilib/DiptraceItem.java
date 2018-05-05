@@ -91,7 +91,7 @@ public abstract class DiptraceItem {
      * Returns the sub items.
      * @return the sub items
      */
-    final public List<DiptraceItem> getSubItems() {
+    public final List<DiptraceItem> getSubItems() {
         return fSubItems;
     }
     
