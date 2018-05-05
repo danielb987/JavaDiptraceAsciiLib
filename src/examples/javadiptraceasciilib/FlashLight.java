@@ -29,10 +29,6 @@ public final class FlashLight {
      * Duplicate a diode and a resistor at the desired place.
      * @param diptraceProject the DiptraceProject instance
      * @param diptraceOperations the DiptraceOperations instance
-     * @param schematicsPartD1 the diode D1 on the schematics
-     * @param pcbPartD1 the diode D1 on the pcb
-     * @param schematicsPartR1 the resistor R1 on the schematics
-     * @param pcbPartR1 the resistor R1 on the pcb
      * @param newDiodeName the new name of the diode
      * @param newResistorName the new name of the resistor
      * @param schematicsDistX how long to move the parts on the schematics
