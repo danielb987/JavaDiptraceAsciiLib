@@ -13,22 +13,6 @@ import java.util.Map;
 public abstract class DiptraceItem {
     
     /**
-     * A flag about whenether this level is at the top or not.
-     */
-    protected enum IsTopLevel {
-        
-        /**
-         * Top level.
-         */
-        TOP_LEVEL,
-        
-        /**
-         * Don't add a new line.
-         */
-        SUB_LEVEL,
-    }
-    
-    /**
      * The parent of this item.
      */
     private final DiptraceItem fParent;
@@ -193,21 +177,18 @@ public abstract class DiptraceItem {
      * Write the sub items.
      * @param writer the writer that writes to the Diptrace ascii file
      * @param indent a string of spaces to indent the tree in the ascii file
-     * @param addNewLineFlag should a new line be added first or not if there
-     * are any sub items?
      * @return true if item has sub items
      * @throws IOException when IO error occurs
      */
     protected final boolean writeSubItems(
         final Writer writer,
-        final String indent,
-        final IsTopLevel addNewLineFlag)
+        final String indent)
         throws IOException {
         
         if (!fSubItems.isEmpty()) {
             String newIndent;
             
-            if (addNewLineFlag == IsTopLevel.SUB_LEVEL) {
+            if (this.getParent() != null) {
                 writer.append(System.lineSeparator());
                 newIndent = indent + "  ";
             } else {
