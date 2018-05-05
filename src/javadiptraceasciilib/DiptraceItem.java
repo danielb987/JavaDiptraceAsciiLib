@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * This class is the base class for items in the DipTrace ascii file.
  */
-abstract class DiptraceItem {
+public abstract class DiptraceItem {
     
     /**
      * A flag about whenether this level is at the top or not.
@@ -91,7 +91,7 @@ abstract class DiptraceItem {
      * Returns the sub items.
      * @return the sub items
      */
-    List<DiptraceItem> getSubItems() {
+    public List<DiptraceItem> getSubItems() {
         return fSubItems;
     }
     
@@ -278,7 +278,7 @@ abstract class DiptraceItem {
      * Prints the tree of this item and its sub items.
      * @param indent a string of spaces to indent the tree
      */
-    final void printTree(final String indent) {
+    public final void printTree(final String indent) {
         System.out.format("%s%s%n", indent, fIdentifier);
         String newIndent = indent + "   ";
         for (DiptraceItem subItem : fSubItems) {

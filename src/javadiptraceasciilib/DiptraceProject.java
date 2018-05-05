@@ -70,7 +70,7 @@ public final class DiptraceProject {
      * Get the root item of the schematics.
      * @return the root item of the Diptrace schematics item tree
      */
-    protected DiptraceRootItem getSchematicsRoot() {
+    public DiptraceItem getSchematicsRoot() {
         return fSchematicsRoot;
     }
     
@@ -78,7 +78,7 @@ public final class DiptraceProject {
      * Get the root item of the schematics.
      * @return the root item of the Diptrace schematics item tree
      */
-    protected DiptraceRootItem getPCBRoot() {
+    public DiptraceItem getPCBRoot() {
         return fPCBRoot;
     }
     
@@ -88,7 +88,7 @@ public final class DiptraceProject {
      * tells whenether a number is used in the schematics and/or the pcb.
      * @return a map of the used component numbers
      */
-    protected Map<Integer, SchematicsAndPCBFlags> getUsedComponentNumbers() {
+    Map<Integer, SchematicsAndPCBFlags> getUsedComponentNumbers() {
         return fUsedComponentNumbers;
     }
     
@@ -116,7 +116,7 @@ public final class DiptraceProject {
      * Returns a unused component number.
      * @return a new component number
      */
-    protected int getNewComponentNumber() {
+    int getNewComponentNumber() {
         return ++fLastComponentNumber;
     }
     
@@ -124,7 +124,7 @@ public final class DiptraceProject {
      * Returns a unused component hidden number.
      * @return a new component number
      */
-    protected int getNewComponentHiddenIdentifier() {
+    int getNewComponentHiddenIdentifier() {
         return ++fLastComponentHiddenIdentifier;
     }
     
@@ -133,7 +133,7 @@ public final class DiptraceProject {
      * @return the DiptraceItem that has all the components as DiptraceItem
      * children
      */
-    protected DiptraceItem getSchematicsComponents() {
+    DiptraceItem getSchematicsComponents() {
         return fSchematicsRoot.getSubItem("Schematic").getSubItem("Components");
     }
     
@@ -142,7 +142,7 @@ public final class DiptraceProject {
      * @return the DiptraceItem that has all the components as DiptraceItem
      * children
      */
-    protected DiptraceItem getPCBComponents() {
+    DiptraceItem getPCBComponents() {
         return fPCBRoot.getSubItem("Board").getSubItem("Components");
     }
     
@@ -151,7 +151,7 @@ public final class DiptraceProject {
      * @param tokenizer the tokenizer that parses the Diptrace ascii file
      * @throws IOException when IO error occurs
      */
-    protected void parseSchematics(final DiptraceTokenizer tokenizer)
+    void parseSchematics(final DiptraceTokenizer tokenizer)
         throws IOException {
         
         fSchematicsRoot.parse(tokenizer);
@@ -186,7 +186,7 @@ public final class DiptraceProject {
      * @param tokenizer the tokenizer that parses the Diptrace ascii file
      * @throws IOException when IO error occurs
      */
-    protected void parsePCB(final DiptraceTokenizer tokenizer)
+    void parsePCB(final DiptraceTokenizer tokenizer)
         throws IOException {
         
         fPCBRoot.parse(tokenizer);
@@ -247,7 +247,7 @@ public final class DiptraceProject {
      * @param writer the writer that writes to the Diptrace ascii file
      * @throws IOException when IO error occurs
      */
-    protected void writeSchematics(final Writer writer)
+    void writeSchematics(final Writer writer)
         throws IOException {
         
         fSchematicsRoot.write(writer, "");
@@ -258,7 +258,7 @@ public final class DiptraceProject {
      * @param writer the writer that writes to the Diptrace ascii file
      * @throws IOException when IO error occurs
      */
-    protected void writePCB(final Writer writer)
+    void writePCB(final Writer writer)
         throws IOException {
         
         fPCBRoot.write(writer, "");
@@ -293,78 +293,6 @@ public final class DiptraceProject {
     }
     
     /**
-     * Get the node tree.
-     * @param tree which tree we want to get
-     * @param contentHandler the content handler object
-     */
-    public void getDiptraceTree(
-        final DiptraceTree tree,
-        final DiptraceTreeContentHandler contentHandler) {
-        
-        switch (tree) {
-            case SCHEMATICS:
-                getDiptraceTree(fSchematicsRoot, contentHandler);
-                break;
-            case PCB:
-                getDiptraceTree(fPCBRoot, contentHandler);
-                break;
-            default:
-                throw new IllegalArgumentException(
-                    String.format(
-                        "Parameter tree has an invalid value: %s",
-                        tree.name()));
-        }
-    }
-    
-    /**
-     * Get the node tree.
-     * @param item the node that we want to get, including children
-     * @param contentHandler the content handler object
-     */
-    private void getDiptraceTree(
-        final DiptraceItem item,
-        final DiptraceTreeContentHandler contentHandler) {
-        
-        for (DiptraceItem subItem : item.getSubItems()) {
-            contentHandler.node(subItem.getIdentifier(), null);
-//            DefaultMutableTreeNode node
-//                = new DefaultMutableTreeNode(subItem.fIdentifier);
-            
-//            DefaultMutableTreeNode node
-//                = new DefaultMutableTreeNode(subItem.toString());
-//            treeNode.add(node);
-//            fillTree(node, subItem);
-        }
-    }
-    
-    
-    /**
-     * An enumeration of the Diptrace trees.
-     */
-    public enum DiptraceTree {
-        
-        /**
-         * The schematics tree.
-         */
-        SCHEMATICS,
-        
-        /**
-         * The PCB tree.
-         */
-        PCB,
-    }
-    
-    
-    /**
-     * An interface fot a content handler.
-     */
-    public interface DiptraceTreeContentHandler {
-        
-        void node(String node, String[] attributes);
-    }
-    
-    
-    /**
      * Holds flags for schematics and pcb.
      */
     static final class SchematicsAndPCBFlags {
@@ -391,7 +319,7 @@ public final class DiptraceProject {
          * Get the schematics flag.
          * @return the flag
          */
-        protected boolean getSchematicsFlag() {
+        boolean getSchematicsFlag() {
             return fSchematicsFlag;
         }
         
@@ -399,7 +327,7 @@ public final class DiptraceProject {
          * Get the pcb flag.
          * @return the flag
          */
-        protected boolean getPCBFlag() {
+        boolean getPCBFlag() {
             return fPCBFlag;
         }
         
