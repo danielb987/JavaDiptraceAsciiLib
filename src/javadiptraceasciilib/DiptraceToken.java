@@ -13,7 +13,7 @@ final class DiptraceToken {
     /**
      * The value of the token as a String.
      */
-    private String fValue;
+    private final String fValue;
     
     /**
      * The value of the token as an integer, if the token is of type INTEGER.
@@ -140,26 +140,6 @@ final class DiptraceToken {
     }
     
     /**
-     * Set the value of the token.
-     * @param value the new value
-     * @throws IllegalTokenValue if the token is not a string or
-     * non quoted string token
-     */
-    void setValue(final String value) throws IllegalTokenValue {
-        if ((fType == DiptraceTokenType.IDENTIFIER)
-            || (fType == DiptraceTokenType.STRING)
-            || (fType == DiptraceTokenType.NON_QUOTED_STRING)) {
-            
-            fValue = value;
-        } else {
-            throw new IllegalTokenValue(
-                String.format(
-                    "A token of type %s cannot be given a string value",
-                    fType.name()));
-        }
-    }
-    
-    /**
      * Get the integer value of the token.
      * @return the integer value
      */
@@ -168,47 +148,11 @@ final class DiptraceToken {
     }
     
     /**
-     * Set the value of the token.
-     * @param value the new value
-     * @throws IllegalTokenValue if the token is not an integer token
-     */
-    void setIntValue(final int value) throws IllegalTokenValue {
-        if (fType == DiptraceTokenType.INTEGER) {
-            
-            fIntValue = value;
-            fValue = String.format("%d", value);
-        } else {
-            throw new IllegalTokenValue(
-                String.format(
-                    "A token of type %s cannot be given a string value",
-                    fType.name()));
-        }
-    }
-    
-    /**
      * Get the float value of the token.
      * @return the float value
      */
     double getDoubleValue() {
         return fDoubleValue;
-    }
-    
-    /**
-     * Set the value of the token.
-     * @param value the new value
-     * @throws IllegalTokenValue if the token is not a double token
-     */
-    void setDoubleValue(final double  value) throws IllegalTokenValue {
-        if (fType == DiptraceTokenType.DOUBLE) {
-            
-            fDoubleValue = value;
-            fValue = String.format("%1.3f", value);
-        } else {
-            throw new IllegalTokenValue(
-                String.format(
-                    "A token of type %s cannot be given a double value",
-                    fType.name()));
-        }
     }
     
     /**

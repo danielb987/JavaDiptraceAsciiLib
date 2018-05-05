@@ -175,8 +175,7 @@ final class DiptracePrimitiveOperations {
         final DiptraceItem item,
         final int newNumber,
         final int newHiddenIdentifier,
-        final String newName)
-        throws IllegalTokenValue {
+        final String newName) {
         
         DiptraceItem parent = item.getParent();
         
@@ -214,14 +213,12 @@ final class DiptracePrimitiveOperations {
      * @param item the item to move
      * @param x where to move the item along the x axis
      * @param y where to move the item along the y axis
-     * @throws IllegalTokenValue if the token cannot be updated with the
      * desired value
      */
     public void moveItemAbsolute(
         final DiptraceItem item,
         final double x,
-        final double y)
-        throws IllegalTokenValue {
+        final double y) {
         
         ((DiptraceDoubleAttribute)
             ((DiptraceGenericItem) item.getSubItem("X"))
@@ -241,14 +238,12 @@ final class DiptracePrimitiveOperations {
      * @param item the item to move
      * @param x how long distance to move the item along the x axis
      * @param y how long distance to move the item along the y axis
-     * @throws IllegalTokenValue if the token cannot be updated with the
      * desired value
      */
     public void moveItemRelative(
         final DiptraceItem item,
         final double x,
-        final double y)
-        throws IllegalTokenValue {
+        final double y) {
         
         DiptraceDoubleAttribute attrPosX
             = ((DiptraceDoubleAttribute)
@@ -271,13 +266,11 @@ final class DiptracePrimitiveOperations {
      * Rotate an item to an absolute angle.
      * @param item the item to rotate
      * @param angle the angle in degrees
-     * @throws IllegalTokenValue if the token cannot be updated with the
      * desired value
      */
     public void rotateItemAbsolute(
         final DiptraceItem item,
-        final int angle)
-        throws IllegalTokenValue {
+        final int angle) {
         
         ((DiptraceIntegerAttribute)
             ((DiptraceGenericItem) item.getSubItem("Angle"))
@@ -290,13 +283,11 @@ final class DiptracePrimitiveOperations {
      * Rotate an item some degrees.
      * @param item the item to rotate
      * @param angle the angle in degrees
-     * @throws IllegalTokenValue if the token cannot be updated with the
      * desired value
      */
     public void rotateItemRelative(
         final DiptraceItem item,
-        final int angle)
-        throws IllegalTokenValue {
+        final int angle) {
         
         DiptraceIntegerAttribute attrAngle
             = ((DiptraceIntegerAttribute)

@@ -47,12 +47,10 @@ public class DiptraceOperations {
      * @param component the component to copy
      * @param newRefDes the RefDes that the new component is going to get
      * @return the new component
-     * @throws IllegalTokenValue if the token cannot be given the desired value
      */
     public DiptraceComponent duplicateComponent(
         final DiptraceComponent component,
-        final String newRefDes)
-        throws IllegalTokenValue {
+        final String newRefDes) {
         
         DiptraceProject diptraceProject
             = fDiptracePrimitiveOperations.getProject();
@@ -96,11 +94,9 @@ public class DiptraceOperations {
      * @param component The component to move
      * @param x the x position
      * @param y the y position
-     * @throws IllegalTokenValue if the token cannot be given the desired value
      */
     public void moveComponentAbsoluteOnSchematics(
-        final DiptraceComponent component, final double x, final double y)
-        throws IllegalTokenValue {
+        final DiptraceComponent component, final double x, final double y) {
         
         for (DiptraceItem part : component.getSchematicsComponentParts()) {
             ((DiptraceDoubleAttribute)
@@ -122,11 +118,9 @@ public class DiptraceOperations {
      * @param component The component to move
      * @param x the x distance
      * @param y the y distance
-     * @throws IllegalTokenValue if the token cannot be given the desired value
      */
     public void moveComponentRelativeOnSchematics(
-        final DiptraceComponent component, final double x, final double y)
-        throws IllegalTokenValue {
+        final DiptraceComponent component, final double x, final double y) {
         
         for (DiptraceItem part : component.getSchematicsComponentParts()) {
             DiptraceDoubleAttribute attrPosX
