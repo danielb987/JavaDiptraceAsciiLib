@@ -103,15 +103,17 @@ public class DiptraceOperations {
         throws IllegalTokenValue {
         
         for (DiptraceItem part : component.getSchematicsComponentParts()) {
-            ((DiptraceGenericItem) part.getSubItem("X"))
-                .getParameters()
-                .get(0)
-                .setDoubleValue(x);
+            ((DiptraceDoubleAttribute)
+                ((DiptraceGenericItem) part.getSubItem("X"))
+                .getAttributes()
+                .get(0))
+                    .setDouble(x);
             
-            ((DiptraceGenericItem) part.getSubItem("Y"))
-                .getParameters()
-                .get(0)
-                .setDoubleValue(y);
+            ((DiptraceDoubleAttribute)
+                ((DiptraceGenericItem) part.getSubItem("Y"))
+                .getAttributes()
+                .get(0))
+                    .setDouble(y);
         }
     }
     
@@ -127,19 +129,21 @@ public class DiptraceOperations {
         throws IllegalTokenValue {
         
         for (DiptraceItem part : component.getSchematicsComponentParts()) {
-            DiptraceToken tokenPosX
-                = ((DiptraceGenericItem) part.getSubItem("X"))
-                    .getParameters()
-                    .get(0);
+            DiptraceDoubleAttribute attrPosX
+                = ((DiptraceDoubleAttribute)
+                    ((DiptraceGenericItem) part.getSubItem("X"))
+                        .getAttributes()
+                        .get(0));
 
-            tokenPosX.setDoubleValue(tokenPosX.getDoubleValue() + x);
+            attrPosX.setDouble(attrPosX.getDouble() + x);
 
-            DiptraceToken tokenPosY
-                = ((DiptraceGenericItem) part.getSubItem("Y"))
-                    .getParameters()
-                    .get(0);
+            DiptraceDoubleAttribute attrPosY
+                = ((DiptraceDoubleAttribute)
+                    ((DiptraceGenericItem) part.getSubItem("Y"))
+                    .getAttributes()
+                    .get(0));
 
-            tokenPosY.setDoubleValue(tokenPosY.getDoubleValue() + y);
+            attrPosY.setDouble(attrPosY.getDouble() + y);
         }
     }
     

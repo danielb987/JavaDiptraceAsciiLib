@@ -160,13 +160,17 @@ public final class DiptraceProject {
         for (DiptraceItem part : components.getSubItems()) {
             DiptraceGenericItem numberItem
                 = (DiptraceGenericItem) part.getSubItem("Number");
-            int number = numberItem.getParameters().get(0).getIntValue();
+            int number
+                = ((DiptraceIntegerAttribute) numberItem.getAttributes().get(0))
+                    .getInt();
             System.out.format("Number: %d%n", number);
             updateLastComponentNumber(number);
             DiptraceGenericItem hiddenIdentifierItem
                 = (DiptraceGenericItem) part.getSubItem("HiddenId");
             int hiddenIdentifier
-                = hiddenIdentifierItem.getParameters().get(0).getIntValue();
+                = ((DiptraceIntegerAttribute)
+                    hiddenIdentifierItem.getAttributes().get(0))
+                    .getInt();
             updateLastComponentHiddenIdentifier(hiddenIdentifier);
             fSchematicsComponentsNumberMap.put(number, part);
             SchematicsAndPCBFlags schematicsAndPCBFlags
@@ -195,7 +199,9 @@ public final class DiptraceProject {
         for (DiptraceItem component : components.getSubItems()) {
             DiptraceGenericItem numberItem
                 = (DiptraceGenericItem) component.getSubItem("Number");
-            int number = numberItem.getParameters().get(0).getIntValue();
+            int number
+                = ((DiptraceIntegerAttribute)numberItem.getAttributes().get(0))
+                    .getInt();
             System.out.format("Number: %d%n", number);
             updateLastComponentNumber(number);
             fPCBComponentsNumberMap.put(number, component);

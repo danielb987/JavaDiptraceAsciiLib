@@ -50,7 +50,7 @@ final class DiptracePrimitiveOperations {
             
 //            DiptraceGenericItem theItem = (DiptraceGenericItem) part;
             
-//            if (partName.equals(theItem.getParameters().get(1).getValue())) {
+//            if (partName.equals(theItem.getAttributes().get(1).getValue())) {
         }
         
         if (diptraceItems.isEmpty()) {
@@ -78,11 +78,11 @@ final class DiptracePrimitiveOperations {
             
             DiptraceGenericItem theItem = (DiptraceGenericItem) part;
             
-            if (partName.equals(theItem.getParameters().get(1).getValue())) {
+            if (partName.equals(theItem.getAttributes().get(1).getValue())) {
                 
 //                DiptraceGenericItem numberItem
 //                    = (DiptraceGenericItem) part.getSubItem("Number");
-//                int number = numberItem.getParameters().get(0).getIntValue();
+//                int number = numberItem.getAttributes().get(0).getIntValue();
 //                System.out.format("Number: %d%n", number);
                 diptraceItems.add(part);
 //                return part;
@@ -113,7 +113,7 @@ final class DiptracePrimitiveOperations {
                 DiptraceGenericItem genericItem
                     = (DiptraceGenericItem) item;
                 return (partName.equals(
-                    genericItem.getParameters().get(1).getValue()));
+                    genericItem.getAttributes().get(1).getString()));
             });
     }
     
@@ -134,7 +134,7 @@ final class DiptracePrimitiveOperations {
                     DiptraceGenericItem genericItem
                         = (DiptraceGenericItem) item;
                     return (partName.equals(
-                        genericItem.getParameters().get(1).getValue()));
+                        genericItem.getAttributes().get(1).getString()));
                 });
         
         return list.get(0);
@@ -175,22 +175,26 @@ final class DiptracePrimitiveOperations {
         DiptraceGenericItem newItem
             = (DiptraceGenericItem) item.duplicate(item.getParent());
         
-        newItem.getParameters().get(1).setValue(newName);
+        ((DiptraceStringAttribute) newItem.getAttributes().get(1))
+            .setString(newName);
         
-        ((DiptraceGenericItem) newItem.getSubItem("Number"))
-            .getParameters()
-            .get(0)
-            .setIntValue(newNumber);
+        ((DiptraceIntegerAttribute)
+            ((DiptraceGenericItem) newItem.getSubItem("Number"))
+                .getAttributes()
+                .get(0))
+                    .setInt(newNumber);
         
-        ((DiptraceGenericItem) newItem.getSubItem("HiddenId"))
-            .getParameters()
-            .get(0)
-            .setIntValue(newHiddenIdentifier);
+        ((DiptraceIntegerAttribute)
+            ((DiptraceGenericItem) newItem.getSubItem("HiddenId"))
+                .getAttributes()
+                .get(0))
+                    .setInt(newHiddenIdentifier);
         
-        ((DiptraceGenericItem) newItem.getSubItem("HiddenId"))
-            .getParameters()
-            .get(0)
-            .setIntValue(newNumber);
+        ((DiptraceIntegerAttribute)
+            ((DiptraceGenericItem) newItem.getSubItem("HiddenId"))
+                .getAttributes()
+                .get(0))
+                    .setInt(newNumber);
         
         item.getParent().getSubItems().add(newItem);
         
@@ -211,15 +215,17 @@ final class DiptracePrimitiveOperations {
         final double y)
         throws IllegalTokenValue {
         
-        ((DiptraceGenericItem) item.getSubItem("X"))
-            .getParameters()
-            .get(0)
-            .setDoubleValue(x);
+        ((DiptraceDoubleAttribute)
+            ((DiptraceGenericItem) item.getSubItem("X"))
+                .getAttributes()
+                .get(0))
+                    .setDouble(x);
         
-        ((DiptraceGenericItem) item.getSubItem("Y"))
-            .getParameters()
-            .get(0)
-            .setDoubleValue(y);
+        ((DiptraceDoubleAttribute)
+            ((DiptraceGenericItem) item.getSubItem("Y"))
+                .getAttributes()
+                .get(0))
+                    .setDouble(y);
     }
     
     /**
@@ -236,19 +242,21 @@ final class DiptracePrimitiveOperations {
         final double y)
         throws IllegalTokenValue {
         
-        DiptraceToken tokenPosX
-            = ((DiptraceGenericItem) item.getSubItem("X"))
-                .getParameters()
-                .get(0);
+        DiptraceDoubleAttribute attrPosX
+            = ((DiptraceDoubleAttribute)
+                ((DiptraceGenericItem) item.getSubItem("X"))
+                    .getAttributes()
+                    .get(0));
         
-        tokenPosX.setDoubleValue(tokenPosX.getDoubleValue() + x);
+        attrPosX.setDouble(attrPosX.getDouble() + x);
         
-        DiptraceToken tokenPosY
-            = ((DiptraceGenericItem) item.getSubItem("Y"))
-                .getParameters()
-                .get(0);
+        DiptraceDoubleAttribute attrPosY
+            = ((DiptraceDoubleAttribute)
+                ((DiptraceGenericItem) item.getSubItem("Y"))
+                    .getAttributes()
+                    .get(0));
         
-        tokenPosY.setDoubleValue(tokenPosY.getDoubleValue() + y);
+        attrPosY.setDouble(attrPosY.getDouble() + y);
     }
     
     /**
@@ -263,10 +271,11 @@ final class DiptracePrimitiveOperations {
         final int angle)
         throws IllegalTokenValue {
         
-        ((DiptraceGenericItem) item.getSubItem("Angle"))
-            .getParameters()
-            .get(0)
-            .setIntValue(angle);
+        ((DiptraceIntegerAttribute)
+            ((DiptraceGenericItem) item.getSubItem("Angle"))
+                .getAttributes()
+                .get(0))
+                    .setInt(angle);
     }
     
     /**
@@ -281,12 +290,13 @@ final class DiptracePrimitiveOperations {
         final int angle)
         throws IllegalTokenValue {
         
-        DiptraceToken tokenAngle
-            = ((DiptraceGenericItem) item.getSubItem("Angle"))
-                .getParameters()
-                .get(0);
+        DiptraceIntegerAttribute attrAngle
+            = ((DiptraceIntegerAttribute)
+                ((DiptraceGenericItem) item.getSubItem("Angle"))
+                    .getAttributes()
+                    .get(0));
         
-        tokenAngle.setIntValue(tokenAngle.getIntValue() + angle);
+        attrAngle.setInt(attrAngle.getInt() + angle);
     }
     
     /**
