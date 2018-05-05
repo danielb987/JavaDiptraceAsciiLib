@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
+import javadiptraceasciilib.DiptraceStringAttribute.UseQuotes;
 
 /**
  * This class is a generic class for items in the DipTrace ascii file.
@@ -76,23 +77,38 @@ public class DiptraceGenericItem extends DiptraceItem {
             switch (token.getType()) {
                 case IDENTIFIER:
                 case NON_QUOTED_STRING:
-                    fAttributes.add(new DiptraceStringAttribute(token.getValue(), false));
+                    fAttributes.add(
+                        new DiptraceStringAttribute(
+                            token.getValue(),
+                            UseQuotes.NO_QUOTES));
                     break;
                     
                 case STRING:
-                    fAttributes.add(new DiptraceStringAttribute(token.getValue(), true));
+                    fAttributes.add(
+                        new DiptraceStringAttribute(
+                            token.getValue(),
+                            UseQuotes.DOUBLE_QUOTES));
                     break;
                     
                 case INTEGER:
-                    fAttributes.add(new DiptraceStringAttribute(token.getValue(), true));
+                    fAttributes.add(
+                        new DiptraceIntegerAttribute(
+                            token.getValue(),
+                            token.getIntValue()));
                     break;
                     
                 case DOUBLE:
-                    fAttributes.add(new DiptraceStringAttribute(token.getValue(), true));
+                    fAttributes.add(
+                        new DiptraceDoubleAttribute(
+                            token.getValue(),
+                            token.getDoubleValue()));
                     break;
                     
                 case PERCENT:
-                    fAttributes.add(new DiptraceStringAttribute(token.getValue(), true));
+                    fAttributes.add(
+                        new DiptraceDoublePercentAttribute(
+                            token.getValue(),
+                            token.getDoubleValue()));
                     break;
                     
 //                    fAttributes.add(token);

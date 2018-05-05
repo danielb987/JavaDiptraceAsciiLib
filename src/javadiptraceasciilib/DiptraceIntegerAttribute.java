@@ -5,14 +5,25 @@ package javadiptraceasciilib;
  */
 public class DiptraceIntegerAttribute implements DiptraceAttribute {
     
-    String fStringValue;
-    int fIntegerValue;
+    /**
+     * The value as a string.
+     */
+    private String fStringValue;
+    
+    /**
+     * The value as an integer.
+     */
+    private int fIntegerValue;
     
     DiptraceIntegerAttribute(String stringValue, int integerValue) {
         this.fStringValue = stringValue;
         this.fIntegerValue = integerValue;
     }
     
+    /**
+     * Duplicate this attribute.
+     * @return a copy of this attribute
+     */
     @Override
     public DiptraceAttribute duplicate() {
         return new DiptraceIntegerAttribute(fStringValue, fIntegerValue);

@@ -1,9 +1,10 @@
+
 package javadiptraceasciilib;
 
 /**
- * A Diptrace double attribute.
+ *
  */
-public class DiptraceDoubleAttribute implements DiptraceAttribute {
+public class DiptraceDoublePercentAttribute implements DiptraceAttribute {
     
     /**
      * The value as a string.
@@ -11,11 +12,11 @@ public class DiptraceDoubleAttribute implements DiptraceAttribute {
     private String fStringValue;
     
     /**
-     * The value as a double.
+     * The value as a double with percent sign.
      */
     private double fDoubleValue;
     
-    DiptraceDoubleAttribute(
+    DiptraceDoublePercentAttribute(
         String stringValue,
         Double doubleValue) {
         
@@ -29,7 +30,7 @@ public class DiptraceDoubleAttribute implements DiptraceAttribute {
      */
     @Override
     public DiptraceAttribute duplicate() {
-        return new DiptraceDoubleAttribute(
+        return new DiptraceDoublePercentAttribute(
             fStringValue, fDoubleValue);
     }
     
@@ -44,7 +45,7 @@ public class DiptraceDoubleAttribute implements DiptraceAttribute {
     
     public void setDouble(double value) {
         fDoubleValue = value;
-        fStringValue = String.format("%1.3f", value);
+        fStringValue = String.format("%1.3f%%", value);
     }
-    
+
 }

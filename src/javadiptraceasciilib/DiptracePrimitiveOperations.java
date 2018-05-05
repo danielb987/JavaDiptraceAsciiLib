@@ -112,6 +112,12 @@ final class DiptracePrimitiveOperations {
             (DiptraceItem item) -> {
                 DiptraceGenericItem genericItem
                     = (DiptraceGenericItem) item;
+//                System.err.format(
+//                    "partName: %s, other: %s, result: %b%n",
+//                    partName,
+//                    genericItem.getAttributes().get(1).getString(),
+//                    partName.equals(
+//                        genericItem.getAttributes().get(1).getString()));
                 return (partName.equals(
                     genericItem.getAttributes().get(1).getString()));
             });
