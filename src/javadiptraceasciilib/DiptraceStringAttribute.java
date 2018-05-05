@@ -3,7 +3,7 @@ package javadiptraceasciilib;
 /**
  * A Diptrace string attribute.
  */
-public class DiptraceStringAttribute implements DiptraceAttribute {
+public final class DiptraceStringAttribute implements DiptraceAttribute {
     
     /**
      * The value as a String.
@@ -42,7 +42,7 @@ public class DiptraceStringAttribute implements DiptraceAttribute {
     public String getQuotedString() {
         switch (fQuotes) {
             case DOUBLE_QUOTES:
-                return "\""+fStringValue+"\"";
+                return "\"" + fStringValue + "\"";
                 
             case NO_QUOTES:
                 return fStringValue;

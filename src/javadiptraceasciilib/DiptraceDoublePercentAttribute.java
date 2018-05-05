@@ -1,10 +1,9 @@
-
 package javadiptraceasciilib;
 
 /**
  *
  */
-public class DiptraceDoublePercentAttribute implements DiptraceAttribute {
+public final class DiptraceDoublePercentAttribute implements DiptraceAttribute {
     
     /**
      * The value as a string.
