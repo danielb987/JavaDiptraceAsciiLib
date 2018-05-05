@@ -34,11 +34,19 @@ public final class DiptraceStringAttribute implements DiptraceAttribute {
         return new DiptraceStringAttribute(fStringValue, fQuotes);
     }
     
+    /**
+     * Get the attribute as a string.
+     * @return the attribute
+     */
     @Override
     public String getString() {
         return fStringValue;
     }
     
+    /**
+     * Get the attribute as a string, possibly with quotes.
+     * @return the attribute
+     */
     public String getQuotedString() {
         switch (fQuotes) {
             case DOUBLE_QUOTES:
@@ -55,13 +63,28 @@ public final class DiptraceStringAttribute implements DiptraceAttribute {
         }
     }
     
+    /**
+     * Set the attribute.
+     * @param value the value
+     */
     public void setString(final String value) {
         fStringValue = value;
     }
     
     
+    /**
+     * Whenether to use quotes or not.
+     */
     enum UseQuotes {
+        
+        /**
+         * Use double quotes.
+         */
         DOUBLE_QUOTES,
+        
+        /**
+         * Don't use quotes.
+         */
         NO_QUOTES,
     }
 }

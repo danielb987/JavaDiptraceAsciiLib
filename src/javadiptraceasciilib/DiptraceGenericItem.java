@@ -111,6 +111,12 @@ public class DiptraceGenericItem extends DiptraceItem {
                             token.getDoubleValue()));
                     break;
                     
+                default:
+                    throw new RuntimeException(
+                        String.format(
+                            "Token has unknown type: %s",
+                            token.getType().name()));
+                    
 //                    fAttributes.add(token);
             }
         }

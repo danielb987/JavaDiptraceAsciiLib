@@ -34,15 +34,27 @@ public final class DiptraceIntegerAttribute implements DiptraceAttribute {
         return new DiptraceIntegerAttribute(fStringValue, fIntegerValue);
     }
     
+    /**
+     * Get the attribute as a string.
+     * @return the attribute
+     */
     @Override
     public String getString() {
         return fStringValue;
     }
     
+    /**
+     * Get the attribute as an integer.
+     * @return the attribute
+     */
     public int getInt() {
         return fIntegerValue;
     }
     
+    /**
+     * Set the attribute.
+     * @param value the value
+     */
     public void setInt(final int value) {
         fIntegerValue = value;
         fStringValue = Integer.toString(value);

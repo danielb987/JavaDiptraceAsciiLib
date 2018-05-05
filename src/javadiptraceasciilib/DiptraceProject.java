@@ -200,7 +200,7 @@ public final class DiptraceProject {
             DiptraceGenericItem numberItem
                 = (DiptraceGenericItem) component.getSubItem("Number");
             int number
-                = ((DiptraceIntegerAttribute)numberItem.getAttributes().get(0))
+                = ((DiptraceIntegerAttribute) numberItem.getAttributes().get(0))
                     .getInt();
             System.out.format("Number: %d%n", number);
             updateLastComponentNumber(number);

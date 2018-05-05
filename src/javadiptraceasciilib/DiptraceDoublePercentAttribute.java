@@ -38,15 +38,27 @@ public final class DiptraceDoublePercentAttribute implements DiptraceAttribute {
             fStringValue, fDoubleValue);
     }
     
+    /**
+     * Get the attribute as a string.
+     * @return the attribute
+     */
     @Override
     public String getString() {
         return fStringValue;
     }
     
+    /**
+     * Get the attribute as a double.
+     * @return the attribute
+     */
     public double getDouble() {
         return fDoubleValue;
     }
     
+    /**
+     * Set the attribute.
+     * @param value the value
+     */
     public void setDouble(final double value) {
         fDoubleValue = value;
         fStringValue = String.format("%1.3f%%", value);
