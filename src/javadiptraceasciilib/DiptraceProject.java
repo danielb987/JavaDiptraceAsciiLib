@@ -309,7 +309,10 @@ public final class DiptraceProject {
                 getDiptraceTree(fPCBRoot, contentHandler);
                 break;
             default:
-                throw new IllegalArgumentException(String.format("Parameter tree has an invalid value: %s", tree.name()));
+                throw new IllegalArgumentException(
+                    String.format(
+                        "Parameter tree has an invalid value: %s",
+                        tree.name()));
         }
     }
     
@@ -324,9 +327,11 @@ public final class DiptraceProject {
         
         for (DiptraceItem subItem : item.getSubItems()) {
             contentHandler.node(subItem.getIdentifier(), null);
-//            DefaultMutableTreeNode node = new DefaultMutableTreeNode(subItem.fIdentifier);
+//            DefaultMutableTreeNode node
+//                = new DefaultMutableTreeNode(subItem.fIdentifier);
             
-//            DefaultMutableTreeNode node = new DefaultMutableTreeNode(subItem.toString());
+//            DefaultMutableTreeNode node
+//                = new DefaultMutableTreeNode(subItem.toString());
 //            treeNode.add(node);
 //            fillTree(node, subItem);
         }
