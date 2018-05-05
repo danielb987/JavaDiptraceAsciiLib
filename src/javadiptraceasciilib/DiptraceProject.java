@@ -229,21 +229,23 @@ public final class DiptraceProject {
         final String pcbFilename)
         throws FileNotFoundException, IOException {
         
-        try (BufferedReader br
+        try (BufferedReader schematicsReader
                 = new BufferedReader(
                     new InputStreamReader(
                         new FileInputStream(schematicsFilename),
                         StandardCharsets.UTF_8));
-            BufferedReader br2
+            BufferedReader pcbReader
                 = new BufferedReader(
                     new InputStreamReader(
                         new FileInputStream(pcbFilename),
                         StandardCharsets.UTF_8))) {
             
-            DiptraceTokenizer tokenizer = new DiptraceTokenizer(br);
+            DiptraceTokenizer tokenizer;
+            
+            tokenizer = new DiptraceTokenizer(schematicsReader);
             parseSchematics(tokenizer);
             
-            tokenizer = new DiptraceTokenizer(br2);
+            tokenizer = new DiptraceTokenizer(pcbReader);
             parsePCB(tokenizer);
         }
     }
@@ -281,19 +283,19 @@ public final class DiptraceProject {
         final String pcbFilename)
         throws IOException {
         
-        try (BufferedWriter writer
+        try (BufferedWriter schematicsWriter
                 = new BufferedWriter(
                     new OutputStreamWriter(
                         new FileOutputStream(schematicsFilename),
                         StandardCharsets.UTF_8));
-            BufferedWriter writer2
+            BufferedWriter pcbWriter
                 = new BufferedWriter(
                     new OutputStreamWriter(
                         new FileOutputStream(pcbFilename),
                         StandardCharsets.UTF_8))) {
             
-            writeSchematics(writer);
-            writePCB(writer2);
+            writeSchematics(schematicsWriter);
+            writePCB(pcbWriter);
             
         }
     }
