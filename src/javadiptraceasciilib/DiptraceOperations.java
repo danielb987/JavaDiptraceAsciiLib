@@ -156,6 +156,19 @@ public class DiptraceOperations {
     public void moveComponentAbsoluteOnPCB(
         final DiptraceComponent component, final double x, final double y) {
         
+        DiptraceItem item = component.getPCBComponent();
+        
+        ((DiptraceDoubleAttribute)
+            ((DiptraceGenericItem) item.getSubItem("X"))
+            .getAttributes()
+            .get(0))
+                .setDouble(x);
+        
+        ((DiptraceDoubleAttribute)
+            ((DiptraceGenericItem) item.getSubItem("Y"))
+            .getAttributes()
+            .get(0))
+                .setDouble(y);
     }
     
     /**
@@ -167,6 +180,22 @@ public class DiptraceOperations {
     public void moveComponentRelativeOnPCB(
         final DiptraceComponent component, final double x, final double y) {
         
+        DiptraceItem item = component.getPCBComponent();
+        DiptraceDoubleAttribute attrPosX
+            = ((DiptraceDoubleAttribute)
+                ((DiptraceGenericItem) item.getSubItem("X"))
+                    .getAttributes()
+                    .get(0));
+        
+        attrPosX.setDouble(attrPosX.getDouble() + x);
+        
+        DiptraceDoubleAttribute attrPosY
+            = ((DiptraceDoubleAttribute)
+                ((DiptraceGenericItem) item.getSubItem("Y"))
+                .getAttributes()
+                .get(0));
+        
+        attrPosY.setDouble(attrPosY.getDouble() + y);
     }
     
 /*

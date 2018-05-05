@@ -198,9 +198,9 @@ public final class FlashLightExtended {
             // with both these two trees at the same time.
             
             diptraceOperations.moveComponentAbsoluteOnPCB(
-                diptraceComponentD1, 0, 0);
+                diptraceComponentD1, x0, y0);
             diptraceOperations.moveComponentAbsoluteOnPCB(
-                diptraceComponentR1, 0, 0);
+                diptraceComponentR1, x0, y0);
 //            diptraceOperations.moveComponentAbsoluteOnPCB("D1", 0, 0);
             
             // Move the diode and the resistor to the center of the circle

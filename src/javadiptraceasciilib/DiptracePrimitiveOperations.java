@@ -135,7 +135,7 @@ final class DiptracePrimitiveOperations {
 //        return getComponentParts(fProject.getPCBComponents(), partName);
         List<DiptraceItem> list
             = getDiptraceItems(
-                fProject.getSchematicsComponents(),
+                fProject.getPCBComponents(),
                 (DiptraceItem item) -> {
                     DiptraceGenericItem genericItem
                         = (DiptraceGenericItem) item;
