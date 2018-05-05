@@ -20,7 +20,7 @@ public class DiptraceStringAttribute implements DiptraceAttribute {
      * @param value the value
      * @param quotes whenether to use quotes
      */
-    DiptraceStringAttribute(String value, UseQuotes quotes) {
+    DiptraceStringAttribute(final String value, final UseQuotes quotes) {
         this.fStringValue = value;
         this.fQuotes = quotes;
     }
@@ -55,7 +55,7 @@ public class DiptraceStringAttribute implements DiptraceAttribute {
         }
     }
     
-    public void setString(String value) {
+    public void setString(final String value) {
         fStringValue = value;
     }
     

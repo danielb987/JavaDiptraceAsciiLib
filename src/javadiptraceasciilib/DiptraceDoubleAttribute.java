@@ -15,9 +15,14 @@ public class DiptraceDoubleAttribute implements DiptraceAttribute {
      */
     private double fDoubleValue;
     
+    /**
+     * Initialize a DiptraceDoubleAttribute object.
+     * @param stringValue the value as a string
+     * @param doubleValue the value as a double
+     */
     DiptraceDoubleAttribute(
-        String stringValue,
-        Double doubleValue) {
+        final String stringValue,
+        final Double doubleValue) {
         
         this.fStringValue = stringValue;
         this.fDoubleValue = doubleValue;
@@ -42,7 +47,7 @@ public class DiptraceDoubleAttribute implements DiptraceAttribute {
         return fDoubleValue;
     }
     
-    public void setDouble(double value) {
+    public void setDouble(final double value) {
         fDoubleValue = value;
         fStringValue = String.format("%1.3f", value);
     }

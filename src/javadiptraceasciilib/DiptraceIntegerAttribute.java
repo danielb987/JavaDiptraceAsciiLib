@@ -15,7 +15,12 @@ public class DiptraceIntegerAttribute implements DiptraceAttribute {
      */
     private int fIntegerValue;
     
-    DiptraceIntegerAttribute(String stringValue, int integerValue) {
+    /**
+     * Initialize a DiptraceIntegerAttribute object.
+     * @param stringValue the value as a string
+     * @param integerValue the value as an integer
+     */
+    DiptraceIntegerAttribute(final String stringValue, final int integerValue) {
         this.fStringValue = stringValue;
         this.fIntegerValue = integerValue;
     }
@@ -38,7 +43,7 @@ public class DiptraceIntegerAttribute implements DiptraceAttribute {
         return fIntegerValue;
     }
     
-    public void setInt(int value) {
+    public void setInt(final int value) {
         fIntegerValue = value;
         fStringValue = Integer.toString(value);
     }
