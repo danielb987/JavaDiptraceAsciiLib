@@ -1,7 +1,6 @@
 package javadiptraceasciilib;
 
 import java.awt.Graphics2D;
-import javadiptraceasciilib.old.diptrace.DiptraceProject;
 
 /**
  * Draw a schematics or a pcb on a Java Graphics2D object.

@@ -1,11 +1,10 @@
 package examples.javadiptraceasciilib;
 
 import java.io.IOException;
-import javadiptraceasciilib.old.diptrace.DiptraceProject;
-import javadiptraceasciilib.old.diptrace.exceptions.IllegalTokenValue;
-import javadiptraceasciilib.old.diptrace.exceptions.NotFoundException;
-import javadiptraceasciilib.old.diptrace.operations.DiptraceOperations;
-import javadiptraceasciilib.old.diptrace.tree.DiptraceItem;
+import javadiptraceasciilib.DiptraceItem;
+import javadiptraceasciilib.DiptraceOperations;
+import javadiptraceasciilib.DiptraceProject;
+import javadiptraceasciilib.IllegalTokenValue;
 
 //CHECKSTYLE.OFF: ParameterNumber - Accept many parameters
 
@@ -57,7 +56,7 @@ public final class FlashLight {
         final double pcbX,
         final double pcbY
     ) throws IllegalTokenValue {
-        
+/*        
                     // All new components need a new unique number.
                     int newDiodeNumber
                         = diptraceProject.getNewComponentNumber();
@@ -119,6 +118,7 @@ public final class FlashLight {
                     
                     diptraceOperations.moveItemAbsolute(
                         newPCBPartResistor, pcbX, pcbY);
+*/
     }
     
     /**
@@ -141,6 +141,7 @@ public final class FlashLight {
         final String pcbInputFile,
         final String pcbOutputFile) {
         
+/*
         // How many circles of LEDs do we want on the pcb?
 //        final int numCircles = 4;
         final int numCircles = 5;
@@ -262,6 +263,7 @@ public final class FlashLight {
         } catch (IllegalTokenValue | NotFoundException | IOException ex) {
             ex.printStackTrace();
         }
+*/
     }
     
     
