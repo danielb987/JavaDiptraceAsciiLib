@@ -177,8 +177,6 @@ public abstract class DiptraceItem {
      * Write the sub items.
      * @param writer the writer that writes to the Diptrace ascii file
      * @param indent a string of spaces to indent the tree in the ascii file
-     * @param addNewLineFlag should a new line be added first or not if there
-     * are any sub items?
      * @return true if item has sub items
      * @throws IOException when IO error occurs
      */
