@@ -70,7 +70,7 @@ if [ "$TRAVIS_REPO_SLUG" == "danielb987/JavaDiptraceAsciiLib" ] && [ "$TRAVIS_PU
   echo "aaa"
   ant javadoc -Daccess="public"
   echo "bbb"
-  mv javadoc javadoc_public
+  mv dist/javadoc dist/javadoc_public
   echo "ccc"
   cd $HOME/JavaDiptraceAsciiLib.Documentation/docs
   echo "ddd"
