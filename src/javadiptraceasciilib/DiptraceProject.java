@@ -292,6 +292,66 @@ public final class DiptraceProject {
         }
     }
     
+    /**
+     * Get the node tree.
+     * @param tree which tree we want to get
+     * @param contentHandler the content handler object
+     */
+	public void getDiptraceTree(DiptraceTree tree,
+        DiptraceTreeContentHandler contentHandler) {
+        
+        switch (tree) {
+            case SCHEMATICS:
+                getDiptraceTree(fSchematicsRoot, contentHandler);
+                break;
+            case PCB:
+                getDiptraceTree(fPCBRoot, contentHandler);
+                break;
+            default:
+                throw new IllegalArgumentException(String.format("Parameter tree has an invalid value: %s", tree.name()));
+        }
+	}
+    
+    /**
+     * Get the node tree.
+     * @param treeNode the node that we want to get, including children
+     * @param contentHandler the content handler object
+     */
+	private void getDiptraceTree(DiptraceItem item,
+        DiptraceTreeContentHandler contentHandler) {
+        
+		for (DiptraceItem subItem : item.getSubItems()) {
+            contentHandler.node(subItem.getIdentifier(), null);
+//			DefaultMutableTreeNode node = new DefaultMutableTreeNode(subItem.fIdentifier);
+            
+//			DefaultMutableTreeNode node = new DefaultMutableTreeNode(subItem.toString());
+//			treeNode.add(node);
+//			fillTree(node, subItem);
+		}
+	}
+    
+    
+    /**
+     * An enumeration of the Diptrace trees.
+     */
+    public enum DiptraceTree {
+        
+        /**
+         * The schematics tree.
+         */
+        SCHEMATICS,
+        
+        /**
+         * The PCB tree.
+         */
+        PCB,
+    }
+    
+    public interface DiptraceTreeContentHandler {
+        
+        void node(String node, String[] attributes);
+    }
+    
     
     /**
      * Holds flags for schematics and pcb.
