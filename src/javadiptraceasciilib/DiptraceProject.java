@@ -297,8 +297,9 @@ public final class DiptraceProject {
      * @param tree which tree we want to get
      * @param contentHandler the content handler object
      */
-	public void getDiptraceTree(DiptraceTree tree,
-        DiptraceTreeContentHandler contentHandler) {
+    public void getDiptraceTree(
+        final DiptraceTree tree,
+        final DiptraceTreeContentHandler contentHandler) {
         
         switch (tree) {
             case SCHEMATICS:
@@ -310,25 +311,26 @@ public final class DiptraceProject {
             default:
                 throw new IllegalArgumentException(String.format("Parameter tree has an invalid value: %s", tree.name()));
         }
-	}
+    }
     
     /**
      * Get the node tree.
-     * @param treeNode the node that we want to get, including children
+     * @param item the node that we want to get, including children
      * @param contentHandler the content handler object
      */
-	private void getDiptraceTree(DiptraceItem item,
-        DiptraceTreeContentHandler contentHandler) {
+    private void getDiptraceTree(
+        final DiptraceItem item,
+        final DiptraceTreeContentHandler contentHandler) {
         
-		for (DiptraceItem subItem : item.getSubItems()) {
+        for (DiptraceItem subItem : item.getSubItems()) {
             contentHandler.node(subItem.getIdentifier(), null);
-//			DefaultMutableTreeNode node = new DefaultMutableTreeNode(subItem.fIdentifier);
+//            DefaultMutableTreeNode node = new DefaultMutableTreeNode(subItem.fIdentifier);
             
-//			DefaultMutableTreeNode node = new DefaultMutableTreeNode(subItem.toString());
-//			treeNode.add(node);
-//			fillTree(node, subItem);
-		}
-	}
+//            DefaultMutableTreeNode node = new DefaultMutableTreeNode(subItem.toString());
+//            treeNode.add(node);
+//            fillTree(node, subItem);
+        }
+    }
     
     
     /**
@@ -347,6 +349,10 @@ public final class DiptraceProject {
         PCB,
     }
     
+    
+    /**
+     * An interface fot a content handler.
+     */
     public interface DiptraceTreeContentHandler {
         
         void node(String node, String[] attributes);
