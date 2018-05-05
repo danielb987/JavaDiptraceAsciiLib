@@ -3,7 +3,7 @@ package javadiptraceasciilib;
 /**
  * Constant definitions of token types.
  */
-public enum DiptraceTokenType {
+enum DiptraceTokenType {
     
     //CHECKSTYLE.OFF: JavadocVariable - Self explaining enums
     LEFT_PARENTHESES,

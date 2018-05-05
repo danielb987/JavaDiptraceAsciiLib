@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * This class is the base class for items in the DipTrace ascii file.
  */
-public abstract class DiptraceItem {
+abstract class DiptraceItem {
     
     /**
      * A flag about whenether this level is at the top or not.
@@ -59,7 +59,7 @@ public abstract class DiptraceItem {
      * @param parent the parent of this item
      * @param identifier the identifier
      */
-    public DiptraceItem(final DiptraceItem parent, final String identifier) {
+    DiptraceItem(final DiptraceItem parent, final String identifier) {
         this.fParent = parent;
         this.fIdentifier = identifier;
     }
@@ -69,13 +69,13 @@ public abstract class DiptraceItem {
      * @param parent the parent of the new item
      * @return the copy of this item
      */
-    public abstract DiptraceItem duplicate(DiptraceItem parent);
+    abstract DiptraceItem duplicate(DiptraceItem parent);
     
     /**
      * Returns the parent.
      * @return the parent
      */
-    public DiptraceItem getParent() {
+    DiptraceItem getParent() {
         return fParent;
     }
     
@@ -83,7 +83,7 @@ public abstract class DiptraceItem {
      * Returns the identifier.
      * @return the identifier
      */
-    public String getIdentifier() {
+    String getIdentifier() {
         return fIdentifier;
     }
     
@@ -91,7 +91,7 @@ public abstract class DiptraceItem {
      * Returns the sub items.
      * @return the sub items
      */
-    public List<DiptraceItem> getSubItems() {
+    List<DiptraceItem> getSubItems() {
         return fSubItems;
     }
     
@@ -100,7 +100,7 @@ public abstract class DiptraceItem {
      * @param identifier the items identifier
      * @return a Diptrace item
      */
-    public DiptraceItem getSubItem(final String identifier) {
+    DiptraceItem getSubItem(final String identifier) {
         
         return fSubItemsMap.get(identifier);
     }
@@ -109,7 +109,7 @@ public abstract class DiptraceItem {
      * Adds a sub item to this item.
      * @param item the item to add
      */
-    public void addSubItem(final DiptraceItem item) {
+    void addSubItem(final DiptraceItem item) {
         
         fSubItems.add(item);
         fSubItemsMap.put(item.fIdentifier, item);
@@ -119,7 +119,7 @@ public abstract class DiptraceItem {
      * May this item have sub items?
      * @return true if this item may have sub items
      */
-    public boolean getMayHaveSubItems() {
+    boolean getMayHaveSubItems() {
         return fMayHaveSubItems;
     }
     
@@ -127,7 +127,7 @@ public abstract class DiptraceItem {
      * May this item have sub items?
      * @param mayHaveSubItems true if this item may have sub items
      */
-    public void setMayHaveSubItems(final boolean mayHaveSubItems) {
+    void setMayHaveSubItems(final boolean mayHaveSubItems) {
         fMayHaveSubItems = mayHaveSubItems;
     }
     
@@ -136,7 +136,7 @@ public abstract class DiptraceItem {
      * @param tokenizer the tokenizer that parses the Diptrace ascii file
      * @throws IOException when IO error occurs
      */
-    public abstract void parse(DiptraceTokenizer tokenizer)
+    abstract void parse(DiptraceTokenizer tokenizer)
         throws IOException;
     
     /**
@@ -186,7 +186,7 @@ public abstract class DiptraceItem {
      * @param indent a string of spaces to indent the tree in the ascii file
      * @throws IOException when IO error occurs
      */
-    public abstract void write(Writer writer, String indent)
+    abstract void write(Writer writer, String indent)
         throws IOException;
     
     /**
@@ -278,7 +278,7 @@ public abstract class DiptraceItem {
      * Prints the tree of this item and its sub items.
      * @param indent a string of spaces to indent the tree
      */
-    public final void printTree(final String indent) {
+    final void printTree(final String indent) {
         System.out.format("%s%s%n", indent, fIdentifier);
         String newIndent = indent + "   ";
         for (DiptraceItem subItem : fSubItems) {
@@ -290,7 +290,7 @@ public abstract class DiptraceItem {
      * Get the total number of children including myself.
      * @return the number of children
      */
-    public final int numChildren() {
+    final int numChildren() {
         int count = 1;
         for (DiptraceItem subItem : fSubItems) {
             count += subItem.numChildren();

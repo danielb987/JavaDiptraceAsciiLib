@@ -1,7 +1,6 @@
 package examples.javadiptraceasciilib;
 
 // import java.io.IOException;
-import javadiptraceasciilib.DiptraceItem;
 import javadiptraceasciilib.DiptraceOperations;
 import javadiptraceasciilib.DiptraceProject;
 import javadiptraceasciilib.IllegalTokenValue;
@@ -45,10 +44,10 @@ public final class FlashLight {
     private static void addDiodeAndResistor(
         final DiptraceProject diptraceProject,
         final DiptraceOperations diptraceOperations,
-        final DiptraceItem schematicsPartD1,
-        final DiptraceItem pcbPartD1,
-        final DiptraceItem schematicsPartR1,
-        final DiptraceItem pcbPartR1,
+//        final DiptraceItem schematicsPartD1,
+//        final DiptraceItem pcbPartD1,
+//        final DiptraceItem schematicsPartR1,
+//        final DiptraceItem pcbPartR1,
         final String newDiodeName,
         final String newResistorName,
         final double schematicsDistX,

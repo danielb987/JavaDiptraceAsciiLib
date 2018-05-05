@@ -296,7 +296,7 @@ public final class DiptraceProject {
     /**
      * Holds flags for schematics and pcb.
      */
-    protected static final class SchematicsAndPCBFlags {
+    static final class SchematicsAndPCBFlags {
         
         /**
          * Flag for schematics.

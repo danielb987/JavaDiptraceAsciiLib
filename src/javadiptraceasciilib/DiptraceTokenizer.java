@@ -6,7 +6,7 @@ import java.io.IOException;
 /**
  * This class has methods to parse a DipTrace ascii file into tokens.
  */
-public final class DiptraceTokenizer {
+final class DiptraceTokenizer {
     
     /**
      * The reader that the tokenizer reads from.
@@ -39,7 +39,7 @@ public final class DiptraceTokenizer {
      * @param reader the reader
      * @throws IOException on any I/O error
      */
-    public DiptraceTokenizer(final BufferedReader reader) throws IOException {
+    DiptraceTokenizer(final BufferedReader reader) throws IOException {
         
         this.fReader = reader;
         
@@ -57,7 +57,7 @@ public final class DiptraceTokenizer {
      * @throws RuntimeException if the token is not of the expected type
      * @throws IOException on any I/O error
      */
-    public void eatToken(final DiptraceTokenType type) throws IOException {
+    void eatToken(final DiptraceTokenType type) throws IOException {
         if (fNextToken == null) {
             fNextToken = fetchNextToken();
         }
@@ -86,7 +86,7 @@ public final class DiptraceTokenizer {
      * @return the token
      * @throws IOException on any I/O error
      */
-    public DiptraceToken nextToken() throws IOException {
+    DiptraceToken nextToken() throws IOException {
         if (fNextToken != null) {
             DiptraceToken token = fNextToken;
             fNextToken = null;
@@ -101,7 +101,7 @@ public final class DiptraceTokenizer {
      * @return the next token
      * @throws IOException on any I/O error
      */
-    public DiptraceToken previewNextToken() throws IOException {
+    DiptraceToken previewNextToken() throws IOException {
         if (fNextToken == null) {
             fNextToken = fetchNextToken();
         }
