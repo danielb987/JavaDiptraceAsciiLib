@@ -1,5 +1,7 @@
 package javadiptraceasciilib;
 
+import java.util.Locale;
+
 /**
  * A Diptrace double attribute.
  */
@@ -48,6 +50,15 @@ public final class DiptraceDoubleAttribute implements DiptraceAttribute {
     }
     
     /**
+     * Get the attribute as a string.
+     * @return the attribute
+     */
+    @Override
+    public String getFormattedString() {
+        return fStringValue;
+    }
+    
+    /**
      * Get the attribute as a double.
      * @return the attribute
      */
@@ -61,7 +72,7 @@ public final class DiptraceDoubleAttribute implements DiptraceAttribute {
      */
     public void setDouble(final double value) {
         fDoubleValue = value;
-        fStringValue = String.format("%1.3f", value);
+        fStringValue = String.format(Locale.ROOT, "%1.3f", value);
     }
     
 }

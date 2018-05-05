@@ -151,7 +151,7 @@ public class DiptraceGenericItem extends DiptraceItem {
         writer.append(indent).append("(").append(getIdentifier());
         
         for (DiptraceAttribute attribute : fAttributes) {
-            writer.append(" ").append(attribute.getString());
+            writer.append(" ").append(attribute.getFormattedString());
 //            if (attribute.getType() == DiptraceTokenType.STRING) {
 //                writer.append(" \"")
 //                .append(attribute.getValue())

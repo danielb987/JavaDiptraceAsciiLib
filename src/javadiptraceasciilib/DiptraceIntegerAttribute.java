@@ -44,6 +44,15 @@ public final class DiptraceIntegerAttribute implements DiptraceAttribute {
     }
     
     /**
+     * Get the attribute as a formatted string.
+     * @return the attribute
+     */
+    @Override
+    public String getFormattedString() {
+        return fStringValue;
+    }
+    
+    /**
      * Get the attribute as an integer.
      * @return the attribute
      */

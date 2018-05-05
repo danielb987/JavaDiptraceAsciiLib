@@ -13,9 +13,15 @@ public interface DiptraceAttribute {
     DiptraceAttribute duplicate();
     
     /**
-     * Get the attribute as a String.
+     * Get the attribute as a string.
      * @return the attribute as a String
      */
     String getString();
+    
+    /**
+     * Get the attribute as a formatted string.
+     * @return the attribute as a String
+     */
+    String getFormattedString();
     
 }

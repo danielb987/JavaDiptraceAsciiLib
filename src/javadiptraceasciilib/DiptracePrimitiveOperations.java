@@ -171,15 +171,17 @@ final class DiptracePrimitiveOperations {
      * @throws IllegalTokenValue if the token cannot be updated with the
      * desired value
      */
-    public DiptraceItem duplicateComponent(
+    public DiptraceItem duplicateDiptraceItem(
         final DiptraceItem item,
         final int newNumber,
         final int newHiddenIdentifier,
         final String newName)
         throws IllegalTokenValue {
         
+        DiptraceItem parent = item.getParent();
+        
         DiptraceGenericItem newItem
-            = (DiptraceGenericItem) item.duplicate(item.getParent());
+            = (DiptraceGenericItem) item.duplicate(parent);
         
         ((DiptraceStringAttribute) newItem.getAttributes().get(1))
             .setString(newName);
@@ -202,7 +204,7 @@ final class DiptracePrimitiveOperations {
                 .get(0))
                     .setInt(newNumber);
         
-        item.getParent().getSubItems().add(newItem);
+        parent.getSubItems().add(newItem);
         
         return newItem;
     }

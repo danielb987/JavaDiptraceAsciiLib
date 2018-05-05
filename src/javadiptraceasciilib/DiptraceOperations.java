@@ -71,7 +71,7 @@ public class DiptraceOperations {
             : component.getSchematicsComponentParts()) {
             
             DiptraceItem newSchematicsPartComponent
-                = fDiptracePrimitiveOperations.duplicateComponent(
+                = fDiptracePrimitiveOperations.duplicateDiptraceItem(
                     componentPart,
                     newComponentNumber,
                     newComponentHiddenIdentifier,
@@ -81,7 +81,7 @@ public class DiptraceOperations {
         }
         
         DiptraceItem newPCBComponent
-            = fDiptracePrimitiveOperations.duplicateComponent(
+            = fDiptracePrimitiveOperations.duplicateDiptraceItem(
                 component.getPCBComponent(),
                 newComponentNumber,
                 newComponentHiddenIdentifier,

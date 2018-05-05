@@ -44,10 +44,11 @@ public final class DiptraceStringAttribute implements DiptraceAttribute {
     }
     
     /**
-     * Get the attribute as a string, possibly with quotes.
+     * Get the attribute as a formatted string, possibly with quotes.
      * @return the attribute
      */
-    public String getQuotedString() {
+    @Override
+    public String getFormattedString() {
         switch (fQuotes) {
             case DOUBLE_QUOTES:
                 return "\"" + fStringValue + "\"";
