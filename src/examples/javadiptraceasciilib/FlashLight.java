@@ -1,6 +1,6 @@
 package examples.javadiptraceasciilib;
 
-import java.io.IOException;
+// import java.io.IOException;
 import javadiptraceasciilib.DiptraceItem;
 import javadiptraceasciilib.DiptraceOperations;
 import javadiptraceasciilib.DiptraceProject;
@@ -56,7 +56,7 @@ public final class FlashLight {
         final double pcbX,
         final double pcbY
     ) throws IllegalTokenValue {
-/*        
+/*
                     // All new components need a new unique number.
                     int newDiodeNumber
                         = diptraceProject.getNewComponentNumber();
