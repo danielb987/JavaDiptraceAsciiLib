@@ -47,13 +47,10 @@ public class DiptraceOperations {
      * @param component the component to copy
      * @param newRefDes the RefDes that the new component is going to get
      * @return the new component
-     * @throws IllegalTokenValue if a token cannot be
-     * given the desired value
      */
     public DiptraceComponent duplicateComponent(
         final DiptraceComponent component,
-        final String newRefDes)
-        throws IllegalTokenValue {
+        final String newRefDes) {
         
         DiptraceProject diptraceProject
             = fDiptracePrimitiveOperations.getProject();
@@ -72,7 +69,7 @@ public class DiptraceOperations {
             : component.getSchematicsComponentParts()) {
             
             DiptraceItem newSchematicsPartComponent
-                = fDiptracePrimitiveOperations.duplicateComponent(
+                = fDiptracePrimitiveOperations.duplicateDiptraceItem(
                     componentPart,
                     newComponentNumber,
                     newComponentHiddenIdentifier,
@@ -82,7 +79,7 @@ public class DiptraceOperations {
         }
         
         DiptraceItem newPCBComponent
-            = fDiptracePrimitiveOperations.duplicateComponent(
+            = fDiptracePrimitiveOperations.duplicateDiptraceItem(
                 component.getPCBComponent(),
                 newComponentNumber,
                 newComponentHiddenIdentifier,
@@ -101,6 +98,19 @@ public class DiptraceOperations {
     public void moveComponentAbsoluteOnSchematics(
         final DiptraceComponent component, final double x, final double y) {
         
+        for (DiptraceItem part : component.getSchematicsComponentParts()) {
+            ((DiptraceDoubleAttribute)
+                ((DiptraceGenericItem) part.getSubItem("X"))
+                .getAttributes()
+                .get(0))
+                    .setDouble(x);
+            
+            ((DiptraceDoubleAttribute)
+                ((DiptraceGenericItem) part.getSubItem("Y"))
+                .getAttributes()
+                .get(0))
+                    .setDouble(y);
+        }
     }
     
     /**
@@ -112,6 +122,23 @@ public class DiptraceOperations {
     public void moveComponentRelativeOnSchematics(
         final DiptraceComponent component, final double x, final double y) {
         
+        for (DiptraceItem part : component.getSchematicsComponentParts()) {
+            DiptraceDoubleAttribute attrPosX
+                = ((DiptraceDoubleAttribute)
+                    ((DiptraceGenericItem) part.getSubItem("X"))
+                        .getAttributes()
+                        .get(0));
+
+            attrPosX.setDouble(attrPosX.getDouble() + x);
+
+            DiptraceDoubleAttribute attrPosY
+                = ((DiptraceDoubleAttribute)
+                    ((DiptraceGenericItem) part.getSubItem("Y"))
+                    .getAttributes()
+                    .get(0));
+
+            attrPosY.setDouble(attrPosY.getDouble() + y);
+        }
     }
     
     /**
@@ -123,6 +150,19 @@ public class DiptraceOperations {
     public void moveComponentAbsoluteOnPCB(
         final DiptraceComponent component, final double x, final double y) {
         
+        DiptraceItem item = component.getPCBComponent();
+        
+        ((DiptraceDoubleAttribute)
+            ((DiptraceGenericItem) item.getSubItem("X"))
+            .getAttributes()
+            .get(0))
+                .setDouble(x);
+        
+        ((DiptraceDoubleAttribute)
+            ((DiptraceGenericItem) item.getSubItem("Y"))
+            .getAttributes()
+            .get(0))
+                .setDouble(y);
     }
     
     /**
@@ -134,6 +174,22 @@ public class DiptraceOperations {
     public void moveComponentRelativeOnPCB(
         final DiptraceComponent component, final double x, final double y) {
         
+        DiptraceItem item = component.getPCBComponent();
+        DiptraceDoubleAttribute attrPosX
+            = ((DiptraceDoubleAttribute)
+                ((DiptraceGenericItem) item.getSubItem("X"))
+                    .getAttributes()
+                    .get(0));
+        
+        attrPosX.setDouble(attrPosX.getDouble() + x);
+        
+        DiptraceDoubleAttribute attrPosY
+            = ((DiptraceDoubleAttribute)
+                ((DiptraceGenericItem) item.getSubItem("Y"))
+                .getAttributes()
+                .get(0));
+        
+        attrPosY.setDouble(attrPosY.getDouble() + y);
     }
     
 /*

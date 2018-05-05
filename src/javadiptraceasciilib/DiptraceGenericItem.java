@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
+import javadiptraceasciilib.DiptraceStringAttribute.UseQuotes;
 
 /**
  * This class is a generic class for items in the DipTrace ascii file.
@@ -13,7 +14,7 @@ public class DiptraceGenericItem extends DiptraceItem {
     /**
      * The list of parameters.
      */
-    private final List<DiptraceToken> fParameters = new ArrayList<>();
+    private final List<DiptraceAttribute> fAttributes = new ArrayList<>();
     
     
     /**
@@ -40,8 +41,8 @@ public class DiptraceGenericItem extends DiptraceItem {
         
         newItem.setMayHaveSubItems(this.getMayHaveSubItems());
         
-        for (DiptraceToken parameter : fParameters) {
-            newItem.fParameters.add(new DiptraceToken(parameter));
+        for (DiptraceAttribute attribute : fAttributes) {
+            newItem.fAttributes.add(attribute.duplicate());
         }
         for (DiptraceItem subItem : getSubItems()) {
             newItem.addSubItem(subItem.duplicate(newItem));
@@ -53,8 +54,8 @@ public class DiptraceGenericItem extends DiptraceItem {
      * Returns the list of parameters.
      * @return the parameters
      */
-    public final List<DiptraceToken> getParameters() {
-        return fParameters;
+    public final List<DiptraceAttribute> getAttributes() {
+        return fAttributes;
     }
     
     /**
@@ -64,7 +65,7 @@ public class DiptraceGenericItem extends DiptraceItem {
      */
     //CHECKSTYLE.OFF: InnerAssignment - Allow assignment in while loop
     @Override
-    public void parse(final DiptraceTokenizer tokenizer) throws IOException {
+    void parse(final DiptraceTokenizer tokenizer) throws IOException {
         
         DiptraceToken token;
         while (((token = tokenizer.previewNextToken()) != null)
@@ -72,7 +73,52 @@ public class DiptraceGenericItem extends DiptraceItem {
             && (token.getType() != DiptraceTokenType.RIGHT_PARENTHESES)) {
             
             token = tokenizer.nextToken();
-            fParameters.add(token);
+            
+            switch (token.getType()) {
+                case IDENTIFIER:
+                case NON_QUOTED_STRING:
+                    fAttributes.add(
+                        new DiptraceStringAttribute(
+                            token.getValue(),
+                            UseQuotes.NO_QUOTES));
+                    break;
+                    
+                case STRING:
+                    fAttributes.add(
+                        new DiptraceStringAttribute(
+                            token.getValue(),
+                            UseQuotes.DOUBLE_QUOTES));
+                    break;
+                    
+                case INTEGER:
+                    fAttributes.add(
+                        new DiptraceIntegerAttribute(
+                            token.getValue(),
+                            token.getIntValue()));
+                    break;
+                    
+                case DOUBLE:
+                    fAttributes.add(
+                        new DiptraceDoubleAttribute(
+                            token.getValue(),
+                            token.getDoubleValue()));
+                    break;
+                    
+                case PERCENT:
+                    fAttributes.add(
+                        new DiptraceDoublePercentAttribute(
+                            token.getValue(),
+                            token.getDoubleValue()));
+                    break;
+                    
+                default:
+                    throw new RuntimeException(
+                        String.format(
+                            "Token has unknown type: %s",
+                            token.getType().name()));
+                    
+//                    fAttributes.add(token);
+            }
         }
         
         if ((token != null)
@@ -104,12 +150,15 @@ public class DiptraceGenericItem extends DiptraceItem {
         
         writer.append(indent).append("(").append(getIdentifier());
         
-        for (DiptraceToken parameter : fParameters) {
-            if (parameter.getType() == DiptraceTokenType.STRING) {
-                writer.append(" \"").append(parameter.getValue()).append("\"");
-            } else {
-                writer.append(" ").append(parameter.getValue());
-            }
+        for (DiptraceAttribute attribute : fAttributes) {
+            writer.append(" ").append(attribute.getFormattedString());
+//            if (attribute.getType() == DiptraceTokenType.STRING) {
+//                writer.append(" \"")
+//                .append(attribute.getValue())
+//                .append("\"");
+//            } else {
+//                writer.append(" ").append(attribute.getValue());
+//            }
         }
         
         if (writeSubItems(writer, indent, IsTopLevel.SUB_LEVEL)) {
@@ -133,13 +182,14 @@ public class DiptraceGenericItem extends DiptraceItem {
     public String toString() {
         StringBuilder sb = new StringBuilder(getIdentifier());
         
-        for (DiptraceToken parameter : fParameters) {
-            sb.append(" ");
-            if (parameter.getType() == DiptraceTokenType.STRING) {
-                sb.append("\"").append(parameter.getValue()).append("\"");
-            } else {
-                sb.append(parameter.getValue());
-            }
+        for (DiptraceAttribute attribute : fAttributes) {
+            sb.append(" ").append(attribute.getString());
+//            sb.append(" ");
+//            if (attribute.getType() == DiptraceTokenType.STRING) {
+//                sb.append("\"").append(attribute.getValue()).append("\"");
+//            } else {
+//                sb.append(attribute.getValue());
+//            }
         }
         
         return sb.toString();

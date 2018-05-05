@@ -8,13 +8,13 @@ import java.io.Writer;
  * root is not included in the DipTrace ascii file but exists in this project
  * to simplify handling of the item tree.
  */
-public final class DiptraceRootItem extends DiptraceItem {
+final class DiptraceRootItem extends DiptraceItem {
     
     
     /**
      * Initializes the DiptraceRootItem object.
      */
-    public DiptraceRootItem() {
+    DiptraceRootItem() {
         super(null, "root");
     }
     

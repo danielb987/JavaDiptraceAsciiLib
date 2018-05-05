@@ -65,14 +65,6 @@ if [ "$TRAVIS_REPO_SLUG" == "danielb987/JavaDiptraceAsciiLib" ] && [ "$TRAVIS_PU
   rm -Rf javadoc
   cp -R $DIR/dist/javadoc .
 
-  # Run javadoc and generate only for public classes and methods
-  cd $DIR
-  ant javadoc -public
-  mv javadoc javadoc_public
-  cd $HOME/JavaDiptraceAsciiLib.Documentation/docs
-  rm -Rf javadoc_public
-  cp -R $DIR/dist/javadoc_public .
-
   # Remove the checkstyle folder and copy the checkstyle report to the checkstyle folder
   rm -Rf checkstyle
   mkdir checkstyle

@@ -3,7 +3,7 @@ package javadiptraceasciilib;
 /**
  * This class represents a token in the DipTrace ascii file.
  */
-public final class DiptraceToken {
+final class DiptraceToken {
     
     /**
      * The type of the token.
@@ -13,7 +13,7 @@ public final class DiptraceToken {
     /**
      * The value of the token as a String.
      */
-    private String fValue;
+    private final String fValue;
     
     /**
      * The value of the token as an integer, if the token is of type INTEGER.
@@ -35,7 +35,7 @@ public final class DiptraceToken {
      * @param type the type of the token
      * @param precededWithNewline true if this token was preceded by a new line
      */
-    public DiptraceToken(
+    DiptraceToken(
         final DiptraceTokenType type,
         final boolean precededWithNewline) {
         
@@ -52,7 +52,7 @@ public final class DiptraceToken {
      * @param value the value of the token
      * @param precededWithNewline true if this token was preceded by a new line
      */
-    public DiptraceToken(
+    DiptraceToken(
         final DiptraceTokenType type,
         final String value,
         final boolean precededWithNewline) {
@@ -71,7 +71,7 @@ public final class DiptraceToken {
      * @param intValue the integer value of the token
      * @param precededWithNewline true if this token was preceded by a new line
      */
-    public DiptraceToken(
+    DiptraceToken(
         final DiptraceTokenType type,
         final String value,
         final int intValue,
@@ -91,7 +91,7 @@ public final class DiptraceToken {
      * @param floatValue the float value of the token
      * @param precededWithNewline true if this token was preceded by a new line
      */
-    public DiptraceToken(
+    DiptraceToken(
         final DiptraceTokenType type,
         final String value,
         final double floatValue,
@@ -110,7 +110,7 @@ public final class DiptraceToken {
      * token will be a copy of the old token.
      * @param token the token to copy
      */
-    public DiptraceToken(final DiptraceToken token) {
+    DiptraceToken(final DiptraceToken token) {
         this.fType = token.fType;
         this.fValue = token.fValue;
         this.fIntValue = token.fIntValue;
@@ -123,7 +123,7 @@ public final class DiptraceToken {
      * Get the type of the token.
      * @return the type
      */
-    public DiptraceTokenType getType() {
+    DiptraceTokenType getType() {
         return fType;
     }
     
@@ -131,7 +131,7 @@ public final class DiptraceToken {
      * Get the value of the token.
      * @return the value
      */
-    public String getValue() {
+    String getValue() {
         if (fValue != null) {
             return fValue;
         } else {
@@ -140,82 +140,26 @@ public final class DiptraceToken {
     }
     
     /**
-     * Set the value of the token.
-     * @param value the new value
-     * @throws IllegalTokenValue if the token is not a string or
-     * non quoted string token
-     */
-    public void setValue(final String value) throws IllegalTokenValue {
-        if ((fType == DiptraceTokenType.IDENTIFIER)
-            || (fType == DiptraceTokenType.STRING)
-            || (fType == DiptraceTokenType.NON_QUOTED_STRING)) {
-            
-            fValue = value;
-        } else {
-            throw new IllegalTokenValue(
-                String.format(
-                    "A token of type %s cannot be given a string value",
-                    fType.name()));
-        }
-    }
-    
-    /**
      * Get the integer value of the token.
      * @return the integer value
      */
-    public int getIntValue() {
+    int getIntValue() {
         return fIntValue;
-    }
-    
-    /**
-     * Set the value of the token.
-     * @param value the new value
-     * @throws IllegalTokenValue if the token is not an integer token
-     */
-    public void setIntValue(final int value) throws IllegalTokenValue {
-        if (fType == DiptraceTokenType.INTEGER) {
-            
-            fIntValue = value;
-            fValue = String.format("%d", value);
-        } else {
-            throw new IllegalTokenValue(
-                String.format(
-                    "A token of type %s cannot be given a string value",
-                    fType.name()));
-        }
     }
     
     /**
      * Get the float value of the token.
      * @return the float value
      */
-    public double getDoubleValue() {
+    double getDoubleValue() {
         return fDoubleValue;
-    }
-    
-    /**
-     * Set the value of the token.
-     * @param value the new value
-     * @throws IllegalTokenValue if the token is not a double token
-     */
-    public void setDoubleValue(final double  value) throws IllegalTokenValue {
-        if (fType == DiptraceTokenType.DOUBLE) {
-            
-            fDoubleValue = value;
-            fValue = String.format("%1.3f", value);
-        } else {
-            throw new IllegalTokenValue(
-                String.format(
-                    "A token of type %s cannot be given a double value",
-                    fType.name()));
-        }
     }
     
     /**
      * Get whenether this token was preceded by a new line or not.
      * @return true if this token was preceded by a new line
      */
-    public boolean getPrecededWithNewline() {
+    boolean getPrecededWithNewline() {
         return fPrecededWithNewline;
     }
     

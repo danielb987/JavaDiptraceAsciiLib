@@ -70,7 +70,7 @@ public final class DiptraceProject {
      * Get the root item of the schematics.
      * @return the root item of the Diptrace schematics item tree
      */
-    protected DiptraceRootItem getSchematicsRoot() {
+    public DiptraceItem getSchematicsRoot() {
         return fSchematicsRoot;
     }
     
@@ -78,7 +78,7 @@ public final class DiptraceProject {
      * Get the root item of the schematics.
      * @return the root item of the Diptrace schematics item tree
      */
-    protected DiptraceRootItem getPCBRoot() {
+    public DiptraceItem getPCBRoot() {
         return fPCBRoot;
     }
     
@@ -88,7 +88,7 @@ public final class DiptraceProject {
      * tells whenether a number is used in the schematics and/or the pcb.
      * @return a map of the used component numbers
      */
-    protected Map<Integer, SchematicsAndPCBFlags> getUsedComponentNumbers() {
+    Map<Integer, SchematicsAndPCBFlags> getUsedComponentNumbers() {
         return fUsedComponentNumbers;
     }
     
@@ -116,7 +116,7 @@ public final class DiptraceProject {
      * Returns a unused component number.
      * @return a new component number
      */
-    protected int getNewComponentNumber() {
+    int getNewComponentNumber() {
         return ++fLastComponentNumber;
     }
     
@@ -124,7 +124,7 @@ public final class DiptraceProject {
      * Returns a unused component hidden number.
      * @return a new component number
      */
-    protected int getNewComponentHiddenIdentifier() {
+    int getNewComponentHiddenIdentifier() {
         return ++fLastComponentHiddenIdentifier;
     }
     
@@ -133,7 +133,7 @@ public final class DiptraceProject {
      * @return the DiptraceItem that has all the components as DiptraceItem
      * children
      */
-    protected DiptraceItem getSchematicsComponents() {
+    DiptraceItem getSchematicsComponents() {
         return fSchematicsRoot.getSubItem("Schematic").getSubItem("Components");
     }
     
@@ -142,7 +142,7 @@ public final class DiptraceProject {
      * @return the DiptraceItem that has all the components as DiptraceItem
      * children
      */
-    protected DiptraceItem getPCBComponents() {
+    DiptraceItem getPCBComponents() {
         return fPCBRoot.getSubItem("Board").getSubItem("Components");
     }
     
@@ -151,7 +151,7 @@ public final class DiptraceProject {
      * @param tokenizer the tokenizer that parses the Diptrace ascii file
      * @throws IOException when IO error occurs
      */
-    protected void parseSchematics(final DiptraceTokenizer tokenizer)
+    void parseSchematics(final DiptraceTokenizer tokenizer)
         throws IOException {
         
         fSchematicsRoot.parse(tokenizer);
@@ -160,13 +160,17 @@ public final class DiptraceProject {
         for (DiptraceItem part : components.getSubItems()) {
             DiptraceGenericItem numberItem
                 = (DiptraceGenericItem) part.getSubItem("Number");
-            int number = numberItem.getParameters().get(0).getIntValue();
+            int number
+                = ((DiptraceIntegerAttribute) numberItem.getAttributes().get(0))
+                    .getInt();
             System.out.format("Number: %d%n", number);
             updateLastComponentNumber(number);
             DiptraceGenericItem hiddenIdentifierItem
                 = (DiptraceGenericItem) part.getSubItem("HiddenId");
             int hiddenIdentifier
-                = hiddenIdentifierItem.getParameters().get(0).getIntValue();
+                = ((DiptraceIntegerAttribute)
+                    hiddenIdentifierItem.getAttributes().get(0))
+                    .getInt();
             updateLastComponentHiddenIdentifier(hiddenIdentifier);
             fSchematicsComponentsNumberMap.put(number, part);
             SchematicsAndPCBFlags schematicsAndPCBFlags
@@ -186,7 +190,7 @@ public final class DiptraceProject {
      * @param tokenizer the tokenizer that parses the Diptrace ascii file
      * @throws IOException when IO error occurs
      */
-    protected void parsePCB(final DiptraceTokenizer tokenizer)
+    void parsePCB(final DiptraceTokenizer tokenizer)
         throws IOException {
         
         fPCBRoot.parse(tokenizer);
@@ -195,7 +199,9 @@ public final class DiptraceProject {
         for (DiptraceItem component : components.getSubItems()) {
             DiptraceGenericItem numberItem
                 = (DiptraceGenericItem) component.getSubItem("Number");
-            int number = numberItem.getParameters().get(0).getIntValue();
+            int number
+                = ((DiptraceIntegerAttribute) numberItem.getAttributes().get(0))
+                    .getInt();
             System.out.format("Number: %d%n", number);
             updateLastComponentNumber(number);
             fPCBComponentsNumberMap.put(number, component);
@@ -223,21 +229,23 @@ public final class DiptraceProject {
         final String pcbFilename)
         throws FileNotFoundException, IOException {
         
-        try (BufferedReader br
+        try (BufferedReader schematicsReader
                 = new BufferedReader(
                     new InputStreamReader(
                         new FileInputStream(schematicsFilename),
                         StandardCharsets.UTF_8));
-            BufferedReader br2
+            BufferedReader pcbReader
                 = new BufferedReader(
                     new InputStreamReader(
                         new FileInputStream(pcbFilename),
                         StandardCharsets.UTF_8))) {
             
-            DiptraceTokenizer tokenizer = new DiptraceTokenizer(br);
+            DiptraceTokenizer tokenizer;
+            
+            tokenizer = new DiptraceTokenizer(schematicsReader);
             parseSchematics(tokenizer);
             
-            tokenizer = new DiptraceTokenizer(br2);
+            tokenizer = new DiptraceTokenizer(pcbReader);
             parsePCB(tokenizer);
         }
     }
@@ -247,7 +255,7 @@ public final class DiptraceProject {
      * @param writer the writer that writes to the Diptrace ascii file
      * @throws IOException when IO error occurs
      */
-    protected void writeSchematics(final Writer writer)
+    void writeSchematics(final Writer writer)
         throws IOException {
         
         fSchematicsRoot.write(writer, "");
@@ -258,7 +266,7 @@ public final class DiptraceProject {
      * @param writer the writer that writes to the Diptrace ascii file
      * @throws IOException when IO error occurs
      */
-    protected void writePCB(final Writer writer)
+    void writePCB(final Writer writer)
         throws IOException {
         
         fPCBRoot.write(writer, "");
@@ -275,28 +283,27 @@ public final class DiptraceProject {
         final String pcbFilename)
         throws IOException {
         
-        try (BufferedWriter writer
+        try (BufferedWriter schematicsWriter
                 = new BufferedWriter(
                     new OutputStreamWriter(
                         new FileOutputStream(schematicsFilename),
                         StandardCharsets.UTF_8));
-            BufferedWriter writer2
+            BufferedWriter pcbWriter
                 = new BufferedWriter(
                     new OutputStreamWriter(
                         new FileOutputStream(pcbFilename),
                         StandardCharsets.UTF_8))) {
             
-            writeSchematics(writer);
-            writePCB(writer2);
+            writeSchematics(schematicsWriter);
+            writePCB(pcbWriter);
             
         }
     }
     
-    
     /**
      * Holds flags for schematics and pcb.
      */
-    protected static final class SchematicsAndPCBFlags {
+    static final class SchematicsAndPCBFlags {
         
         /**
          * Flag for schematics.
@@ -320,7 +327,7 @@ public final class DiptraceProject {
          * Get the schematics flag.
          * @return the flag
          */
-        protected boolean getSchematicsFlag() {
+        boolean getSchematicsFlag() {
             return fSchematicsFlag;
         }
         
@@ -328,7 +335,7 @@ public final class DiptraceProject {
          * Get the pcb flag.
          * @return the flag
          */
-        protected boolean getPCBFlag() {
+        boolean getPCBFlag() {
             return fPCBFlag;
         }
         

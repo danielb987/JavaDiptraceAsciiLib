@@ -1,8 +1,8 @@
-package javadiptraceasciilib_old;
+package javadiptraceasciilib;
 
 // import util.FindFilesWithNullChar;
 // import org.junit.Assert;
-import javadiptraceasciilib.old.Example;
+//import javadiptraceasciilib.Example;
 import org.junit.Test;
 
 /**
@@ -16,7 +16,7 @@ public class ExampleTest {
     @Test
     public void testSomething() {
         System.out.println("Example");
-        new Example().something();
+//        new Example().something();
 //        if (FindFilesWithNullChar.find())
 //            Assert.fail("There is files with null chars");
     }

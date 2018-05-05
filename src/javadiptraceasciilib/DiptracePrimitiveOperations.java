@@ -50,7 +50,7 @@ final class DiptracePrimitiveOperations {
             
 //            DiptraceGenericItem theItem = (DiptraceGenericItem) part;
             
-//            if (partName.equals(theItem.getParameters().get(1).getValue())) {
+//            if (partName.equals(theItem.getAttributes().get(1).getValue())) {
         }
         
         if (diptraceItems.isEmpty()) {
@@ -78,11 +78,11 @@ final class DiptracePrimitiveOperations {
             
             DiptraceGenericItem theItem = (DiptraceGenericItem) part;
             
-            if (partName.equals(theItem.getParameters().get(1).getValue())) {
+            if (partName.equals(theItem.getAttributes().get(1).getValue())) {
                 
 //                DiptraceGenericItem numberItem
 //                    = (DiptraceGenericItem) part.getSubItem("Number");
-//                int number = numberItem.getParameters().get(0).getIntValue();
+//                int number = numberItem.getAttributes().get(0).getIntValue();
 //                System.out.format("Number: %d%n", number);
                 diptraceItems.add(part);
 //                return part;
@@ -112,8 +112,14 @@ final class DiptracePrimitiveOperations {
             (DiptraceItem item) -> {
                 DiptraceGenericItem genericItem
                     = (DiptraceGenericItem) item;
+//                System.err.format(
+//                    "partName: %s, other: %s, result: %b%n",
+//                    partName,
+//                    genericItem.getAttributes().get(1).getString(),
+//                    partName.equals(
+//                        genericItem.getAttributes().get(1).getString()));
                 return (partName.equals(
-                    genericItem.getParameters().get(1).getValue()));
+                    genericItem.getAttributes().get(1).getString()));
             });
     }
     
@@ -129,12 +135,12 @@ final class DiptracePrimitiveOperations {
 //        return getComponentParts(fProject.getPCBComponents(), partName);
         List<DiptraceItem> list
             = getDiptraceItems(
-                fProject.getSchematicsComponents(),
+                fProject.getPCBComponents(),
                 (DiptraceItem item) -> {
                     DiptraceGenericItem genericItem
                         = (DiptraceGenericItem) item;
                     return (partName.equals(
-                        genericItem.getParameters().get(1).getValue()));
+                        genericItem.getAttributes().get(1).getString()));
                 });
         
         return list.get(0);
@@ -165,34 +171,39 @@ final class DiptracePrimitiveOperations {
      * @throws IllegalTokenValue if the token cannot be updated with the
      * desired value
      */
-    public DiptraceItem duplicateComponent(
+    public DiptraceItem duplicateDiptraceItem(
         final DiptraceItem item,
         final int newNumber,
         final int newHiddenIdentifier,
-        final String newName)
-        throws IllegalTokenValue {
+        final String newName) {
+        
+        DiptraceItem parent = item.getParent();
         
         DiptraceGenericItem newItem
-            = (DiptraceGenericItem) item.duplicate(item.getParent());
+            = (DiptraceGenericItem) item.duplicate(parent);
         
-        newItem.getParameters().get(1).setValue(newName);
+        ((DiptraceStringAttribute) newItem.getAttributes().get(1))
+            .setString(newName);
         
-        ((DiptraceGenericItem) newItem.getSubItem("Number"))
-            .getParameters()
-            .get(0)
-            .setIntValue(newNumber);
+        ((DiptraceIntegerAttribute)
+            ((DiptraceGenericItem) newItem.getSubItem("Number"))
+                .getAttributes()
+                .get(0))
+                    .setInt(newNumber);
         
-        ((DiptraceGenericItem) newItem.getSubItem("HiddenId"))
-            .getParameters()
-            .get(0)
-            .setIntValue(newHiddenIdentifier);
+        ((DiptraceIntegerAttribute)
+            ((DiptraceGenericItem) newItem.getSubItem("HiddenId"))
+                .getAttributes()
+                .get(0))
+                    .setInt(newHiddenIdentifier);
         
-        ((DiptraceGenericItem) newItem.getSubItem("HiddenId"))
-            .getParameters()
-            .get(0)
-            .setIntValue(newNumber);
+        ((DiptraceIntegerAttribute)
+            ((DiptraceGenericItem) newItem.getSubItem("HiddenId"))
+                .getAttributes()
+                .get(0))
+                    .setInt(newNumber);
         
-        item.getParent().getSubItems().add(newItem);
+        parent.getSubItems().add(newItem);
         
         return newItem;
     }
@@ -202,24 +213,24 @@ final class DiptracePrimitiveOperations {
      * @param item the item to move
      * @param x where to move the item along the x axis
      * @param y where to move the item along the y axis
-     * @throws IllegalTokenValue if the token cannot be updated with the
      * desired value
      */
     public void moveItemAbsolute(
         final DiptraceItem item,
         final double x,
-        final double y)
-        throws IllegalTokenValue {
+        final double y) {
         
-        ((DiptraceGenericItem) item.getSubItem("X"))
-            .getParameters()
-            .get(0)
-            .setDoubleValue(x);
+        ((DiptraceDoubleAttribute)
+            ((DiptraceGenericItem) item.getSubItem("X"))
+                .getAttributes()
+                .get(0))
+                    .setDouble(x);
         
-        ((DiptraceGenericItem) item.getSubItem("Y"))
-            .getParameters()
-            .get(0)
-            .setDoubleValue(y);
+        ((DiptraceDoubleAttribute)
+            ((DiptraceGenericItem) item.getSubItem("Y"))
+                .getAttributes()
+                .get(0))
+                    .setDouble(y);
     }
     
     /**
@@ -227,66 +238,64 @@ final class DiptracePrimitiveOperations {
      * @param item the item to move
      * @param x how long distance to move the item along the x axis
      * @param y how long distance to move the item along the y axis
-     * @throws IllegalTokenValue if the token cannot be updated with the
      * desired value
      */
     public void moveItemRelative(
         final DiptraceItem item,
         final double x,
-        final double y)
-        throws IllegalTokenValue {
+        final double y) {
         
-        DiptraceToken tokenPosX
-            = ((DiptraceGenericItem) item.getSubItem("X"))
-                .getParameters()
-                .get(0);
+        DiptraceDoubleAttribute attrPosX
+            = ((DiptraceDoubleAttribute)
+                ((DiptraceGenericItem) item.getSubItem("X"))
+                    .getAttributes()
+                    .get(0));
         
-        tokenPosX.setDoubleValue(tokenPosX.getDoubleValue() + x);
+        attrPosX.setDouble(attrPosX.getDouble() + x);
         
-        DiptraceToken tokenPosY
-            = ((DiptraceGenericItem) item.getSubItem("Y"))
-                .getParameters()
-                .get(0);
+        DiptraceDoubleAttribute attrPosY
+            = ((DiptraceDoubleAttribute)
+                ((DiptraceGenericItem) item.getSubItem("Y"))
+                    .getAttributes()
+                    .get(0));
         
-        tokenPosY.setDoubleValue(tokenPosY.getDoubleValue() + y);
+        attrPosY.setDouble(attrPosY.getDouble() + y);
     }
     
     /**
      * Rotate an item to an absolute angle.
      * @param item the item to rotate
      * @param angle the angle in degrees
-     * @throws IllegalTokenValue if the token cannot be updated with the
      * desired value
      */
     public void rotateItemAbsolute(
         final DiptraceItem item,
-        final int angle)
-        throws IllegalTokenValue {
+        final int angle) {
         
-        ((DiptraceGenericItem) item.getSubItem("Angle"))
-            .getParameters()
-            .get(0)
-            .setIntValue(angle);
+        ((DiptraceIntegerAttribute)
+            ((DiptraceGenericItem) item.getSubItem("Angle"))
+                .getAttributes()
+                .get(0))
+                    .setInt(angle);
     }
     
     /**
      * Rotate an item some degrees.
      * @param item the item to rotate
      * @param angle the angle in degrees
-     * @throws IllegalTokenValue if the token cannot be updated with the
      * desired value
      */
     public void rotateItemRelative(
         final DiptraceItem item,
-        final int angle)
-        throws IllegalTokenValue {
+        final int angle) {
         
-        DiptraceToken tokenAngle
-            = ((DiptraceGenericItem) item.getSubItem("Angle"))
-                .getParameters()
-                .get(0);
+        DiptraceIntegerAttribute attrAngle
+            = ((DiptraceIntegerAttribute)
+                ((DiptraceGenericItem) item.getSubItem("Angle"))
+                    .getAttributes()
+                    .get(0));
         
-        tokenAngle.setIntValue(tokenAngle.getIntValue() + angle);
+        attrAngle.setInt(attrAngle.getInt() + angle);
     }
     
     /**
