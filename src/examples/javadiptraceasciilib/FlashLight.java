@@ -2,6 +2,7 @@ package examples.javadiptraceasciilib;
 
 import java.io.IOException;
 import javadiptraceasciilib.DiptraceComponent;
+import javadiptraceasciilib.DiptraceNet;
 import javadiptraceasciilib.DiptraceProject;
 import javadiptraceasciilib.DiptraceOperations;
 import javadiptraceasciilib.NotFoundException;
@@ -85,6 +86,11 @@ public final class FlashLight {
                 = diptraceOperations.getComponentByRefDes("D1");
             DiptraceComponent diptraceComponentR1
                 = diptraceOperations.getComponentByRefDes("R1");
+            
+            DiptraceNet diptraceNet_Net1
+                = diptraceOperations.getNetByName("Net 1");
+            DiptraceNet diptraceNet_Net3a5
+                = diptraceOperations.getNetByName("Net   3 a     5");
             
             // The DipTrace ascii files keeps the data in a tree structure
             // and a DiptraceItem is a node in that tree. Note that the

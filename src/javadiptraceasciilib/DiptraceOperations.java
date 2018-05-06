@@ -43,6 +43,25 @@ public class DiptraceOperations {
     }
     
     /**
+     * Get a net by name.
+     * @param name the name of the net
+     * @return the net
+     * @throws NotFoundException if the net is not found
+     */
+    public DiptraceNet getNetByName(final String name)
+        throws NotFoundException {
+        
+        DiptraceItem schematicsNet
+            = fDiptracePrimitiveOperations.getSchematicsNet(name);
+        DiptraceItem pcbNet
+            = fDiptracePrimitiveOperations.getPCBNet(name);
+        
+        DiptraceNet diptraceNet = new DiptraceNet(schematicsNet, pcbNet);
+        
+        return diptraceNet;
+    }
+    
+    /**
      * Duplicate a component.
      * @param component the component to copy
      * @param newRefDes the RefDes that the new component is going to get

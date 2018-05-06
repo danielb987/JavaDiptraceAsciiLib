@@ -47,10 +47,6 @@ final class DiptracePrimitiveOperations {
             if (matchItem.match(child)) {
                 diptraceItems.add(child);
             }
-            
-//            DiptraceGenericItem theItem = (DiptraceGenericItem) part;
-            
-//            if (partName.equals(theItem.getAttributes().get(1).getValue())) {
         }
         
         if (diptraceItems.isEmpty()) {
@@ -61,87 +57,108 @@ final class DiptracePrimitiveOperations {
     }
     
     /**
-     * Get the component parts in the schematics by its part name.
-     * @param components the DiptraceItem with the components
-     * @param partName the name of the part
+     * Get the component part in the schematics by its part name.
+     * @param name the name of the part
      * @return the part
      * @throws NotFoundException if the component part is not found
      */
-/*    private List<DiptraceItem> getComponentParts(
-        final DiptraceItem components,
-        final String partName)
+    public List<DiptraceItem> getSchematicsComponentParts(final String name)
         throws NotFoundException {
         
-        List<DiptraceItem> diptraceItems = new ArrayList<>();
+        List<DiptraceItem> list
+            = getDiptraceItems(
+                fProject.getSchematicsComponents(),
+                (DiptraceItem item) -> {
+                    DiptraceGenericItem genericItem
+                        = (DiptraceGenericItem) item;
+                    return (name.equals(
+                        genericItem.getAttributes().get(1).getString()));
+                });
         
-        for (DiptraceItem part : components.getSubItems()) {
-            
-            DiptraceGenericItem theItem = (DiptraceGenericItem) part;
-            
-            if (partName.equals(theItem.getAttributes().get(1).getValue())) {
-                
-//                DiptraceGenericItem numberItem
-//                    = (DiptraceGenericItem) part.getSubItem("Number");
-//                int number = numberItem.getAttributes().get(0).getIntValue();
-//                System.out.format("Number: %d%n", number);
-                diptraceItems.add(part);
-//                return part;
-            }
+        if (list.isEmpty()) {
+            throw new NotFoundException(
+                String.format("PCB Component %s is not found", name));
         }
         
-        if (diptraceItems.isEmpty())
-            throw new NotFoundException(
-                        String.format(
-                            "Component part %s is not found in schematics",
-                            partName));
-        
-        return diptraceItems;
-    }
-*/
-    /**
-     * Get the component part in the schematics by its part name.
-     * @param partName the name of the part
-     * @return the part
-     * @throws NotFoundException if the component part is not found
-     */
-    public List<DiptraceItem> getSchematicsComponentParts(final String partName)
-        throws NotFoundException {
-        
-        return getDiptraceItems(
-            fProject.getSchematicsComponents(),
-            (DiptraceItem item) -> {
-                DiptraceGenericItem genericItem
-                    = (DiptraceGenericItem) item;
-//                System.err.format(
-//                    "partName: %s, other: %s, result: %b%n",
-//                    partName,
-//                    genericItem.getAttributes().get(1).getString(),
-//                    partName.equals(
-//                        genericItem.getAttributes().get(1).getString()));
-                return (partName.equals(
-                    genericItem.getAttributes().get(1).getString()));
-            });
+        return list;
     }
     
     /**
      * Get the component part in the schematics by its part name.
-     * @param partName the name of the part
+     * @param name the name of the part
      * @return the part
      * @throws NotFoundException if the component part is not found
      */
-    public DiptraceItem getPCBComponent(final String partName)
+    public DiptraceItem getPCBComponent(final String name)
         throws NotFoundException {
         
-//        return getComponentParts(fProject.getPCBComponents(), partName);
         List<DiptraceItem> list
             = getDiptraceItems(
                 fProject.getPCBComponents(),
                 (DiptraceItem item) -> {
                     DiptraceGenericItem genericItem
                         = (DiptraceGenericItem) item;
-                    return (partName.equals(
+                    return (name.equals(
                         genericItem.getAttributes().get(1).getString()));
                 });
+        
+        if (list.isEmpty()) {
+            throw new NotFoundException(
+                String.format("PCB Component %s is not found", name));
+        }
+        
+        return list.get(0);
+    }
+    
+    /**
+     * Get the net in the schematics by its name.
+     * @param name the name of the net
+     * @return the net
+     * @throws NotFoundException if the net is not found
+     */
+    public DiptraceItem getSchematicsNet(final String name)
+        throws NotFoundException {
+        
+        List<DiptraceItem> list
+            = getDiptraceItems(
+                fProject.getSchematicsNets(),
+                (DiptraceItem item) -> {
+                    DiptraceGenericItem genericItem
+                        = (DiptraceGenericItem) item;
+                    return (name.equals(
+                        genericItem.getAttributes().get(0).getString()));
+                });
+        
+        if (list.isEmpty()) {
+            throw new NotFoundException(
+                String.format("Schematics net %s is not found", name));
+        }
+        
+        return list.get(0);
+    }
+    
+    /**
+     * Get the net in the schematics by its name.
+     * @param name the name of the net
+     * @return the net
+     * @throws NotFoundException if the net is not found
+     */
+    public DiptraceItem getPCBNet(final String name)
+        throws NotFoundException {
+        
+        List<DiptraceItem> list
+            = getDiptraceItems(
+                fProject.getPCBNets(),
+                (DiptraceItem item) -> {
+                    DiptraceGenericItem genericItem
+                        = (DiptraceGenericItem) item;
+                    return (name.equals(genericItem.getAttributes(" ")));
+                });
+        
+        if (list.isEmpty()) {
+            throw new NotFoundException(
+                String.format("PCB net %s is not found", name));
+        }
         
         return list.get(0);
     }
