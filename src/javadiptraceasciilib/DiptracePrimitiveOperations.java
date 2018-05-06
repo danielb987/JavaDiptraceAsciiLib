@@ -242,8 +242,9 @@ final class DiptracePrimitiveOperations {
             = (DiptraceGenericItem) item.duplicate(parent);
         
 //        ((DiptraceStringAttribute) newItem.getAttributes().get(1))
-        ((DiptraceStringAttribute) newItem.getAttributes().get(newItem.getAttributes().size()-1))
-            .setString(newName);
+        ((DiptraceStringAttribute) newItem.getAttributes().get(
+            newItem.getAttributes().size() - 1))
+                .setString(newName);
         
         ((DiptraceIntegerAttribute)
             ((DiptraceGenericItem) newItem.getSubItem("Number"))
