@@ -147,6 +147,24 @@ public final class DiptraceProject {
     }
     
     /**
+     * Get the nets of the schematics.
+     * @return the DiptraceItem that has all the nets as DiptraceItem
+     * children
+     */
+    DiptraceItem getSchematicsNets() {
+        return fSchematicsRoot.getSubItem("Schematic").getSubItem("Nets");
+    }
+    
+    /**
+     * Get the nets of the pcb.
+     * @return the DiptraceItem that has all the nets as DiptraceItem
+     * children
+     */
+    DiptraceItem getPCBNets() {
+        return fPCBRoot.getSubItem("Board").getSubItem("Nets");
+    }
+    
+    /**
      * Parse a schematics file.
      * @param tokenizer the tokenizer that parses the Diptrace ascii file
      * @throws IOException when IO error occurs

@@ -59,6 +59,26 @@ public class DiptraceGenericItem extends DiptraceItem {
     }
     
     /**
+     * Returns the list of parameters as a string.
+     * @param delimiter join the attributes by this delimiter
+     * @return the parameters
+     */
+    public final String getAttributes(String delimiter) {
+        if (fAttributes.isEmpty()) {
+            return "";
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        for (DiptraceAttribute attribute : fAttributes) {
+            if (sb.length() > 0) {
+                sb.append(delimiter);
+            }
+            sb.append(attribute.getString());
+        }
+        return sb.toString();
+    }
+    
+    /**
      * Parse the project.
      * @param tokenizer the tokenizer that parses the Diptrace ascii file
      * @throws IOException when IO error occurs
