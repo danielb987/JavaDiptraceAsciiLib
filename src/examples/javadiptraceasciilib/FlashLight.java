@@ -87,9 +87,9 @@ public final class FlashLight {
             DiptraceComponent diptraceComponentR1
                 = diptraceOperations.getComponentByRefDes("R1");
             
-            DiptraceNet diptraceNet_Net1
+            DiptraceNet diptraceNetNet1
                 = diptraceOperations.getNetByName("Net 1");
-            DiptraceNet diptraceNet_Net3a5
+            DiptraceNet diptraceNetNet3a5
                 = diptraceOperations.getNetByName("Net   3 a     5");
             
             // The DipTrace ascii files keeps the data in a tree structure

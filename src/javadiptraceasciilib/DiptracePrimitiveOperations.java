@@ -152,7 +152,9 @@ final class DiptracePrimitiveOperations {
                 (DiptraceItem item) -> {
                     DiptraceGenericItem genericItem
                         = (DiptraceGenericItem) item;
-                    return (name.equals(genericItem.getAttributes(" ")));
+                    return (name.equals(
+                        genericItem.getAttributes().get(0).getString()));
+//                    return (name.equals(genericItem.getAttributes(" ")));
                 });
         
         if (list.isEmpty()) {

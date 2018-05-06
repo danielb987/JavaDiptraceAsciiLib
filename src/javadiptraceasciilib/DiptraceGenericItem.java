@@ -63,7 +63,8 @@ public class DiptraceGenericItem extends DiptraceItem {
      * @param delimiter join the attributes by this delimiter
      * @return the parameters
      */
-    public final String getAttributes(String delimiter) {
+/*
+    public final String getAttributes(final String delimiter) {
         if (fAttributes.isEmpty()) {
             return "";
         }
@@ -77,7 +78,7 @@ public class DiptraceGenericItem extends DiptraceItem {
         }
         return sb.toString();
     }
-    
+*/
     /**
      * Parse the project.
      * @param tokenizer the tokenizer that parses the Diptrace ascii file
