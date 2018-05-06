@@ -87,10 +87,10 @@ public final class FlashLight {
             DiptraceComponent diptraceComponentR1
                 = diptraceOperations.getComponentByRefDes("R1");
             
-            DiptraceNet diptraceNet_Net1
+            DiptraceNet diptraceNetNet1
                 = diptraceOperations.getNetByName("Net 1");
-            DiptraceNet diptraceNet_Net3a5
-                = diptraceOperations.getNetByName("Net   3 a     5");
+//            DiptraceNet diptraceNetNet3a5
+//                = diptraceOperations.getNetByName("Net   3 a     5");
             
             // The DipTrace ascii files keeps the data in a tree structure
             // and a DiptraceItem is a node in that tree. Note that the
@@ -133,6 +133,9 @@ public final class FlashLight {
                     String newResistorName
                         = String.format("R%d", ++numResistors);
                     
+                    String newNetName
+                        = String.format("Net %d", numResistors);
+                    
                     DiptraceComponent newDiodeComponent =
                         diptraceOperations.duplicateComponent(
                             diptraceComponentD1, newDiodeName);
@@ -140,6 +143,10 @@ public final class FlashLight {
                     DiptraceComponent newResistorComponent =
                         diptraceOperations.duplicateComponent(
                             diptraceComponentR1, newResistorName);
+                    
+                    DiptraceNet newNet =
+                        diptraceOperations.duplicateNet(
+                            diptraceNetNet1, newNetName);
                     
                     diptraceOperations
                         .moveComponentRelativeOnSchematics(

@@ -109,6 +109,38 @@ public class DiptraceOperations {
     }
     
     /**
+     * Duplicate a component.
+     * @param net the net to copy
+     * @param newName the name that the new component is going to get
+     * @return the new net
+     */
+    public DiptraceNet duplicateNet(
+        final DiptraceNet net,
+        final String newName) {
+        
+        DiptraceProject diptraceProject
+            = fDiptracePrimitiveOperations.getProject();
+        
+        // All new components need a new unique number.
+        int newNetNumber
+            = diptraceProject.getNewNetNumber();
+        
+        DiptraceItem newSchematicsNet
+            = fDiptracePrimitiveOperations.duplicateDiptraceItem(
+                    net.getSchematicsNet(),
+                    newNetNumber,
+                    newName);
+        
+        DiptraceItem newPCBNet
+            = fDiptracePrimitiveOperations.duplicateDiptraceItem(
+                net.getPCBNet(),
+                newNetNumber,
+                newName);
+        
+        return new DiptraceNet(newSchematicsNet, newPCBNet);
+    }
+    
+    /**
      * Move a component to an absolute position on the schematics.
      * @param component The component to move
      * @param x the x position

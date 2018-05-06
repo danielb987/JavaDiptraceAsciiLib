@@ -1,7 +1,5 @@
 package javadiptraceasciilib;
 
-import java.util.List;
-
 /**
  * Holds an item from both the schematics and pcb tree.
  */
@@ -19,8 +17,8 @@ public class DiptraceNet {
     
     /**
      * Initialize a DiptraceNet object.
-     * @param schematicsItem the schematics net item
-     * @param pcbItem the pcb net item
+     * @param schematicsNetItem the schematics net item
+     * @param pcbNetItem the pcb net item
      */
     DiptraceNet(
         final DiptraceItem schematicsNetItem,
