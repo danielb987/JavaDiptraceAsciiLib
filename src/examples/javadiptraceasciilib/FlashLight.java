@@ -164,12 +164,6 @@ public final class FlashLight {
                 }
             }
             
-            //CHECKSTYLE.OFF: MagicNumber - Only for printout
-            System.out.format(
-                "Total num components: %d, Num pins: %d%n",
-                numDiodes * 2 + 1, numDiodes * 4 + 11);
-            //CHECKSTYLE.ON: MagicNumber - Only for printout
-            
             // Write the diptrace ascii files.
             diptraceProject.writeSchematicsAndPCB(
                 schematicsOutputFile, pcbOutputFile);
