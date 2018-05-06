@@ -216,8 +216,37 @@ final class DiptracePrimitiveOperations {
                 .get(0))
                     .setInt(newHiddenIdentifier);
         
+        parent.getSubItems().add(newItem);
+        
+        return newItem;
+    }
+    
+    /**
+     * Duplicate an item with all its children, gives it a new number and adds
+     * the new item to the tree.
+     * @param item the item to duplicate
+     * @param newNumber the new number for this item
+     * @param newName the new name of this item
+     * @return the new item
+     * @throws IllegalTokenValue if the token cannot be updated with the
+     * desired value
+     */
+    public DiptraceItem duplicateDiptraceItem(
+        final DiptraceItem item,
+        final int newNumber,
+        final String newName) {
+        
+        DiptraceItem parent = item.getParent();
+        
+        DiptraceGenericItem newItem
+            = (DiptraceGenericItem) item.duplicate(parent);
+        
+//        ((DiptraceStringAttribute) newItem.getAttributes().get(1))
+        ((DiptraceStringAttribute) newItem.getAttributes().get(newItem.getAttributes().size()-1))
+            .setString(newName);
+        
         ((DiptraceIntegerAttribute)
-            ((DiptraceGenericItem) newItem.getSubItem("HiddenId"))
+            ((DiptraceGenericItem) newItem.getSubItem("Number"))
                 .getAttributes()
                 .get(0))
                     .setInt(newNumber);

@@ -133,6 +133,9 @@ public final class FlashLight {
                     String newResistorName
                         = String.format("R%d", ++numResistors);
                     
+                    String newNetName
+                        = String.format("Net %d", numResistors);
+                    
                     DiptraceComponent newDiodeComponent =
                         diptraceOperations.duplicateComponent(
                             diptraceComponentD1, newDiodeName);
@@ -140,6 +143,10 @@ public final class FlashLight {
                     DiptraceComponent newResistorComponent =
                         diptraceOperations.duplicateComponent(
                             diptraceComponentR1, newResistorName);
+                    
+                    DiptraceNet newNet =
+                        diptraceOperations.duplicateNet(
+                            diptraceNetNet1, newNetName);
                     
                     diptraceOperations
                         .moveComponentRelativeOnSchematics(

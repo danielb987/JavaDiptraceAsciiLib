@@ -61,6 +61,32 @@ public final class DiptraceProject {
     private int fLastComponentHiddenIdentifier = 0;
     
     /**
+     * Map of the nets in the schematics where the key is the component's
+     * number.
+     */
+    private final Map<Integer, DiptraceItem> fNetComponentsNumberMap
+        = new HashMap<>();
+    
+    /**
+     * Map of the nets in the pcb where the key is the component's
+     * number.
+     */
+    private final Map<Integer, DiptraceItem> fPCBNetsNumberMap
+        = new HashMap<>();
+    
+    /**
+     * Map of the numbers used as net numbers with flags that tells
+     * whenether a number is used in the schematics and/or the pcb.
+     */
+    private final Map<Integer, SchematicsAndPCBFlags> fUsedNetNumbers
+        = new HashMap<>();
+    
+    /**
+     * The last used number of any net on either schematics or pcb.
+     */
+    private int fLastNetNumber = 0;
+    
+    /**
      * Constructs a DiptraceProject.
      */
     public DiptraceProject() {
@@ -113,6 +139,16 @@ public final class DiptraceProject {
     }
     
     /**
+     * Update the last net number.
+     * @param number a net number
+     */
+    private void updateLastNetNumber(final int number) {
+        if (fLastNetNumber < number) {
+            fLastNetNumber = number;
+        }
+    }
+    
+    /**
      * Returns a unused component number.
      * @return a new component number
      */
@@ -126,6 +162,14 @@ public final class DiptraceProject {
      */
     int getNewComponentHiddenIdentifier() {
         return ++fLastComponentHiddenIdentifier;
+    }
+    
+    /**
+     * Returns a unused component number.
+     * @return a new component number
+     */
+    int getNewNetNumber() {
+        return ++fLastNetNumber;
     }
     
     /**
@@ -201,6 +245,27 @@ public final class DiptraceProject {
                 fUsedComponentNumbers.put(number, schematicsAndPCBFlags);
             }
         }
+        
+        DiptraceItem nets = getSchematicsNets();
+        for (DiptraceItem net : nets.getSubItems()) {
+            DiptraceGenericItem numberItem
+                = (DiptraceGenericItem) net.getSubItem("Number");
+            int number
+                = ((DiptraceIntegerAttribute) numberItem.getAttributes().get(0))
+                    .getInt();
+            System.out.format("Number: %d%n", number);
+            updateLastNetNumber(number);
+            fPCBNetsNumberMap.put(number, net);
+            SchematicsAndPCBFlags schematicsAndPCBFlags
+                = fUsedNetNumbers.get(number);
+            if (schematicsAndPCBFlags != null) {
+                schematicsAndPCBFlags.fPCBFlag = true;
+            } else {
+                schematicsAndPCBFlags = new SchematicsAndPCBFlags();
+                schematicsAndPCBFlags.fPCBFlag = true;
+                fUsedNetNumbers.put(number, schematicsAndPCBFlags);
+            }
+        }
     }
     
     /**
@@ -213,7 +278,7 @@ public final class DiptraceProject {
         
         fPCBRoot.parse(tokenizer);
         
-        DiptraceItem components = getSchematicsComponents();
+        DiptraceItem components = getPCBComponents();
         for (DiptraceItem component : components.getSubItems()) {
             DiptraceGenericItem numberItem
                 = (DiptraceGenericItem) component.getSubItem("Number");
@@ -231,6 +296,27 @@ public final class DiptraceProject {
                 schematicsAndPCBFlags = new SchematicsAndPCBFlags();
                 schematicsAndPCBFlags.fPCBFlag = true;
                 fUsedComponentNumbers.put(number, schematicsAndPCBFlags);
+            }
+        }
+        
+        DiptraceItem nets = getPCBNets();
+        for (DiptraceItem net : nets.getSubItems()) {
+            DiptraceGenericItem numberItem
+                = (DiptraceGenericItem) net.getSubItem("Number");
+            int number
+                = ((DiptraceIntegerAttribute) numberItem.getAttributes().get(0))
+                    .getInt();
+            System.out.format("Number: %d%n", number);
+            updateLastNetNumber(number);
+            fPCBNetsNumberMap.put(number, net);
+            SchematicsAndPCBFlags schematicsAndPCBFlags
+                = fUsedNetNumbers.get(number);
+            if (schematicsAndPCBFlags != null) {
+                schematicsAndPCBFlags.fPCBFlag = true;
+            } else {
+                schematicsAndPCBFlags = new SchematicsAndPCBFlags();
+                schematicsAndPCBFlags.fPCBFlag = true;
+                fUsedNetNumbers.put(number, schematicsAndPCBFlags);
             }
         }
     }
