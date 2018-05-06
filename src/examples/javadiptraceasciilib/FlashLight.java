@@ -89,8 +89,8 @@ public final class FlashLight {
             
             DiptraceNet diptraceNetNet1
                 = diptraceOperations.getNetByName("Net 1");
-            DiptraceNet diptraceNetNet3a5
-                = diptraceOperations.getNetByName("Net   3 a     5");
+//            DiptraceNet diptraceNetNet3a5
+//                = diptraceOperations.getNetByName("Net   3 a     5");
             
             // The DipTrace ascii files keeps the data in a tree structure
             // and a DiptraceItem is a node in that tree. Note that the
