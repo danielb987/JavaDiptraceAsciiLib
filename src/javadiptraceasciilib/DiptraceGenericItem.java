@@ -22,7 +22,7 @@ class DiptraceGenericItem extends DiptraceItem {
      * @param parent the parent
      * @param identifier the identifier
      */
-    public DiptraceGenericItem(
+    DiptraceGenericItem(
         final DiptraceItem parent,
         final String identifier) {
         
