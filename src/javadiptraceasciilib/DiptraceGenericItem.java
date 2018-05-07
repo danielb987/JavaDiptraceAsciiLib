@@ -9,7 +9,7 @@ import javadiptraceasciilib.DiptraceStringAttribute.UseQuotes;
 /**
  * This class is a generic class for items in the DipTrace ascii file.
  */
-public class DiptraceGenericItem extends DiptraceItem {
+class DiptraceGenericItem extends DiptraceItem {
     
     /**
      * The list of parameters.
@@ -22,7 +22,7 @@ public class DiptraceGenericItem extends DiptraceItem {
      * @param parent the parent
      * @param identifier the identifier
      */
-    public DiptraceGenericItem(
+    DiptraceGenericItem(
         final DiptraceItem parent,
         final String identifier) {
         
