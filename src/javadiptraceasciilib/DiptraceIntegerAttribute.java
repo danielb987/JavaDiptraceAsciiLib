@@ -3,7 +3,7 @@ package javadiptraceasciilib;
 /**
  * A Diptrace integer attribute.
  */
-public final class DiptraceIntegerAttribute implements DiptraceAttribute {
+final class DiptraceIntegerAttribute implements DiptraceAttribute {
     
     /**
      * The value as a string.

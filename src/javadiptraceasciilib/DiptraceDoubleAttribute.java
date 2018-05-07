@@ -5,7 +5,7 @@ import java.util.Locale;
 /**
  * A Diptrace double attribute.
  */
-public final class DiptraceDoubleAttribute implements DiptraceAttribute {
+final class DiptraceDoubleAttribute implements DiptraceAttribute {
     
     /**
      * The value as a string.
