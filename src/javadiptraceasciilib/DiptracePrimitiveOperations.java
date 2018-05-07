@@ -186,7 +186,7 @@ final class DiptracePrimitiveOperations {
     
     /**
      * Check whenether this RefDes is already in use.
-     * @param refDes the RefDes.
+     * @param name the name
      * @return true if the RefDes is in use
      */
     public boolean isNetNameInUse(final String name) {

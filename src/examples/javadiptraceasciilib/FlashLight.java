@@ -68,6 +68,9 @@ public final class FlashLight {
         final double degrees90 = 90;
         final double degrees360 = 360;
         
+        // Remove this later!!
+        final int add = 5;
+        
         try {
             // Create a diptrace project. It holds both the schematics and
             // the pcb.
@@ -131,12 +134,13 @@ public final class FlashLight {
                         + circleNo * radius * Math.sin(Math.toRadians(angle));
                     
                     // What name should the new components have?
-                    String newDiodeName = String.format("D%d", ++numDiodes + 5);
+                    String newDiodeName
+                        = String.format("D%d", ++numDiodes + add);
                     String newResistorName
-                        = String.format("R%d", ++numResistors + 5);
+                        = String.format("R%d", ++numResistors + add);
                     
                     String newNetName
-                        = String.format("Net %d", numResistors + 5);
+                        = String.format("Net %d", numResistors + add);
                     
                     DiptraceComponent newDiodeComponent =
                         diptraceOperations.duplicateComponent(
@@ -145,10 +149,6 @@ public final class FlashLight {
                     DiptraceComponent newResistorComponent =
                         diptraceOperations.duplicateComponent(
                             diptraceComponentR1, newResistorName);
-                    
-                    DiptraceNet newNet =
-                        diptraceOperations.duplicateNet(
-                            diptraceNetNet1, newNetName);
                     
                     diptraceOperations
                         .moveComponentRelativeOnSchematics(
@@ -163,6 +163,23 @@ public final class FlashLight {
                     diptraceOperations
                         .moveComponentAbsoluteOnPCB(
                             newResistorComponent, pcbX, pcbY);
+                    
+                    DiptraceNet newNet =
+                        diptraceOperations.duplicateNet(
+                            diptraceNetNet1, newNetName);
+                    
+//                    DiptraceComponentPin componentPinNewDiodePin0
+//                        = newDiodeComponent.getPin(0);
+//                    DiptraceComponentPin componentPinNewDiodePin1
+//                        = newDiodeComponent.getPin(1);
+//                    DiptraceComponentPin componentPinNewResistorPin0
+//                        = newDiodeComponent.getPin(1);
+//                    DiptraceComponentPin componentPinNewResistorPin1
+//                        = newDiodeComponent.getPin(1);
+//                    newNet.connectToPin(componentPinNewDiodePin0);
+//                    newNet.connectToPin(componentPinNewDiodePin1);
+//                    newNet.connectToPin(componentPinNewResistorPin0);
+//                    newNet.connectToPin(componentPinNewResistorPin1);
                 }
             }
             
