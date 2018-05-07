@@ -385,19 +385,6 @@ final class DiptracePrimitiveOperations {
         attrAngle.setInt(attrAngle.getInt() + angle);
     }
     
-    /**
-     * Duplicate a component to a lot of other components of the same type
-     * in both schematics and pcb.
-     * @param number the number of the component to duplicate
-     * @return a map of the new components with the component number as key
-     */
-//    public Map<Integer, DiptraceItem> duplicateComponents(final int number) {
-//        Map<Integer, DiptraceItem> newComponents = new HashMap<>();
-        
-//        return newComponents;
-//    }
-    
-    
     
     
     /**

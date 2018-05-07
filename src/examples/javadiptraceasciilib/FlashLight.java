@@ -88,12 +88,12 @@ public final class FlashLight {
             
             // Get the D1 component and the R1 component.
             DiptraceComponent diptraceComponentD1
-                = diptraceOperations.getComponentByRefDes("D1");
+                = diptraceProject.getComponentByRefDes("D1");
             DiptraceComponent diptraceComponentR1
-                = diptraceOperations.getComponentByRefDes("R1");
+                = diptraceProject.getComponentByRefDes("R1");
             
             DiptraceNet diptraceNetNet1
-                = diptraceOperations.getNetByName("Net 1");
+                = diptraceProject.getNetByName("Net 1");
 //            DiptraceNet diptraceNetNet3a5
 //                = diptraceOperations.getNetByName("Net   3 a     5");
             
@@ -171,9 +171,10 @@ public final class FlashLight {
 //                    DiptraceComponentPin componentPinNewDiodePin0
 //                        = newDiodeComponent.getPin(0);
 //                    DiptraceComponentPin componentPinNewDiodePin1
-//                        = newDiodeComponent.getPin(1);
+//                        = diptraceOperations.getComponentPin(
+//                            newDiodeComponent,1);
 //                    DiptraceComponentPin componentPinNewResistorPin0
-//                        = newDiodeComponent.getPin(1);
+//                        = newDiodeComponent.getPin(0);
 //                    DiptraceComponentPin componentPinNewResistorPin1
 //                        = newDiodeComponent.getPin(1);
 //                    newNet.connectToPin(componentPinNewDiodePin0);
