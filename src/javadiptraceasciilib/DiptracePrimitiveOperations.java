@@ -192,8 +192,8 @@ final class DiptracePrimitiveOperations {
     public boolean isNetNameInUse(final String name) {
         
         try {
-            DiptraceItem item = getSchematicsNet(name);
-            item = getPCBNet(name);
+            getSchematicsNet(name);
+            getPCBNet(name);
         } catch (NotFoundException ex) {
             // The name is not found
             return false;
