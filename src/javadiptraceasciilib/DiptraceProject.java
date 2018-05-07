@@ -11,6 +11,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,6 +19,12 @@ import java.util.Map;
  * and the pcb.
  */
 public final class DiptraceProject {
+    
+    /**
+     * Primitive operations object.
+     */
+    private final DiptracePrimitiveOperations fDiptracePrimitiveOperations
+        = new DiptracePrimitiveOperations(this);
     
     /**
      * Root of the diptrace schematics item tree.
@@ -371,6 +378,45 @@ public final class DiptraceProject {
             writePCB(pcbWriter);
             
         }
+    }
+    
+    /**
+     * Get a component by RefDes.
+     * @param refDes the RefDes of the component
+     * @return the component
+     * @throws NotFoundException if component not found
+     */
+    public DiptraceComponent getComponentByRefDes(final String refDes)
+        throws NotFoundException {
+        
+        List<DiptraceItem> schematicsComponentParts
+            = fDiptracePrimitiveOperations.getSchematicsComponentParts(refDes);
+        DiptraceItem pcbComponent
+            = fDiptracePrimitiveOperations.getPCBComponent(refDes);
+        
+        DiptraceComponent diptraceComponent
+            = new DiptraceComponent(schematicsComponentParts, pcbComponent);
+        
+        return diptraceComponent;
+    }
+    
+    /**
+     * Get a net by name.
+     * @param name the name of the net
+     * @return the net
+     * @throws NotFoundException if the net is not found
+     */
+    public DiptraceNet getNetByName(final String name)
+        throws NotFoundException {
+        
+        DiptraceItem schematicsNet
+            = fDiptracePrimitiveOperations.getSchematicsNet(name);
+        DiptraceItem pcbNet
+            = fDiptracePrimitiveOperations.getPCBNet(name);
+        
+        DiptraceNet diptraceNet = new DiptraceNet(schematicsNet, pcbNet);
+        
+        return diptraceNet;
     }
     
 }

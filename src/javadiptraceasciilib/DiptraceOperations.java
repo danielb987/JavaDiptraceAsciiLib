@@ -1,5 +1,6 @@
 package javadiptraceasciilib;
 
+import examples.javadiptraceasciilib.DiptraceComponentPin;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,44 +23,15 @@ public class DiptraceOperations {
         fDiptracePrimitiveOperations = new DiptracePrimitiveOperations(project);
     }
     
-    /**
-     * Get a component by RefDes.
-     * @param refDes the RefDes of the component
-     * @return the component
-     * @throws NotFoundException if component not found
-     */
-    public DiptraceComponent getComponentByRefDes(final String refDes)
-        throws NotFoundException {
+/*
+    public DiptraceComponentPin getComponentPin(
+        final DiptraceComponent component,
+        final int pinNo) {
         
-        List<DiptraceItem> schematicsComponentParts
-            = fDiptracePrimitiveOperations.getSchematicsComponentParts(refDes);
-        DiptraceItem pcbComponent
-            = fDiptracePrimitiveOperations.getPCBComponent(refDes);
-        
-        DiptraceComponent diptraceComponent
-            = new DiptraceComponent(schematicsComponentParts, pcbComponent);
-        
-        return diptraceComponent;
+        DiptraceComponentPin componentPin = new DiptraceComponentPin();
+        return componentPin;
     }
-    
-    /**
-     * Get a net by name.
-     * @param name the name of the net
-     * @return the net
-     * @throws NotFoundException if the net is not found
-     */
-    public DiptraceNet getNetByName(final String name)
-        throws NotFoundException {
-        
-        DiptraceItem schematicsNet
-            = fDiptracePrimitiveOperations.getSchematicsNet(name);
-        DiptraceItem pcbNet
-            = fDiptracePrimitiveOperations.getPCBNet(name);
-        
-        DiptraceNet diptraceNet = new DiptraceNet(schematicsNet, pcbNet);
-        
-        return diptraceNet;
-    }
+*/
     
     /**
      * Duplicate a component.
