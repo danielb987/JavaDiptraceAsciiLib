@@ -2,6 +2,8 @@ package javadiptraceasciilib;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Do different operations on a DiptraceProject.
@@ -108,6 +110,25 @@ final class DiptracePrimitiveOperations {
         }
         
         return list.get(0);
+    }
+    
+    /**
+     * Check whenether this RefDes is already in use.
+     * @param refDes the RefDes.
+     * @return true if the RefDes is in use
+     */
+    public boolean isRefDesInUse(String refDes) {
+        
+        try {
+            List<DiptraceItem> list = getSchematicsComponentParts(refDes);
+            DiptraceItem item = getPCBComponent(refDes);
+        } catch (NotFoundException ex) {
+            // The RefDes is not found
+            return false;
+        }
+        
+        // The RefDes is found in either schematics or pcb
+        return true;
     }
     
     /**

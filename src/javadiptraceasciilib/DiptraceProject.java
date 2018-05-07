@@ -33,14 +33,14 @@ public final class DiptraceProject {
      * Map of the components in the schematics where the key is the component's
      * number.
      */
-    private final Map<Integer, DiptraceItem> fSchematicsComponentsNumberMap
+    private final Map<Integer, DiptraceItem> fSchematicsComponentNumberMap
         = new HashMap<>();
     
     /**
      * Map of the components in the pcb where the key is the component's
      * number.
      */
-    private final Map<Integer, DiptraceItem> fPCBComponentsNumberMap
+    private final Map<Integer, DiptraceItem> fPCBComponentNumberMap
         = new HashMap<>();
     
     /**
@@ -57,14 +57,14 @@ public final class DiptraceProject {
      * Map of the nets in the schematics where the key is the component's
      * number.
      */
-    private final Map<Integer, DiptraceItem> fNetComponentsNumberMap
+    private final Map<Integer, DiptraceItem> fSchematicsNetNumberMap
         = new HashMap<>();
     
     /**
      * Map of the nets in the pcb where the key is the component's
      * number.
      */
-    private final Map<Integer, DiptraceItem> fPCBNetsNumberMap
+    private final Map<Integer, DiptraceItem> fPCBNetNumberMap
         = new HashMap<>();
     
     /**
@@ -94,6 +94,33 @@ public final class DiptraceProject {
         return fPCBRoot;
     }
     
+    /**
+     * Get the component by its number in the schematics.
+     */
+    DiptraceItem getSchematicsComponent(int number) {
+        return fSchematicsComponentNumberMap.get(number);
+    }
+    
+    /**
+     * Get the component by its number in the pcb.
+     */
+    DiptraceItem getPCBComponent(int number) {
+        return fPCBComponentNumberMap.get(number);
+    }
+    
+    /**
+     * Get the net by its number in the schematics.
+     */
+    DiptraceItem getSchematicsNet(int number) {
+        return fSchematicsNetNumberMap.get(number);
+    }
+    
+    /**
+     * Get the net by its number in the pcb.
+     */
+    DiptraceItem getPCBNet(int number) {
+        return fPCBNetNumberMap.get(number);
+    }
     
     /**
      * Update the last component number.
@@ -210,7 +237,7 @@ public final class DiptraceProject {
                     hiddenIdentifierItem.getAttributes().get(0))
                     .getInt();
             updateLastComponentHiddenIdentifier(hiddenIdentifier);
-            fSchematicsComponentsNumberMap.put(number, part);
+            fSchematicsComponentNumberMap.put(number, part);
         }
         
         DiptraceItem nets = getSchematicsNets();
@@ -220,7 +247,7 @@ public final class DiptraceProject {
             DiptraceAttribute numberAttr = numberItem.getAttributes().get(0);
             int number = ((DiptraceIntegerAttribute) numberAttr).getInt();
             updateLastNetNumber(number);
-            fPCBNetsNumberMap.put(number, net);
+            fSchematicsNetNumberMap.put(number, net);
         }
     }
     
@@ -241,7 +268,7 @@ public final class DiptraceProject {
             DiptraceAttribute numberAttr = numberItem.getAttributes().get(0);
             int number = ((DiptraceIntegerAttribute) numberAttr).getInt();
             updateLastComponentNumber(number);
-            fPCBComponentsNumberMap.put(number, component);
+            fPCBComponentNumberMap.put(number, component);
         }
         
         DiptraceItem nets = getPCBNets();
@@ -251,7 +278,7 @@ public final class DiptraceProject {
             DiptraceAttribute numberAttr = numberItem.getAttributes().get(0);
             int number = ((DiptraceIntegerAttribute) numberAttr).getInt();
             updateLastNetNumber(number);
-            fPCBNetsNumberMap.put(number, net);
+            fPCBNetNumberMap.put(number, net);
         }
     }
     
