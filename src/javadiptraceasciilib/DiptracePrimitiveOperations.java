@@ -111,6 +111,25 @@ final class DiptracePrimitiveOperations {
     }
     
     /**
+     * Check whenether this RefDes is already in use.
+     * @param refDes the RefDes.
+     * @return true if the RefDes is in use
+     */
+    public boolean isRefDesInUse(final String refDes) {
+        
+        try {
+            List<DiptraceItem> list = getSchematicsComponentParts(refDes);
+            DiptraceItem item = getPCBComponent(refDes);
+        } catch (NotFoundException ex) {
+            // The RefDes is not found
+            return false;
+        }
+        
+        // The RefDes is found in either schematics or pcb
+        return true;
+    }
+    
+    /**
      * Get the net in the schematics by its name.
      * @param name the name of the net
      * @return the net

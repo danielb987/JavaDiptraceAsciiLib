@@ -18,12 +18,12 @@ final class DiptraceToken {
     /**
      * The value of the token as an integer, if the token is of type INTEGER.
      */
-    private int fIntValue;
+    private final int fIntValue;
     
     /**
      * The value of the token as a float, if the token is of type DOUBLE.
      */
-    private double fDoubleValue;
+    private final double fDoubleValue;
     
     /**
      * True if this token was preceded by a new line.

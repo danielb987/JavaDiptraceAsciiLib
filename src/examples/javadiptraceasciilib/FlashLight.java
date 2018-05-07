@@ -5,6 +5,7 @@ import javadiptraceasciilib.DiptraceComponent;
 import javadiptraceasciilib.DiptraceNet;
 import javadiptraceasciilib.DiptraceProject;
 import javadiptraceasciilib.DiptraceOperations;
+import javadiptraceasciilib.DiptraceRefDesAlreadyExistsException;
 import javadiptraceasciilib.NotFoundException;
 
 /**
@@ -169,7 +170,8 @@ public final class FlashLight {
                 schematicsOutputFile, pcbOutputFile);
             
         // Since thise is an example, we don't do any fancy error handling.
-        } catch (NotFoundException | IOException ex) {
+        } catch (DiptraceRefDesAlreadyExistsException | NotFoundException
+            | IOException ex) {
             ex.printStackTrace();
         }
     }

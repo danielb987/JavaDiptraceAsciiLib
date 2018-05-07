@@ -31,13 +31,13 @@ public class DiptraceOperations {
     public DiptraceComponent getComponentByRefDes(final String refDes)
         throws NotFoundException {
         
-        List<DiptraceItem> schematicsComponentPart
+        List<DiptraceItem> schematicsComponentParts
             = fDiptracePrimitiveOperations.getSchematicsComponentParts(refDes);
         DiptraceItem pcbComponent
             = fDiptracePrimitiveOperations.getPCBComponent(refDes);
         
         DiptraceComponent diptraceComponent
-            = new DiptraceComponent(schematicsComponentPart, pcbComponent);
+            = new DiptraceComponent(schematicsComponentParts, pcbComponent);
         
         return diptraceComponent;
     }
@@ -66,13 +66,20 @@ public class DiptraceOperations {
      * @param component the component to copy
      * @param newRefDes the RefDes that the new component is going to get
      * @return the new component
+     * @throws DiptraceRefDesAlreadyExistsException thrown if the new refdes
+     * already exists
      */
     public DiptraceComponent duplicateComponent(
         final DiptraceComponent component,
-        final String newRefDes) {
+        final String newRefDes) throws DiptraceRefDesAlreadyExistsException {
         
         DiptraceProject diptraceProject
             = fDiptracePrimitiveOperations.getProject();
+        
+        if (fDiptracePrimitiveOperations.isRefDesInUse(newRefDes)) {
+            throw new DiptraceRefDesAlreadyExistsException(
+                String.format("The RefDes %s is already in use", newRefDes));
+        }
         
         // All new components need a new unique number.
         int newComponentNumber
