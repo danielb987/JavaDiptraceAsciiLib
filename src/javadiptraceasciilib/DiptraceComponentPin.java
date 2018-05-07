@@ -1,7 +1,7 @@
 package javadiptraceasciilib;
 
 /**
- * A components pin
+ * A components pin.
  */
 public class DiptraceComponentPin {
     
@@ -34,10 +34,10 @@ public class DiptraceComponentPin {
      * @param pcbItem the pcb item of this pin
      */
     DiptraceComponentPin(
-        DiptraceComponent component,
-        int pinNo,
-        DiptraceItem schematicsItem,
-        DiptraceItem pcbItem) {
+        final DiptraceComponent component,
+        final int pinNo,
+        final DiptraceItem schematicsItem,
+        final DiptraceItem pcbItem) {
         
         this.fComponent = component;
         this.fPinNo = pinNo;
