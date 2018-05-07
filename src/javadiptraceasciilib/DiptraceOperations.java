@@ -66,7 +66,8 @@ public class DiptraceOperations {
      * @param component the component to copy
      * @param newRefDes the RefDes that the new component is going to get
      * @return the new component
-     * @throws javadiptraceasciilib.DiptraceRefDesAlreadyExistsException
+     * @throws DiptraceRefDesAlreadyExistsException thrown if the new refdes
+     * already exists
      */
     public DiptraceComponent duplicateComponent(
         final DiptraceComponent component,

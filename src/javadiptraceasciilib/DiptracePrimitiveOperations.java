@@ -2,8 +2,6 @@ package javadiptraceasciilib;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Do different operations on a DiptraceProject.
@@ -117,7 +115,7 @@ final class DiptracePrimitiveOperations {
      * @param refDes the RefDes.
      * @return true if the RefDes is in use
      */
-    public boolean isRefDesInUse(String refDes) {
+    public boolean isRefDesInUse(final String refDes) {
         
         try {
             List<DiptraceItem> list = getSchematicsComponentParts(refDes);

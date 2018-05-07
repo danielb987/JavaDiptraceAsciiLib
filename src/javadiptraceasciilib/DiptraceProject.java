@@ -96,29 +96,37 @@ public final class DiptraceProject {
     
     /**
      * Get the component by its number in the schematics.
+     * @param number the number
+     * @return the DiptraceItem
      */
-    DiptraceItem getSchematicsComponent(int number) {
+    DiptraceItem getSchematicsComponent(final int number) {
         return fSchematicsComponentNumberMap.get(number);
     }
     
     /**
      * Get the component by its number in the pcb.
+     * @param number the number
+     * @return the DiptraceItem
      */
-    DiptraceItem getPCBComponent(int number) {
+    DiptraceItem getPCBComponent(final int number) {
         return fPCBComponentNumberMap.get(number);
     }
     
     /**
      * Get the net by its number in the schematics.
+     * @param number the number
+     * @return the DiptraceItem
      */
-    DiptraceItem getSchematicsNet(int number) {
+    DiptraceItem getSchematicsNet(final int number) {
         return fSchematicsNetNumberMap.get(number);
     }
     
     /**
      * Get the net by its number in the pcb.
+     * @param number the number
+     * @return the DiptraceItem
      */
-    DiptraceItem getPCBNet(int number) {
+    DiptraceItem getPCBNet(final int number) {
         return fPCBNetNumberMap.get(number);
     }
     

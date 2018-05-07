@@ -170,7 +170,7 @@ public final class FlashLight {
                 schematicsOutputFile, pcbOutputFile);
             
         // Since thise is an example, we don't do any fancy error handling.
-        } catch (DiptraceRefDesAlreadyExistsException |NotFoundException
+        } catch (DiptraceRefDesAlreadyExistsException | NotFoundException
             | IOException ex) {
             ex.printStackTrace();
         }
