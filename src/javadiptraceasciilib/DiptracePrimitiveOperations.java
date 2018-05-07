@@ -185,6 +185,25 @@ final class DiptracePrimitiveOperations {
     }
     
     /**
+     * Check whenether this RefDes is already in use.
+     * @param refDes the RefDes.
+     * @return true if the RefDes is in use
+     */
+    public boolean isNetNameInUse(final String name) {
+        
+        try {
+            DiptraceItem item = getSchematicsNet(name);
+            item = getPCBNet(name);
+        } catch (NotFoundException ex) {
+            // The name is not found
+            return false;
+        }
+        
+        // The name is found in either schematics or pcb
+        return true;
+    }
+    
+    /**
      * Duplicate an item with all its children and adds the new item to the
      * tree.
      * @param item the item to duplicate

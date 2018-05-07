@@ -130,12 +130,12 @@ public final class FlashLight {
                         + circleNo * radius * Math.sin(Math.toRadians(angle));
                     
                     // What name should the new components have?
-                    String newDiodeName = String.format("D%d", ++numDiodes);
+                    String newDiodeName = String.format("D%d", ++numDiodes + 5);
                     String newResistorName
-                        = String.format("R%d", ++numResistors);
+                        = String.format("R%d", ++numResistors + 5);
                     
                     String newNetName
-                        = String.format("Net %d", numResistors);
+                        = String.format("Net %d", numResistors + 5);
                     
                     DiptraceComponent newDiodeComponent =
                         diptraceOperations.duplicateComponent(
