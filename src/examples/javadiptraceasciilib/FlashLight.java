@@ -3,6 +3,7 @@ package examples.javadiptraceasciilib;
 import java.io.IOException;
 import javadiptraceasciilib.DiptraceComponent;
 import javadiptraceasciilib.DiptraceNet;
+import javadiptraceasciilib.DiptraceNetNameAlreadyExistsException;
 import javadiptraceasciilib.DiptraceProject;
 import javadiptraceasciilib.DiptraceOperations;
 import javadiptraceasciilib.DiptraceRefDesAlreadyExistsException;
@@ -170,7 +171,8 @@ public final class FlashLight {
                 schematicsOutputFile, pcbOutputFile);
             
         // Since thise is an example, we don't do any fancy error handling.
-        } catch (DiptraceRefDesAlreadyExistsException | NotFoundException
+        } catch (DiptraceRefDesAlreadyExistsException
+            | DiptraceNetNameAlreadyExistsException | NotFoundException
             | IOException ex) {
             ex.printStackTrace();
         }

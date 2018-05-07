@@ -120,18 +120,18 @@ public class DiptraceOperations {
      * @param net the net to copy
      * @param newName the name that the new component is going to get
      * @return the new net
-     * @throws DiptraceRefDesAlreadyExistsException thrown if the new name
+     * @throws DiptraceNetNameAlreadyExistsException thrown if the new name
      * already exists
      */
     public DiptraceNet duplicateNet(
         final DiptraceNet net,
-        final String newName) throws DiptraceRefDesAlreadyExistsException {
+        final String newName) throws DiptraceNetNameAlreadyExistsException {
         
         DiptraceProject diptraceProject
             = fDiptracePrimitiveOperations.getProject();
         
         if (fDiptracePrimitiveOperations.isNetNameInUse(newName)) {
-            throw new DiptraceRefDesAlreadyExistsException(
+            throw new DiptraceNetNameAlreadyExistsException(
                 String.format("The name %s is already in use", newName));
         }
         
