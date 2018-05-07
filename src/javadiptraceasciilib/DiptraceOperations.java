@@ -1,6 +1,5 @@
 package javadiptraceasciilib;
 
-import examples.javadiptraceasciilib.DiptraceComponentPin;
 import java.util.ArrayList;
 import java.util.List;
 
