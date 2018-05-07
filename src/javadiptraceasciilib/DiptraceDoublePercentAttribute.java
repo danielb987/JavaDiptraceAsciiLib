@@ -5,7 +5,7 @@ import java.util.Locale;
 /**
  *
  */
-public final class DiptraceDoublePercentAttribute implements DiptraceAttribute {
+final class DiptraceDoublePercentAttribute implements DiptraceAttribute {
     
     /**
      * The value as a string.
