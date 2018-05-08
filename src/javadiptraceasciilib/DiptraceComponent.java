@@ -56,6 +56,36 @@ public final class DiptraceComponent {
     }
     
     /**
+     * Get a pin of this component.
+     * @param pinNo the pin number
+     * @return the pin
+     * @throws NotFoundException thrown in the pin is not found
+     */
+    public DiptraceComponentPin getPin(final int pinNo)
+        throws NotFoundException {
+        
+        DiptraceItem schematicsItem = null;
+        
+        for (DiptraceItem componentPart : fSchematicsComponentParts) {
+            DiptraceItem pinsItem = componentPart.getSubItem("Pins");
+            for (DiptraceItem pinItem : pinsItem.getSubItems()) {
+                DiptraceAttribute pinNoAttr
+                    = ((DiptraceGenericItem) pinItem).getAttributes().get(0);
+                int tempPinNo = ((DiptraceIntegerAttribute) pinNoAttr).getInt();
+                if (pinNo == tempPinNo) {
+                    schematicsItem = pinItem;
+                }
+            }
+        }
+        if (schematicsItem == null) {
+            throw new NotFoundException(
+                String.format("Pin %d is not found on schematics", pinNo));
+        }
+        DiptraceItem pcbItem = null;
+        return new DiptraceComponentPin(this, pinNo, schematicsItem, pcbItem);
+    }
+    
+    /**
      * Duplicate this component.
      * @param newRefDes the RefDes that the new component is going to get
      * @return the new component
