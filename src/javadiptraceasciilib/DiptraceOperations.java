@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Do different operations on a DiptraceProject.
  */
-final class DiptracePrimitiveOperations {
+final class DiptraceOperations {
     
     /**
      * The project that the operations are done at.
@@ -17,7 +17,7 @@ final class DiptracePrimitiveOperations {
      * Initialize a DiptraceOperations object.
      * @param project the project
      */
-    DiptracePrimitiveOperations(final DiptraceProject project) {
+    DiptraceOperations(final DiptraceProject project) {
         this.fProject = project;
     }
     

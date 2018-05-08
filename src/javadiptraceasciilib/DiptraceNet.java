@@ -62,7 +62,7 @@ public class DiptraceNet {
     public DiptraceNet duplicateNet(final String newName)
         throws DiptraceNetNameAlreadyExistsException {
         
-        DiptracePrimitiveOperations diptracePrimitiveOperations
+        DiptraceOperations diptracePrimitiveOperations
             = fDiptraceProject.getDiptracePrimitiveOperations();
         
         if (diptracePrimitiveOperations.isNetNameInUse(newName)) {

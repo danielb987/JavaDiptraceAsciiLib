@@ -65,7 +65,7 @@ public final class DiptraceComponent {
     public DiptraceComponent duplicateComponent(
         final String newRefDes) throws DiptraceRefDesAlreadyExistsException {
         
-        DiptracePrimitiveOperations diptracePrimitiveOperations
+        DiptraceOperations diptracePrimitiveOperations
             = fDiptraceProject.getDiptracePrimitiveOperations();
         
         if (diptracePrimitiveOperations.isRefDesInUse(newRefDes)) {

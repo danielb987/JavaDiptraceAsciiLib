@@ -23,8 +23,8 @@ public final class DiptraceProject {
     /**
      * Primitive operations object.
      */
-    private final DiptracePrimitiveOperations fDiptracePrimitiveOperations
-        = new DiptracePrimitiveOperations(this);
+    private final DiptraceOperations fDiptracePrimitiveOperations
+        = new DiptraceOperations(this);
     
     /**
      * Root of the diptrace schematics item tree.
@@ -86,10 +86,10 @@ public final class DiptraceProject {
     }
     
     /**
-     * Get the DiptracePrimitiveOperations object.
+     * Get the DiptraceOperations object.
      * @return diptracePrimitiveOperations
      */
-    DiptracePrimitiveOperations getDiptracePrimitiveOperations() {
+    DiptraceOperations getDiptracePrimitiveOperations() {
         return fDiptracePrimitiveOperations;
     }
     
