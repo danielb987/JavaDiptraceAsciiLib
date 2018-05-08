@@ -248,6 +248,9 @@ public abstract class DiptraceItem {
             case "Ypos":
             case "Ypos":
 */
+            case "Shape":
+                return new DiptraceShapeItem(this, token.getValue());
+                
             case "Schematic":
             default:
                 return new DiptraceGenericItem(this, token.getValue());

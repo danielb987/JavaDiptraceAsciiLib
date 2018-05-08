@@ -1,6 +1,10 @@
 package javadiptraceasciilib;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
+import javadiptraceasciilib.DiptraceShapeItem.PlacementLayer;
 
 /**
  * Draw a schematics or a pcb on a Java Graphics2D object.
@@ -22,14 +26,105 @@ public final class DiptraceGraphics {
     }
     
     /**
-     * Draw a schematics or pcb on a Java Graphics2D object.
-     * @param graphics the graphics to draw on
+     * Draw a shape.
+     * @param graphics the graphics to drawPCB on
+     * @param item the item to draw
      */
-    public void draw(final Graphics2D graphics) {
+    public void drawShape(final Graphics2D graphics, final DiptraceItem item) {
+        
+        DiptraceShapeItem shapeItem = (DiptraceShapeItem) item;
+        
+//        if (shapeItem.getAttributes().isEmpty()) {
+//            System.out.println("shapeItem has no attributes");
+//            return;
+//        }
+//        if (shapeItem.getPlacementLayer() == PlacementLayer.TOP_ASSY) {
+//            return;
+//        }
+        
+        System.out.println("Shape: "+shapeItem.getString());
+        
+        DiptraceShapeItem.DrawingType t = shapeItem.getDrawingType();
+        
+        switch (shapeItem.getDrawingType()) {
+            case NONE_1:
+            case NONE_2:
+                // Nothing to do.
+                return;
+            case LINE:
+                graphics.setColor(Color.BLACK);
+                graphics.draw(new Line2D.Double(shapeItem.getPoint(0), shapeItem.getPoint(1), shapeItem.getPoint(2), shapeItem.getPoint(3)));
+                break;
+            case RECTANGLE:
+                graphics.setColor(Color.RED);
+                graphics.draw(new Rectangle2D.Double(shapeItem.getPoint(0), shapeItem.getPoint(1), shapeItem.getPoint(2), shapeItem.getPoint(3)));
+                break;
+            case ELLIPSE:
+                graphics.setColor(Color.BLUE);
+                graphics.draw(new Rectangle2D.Double(shapeItem.getPoint(0), shapeItem.getPoint(1), shapeItem.getPoint(2), shapeItem.getPoint(3)));
+                break;
+            case FILLED_RECTANGLE:
+                graphics.setColor(Color.GREEN);
+                graphics.draw(new Rectangle2D.Double(shapeItem.getPoint(0), shapeItem.getPoint(1), shapeItem.getPoint(2), shapeItem.getPoint(3)));
+                break;
+            case FILLED_ELLIPSE:
+                graphics.setColor(Color.CYAN);
+                graphics.draw(new Rectangle2D.Double(shapeItem.getPoint(0), shapeItem.getPoint(1), shapeItem.getPoint(2), shapeItem.getPoint(3)));
+                break;
+            case ARC:
+                graphics.setColor(Color.ORANGE);
+                graphics.draw(new Rectangle2D.Double(shapeItem.getPoint(0), shapeItem.getPoint(1), shapeItem.getPoint(2), shapeItem.getPoint(3)));
+                break;
+            case TEXT:
+                graphics.setColor(Color.PINK);
+                graphics.draw(new Rectangle2D.Double(shapeItem.getPoint(0), shapeItem.getPoint(1), shapeItem.getPoint(2), shapeItem.getPoint(3)));
+            case POLYLINE:
+//                graphics.setColor(Color.GREEN);
+//                double[] pointsX = {shapeItem.getPoint(0), shapeItem.getPoint(1), shapeItem.getPoint(2), shapeItem.getPoint(3), shapeItem.getPoint(4), shapeItem.getPoint(5)};
+//                double[] pointsY = {shapeItem.getPoint(0), shapeItem.getPoint(1), shapeItem.getPoint(2), shapeItem.getPoint(3), shapeItem.getPoint(4), shapeItem.getPoint(5)};
+//                graphics.draw(new Rectangle2D.Double(shapeItem.getPoint(0), shapeItem.getPoint(1), shapeItem.getPoint(2), shapeItem.getPoint(3)));
+                break;
+            case FILLED_PLYGONE:
+                graphics.setColor(Color.YELLOW);
+                graphics.draw(new Rectangle2D.Double(shapeItem.getPoint(0), shapeItem.getPoint(1), shapeItem.getPoint(2), shapeItem.getPoint(3)));
+                break;
+            default:
+                throw new RuntimeException(
+                    String.format(
+                        "DrawingType %s is unknown",
+                        shapeItem.getDrawingType().name()));
+        }
+    }
+    
+    /**
+     * Draw an item.
+     * @param graphics the graphics to drawPCB on
+     * @param item the item to draw
+     */
+    void drawItem(final Graphics2D graphics, final DiptraceItem item) {
+        
+        if (item.getIdentifier().equals("Shape")) {
+            drawShape(graphics, item);
+        }
+        
+        for (DiptraceItem subItem : item.getSubItems()) {
+            drawItem(graphics, subItem);
+        }
+        
+        
+    }
+    
+    /**
+     * Draw a schematics or pcb on a Java Graphics2D object.
+     * @param graphics the graphics to drawPCB on
+     */
+    public void drawPCB(final Graphics2D graphics) {
         
         if (fProject == null) {
             return;
         }
+        
+        drawItem(graphics, fProject.getPCBRoot());
         
         if (1 == 0) {
             throw new RuntimeException("Test");
