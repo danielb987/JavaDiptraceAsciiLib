@@ -5,7 +5,6 @@ import javadiptraceasciilib.DiptraceComponent;
 import javadiptraceasciilib.DiptraceNet;
 import javadiptraceasciilib.DiptraceNetNameAlreadyExistsException;
 import javadiptraceasciilib.DiptraceProject;
-import javadiptraceasciilib.DiptraceOperations;
 import javadiptraceasciilib.DiptraceRefDesAlreadyExistsException;
 import javadiptraceasciilib.NotFoundException;
 
@@ -80,11 +79,6 @@ public final class FlashLight {
             diptraceProject.readSchematicsAndPCB(
                 schematicsInputFile,
                 pcbInputFile);
-            
-            // The class DiptraceOperations is a helper class used to do
-            // different operations on the Diptrace project.
-            DiptraceOperations diptraceOperations
-                = new DiptraceOperations(diptraceProject);
             
             // Get the D1 component and the R1 component.
             DiptraceComponent diptraceComponentD1
