@@ -225,7 +225,6 @@ final class DiptraceOperations {
      * @param newHiddenIdentifier the new hidden identifier for this item
      * @param newName the new name of this item
      * @return the new item
-     * @throws IllegalTokenValue if the token cannot be updated with the
      * desired value
      */
     public DiptraceItem duplicateDiptraceItem(
@@ -266,7 +265,6 @@ final class DiptraceOperations {
      * @param newNumber the new number for this item
      * @param newName the new name of this item
      * @return the new item
-     * @throws IllegalTokenValue if the token cannot be updated with the
      * desired value
      */
     public DiptraceItem duplicateDiptraceItem(
