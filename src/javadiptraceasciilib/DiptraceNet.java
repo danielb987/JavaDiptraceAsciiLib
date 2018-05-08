@@ -62,10 +62,10 @@ public class DiptraceNet {
     public DiptraceNet duplicateNet(final String newName)
         throws DiptraceNetNameAlreadyExistsException {
         
-        DiptraceOperations diptracePrimitiveOperations
-            = fDiptraceProject.getDiptracePrimitiveOperations();
+        DiptraceOperations diptraceOperations
+            = fDiptraceProject.getDiptraceOperations();
         
-        if (diptracePrimitiveOperations.isNetNameInUse(newName)) {
+        if (diptraceOperations.isNetNameInUse(newName)) {
             throw new DiptraceNetNameAlreadyExistsException(
                 String.format("The name %s is already in use", newName));
         }
@@ -75,13 +75,13 @@ public class DiptraceNet {
             = fDiptraceProject.getNewNetNumber();
         
         DiptraceItem newSchematicsNet
-            = diptracePrimitiveOperations.duplicateDiptraceItem(
+            = diptraceOperations.duplicateDiptraceItem(
                     this.getSchematicsNet(),
                     newNetNumber,
                     newName);
         
         DiptraceItem newPCBNet
-            = diptracePrimitiveOperations.duplicateDiptraceItem(
+            = diptraceOperations.duplicateDiptraceItem(
                 this.getPCBNet(),
                 newNetNumber,
                 newName);

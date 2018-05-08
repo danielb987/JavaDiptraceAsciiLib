@@ -65,10 +65,10 @@ public final class DiptraceComponent {
     public DiptraceComponent duplicateComponent(
         final String newRefDes) throws DiptraceRefDesAlreadyExistsException {
         
-        DiptraceOperations diptracePrimitiveOperations
-            = fDiptraceProject.getDiptracePrimitiveOperations();
+        DiptraceOperations diptraceOperations
+            = fDiptraceProject.getDiptraceOperations();
         
-        if (diptracePrimitiveOperations.isRefDesInUse(newRefDes)) {
+        if (diptraceOperations.isRefDesInUse(newRefDes)) {
             throw new DiptraceRefDesAlreadyExistsException(
                 String.format("The RefDes %s is already in use", newRefDes));
         }
@@ -87,7 +87,7 @@ public final class DiptraceComponent {
             : this.getSchematicsComponentParts()) {
             
             DiptraceItem newSchematicsPartComponent
-                = diptracePrimitiveOperations.duplicateDiptraceItem(
+                = diptraceOperations.duplicateDiptraceItem(
                     componentPart,
                     newComponentNumber,
                     newComponentHiddenIdentifier,
@@ -97,7 +97,7 @@ public final class DiptraceComponent {
         }
         
         DiptraceItem newPCBComponent
-            = diptracePrimitiveOperations.duplicateDiptraceItem(
+            = diptraceOperations.duplicateDiptraceItem(
                 this.getPCBComponent(),
                 newComponentNumber,
                 newComponentHiddenIdentifier,
