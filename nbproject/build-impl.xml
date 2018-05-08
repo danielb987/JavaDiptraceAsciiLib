@@ -1249,7 +1249,7 @@ is divided into following sections:
                 <exclude name="*.java"/>
             </fileset>
             <arg line="${javadoc.endorsed.classpath.cmd.line.arg}"/>
-			<excludePackageNames>examples.*:util</excludePackageNames>
+			<excludePackageNames>examples.*,util</excludePackageNames>
         </javadoc>
         <copy todir="${dist.javadoc.dir}">
             <fileset dir="${src.dir}" excludes="${excludes}" includes="${includes}">
