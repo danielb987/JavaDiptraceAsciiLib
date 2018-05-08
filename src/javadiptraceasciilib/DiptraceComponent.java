@@ -56,13 +56,13 @@ public final class DiptraceComponent {
     }
     
     /**
-     * Duplicate a component.
+     * Duplicate this component.
      * @param newRefDes the RefDes that the new component is going to get
      * @return the new component
      * @throws DiptraceRefDesAlreadyExistsException thrown if the new refdes
      * already exists
      */
-    public DiptraceComponent duplicateComponent(
+    public DiptraceComponent duplicate(
         final String newRefDes) throws DiptraceRefDesAlreadyExistsException {
         
         DiptraceOperations diptraceOperations
