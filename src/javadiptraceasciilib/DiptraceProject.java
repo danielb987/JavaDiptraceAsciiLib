@@ -23,8 +23,8 @@ public final class DiptraceProject {
     /**
      * Primitive operations object.
      */
-    private final DiptracePrimitiveOperations fDiptracePrimitiveOperations
-        = new DiptracePrimitiveOperations(this);
+    private final DiptraceOperations fDiptraceOperations
+        = new DiptraceOperations(this);
     
     /**
      * Root of the diptrace schematics item tree.
@@ -86,11 +86,11 @@ public final class DiptraceProject {
     }
     
     /**
-     * Get the DiptracePrimitiveOperations object.
+     * Get the DiptraceOperations object.
      * @return diptracePrimitiveOperations
      */
-    DiptracePrimitiveOperations getDiptracePrimitiveOperations() {
-        return fDiptracePrimitiveOperations;
+    DiptraceOperations getDiptraceOperations() {
+        return fDiptraceOperations;
     }
     
     /**
@@ -398,9 +398,9 @@ public final class DiptraceProject {
         throws NotFoundException {
         
         List<DiptraceItem> schematicsComponentParts
-            = fDiptracePrimitiveOperations.getSchematicsComponentParts(refDes);
+            = fDiptraceOperations.getSchematicsComponentParts(refDes);
         DiptraceItem pcbComponent
-            = fDiptracePrimitiveOperations.getPCBComponent(refDes);
+            = fDiptraceOperations.getPCBComponent(refDes);
         
         DiptraceComponent diptraceComponent
             = new DiptraceComponent(
@@ -419,9 +419,9 @@ public final class DiptraceProject {
         throws NotFoundException {
         
         DiptraceItem schematicsNet
-            = fDiptracePrimitiveOperations.getSchematicsNet(name);
+            = fDiptraceOperations.getSchematicsNet(name);
         DiptraceItem pcbNet
-            = fDiptracePrimitiveOperations.getPCBNet(name);
+            = fDiptraceOperations.getPCBNet(name);
         
         DiptraceNet diptraceNet = new DiptraceNet(this, schematicsNet, pcbNet);
         
