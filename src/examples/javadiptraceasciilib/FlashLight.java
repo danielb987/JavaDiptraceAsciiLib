@@ -2,6 +2,7 @@ package examples.javadiptraceasciilib;
 
 import java.io.IOException;
 import javadiptraceasciilib.DiptraceComponent;
+import javadiptraceasciilib.DiptraceComponentPin;
 import javadiptraceasciilib.DiptraceNet;
 import javadiptraceasciilib.DiptraceNetNameAlreadyExistsException;
 import javadiptraceasciilib.DiptraceProject;
@@ -151,15 +152,14 @@ public final class FlashLight {
                     DiptraceNet newNet =
                         diptraceNetNet1.duplicateNet(newNetName);
                     
-//                    DiptraceComponentPin componentPinNewDiodePin0
-//                        = newDiodeComponent.getPin(0);
-//                    DiptraceComponentPin componentPinNewDiodePin1
-//                        = diptraceOperations.getComponentPin(
-//                            newDiodeComponent,1);
-//                    DiptraceComponentPin componentPinNewResistorPin0
-//                        = newDiodeComponent.getPin(0);
-//                    DiptraceComponentPin componentPinNewResistorPin1
-//                        = newDiodeComponent.getPin(1);
+                    DiptraceComponentPin componentPinNewDiodePin0
+                        = newDiodeComponent.getPin(0);
+                    DiptraceComponentPin componentPinNewDiodePin1
+                        = newDiodeComponent.getPin(1);
+                    DiptraceComponentPin componentPinNewResistorPin0
+                        = newDiodeComponent.getPin(0);
+                    DiptraceComponentPin componentPinNewResistorPin1
+                        = newDiodeComponent.getPin(1);
 //                    newNet.connectToPin(componentPinNewDiodePin0);
 //                    newNet.connectToPin(componentPinNewDiodePin1);
 //                    newNet.connectToPin(componentPinNewResistorPin0);
