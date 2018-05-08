@@ -86,6 +86,14 @@ public final class DiptraceProject {
     }
     
     /**
+     * Get the DiptracePrimitiveOperations object.
+     * @return diptracePrimitiveOperations
+     */
+    DiptracePrimitiveOperations getDiptracePrimitiveOperations() {
+        return fDiptracePrimitiveOperations;
+    }
+    
+    /**
      * Get the root item of the schematics.
      * @return the root item of the Diptrace schematics item tree
      */
@@ -395,7 +403,8 @@ public final class DiptraceProject {
             = fDiptracePrimitiveOperations.getPCBComponent(refDes);
         
         DiptraceComponent diptraceComponent
-            = new DiptraceComponent(schematicsComponentParts, pcbComponent);
+            = new DiptraceComponent(
+                this, schematicsComponentParts, pcbComponent);
         
         return diptraceComponent;
     }
@@ -414,7 +423,7 @@ public final class DiptraceProject {
         DiptraceItem pcbNet
             = fDiptracePrimitiveOperations.getPCBNet(name);
         
-        DiptraceNet diptraceNet = new DiptraceNet(schematicsNet, pcbNet);
+        DiptraceNet diptraceNet = new DiptraceNet(this, schematicsNet, pcbNet);
         
         return diptraceNet;
     }

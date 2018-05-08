@@ -143,12 +143,10 @@ public final class FlashLight {
                         = String.format("Net %d", numResistors + add);
                     
                     DiptraceComponent newDiodeComponent =
-                        diptraceOperations.duplicateComponent(
-                            diptraceComponentD1, newDiodeName);
+                        diptraceComponentD1.duplicateComponent(newDiodeName);
                     
                     DiptraceComponent newResistorComponent =
-                        diptraceOperations.duplicateComponent(
-                            diptraceComponentR1, newResistorName);
+                        diptraceComponentR1.duplicateComponent(newResistorName);
                     
                     diptraceOperations
                         .moveComponentRelativeOnSchematics(
@@ -165,8 +163,7 @@ public final class FlashLight {
                             newResistorComponent, pcbX, pcbY);
                     
                     DiptraceNet newNet =
-                        diptraceOperations.duplicateNet(
-                            diptraceNetNet1, newNetName);
+                        diptraceNetNet1.duplicateNet(newNetName);
                     
 //                    DiptraceComponentPin componentPinNewDiodePin0
 //                        = newDiodeComponent.getPin(0);
