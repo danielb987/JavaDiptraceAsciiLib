@@ -3,6 +3,6 @@ src/examples/javadiptraceasciilib/flashlight_schematics_new.asc linguist-generat
 src/examples/javadiptraceasciilib/flashlight_pcb.asc linguist-detectable=false
 src/examples/javadiptraceasciilib/flashlight_pcb_new.asc linguist-generated=true
 
-findbugs linguist-vendored=false
-checkstyle linguist-vendored=false
-jacoco linguist-vendored=false
+findbugs/* linguist-vendored=false
+checkstyle/* linguist-vendored=false
+jacoco/* linguist-vendored=false
