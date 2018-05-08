@@ -48,6 +48,8 @@ public final class DiptraceGraphics {
         
 //        DiptraceShapeItem.DrawingType t = shapeItem.getDrawingType();
         
+        List<Point2D.Double> points;
+        
         switch (shapeItem.getDrawingType()) {
             case NONE_1:
             case NONE_2:
@@ -59,7 +61,14 @@ public final class DiptraceGraphics {
                 break;
             case RECTANGLE:
                 graphics.setColor(Color.RED);
-                graphics.draw(new Rectangle2D.Double(shapeItem.getPoint(0), shapeItem.getPoint(1), shapeItem.getPoint(2), shapeItem.getPoint(3)));
+                points = shapeItem.getPoints();
+                System.out.format("%1.0f, %1.0f, %1.0f, %1.0f%n", points.get(0).x, points.get(0).y, points.get(1).x, points.get(1).y);
+//                graphics.draw(new Rectangle2D.Double(points.get(0).x, points.get(0).y, points.get(1).x, points.get(1).y));
+                graphics.draw(new Rectangle2D.Double(points.get(0).x, -points.get(0).y, points.get(1).x, -points.get(1).y));
+                graphics.setColor(Color.BLUE);
+                graphics.draw(new Rectangle2D.Double(-10, -10, 20, 20));
+//                graphics.draw(new Rectangle2D.Double(points.get(0).x, points.get(1).y, points.get(1).x, points.get(0).y));
+//                graphics.draw(new Rectangle2D.Double(shapeItem.getPoint(0), shapeItem.getPoint(1), shapeItem.getPoint(2), shapeItem.getPoint(3)));
                 break;
             case ELLIPSE:
                 graphics.setColor(Color.BLUE);
@@ -79,7 +88,7 @@ public final class DiptraceGraphics {
                 break;
             case TEXT:
                 graphics.setColor(Color.PINK);
-                List<Point2D.Double> points = shapeItem.getPoints();
+                points = shapeItem.getPoints();
 //                graphics.draw(new Rectangle2D.Double(shapeItem.getPoint(0), shapeItem.getPoint(1), shapeItem.getPoint(2), shapeItem.getPoint(3)));
                 break;
             case POLYLINE:

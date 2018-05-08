@@ -115,13 +115,14 @@ class DiptraceShapeItem extends DiptraceGenericItem {
             for (DiptraceItem subItem : item.getSubItems()) {
                 DiptraceGenericItem subGenericItem = (DiptraceGenericItem) subItem;
                 // Attributet kan ibland vara en double och ibland vara en integer !!!!!!!!!!!!!!!0
-//                double posX
-//                    = ((DiptraceDoubleAttribute) subGenericItem.getAttributes().get(1))
-//                        .getDouble();
-//                double posY
-//                    = ((DiptraceDoubleAttribute) subGenericItem.getAttributes().get(2))
-//                        .getDouble();
-                points.add(new Point2D.Double(10.3, 32.12));
+                double posX
+                    = ((DiptraceDoubleAttribute) subGenericItem.getAttributes().get(0))
+                        .getDouble();
+                double posY
+                    = ((DiptraceDoubleAttribute) subGenericItem.getAttributes().get(1))
+                        .getDouble();
+                points.add(new Point2D.Double(posX, posY));
+//                points.add(new Point2D.Double(10.3, 32.12));
             }
 //            layerNo
 //                = ((DiptraceDoubleAttribute) item.getAttributes().get(0))
