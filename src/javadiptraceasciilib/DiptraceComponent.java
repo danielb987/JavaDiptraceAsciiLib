@@ -71,7 +71,7 @@ public final class DiptraceComponent {
             for (DiptraceItem pinItem : pinsItem.getSubItems()) {
                 DiptraceAttribute pinNoAttr
                     = ((DiptraceGenericItem) pinItem).getAttributes().get(0);
-                int tempPinNo = ((DiptraceIntegerAttribute) pinNoAttr).getInt();
+                int tempPinNo = ((DiptraceDoubleAttribute) pinNoAttr).getInt();
                 if (pinNo == tempPinNo) {
                     schematicsItem = pinItem;
                 }

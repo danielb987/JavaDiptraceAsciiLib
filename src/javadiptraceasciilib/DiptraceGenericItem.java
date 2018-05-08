@@ -113,10 +113,16 @@ class DiptraceGenericItem extends DiptraceItem {
                     
                 case INTEGER:
                     fAttributes.add(
-                        new DiptraceIntegerAttribute(
+                        new DiptraceDoubleAttribute(
                             token.getValue(),
                             token.getIntValue()));
                     break;
+                    
+//                    fAttributes.add(
+//                        new DiptraceIntegerAttribute(
+//                            token.getValue(),
+//                            token.getIntValue()));
+//                    break;
                     
                 case DOUBLE:
                     fAttributes.add(

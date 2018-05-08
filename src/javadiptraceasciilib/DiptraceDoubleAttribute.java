@@ -13,6 +13,16 @@ final class DiptraceDoubleAttribute implements DiptraceAttribute {
     private String fStringValue;
     
     /**
+     * Is the value an integer?
+     */
+    private boolean isInteger;
+    
+    /**
+     * The value as a integer.
+     */
+    private int fIntValue;
+    
+    /**
      * The value as a double.
      */
     private double fDoubleValue;
@@ -24,8 +34,24 @@ final class DiptraceDoubleAttribute implements DiptraceAttribute {
      */
     DiptraceDoubleAttribute(
         final String stringValue,
-        final Double doubleValue) {
+        final int intValue) {
         
+        this.isInteger = true;
+        this.fStringValue = stringValue;
+        this.fIntValue = intValue;
+        this.fDoubleValue = intValue;
+    }
+    
+    /**
+     * Initialize a DiptraceDoubleAttribute object.
+     * @param stringValue the value as a string
+     * @param doubleValue the value as a double
+     */
+    DiptraceDoubleAttribute(
+        final String stringValue,
+        final double doubleValue) {
+        
+        this.isInteger = false;
         this.fStringValue = stringValue;
         this.fDoubleValue = doubleValue;
     }
@@ -36,8 +62,13 @@ final class DiptraceDoubleAttribute implements DiptraceAttribute {
      */
     @Override
     public DiptraceAttribute duplicate() {
-        return new DiptraceDoubleAttribute(
-            fStringValue, fDoubleValue);
+        if (isInteger) {
+            return new DiptraceDoubleAttribute(
+                fStringValue, fIntValue);
+        } else {
+            return new DiptraceDoubleAttribute(
+                fStringValue, fDoubleValue);
+        }
     }
     
     /**
@@ -59,6 +90,14 @@ final class DiptraceDoubleAttribute implements DiptraceAttribute {
     }
     
     /**
+     * Get the attribute as an integer.
+     * @return the attribute
+     */
+    public int getInt() {
+        return fIntValue;
+    }
+    
+    /**
      * Get the attribute as a double.
      * @return the attribute
      */
@@ -69,8 +108,46 @@ final class DiptraceDoubleAttribute implements DiptraceAttribute {
     /**
      * Set the attribute.
      * @param value the value
+     * @throws NumberFormatException if the attribute is a double
+     */
+    public void setInt(final int value) {
+        if (!isInteger) {
+            throw new NumberFormatException(
+                "This value is a double");
+        }
+        fIntValue = value;
+        fDoubleValue = value;
+        fStringValue = Integer.toString(value);
+    }
+    
+    /**
+     * Set the attribute.
+     * @param value the value
+     * @throws NumberFormatException if the attribute is an integer. Use the
+     * method forceSetDouble to force the value to a double if you are sure
+     * that is possible.
      */
     public void setDouble(final double value) {
+        
+        if (isInteger) {
+            throw new NumberFormatException(
+                "This value is possibly an integer");
+        }
+        fIntValue = (int) Math.round(value);
+        fDoubleValue = value;
+        fStringValue = String.format(Locale.ROOT, "%1.3f", value);
+    }
+    
+    /**
+     * Force the attributeto be set to a double value. Use this method with
+     * caution. Some values in the Diptrace Ascii file may be either integer
+     * or double. Since it's not clear by the file format which it is, this
+     * library prefers to be safe than sorry.
+     * @param value the value
+     */
+    public void forceSetDouble(final double value) {
+        isInteger = false;
+        fIntValue = (int) Math.round(value);
         fDoubleValue = value;
         fStringValue = String.format(Locale.ROOT, "%1.3f", value);
     }

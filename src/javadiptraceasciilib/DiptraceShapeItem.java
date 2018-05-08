@@ -53,7 +53,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
             DiptraceGenericItem item
                 = ((DiptraceGenericItem) getSubItem("ShapeType"));
             typeNo
-                = ((DiptraceIntegerAttribute) item.getAttributes().get(0))
+                = ((DiptraceDoubleAttribute) item.getAttributes().get(0))
                     .getInt();
 //            typeNo = 6;
             System.out.format("Type: %d%n", typeNo);
@@ -61,7 +61,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
             return DrawingType.getItemTypeByNo(typeNo);
         } else {
             typeNo
-                = ((DiptraceIntegerAttribute) getAttributes().get(0)).getInt();
+                = ((DiptraceDoubleAttribute) getAttributes().get(0)).getInt();
             return DrawingType.getAttrTypeByNo(typeNo);
         }
     }
@@ -95,12 +95,12 @@ class DiptraceShapeItem extends DiptraceGenericItem {
             DiptraceGenericItem item
                 = ((DiptraceGenericItem) getSubItem("Type"));
             layerNo
-                = ((DiptraceIntegerAttribute) item.getAttributes().get(0))
+                = ((DiptraceDoubleAttribute) item.getAttributes().get(0))
                     .getInt();
             return PlacementLayer.getTypeByItemNo(layerNo);
         } else {
             layerNo
-                = ((DiptraceIntegerAttribute) getAttributes().get(0)).getInt();
+                = ((DiptraceDoubleAttribute) getAttributes().get(0)).getInt();
             return PlacementLayer.getTypeByAttrNo(layerNo);
         }
     }
@@ -114,7 +114,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
             
             for (DiptraceItem subItem : item.getSubItems()) {
                 DiptraceGenericItem subGenericItem = (DiptraceGenericItem) subItem;
-                // Attributet kan ibland vara en double och ibland vara en integer !!!!!!!!!!!!!!!
+                // Attributet kan ibland vara en double och ibland vara en integer !!!!!!!!!!!!!!!0
 //                double posX
 //                    = ((DiptraceDoubleAttribute) subGenericItem.getAttributes().get(1))
 //                        .getDouble();
@@ -124,7 +124,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
                 points.add(new Point2D.Double(10.3, 32.12));
             }
 //            layerNo
-//                = ((DiptraceIntegerAttribute) item.getAttributes().get(0))
+//                = ((DiptraceDoubleAttribute) item.getAttributes().get(0))
 //                    .getInt();
         } else {
             for (int i = 0; i < 3; i++) {
