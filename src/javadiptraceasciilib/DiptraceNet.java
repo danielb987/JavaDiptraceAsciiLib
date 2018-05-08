@@ -54,7 +54,6 @@ public class DiptraceNet {
     
     /**
      * Duplicate a net.
-     * @param net the net to copy
      * @param newName the name that the new component is going to get
      * @return the new net
      * @throws DiptraceNetNameAlreadyExistsException thrown if the new name
