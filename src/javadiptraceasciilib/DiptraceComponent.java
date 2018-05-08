@@ -109,4 +109,99 @@ public final class DiptraceComponent {
             newPCBComponent);
     }
     
+    /**
+     * Move to an absolute position on the schematics.
+     * @param x the x position
+     * @param y the y position
+     */
+    public void moveAbsoluteOnSchematics(final double x, final double y) {
+        
+        for (DiptraceItem part : this.getSchematicsComponentParts()) {
+            ((DiptraceDoubleAttribute)
+                ((DiptraceGenericItem) part.getSubItem("X"))
+                .getAttributes()
+                .get(0))
+                    .setDouble(x);
+            
+            ((DiptraceDoubleAttribute)
+                ((DiptraceGenericItem) part.getSubItem("Y"))
+                .getAttributes()
+                .get(0))
+                    .setDouble(y);
+        }
+    }
+    
+    /**
+     * Move to an relative position on the schematics.
+     * @param x the x distance
+     * @param y the y distance
+     */
+    public void moveRelativeOnSchematics(final double x, final double y) {
+        
+        for (DiptraceItem part : this.getSchematicsComponentParts()) {
+            DiptraceDoubleAttribute attrPosX
+                = ((DiptraceDoubleAttribute)
+                    ((DiptraceGenericItem) part.getSubItem("X"))
+                        .getAttributes()
+                        .get(0));
+
+            attrPosX.setDouble(attrPosX.getDouble() + x);
+
+            DiptraceDoubleAttribute attrPosY
+                = ((DiptraceDoubleAttribute)
+                    ((DiptraceGenericItem) part.getSubItem("Y"))
+                    .getAttributes()
+                    .get(0));
+
+            attrPosY.setDouble(attrPosY.getDouble() + y);
+        }
+    }
+    
+    /**
+     * Move to an absolute position on the pcb.
+     * @param x the x position
+     * @param y the y position
+     */
+    public void moveAbsoluteOnPCB(final double x, final double y) {
+        
+        DiptraceItem item = this.getPCBComponent();
+        
+        ((DiptraceDoubleAttribute)
+            ((DiptraceGenericItem) item.getSubItem("X"))
+            .getAttributes()
+            .get(0))
+                .setDouble(x);
+        
+        ((DiptraceDoubleAttribute)
+            ((DiptraceGenericItem) item.getSubItem("Y"))
+            .getAttributes()
+            .get(0))
+                .setDouble(y);
+    }
+    
+    /**
+     * Move a component to an absolute position on the pcb.
+     * @param x the x distance
+     * @param y the y distance
+     */
+    public void moveRelativeOnPCB(final double x, final double y) {
+        
+        DiptraceItem item = this.getPCBComponent();
+        DiptraceDoubleAttribute attrPosX
+            = ((DiptraceDoubleAttribute)
+                ((DiptraceGenericItem) item.getSubItem("X"))
+                    .getAttributes()
+                    .get(0));
+        
+        attrPosX.setDouble(attrPosX.getDouble() + x);
+        
+        DiptraceDoubleAttribute attrPosY
+            = ((DiptraceDoubleAttribute)
+                ((DiptraceGenericItem) item.getSubItem("Y"))
+                .getAttributes()
+                .get(0));
+        
+        attrPosY.setDouble(attrPosY.getDouble() + y);
+    }
+    
 }

@@ -102,10 +102,8 @@ public final class FlashLight {
             // schematics has one tree and the pcb as another tree. So we work
             // with both these two trees at the same time.
             
-            diptraceOperations.moveComponentAbsoluteOnPCB(
-                diptraceComponentD1, x0, y0);
-            diptraceOperations.moveComponentAbsoluteOnPCB(
-                diptraceComponentR1, x0, y0);
+            diptraceComponentD1.moveAbsoluteOnPCB(x0, y0);
+            diptraceComponentR1.moveAbsoluteOnPCB(x0, y0);
             
             // Count how many LEDs and resistors we have. We start with one
             // since we already have one item of each in the Diptrace ascii
@@ -148,19 +146,13 @@ public final class FlashLight {
                     DiptraceComponent newResistorComponent =
                         diptraceComponentR1.duplicateComponent(newResistorName);
                     
-                    diptraceOperations
-                        .moveComponentRelativeOnSchematics(
-                            newDiodeComponent, schematicsX, schematicsY);
-                    diptraceOperations
-                        .moveComponentRelativeOnSchematics(
-                            newResistorComponent, schematicsX, schematicsY);
+                    newDiodeComponent
+                        .moveRelativeOnSchematics(schematicsX, schematicsY);
+                    newResistorComponent
+                        .moveRelativeOnSchematics(schematicsX, schematicsY);
                     
-                    diptraceOperations
-                        .moveComponentAbsoluteOnPCB(
-                            newDiodeComponent, pcbX, pcbY);
-                    diptraceOperations
-                        .moveComponentAbsoluteOnPCB(
-                            newResistorComponent, pcbX, pcbY);
+                    newDiodeComponent.moveAbsoluteOnPCB(pcbX, pcbY);
+                    newResistorComponent.moveAbsoluteOnPCB(pcbX, pcbY);
                     
                     DiptraceNet newNet =
                         diptraceNetNet1.duplicateNet(newNetName);
