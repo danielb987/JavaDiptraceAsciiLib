@@ -1,8 +1,5 @@
 package javadiptraceasciilib;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Extended operations on a DiptraceProject which includes both schematics
  * and pcb.
