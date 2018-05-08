@@ -3,7 +3,9 @@ package javadiptraceasciilib;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.util.List;
 import javadiptraceasciilib.DiptraceShapeItem.PlacementLayer;
 
 /**
@@ -44,13 +46,13 @@ public final class DiptraceGraphics {
         
         System.out.println("Shape: "+shapeItem.getString());
         
-        DiptraceShapeItem.DrawingType t = shapeItem.getDrawingType();
+//        DiptraceShapeItem.DrawingType t = shapeItem.getDrawingType();
         
         switch (shapeItem.getDrawingType()) {
             case NONE_1:
             case NONE_2:
                 // Nothing to do.
-                return;
+                break;
             case LINE:
                 graphics.setColor(Color.BLACK);
                 graphics.draw(new Line2D.Double(shapeItem.getPoint(0), shapeItem.getPoint(1), shapeItem.getPoint(2), shapeItem.getPoint(3)));
@@ -77,7 +79,9 @@ public final class DiptraceGraphics {
                 break;
             case TEXT:
                 graphics.setColor(Color.PINK);
-                graphics.draw(new Rectangle2D.Double(shapeItem.getPoint(0), shapeItem.getPoint(1), shapeItem.getPoint(2), shapeItem.getPoint(3)));
+                List<Point2D.Double> points = shapeItem.getPoints();
+//                graphics.draw(new Rectangle2D.Double(shapeItem.getPoint(0), shapeItem.getPoint(1), shapeItem.getPoint(2), shapeItem.getPoint(3)));
+                break;
             case POLYLINE:
 //                graphics.setColor(Color.GREEN);
 //                double[] pointsX = {shapeItem.getPoint(0), shapeItem.getPoint(1), shapeItem.getPoint(2), shapeItem.getPoint(3), shapeItem.getPoint(4), shapeItem.getPoint(5)};

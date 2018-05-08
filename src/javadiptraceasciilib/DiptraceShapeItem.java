@@ -1,5 +1,7 @@
 package javadiptraceasciilib;
 
+import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
@@ -49,15 +51,19 @@ class DiptraceShapeItem extends DiptraceGenericItem {
         int typeNo;
         if (getAttributes().isEmpty()) {
             DiptraceGenericItem item
-                = ((DiptraceGenericItem) getSubItem("Layer"));
+                = ((DiptraceGenericItem) getSubItem("ShapeType"));
             typeNo
                 = ((DiptraceIntegerAttribute) item.getAttributes().get(0))
                     .getInt();
+//            typeNo = 6;
+            System.out.format("Type: %d%n", typeNo);
+            System.out.format("Type: %d, name: %s%n", typeNo, DrawingType.getItemTypeByNo(typeNo).name());
+            return DrawingType.getItemTypeByNo(typeNo);
         } else {
             typeNo
                 = ((DiptraceIntegerAttribute) getAttributes().get(0)).getInt();
+            return DrawingType.getAttrTypeByNo(typeNo);
         }
-        return DrawingType.getTypeByNo(typeNo);
     }
     
     /**
@@ -87,7 +93,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
         
         if (getAttributes().isEmpty()) {
             DiptraceGenericItem item
-                = ((DiptraceGenericItem) getSubItem("Layer"));
+                = ((DiptraceGenericItem) getSubItem("Type"));
             layerNo
                 = ((DiptraceIntegerAttribute) item.getAttributes().get(0))
                     .getInt();
@@ -99,10 +105,43 @@ class DiptraceShapeItem extends DiptraceGenericItem {
         }
     }
     
+    List<Point2D.Double> getPoints() {
+        List<Point2D.Double> points = new ArrayList<>();
+        
+        if (getAttributes().isEmpty()) {
+            DiptraceGenericItem item
+                = ((DiptraceGenericItem) getSubItem("Points"));
+            
+            for (DiptraceItem subItem : item.getSubItems()) {
+                DiptraceGenericItem subGenericItem = (DiptraceGenericItem) subItem;
+                // Attributet kan ibland vara en double och ibland vara en integer !!!!!!!!!!!!!!!
+//                double posX
+//                    = ((DiptraceDoubleAttribute) subGenericItem.getAttributes().get(1))
+//                        .getDouble();
+//                double posY
+//                    = ((DiptraceDoubleAttribute) subGenericItem.getAttributes().get(2))
+//                        .getDouble();
+                points.add(new Point2D.Double(10.3, 32.12));
+            }
+//            layerNo
+//                = ((DiptraceIntegerAttribute) item.getAttributes().get(0))
+//                    .getInt();
+        } else {
+            for (int i = 0; i < 3; i++) {
+                points.add(new Point2D.Double(10.3, 32.12));
+//                points.add(
+//                    new Point2D.Double((DiptraceDoubleAttribute) getAttributes().get(3 + i)).getDouble(), ((DiptraceDoubleAttribute) getAttributes().get(3 + i + 1)).getDouble());
+            }
+        }
+        
+        return points;
+    }
+    
     double getPoint(final int pointNo) {
-        return
-            ((DiptraceDoubleAttribute) this.getAttributes().get(3 + pointNo))
-                .getDouble();
+        return pointNo;
+//        return
+//            ((DiptraceDoubleAttribute) this.getAttributes().get(3 + pointNo))
+//                .getDouble();
     }
     
     /**
@@ -122,7 +161,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
             DiptraceAttribute attribute = getAttributes().get(i);
             sb.append(" ").append(attribute.getString());
 //            sb.append(" ");
-//            if (attribute.getType() == DiptraceTokenType.STRING) {
+//            if (attribute.getAttrType() == DiptraceTokenType.STRING) {
 //                sb.append("\"").append(attribute.getValue()).append("\"");
 //            } else {
 //                sb.append(attribute.getValue());
@@ -136,44 +175,57 @@ class DiptraceShapeItem extends DiptraceGenericItem {
     
     static enum DrawingType {
         //CHECKSTYLE.OFF: JavadocVariable - Self explaining enums
-        NONE_1(-1),
-        NONE_2(0),
-        LINE(1),
-        RECTANGLE(2),
-        ELLIPSE(3),
-        FILLED_RECTANGLE(4),
-        FILLED_ELLIPSE(5),
-        ARC(6),
-        TEXT(7),
-        POLYLINE(8),
-        FILLED_PLYGONE(9),
+        NONE_1(-1, -901),
+        NONE_2(0, -902),
+        LINE(1, -903),
+        RECTANGLE(2, 2),
+        ELLIPSE(3, -905),
+        FILLED_RECTANGLE(4, -906),
+        FILLED_ELLIPSE(5, -907),
+        ARC(6, -908),
+        TEXT(7, 6),
+        POLYLINE(8, -910),
+        FILLED_PLYGONE(9, -911),
         ;
         //CHECKSTYLE.ON: JavadocVariable - Self explaining enums
         
-        private static final Map<Integer, DrawingType> fDrawingTypeMap
+        private static final Map<Integer, DrawingType> fDrawingAttrTypeMap
+            = new HashMap<>();
+        
+        private static final Map<Integer, DrawingType> fDrawingItemTypeMap
             = new HashMap<>();
         
         static
         {
             for (DrawingType type : EnumSet.allOf(DrawingType.class))
             {
-                // Yes, use some appropriate locale in production code :)
-                fDrawingTypeMap.put(type.fTypeNo, type);
+                fDrawingAttrTypeMap.put(type.fAttrTypeNo, type);
+                fDrawingItemTypeMap.put(type.fItemTypeNo, type);
             }
         }
         
-        static DrawingType getTypeByNo(int typeNo) {
-            return fDrawingTypeMap.get(typeNo);
+        static DrawingType getAttrTypeByNo(int typeNo) {
+            return fDrawingAttrTypeMap.get(typeNo);
         }
         
-        private final int fTypeNo;
-        
-        DrawingType(final int type) {
-            fTypeNo = type;
+        static DrawingType getItemTypeByNo(int typeNo) {
+            return fDrawingItemTypeMap.get(typeNo);
         }
         
-        int getType() {
-            return fTypeNo;
+        private final int fAttrTypeNo;
+        private final int fItemTypeNo;
+        
+        DrawingType(final int attrType, final int itemType) {
+            fAttrTypeNo = attrType;
+            fItemTypeNo = itemType;
+        }
+        
+        int getAttrType() {
+            return fAttrTypeNo;
+        }
+        
+        int getItemType() {
+            return fItemTypeNo;
         }
         
     }
@@ -193,7 +245,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
         BOTTOM_SILK(7, 4),
         SIGNAL_PLANE(8, 3),
         ROUTE_KEEPOUT(9, 2),
-//        BOTTOM_KEEPOUT(10, ),
+        PLACE_KEEPOUT(10, 11),
 //        BOTTOM_SIGNAL(11, ),
         BOARD_CUTOUT(12, 10),
         ;
@@ -221,7 +273,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
         
         static PlacementLayer getTypeByItemNo(final int layerItemNo) {
             
-            return fPlacementLayerMapAttributes.get(layerItemNo);
+            return fPlacementLayerMapItems.get(layerItemNo);
         }
         
         private final int fTypeAttrNo;
