@@ -135,10 +135,10 @@ public final class FlashLight {
                         = String.format("Net %d", numResistors + add);
                     
                     DiptraceComponent newDiodeComponent =
-                        diptraceComponentD1.duplicateComponent(newDiodeName);
+                        diptraceComponentD1.duplicate(newDiodeName);
                     
                     DiptraceComponent newResistorComponent =
-                        diptraceComponentR1.duplicateComponent(newResistorName);
+                        diptraceComponentR1.duplicate(newResistorName);
                     
                     newDiodeComponent
                         .moveRelativeOnSchematics(schematicsX, schematicsY);
