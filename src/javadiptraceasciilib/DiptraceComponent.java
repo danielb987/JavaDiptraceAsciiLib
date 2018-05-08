@@ -55,7 +55,15 @@ public final class DiptraceComponent {
         return fPCBComponent;
     }
     
-    public DiptraceComponentPin getPin(int pinNo) throws NotFoundException {
+    /**
+     * Get a pin of this component.
+     * @param pinNo the pin number
+     * @return the pin
+     * @throws NotFoundException thrown in the pin is not found
+     */
+    public DiptraceComponentPin getPin(final int pinNo)
+        throws NotFoundException {
+        
         DiptraceItem schematicsItem = null;
         
         for (DiptraceItem componentPart : fSchematicsComponentParts) {
