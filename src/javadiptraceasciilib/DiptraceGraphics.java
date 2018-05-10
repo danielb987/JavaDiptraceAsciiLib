@@ -167,7 +167,7 @@ public final class DiptraceGraphics {
             return;
         }
         
-        drawItem(graphics, fProject.getPCBRoot());
+        drawItem(graphics, (DiptraceItem) fProject.getPCBRoot());
         
         if (1 == 0) {
             throw new RuntimeException("Test");

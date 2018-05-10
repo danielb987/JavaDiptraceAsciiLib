@@ -97,7 +97,7 @@ public final class DiptraceProject {
      * Get the root item of the schematics.
      * @return the root item of the Diptrace schematics item tree
      */
-    public DiptraceItem getSchematicsRoot() {
+    public DiptraceTreeNode getSchematicsRoot() {
         return fSchematicsRoot;
     }
     
@@ -105,7 +105,7 @@ public final class DiptraceProject {
      * Get the root item of the schematics.
      * @return the root item of the Diptrace schematics item tree
      */
-    public DiptraceItem getPCBRoot() {
+    public DiptraceTreeNode getPCBRoot() {
         return fPCBRoot;
     }
     
