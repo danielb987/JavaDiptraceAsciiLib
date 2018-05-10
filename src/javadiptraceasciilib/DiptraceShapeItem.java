@@ -212,7 +212,12 @@ class DiptraceShapeItem extends DiptraceGenericItem {
         StringBuilder sb = new StringBuilder();
         
         sb.append(getDrawingType().name());
-        sb.append(" ").append(getLocked() ? 'Y' : 'N');
+        sb.append(" ");
+        if (getLocked()) {
+            sb.append('Y');
+        } else {
+            sb.append('N');
+        }
         sb.append(" ").append(getPlacementLayer().name());
 //        sb.append(" ").append(getAttributes().get(1));
 //        for (DiptraceAttribute attribute : fAttributes) {
