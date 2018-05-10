@@ -173,9 +173,6 @@ public final class DiptraceGraphics {
         
         System.out.println("Shape: " + shapeItem.getString());
         
-//        System.out.print(shapeItem.getPlacementLayer()+": ");
-//        System.out.println(LAYER_COLOR_MAP.get(shapeItem.getPlacementLayer()));
-        
         if ((side != Side.TOP) && (side != Side.BOTTOM)) {
             throw new IllegalArgumentException(
                 String.format(
@@ -215,33 +212,9 @@ public final class DiptraceGraphics {
                             sideTransparency.name()));
             }
         }
+        
         graphics.setColor(color);
-/*
-        LayerColor layerColor = LAYER_COLOR_MAP.get(layer);
-        if (layerColor == null) {
-            throw new RuntimeException(
-                String.format(
-                    "Layer %s has no defined color",
-                    shapeItem.getPlacementLayer()));
-        }
-        switch (sideTransparency) {
-            case NONE:
-                if (side == )
-                graphics.setColor(layerColor.fBothSidesColor);
-                break;
-            case PART:
-                graphics.setColor(layerColor.fBothSidesColor);
-                break;
-            case FULL:
-                graphics.setColor(layerColor.fBothSidesColor);
-                break;
-            default:
-                throw new RuntimeException(
-                    String.format(
-                        "Unknow transparency %s",
-                        sideTransparency.name()));
-        }
-*/
+        
         List<Point2D.Double> points;
         
         switch (shapeItem.getDrawingType()) {
@@ -251,7 +224,6 @@ public final class DiptraceGraphics {
                 break;
             case LINE:
                 points = shapeItem.getPoints();
-//                graphics.setColor(Color.BLACK);
                 System.out.format(
                     "Line: %1.0f, %1.0f, %1.0f, %1.0f%n",
                     points.get(0).x, points.get(0).y,
@@ -260,12 +232,8 @@ public final class DiptraceGraphics {
                     new Line2D.Double(
                         points.get(0).x, points.get(0).y,
                         points.get(1).x, points.get(1).y));
-//                    new Line2D.Double(
-//                        shapeItem.getPoint(0), shapeItem.getPoint(1),
-//                        shapeItem.getPoint(2), shapeItem.getPoint(3)));
                 break;
             case RECTANGLE:
-//                graphics.setColor(Color.RED);
                 points = shapeItem.getPoints();
                 System.out.format(
                     "Rectangle: %1.0f, %1.0f, %1.0f, %1.0f%n",
@@ -278,28 +246,24 @@ public final class DiptraceGraphics {
                     points.get(1).y - points.get(0).y));
                 break;
             case ELLIPSE:
-//                graphics.setColor(Color.BLUE);
 //                graphics.draw(
 //                    new Rectangle2D.Double(
 //                        shapeItem.getPoint(0), shapeItem.getPoint(1),
 //                        shapeItem.getPoint(2), shapeItem.getPoint(3)));
                 break;
             case FILLED_RECTANGLE:
-//                graphics.setColor(Color.GREEN);
 //                graphics.draw(
 //                    new Rectangle2D.Double(
 //                        shapeItem.getPoint(0), shapeItem.getPoint(1),
 //                        shapeItem.getPoint(2), shapeItem.getPoint(3)));
                 break;
             case FILLED_ELLIPSE:
-//                graphics.setColor(Color.CYAN);
 //                graphics.draw(
 //                    new Rectangle2D.Double(
 //                        shapeItem.getPoint(0), shapeItem.getPoint(1),
 //                        shapeItem.getPoint(2), shapeItem.getPoint(3)));
                 break;
             case ARC:
-//                graphics.setColor(Color.ORANGE);
 //                graphics.draw(
 //                    new Rectangle2D.Double(
 //                        shapeItem.getPoint(0), shapeItem.getPoint(1),
@@ -308,19 +272,18 @@ public final class DiptraceGraphics {
             case TEXT:
                 String name = shapeItem.getName();
                 points = shapeItem.getPoints();
-//                Font font = graphics.getFont();
-//                Font font = new Font(Font.SANS_SERIF, Font.BOLD, 28);
-                Font font = new Font(shapeItem.getFontName(), Font.PLAIN, shapeItem.getFontSize());
+                Font font = new Font(
+                    shapeItem.getFontName(),
+                    Font.PLAIN,
+                    shapeItem.getFontSize());
                 graphics.setFont(font);
                 FontMetrics fontMetrics = graphics.getFontMetrics(font);
-                Rectangle2D bounds = fontMetrics.getStringBounds(name, graphics);
-//                graphics.setColor(Color.PINK);
-                graphics.drawString(name, (float) points.get(0).x, (float) (points.get(0).y + bounds.getHeight()));
-//                points = shapeItem.getPoints();
-//                graphics.draw(
-//                    new Rectangle2D.Double(
-//                        shapeItem.getPoint(0), shapeItem.getPoint(1),
-//                        shapeItem.getPoint(2), shapeItem.getPoint(3)));
+                Rectangle2D bounds
+                    = fontMetrics.getStringBounds(name, graphics);
+                graphics.drawString(
+                    name,
+                    (float) points.get(0).x,
+                    (float) (points.get(0).y + bounds.getHeight()));
                 break;
             case POLYLINE:
 //                graphics.draw(
@@ -329,7 +292,6 @@ public final class DiptraceGraphics {
 //                        shapeItem.getPoint(2), shapeItem.getPoint(3)));
                 break;
             case FILLED_PLYGONE:
-//                graphics.setColor(Color.YELLOW);
 //                graphics.draw(
 //                    new Rectangle2D.Double(
 //                        shapeItem.getPoint(0), shapeItem.getPoint(1),

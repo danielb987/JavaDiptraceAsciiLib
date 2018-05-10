@@ -177,6 +177,10 @@ class DiptraceShapeItem extends DiptraceGenericItem {
         return name;
     }
     
+    /**
+     * Get the font name.
+     * @return the name of the font
+     */
     String getFontName() {
         DiptraceGenericItem item
             = ((DiptraceGenericItem) getSubItem("FontName"));
@@ -186,6 +190,10 @@ class DiptraceShapeItem extends DiptraceGenericItem {
         return name;
     }
     
+    /**
+     * Get the font size.
+     * @return the size of the font
+     */
     int getFontSize() {
         DiptraceGenericItem item
             = ((DiptraceGenericItem) getSubItem("FontSize"));
