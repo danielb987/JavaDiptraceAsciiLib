@@ -112,7 +112,7 @@ public final class DiptraceGraphics {
                 break;
             case TEXT:
                 graphics.setColor(Color.PINK);
-                points = shapeItem.getPoints();
+//                points = shapeItem.getPoints();
 //                graphics.draw(
 //                    new Rectangle2D.Double(
 //                        shapeItem.getPoint(0), shapeItem.getPoint(1),
