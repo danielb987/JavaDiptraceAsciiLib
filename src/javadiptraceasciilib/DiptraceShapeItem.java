@@ -201,7 +201,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
     /**
      * Type of thing to draw.
      */
-    static enum DrawingType {
+    enum DrawingType {
         //CHECKSTYLE.OFF: JavadocVariable - Self explaining enums
         // At this point, I don't know which feature has which number,
         // so I give the features numbers like -901. / Daniel
@@ -221,21 +221,20 @@ class DiptraceShapeItem extends DiptraceGenericItem {
         /**
          * A map of the drawing types and their attribute number.
          */
-        private static final Map<Integer, DrawingType> fDrawingAttrTypeMap
+        private static final Map<Integer, DrawingType> DRAWING_ATTR_TYPE_MAP
             = new HashMap<>();
         
         /**
          * A map of the drawing types and their item number.
          */
-        private static final Map<Integer, DrawingType> fDrawingItemTypeMap
+        private static final Map<Integer, DrawingType> DRAWING_ITEM_TYPE_MAP
             = new HashMap<>();
         
-        static
-        {
-            for (DrawingType type : EnumSet.allOf(DrawingType.class))
-            {
-                fDrawingAttrTypeMap.put(type.fAttrNo, type);
-                fDrawingItemTypeMap.put(type.fItemNo, type);
+        static {
+            
+            for (DrawingType type : EnumSet.allOf(DrawingType.class)) {
+                DRAWING_ATTR_TYPE_MAP.put(type.fAttrNo, type);
+                DRAWING_ITEM_TYPE_MAP.put(type.fItemNo, type);
             }
         }
         
@@ -245,7 +244,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
          * @return the drawing type
          */
         static DrawingType getTypeByAttrNo(final int typeNo) {
-            return fDrawingAttrTypeMap.get(typeNo);
+            return DRAWING_ATTR_TYPE_MAP.get(typeNo);
         }
         
         /**
@@ -254,7 +253,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
          * @return the drawing type
          */
         static DrawingType getTypeByItemNo(final int typeNo) {
-            return fDrawingItemTypeMap.get(typeNo);
+            return DRAWING_ITEM_TYPE_MAP.get(typeNo);
         }
         
         /**
@@ -322,20 +321,19 @@ class DiptraceShapeItem extends DiptraceGenericItem {
          * A map of the layers and their attribute number.
          */
         private static final Map<Integer, PlacementLayer>
-            fPlacementLayerMapAttributes = new HashMap<>();
+            PLACEMENT_LAYER_MAP_ATTRIBUTES = new HashMap<>();
         
         /**
          * A map of the markings and their item number.
          */
         private static final Map<Integer, PlacementLayer>
-            fPlacementLayerMapItems = new HashMap<>();
+            PLACEMENT_LAYER_MAP_ITEMS = new HashMap<>();
         
-        static
-        {
-            for (PlacementLayer layerNo : EnumSet.allOf(PlacementLayer.class))
-            {
-                fPlacementLayerMapAttributes.put(layerNo.fAttrNo, layerNo);
-                fPlacementLayerMapItems.put(layerNo.fItemNo, layerNo);
+        static {
+            
+            for (PlacementLayer layerNo : EnumSet.allOf(PlacementLayer.class)) {
+                PLACEMENT_LAYER_MAP_ATTRIBUTES.put(layerNo.fAttrNo, layerNo);
+                PLACEMENT_LAYER_MAP_ITEMS.put(layerNo.fItemNo, layerNo);
             }
         }
         
@@ -346,7 +344,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
          */
         static PlacementLayer getTypeByAttrNo(final int layerAttrNo) {
             
-            return fPlacementLayerMapAttributes.get(layerAttrNo);
+            return PLACEMENT_LAYER_MAP_ATTRIBUTES.get(layerAttrNo);
         }
         
         /**
@@ -356,7 +354,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
          */
         static PlacementLayer getTypeByItemNo(final int layerItemNo) {
             
-            return fPlacementLayerMapItems.get(layerItemNo);
+            return PLACEMENT_LAYER_MAP_ITEMS.get(layerItemNo);
         }
         
         /**
@@ -416,10 +414,9 @@ class DiptraceShapeItem extends DiptraceGenericItem {
         private static final Map<Integer, MarkingType> fMarkingTypeMap
             = new HashMap<>();
         
-        static
-        {
-            for (MarkingType type : EnumSet.allOf(MarkingType.class))
-            {
+        static {
+            
+            for (MarkingType type : EnumSet.allOf(MarkingType.class)) {
                 // Yes, use some appropriate locale in production code :)
                 fMarkingTypeMap.put(type.fTypeNo, type);
             }
