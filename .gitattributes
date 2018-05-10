@@ -2,7 +2,8 @@ src/examples/javadiptraceasciilib/flashlight_schematics.asc linguist-detectable=
 src/examples/javadiptraceasciilib/flashlight_schematics_new.asc linguist-generated=true
 src/examples/javadiptraceasciilib/flashlight_pcb.asc linguist-detectable=false
 src/examples/javadiptraceasciilib/flashlight_pcb_new.asc linguist-generated=true
+src/examples/javadiptraceasciilib/Layers.asc linguist-detectable=false
 
-findbugs/* linguist-vendored=false
-checkstyle/* linguist-vendored=false
-jacoco/* linguist-vendored=false
+findbugs/* linguist-vendored=true
+checkstyle/* linguist-vendored=true
+jacoco/* linguist-vendored=true
