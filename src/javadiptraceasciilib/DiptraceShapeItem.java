@@ -17,7 +17,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
      * @param parent the parent
      * @param identifier the identifier
      */
-    DiptraceShapeItem(final DiptraceItem parent, String identifier) {
+    DiptraceShapeItem(final DiptraceItem parent, final String identifier) {
         super(parent, identifier);
     }
 
@@ -114,6 +114,10 @@ class DiptraceShapeItem extends DiptraceGenericItem {
         }
     }
     
+    /**
+     * Get the points for this shape.
+     * @return the points
+     */
     List<Point2D.Double> getPoints() {
         
         List<Point2D.Double> points = new ArrayList<>();
@@ -136,7 +140,8 @@ class DiptraceShapeItem extends DiptraceGenericItem {
                 points.add(new Point2D.Double(posX, posY));
             }
         } else {
-            for (int i = 0; i < 3; i++) {
+            final int numPointsInAttribute = 3;
+            for (int i = 0; i < numPointsInAttribute; i++) {
                 final int baseX = 3;
                 final int baseY = 4;
                 points.add(
@@ -166,6 +171,8 @@ class DiptraceShapeItem extends DiptraceGenericItem {
      */
     public String getString() {
         
+        return null;
+/*
 //        StringBuilder sb = new StringBuilder(getIdentifier());
         StringBuilder sb = new StringBuilder();
         
@@ -186,6 +193,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
         }
         
         return sb.toString();
+*/
     }
     
     
@@ -207,8 +215,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
         ARC(6, -908),
         TEXT(7, 6),
         POLYLINE(8, -910),
-        FILLED_PLYGONE(9, -911),
-        ;
+        FILLED_PLYGONE(9, -911);
         //CHECKSTYLE.ON: JavadocVariable - Self explaining enums
         
         /**
@@ -234,6 +241,8 @@ class DiptraceShapeItem extends DiptraceGenericItem {
         
         /**
          * Get the drawing type by the attribute number.
+         * @param typeNo the type number
+         * @return the drawing type
          */
         static DrawingType getTypeByAttrNo(final int typeNo) {
             return fDrawingAttrTypeMap.get(typeNo);
@@ -241,6 +250,8 @@ class DiptraceShapeItem extends DiptraceGenericItem {
         
         /**
          * Get the drawing type by the item number.
+         * @param typeNo the type number
+         * @return the drawing type
          */
         static DrawingType getTypeByItemNo(final int typeNo) {
             return fDrawingItemTypeMap.get(typeNo);
@@ -304,8 +315,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
         ROUTE_KEEPOUT(9, 2),
         PLACE_KEEPOUT(10, 11),
 //        BOTTOM_SIGNAL(11, ),
-        BOARD_CUTOUT(12, 10),
-        ;
+        BOARD_CUTOUT(12, 10);
         //CHECKSTYLE.ON: JavadocVariable - Self explaining enums
         
         /**
@@ -331,6 +341,8 @@ class DiptraceShapeItem extends DiptraceGenericItem {
         
         /**
          * Get the layer by the attribute number.
+         * @param layerAttrNo the layer number
+         * @return the layer
          */
         static PlacementLayer getTypeByAttrNo(final int layerAttrNo) {
             
@@ -339,6 +351,8 @@ class DiptraceShapeItem extends DiptraceGenericItem {
         
         /**
          * Get the layer by the item number.
+         * @param layerItemNo the layer number
+         * @return the layer
          */
         static PlacementLayer getTypeByItemNo(final int layerItemNo) {
             
@@ -393,8 +407,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
         TEXT(0),
         NAME(1),
         REFDES(2),
-        VALUE(3),
-        ;
+        VALUE(3);
         //CHECKSTYLE.ON: JavadocVariable - Self explaining enums
         
         /**
@@ -414,6 +427,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
         
         /**
          * Get the marking type by the number.
+         * @return the marking type
          */
         static MarkingType getType(final int typeNo) {
             return fMarkingTypeMap.get(typeNo);
@@ -426,11 +440,10 @@ class DiptraceShapeItem extends DiptraceGenericItem {
         
         /**
          * Initialize a MarkingType object.
-         * @param attrNo the attribute number
-         * @param itemNo the item number
+         * @param typeNo the type number
          */
-        MarkingType(final int type) {
-            fTypeNo = type;
+        MarkingType(final int typeNo) {
+            fTypeNo = typeNo;
         }
         
         /**
