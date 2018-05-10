@@ -166,21 +166,65 @@ class DiptraceShapeItem extends DiptraceGenericItem {
 //    }
     
     /**
+     * Get the name of this shape.
+     * @return the name
+     */
+    String getName() {
+        DiptraceGenericItem item = ((DiptraceGenericItem) getSubItem("Name"));
+        String name
+            = ((DiptraceStringAttribute) item.getAttributes().get(0))
+                .getString();
+        return name;
+    }
+    
+    /**
+     * Get the font name.
+     * @return the name of the font
+     */
+    String getFontName() {
+        DiptraceGenericItem item
+            = ((DiptraceGenericItem) getSubItem("FontName"));
+        String name
+            = ((DiptraceStringAttribute) item.getAttributes().get(0))
+                .getString();
+        return name;
+    }
+    
+    /**
+     * Get the font size.
+     * @return the size of the font
+     */
+    int getFontSize() {
+        DiptraceGenericItem item
+            = ((DiptraceGenericItem) getSubItem("FontSize"));
+        int fontSize
+            = ((DiptraceDoubleAttribute) item.getAttributes().get(0)).getInt();
+        return fontSize;
+    }
+    
+    /**
      * Get a string representation of this object.
      * @return a string
      */
-    public String getString() {
+    String getString() {
         
-        return null;
-/*
 //        StringBuilder sb = new StringBuilder(getIdentifier());
         StringBuilder sb = new StringBuilder();
         
         sb.append(getDrawingType().name());
-        sb.append(" ").append(getLocked() ? 'Y' : 'N');
+        sb.append(" ");
+        if (getLocked()) {
+            sb.append('Y');
+        } else {
+            sb.append('N');
+        }
         sb.append(" ").append(getPlacementLayer().name());
 //        sb.append(" ").append(getAttributes().get(1));
 //        for (DiptraceAttribute attribute : fAttributes) {
+        for (Point2D.Double point : getPoints()) {
+            sb.append(String.format(" (%1.0f, %1.0f)", point.x, point.y));
+        }
+/*
         for (int i=3; i < getAttributes().size(); i++) {
             DiptraceAttribute attribute = getAttributes().get(i);
             sb.append(" ").append(attribute.getString());
@@ -191,9 +235,8 @@ class DiptraceShapeItem extends DiptraceGenericItem {
 //                sb.append(attribute.getValue());
 //            }
         }
-        
-        return sb.toString();
 */
+        return sb.toString();
     }
     
     
