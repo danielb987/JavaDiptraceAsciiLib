@@ -44,7 +44,7 @@ class DiptraceGenericItem extends DiptraceItem {
         for (DiptraceAttribute attribute : fAttributes) {
             newItem.fAttributes.add(attribute.duplicate());
         }
-        for (DiptraceItem subItem : getSubItems()) {
+        for (DiptraceItem subItem : getChildren()) {
             newItem.addSubItem(subItem.duplicate(newItem));
         }
         return newItem;
@@ -113,10 +113,16 @@ class DiptraceGenericItem extends DiptraceItem {
                     
                 case INTEGER:
                     fAttributes.add(
-                        new DiptraceIntegerAttribute(
+                        new DiptraceDoubleAttribute(
                             token.getValue(),
                             token.getIntValue()));
                     break;
+                    
+//                    fAttributes.add(
+//                        new DiptraceIntegerAttribute(
+//                            token.getValue(),
+//                            token.getIntValue()));
+//                    break;
                     
                 case DOUBLE:
                     fAttributes.add(

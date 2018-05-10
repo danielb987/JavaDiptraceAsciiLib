@@ -43,7 +43,7 @@ final class DiptraceOperations {
         
         List<DiptraceItem> diptraceItems = new ArrayList<>();
         
-        for (DiptraceItem child : parent.getSubItems()) {
+        for (DiptraceItem child : parent.getChildren()) {
             if (matchItem.match(child)) {
                 diptraceItems.add(child);
             }
@@ -212,7 +212,7 @@ final class DiptraceOperations {
     public DiptraceItem duplicateItem(final DiptraceItem item) {
         DiptraceItem newItem = item.duplicate(item.getParent());
         
-        item.getSubItems().add(newItem);
+        item.getChildren().add(newItem);
         
         return newItem;
     }
@@ -241,19 +241,19 @@ final class DiptraceOperations {
         ((DiptraceStringAttribute) newItem.getAttributes().get(1))
             .setString(newName);
         
-        ((DiptraceIntegerAttribute)
+        ((DiptraceDoubleAttribute)
             ((DiptraceGenericItem) newItem.getSubItem("Number"))
                 .getAttributes()
                 .get(0))
                     .setInt(newNumber);
         
-        ((DiptraceIntegerAttribute)
+        ((DiptraceDoubleAttribute)
             ((DiptraceGenericItem) newItem.getSubItem("HiddenId"))
                 .getAttributes()
                 .get(0))
                     .setInt(newHiddenIdentifier);
         
-        parent.getSubItems().add(newItem);
+        parent.getChildren().add(newItem);
         
         return newItem;
     }
@@ -282,13 +282,13 @@ final class DiptraceOperations {
             newItem.getAttributes().size() - 1))
                 .setString(newName);
         
-        ((DiptraceIntegerAttribute)
+        ((DiptraceDoubleAttribute)
             ((DiptraceGenericItem) newItem.getSubItem("Number"))
                 .getAttributes()
                 .get(0))
                     .setInt(newNumber);
         
-        parent.getSubItems().add(newItem);
+        parent.getChildren().add(newItem);
         
         return newItem;
     }
@@ -357,7 +357,7 @@ final class DiptraceOperations {
         final DiptraceItem item,
         final int angle) {
         
-        ((DiptraceIntegerAttribute)
+        ((DiptraceDoubleAttribute)
             ((DiptraceGenericItem) item.getSubItem("Angle"))
                 .getAttributes()
                 .get(0))
@@ -374,8 +374,8 @@ final class DiptraceOperations {
         final DiptraceItem item,
         final int angle) {
         
-        DiptraceIntegerAttribute attrAngle
-            = ((DiptraceIntegerAttribute)
+        DiptraceDoubleAttribute attrAngle
+            = ((DiptraceDoubleAttribute)
                 ((DiptraceGenericItem) item.getSubItem("Angle"))
                     .getAttributes()
                     .get(0));

@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * This class is the base class for items in the DipTrace ascii file.
  */
-public abstract class DiptraceItem {
+abstract class DiptraceItem implements DiptraceTreeNode {
     
     /**
      * The parent of this item.
@@ -75,7 +75,8 @@ public abstract class DiptraceItem {
      * Returns the sub items.
      * @return the sub items
      */
-    public final List<DiptraceItem> getSubItems() {
+    @Override
+    public final List<DiptraceItem> getChildren() {
         return fSubItems;
     }
     
@@ -248,6 +249,9 @@ public abstract class DiptraceItem {
             case "Ypos":
             case "Ypos":
 */
+            case "Shape":
+                return new DiptraceShapeItem(this, token.getValue());
+                
             case "Schematic":
             default:
                 return new DiptraceGenericItem(this, token.getValue());

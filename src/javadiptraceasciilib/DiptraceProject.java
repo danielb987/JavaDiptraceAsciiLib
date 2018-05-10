@@ -97,7 +97,7 @@ public final class DiptraceProject {
      * Get the root item of the schematics.
      * @return the root item of the Diptrace schematics item tree
      */
-    public DiptraceItem getSchematicsRoot() {
+    public DiptraceTreeNode getSchematicsRoot() {
         return fSchematicsRoot;
     }
     
@@ -105,7 +105,7 @@ public final class DiptraceProject {
      * Get the root item of the schematics.
      * @return the root item of the Diptrace schematics item tree
      */
-    public DiptraceItem getPCBRoot() {
+    public DiptraceTreeNode getPCBRoot() {
         return fPCBRoot;
     }
     
@@ -246,17 +246,17 @@ public final class DiptraceProject {
         fSchematicsRoot.parse(tokenizer);
         
         DiptraceItem components = getSchematicsComponents();
-        for (DiptraceItem part : components.getSubItems()) {
+        for (DiptraceItem part : components.getChildren()) {
             
             DiptraceGenericItem numberItem
                 = (DiptraceGenericItem) part.getSubItem("Number");
             DiptraceAttribute numberAttr = numberItem.getAttributes().get(0);
-            int number = ((DiptraceIntegerAttribute) numberAttr).getInt();
+            int number = ((DiptraceDoubleAttribute) numberAttr).getInt();
             updateLastComponentNumber(number);
             DiptraceGenericItem hiddenIdentifierItem
                 = (DiptraceGenericItem) part.getSubItem("HiddenId");
             int hiddenIdentifier
-                = ((DiptraceIntegerAttribute)
+                = ((DiptraceDoubleAttribute)
                     hiddenIdentifierItem.getAttributes().get(0))
                     .getInt();
             updateLastComponentHiddenIdentifier(hiddenIdentifier);
@@ -264,11 +264,11 @@ public final class DiptraceProject {
         }
         
         DiptraceItem nets = getSchematicsNets();
-        for (DiptraceItem net : nets.getSubItems()) {
+        for (DiptraceItem net : nets.getChildren()) {
             DiptraceGenericItem numberItem
                 = (DiptraceGenericItem) net.getSubItem("Number");
             DiptraceAttribute numberAttr = numberItem.getAttributes().get(0);
-            int number = ((DiptraceIntegerAttribute) numberAttr).getInt();
+            int number = ((DiptraceDoubleAttribute) numberAttr).getInt();
             updateLastNetNumber(number);
             fSchematicsNetNumberMap.put(number, net);
         }
@@ -285,21 +285,21 @@ public final class DiptraceProject {
         fPCBRoot.parse(tokenizer);
         
         DiptraceItem components = getPCBComponents();
-        for (DiptraceItem component : components.getSubItems()) {
+        for (DiptraceItem component : components.getChildren()) {
             DiptraceGenericItem numberItem
                 = (DiptraceGenericItem) component.getSubItem("Number");
             DiptraceAttribute numberAttr = numberItem.getAttributes().get(0);
-            int number = ((DiptraceIntegerAttribute) numberAttr).getInt();
+            int number = ((DiptraceDoubleAttribute) numberAttr).getInt();
             updateLastComponentNumber(number);
             fPCBComponentNumberMap.put(number, component);
         }
         
         DiptraceItem nets = getPCBNets();
-        for (DiptraceItem net : nets.getSubItems()) {
+        for (DiptraceItem net : nets.getChildren()) {
             DiptraceGenericItem numberItem
                 = (DiptraceGenericItem) net.getSubItem("Number");
             DiptraceAttribute numberAttr = numberItem.getAttributes().get(0);
-            int number = ((DiptraceIntegerAttribute) numberAttr).getInt();
+            int number = ((DiptraceDoubleAttribute) numberAttr).getInt();
             updateLastNetNumber(number);
             fPCBNetNumberMap.put(number, net);
         }
