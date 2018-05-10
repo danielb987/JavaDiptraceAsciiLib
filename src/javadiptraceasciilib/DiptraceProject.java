@@ -95,7 +95,7 @@ public final class DiptraceProject {
     
     /**
      * Get the root node of the schematics.
-     * @return the root node of the Diptrace schematics item tree
+     * @return the root node of the Diptrace schematics tree
      */
     public DiptraceTreeNode getSchematicsRoot() {
         return fSchematicsRoot;
@@ -103,7 +103,7 @@ public final class DiptraceProject {
     
     /**
      * Get the root node of the schematics.
-     * @return the root node of the Diptrace schematics item tree
+     * @return the root node of the Diptrace PCB tree
      */
     public DiptraceTreeNode getPCBRoot() {
         return fPCBRoot;
