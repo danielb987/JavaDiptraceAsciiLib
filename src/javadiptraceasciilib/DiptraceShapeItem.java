@@ -17,7 +17,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
      * @param parent the parent
      * @param identifier the identifier
      */
-    DiptraceShapeItem(DiptraceItem parent, String identifier) {
+    DiptraceShapeItem(final DiptraceItem parent, String identifier) {
         super(parent, identifier);
     }
 
@@ -28,6 +28,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
      */
     @Override
     public DiptraceItem duplicate(final DiptraceItem parent) {
+        
         DiptraceShapeItem newItem =
             new DiptraceShapeItem(parent, getIdentifier());
         
@@ -48,6 +49,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
      * @return the drawing type
      */
     DrawingType getDrawingType() {
+        
         int typeNo;
         if (getAttributes().isEmpty()) {
             DiptraceGenericItem item
@@ -74,6 +76,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
      * @return true if locked
      */
     boolean getLocked() {
+        
         String locked;
         if (getAttributes().isEmpty()) {
             DiptraceGenericItem item
@@ -94,6 +97,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
      * @return the drawing type
      */
     PlacementLayer getPlacementLayer() {
+        
         int layerNo;
         
         if (getAttributes().isEmpty()) {
@@ -111,6 +115,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
     }
     
     List<Point2D.Double> getPoints() {
+        
         List<Point2D.Double> points = new ArrayList<>();
         
         if (getAttributes().isEmpty()) {
@@ -160,6 +165,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
      * @return a string
      */
     public String getString() {
+        
 //        StringBuilder sb = new StringBuilder(getIdentifier());
         StringBuilder sb = new StringBuilder();
         
@@ -229,14 +235,14 @@ class DiptraceShapeItem extends DiptraceGenericItem {
         /**
          * Get the drawing type by the attribute number.
          */
-        static DrawingType getTypeByAttrNo(int typeNo) {
+        static DrawingType getTypeByAttrNo(final int typeNo) {
             return fDrawingAttrTypeMap.get(typeNo);
         }
         
         /**
          * Get the drawing type by the item number.
          */
-        static DrawingType getTypeByItemNo(int typeNo) {
+        static DrawingType getTypeByItemNo(final int typeNo) {
             return fDrawingItemTypeMap.get(typeNo);
         }
         
@@ -409,7 +415,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
         /**
          * Get the marking type by the number.
          */
-        static MarkingType getType(int typeNo) {
+        static MarkingType getType(final int typeNo) {
             return fMarkingTypeMap.get(typeNo);
         }
         

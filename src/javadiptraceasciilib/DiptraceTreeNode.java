@@ -11,6 +11,6 @@ public interface DiptraceTreeNode {
      * Get all the children of this node.
      * @return a list of the children
      */
-    public List<? extends DiptraceTreeNode> getChildren();
+    List<? extends DiptraceTreeNode> getChildren();
     
 }
