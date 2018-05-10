@@ -299,7 +299,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
     /**
      * The layers.
      */
-    static enum PlacementLayer {
+    enum PlacementLayer {
         //CHECKSTYLE.OFF: JavadocVariable - Self explaining enums
         NO_LAYER(-1, -1),
         TOP_SILK(0, 1),
@@ -400,7 +400,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
     /**
      * The different markings.
      */
-    static enum MarkingType {
+    enum MarkingType {
         //CHECKSTYLE.OFF: JavadocVariable - Self explaining enums
         TEXT(0),
         NAME(1),
@@ -411,23 +411,24 @@ class DiptraceShapeItem extends DiptraceGenericItem {
         /**
          * A map of the markings and their number.
          */
-        private static final Map<Integer, MarkingType> fMarkingTypeMap
+        private static final Map<Integer, MarkingType> MARKING_TYPE_MAP
             = new HashMap<>();
         
         static {
             
             for (MarkingType type : EnumSet.allOf(MarkingType.class)) {
                 // Yes, use some appropriate locale in production code :)
-                fMarkingTypeMap.put(type.fTypeNo, type);
+                MARKING_TYPE_MAP.put(type.fTypeNo, type);
             }
         }
         
         /**
          * Get the marking type by the number.
+         * @param typeNo the type number
          * @return the marking type
          */
         static MarkingType getType(final int typeNo) {
-            return fMarkingTypeMap.get(typeNo);
+            return MARKING_TYPE_MAP.get(typeNo);
         }
         
         /**
