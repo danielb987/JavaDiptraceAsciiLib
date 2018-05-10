@@ -44,7 +44,7 @@ class DiptraceGenericItem extends DiptraceItem {
         for (DiptraceAttribute attribute : fAttributes) {
             newItem.fAttributes.add(attribute.duplicate());
         }
-        for (DiptraceItem subItem : getSubItems()) {
+        for (DiptraceItem subItem : getChildren()) {
             newItem.addSubItem(subItem.duplicate(newItem));
         }
         return newItem;

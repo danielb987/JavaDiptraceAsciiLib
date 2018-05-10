@@ -15,7 +15,7 @@ final class DiptraceDoubleAttribute implements DiptraceAttribute {
     /**
      * Is the value an integer?
      */
-    private boolean isInteger;
+    private boolean fIsInteger;
     
     /**
      * The value as a integer.
@@ -30,13 +30,13 @@ final class DiptraceDoubleAttribute implements DiptraceAttribute {
     /**
      * Initialize a DiptraceDoubleAttribute object.
      * @param stringValue the value as a string
-     * @param doubleValue the value as a double
+     * @param intValue the value as an integer
      */
     DiptraceDoubleAttribute(
         final String stringValue,
         final int intValue) {
         
-        this.isInteger = true;
+        this.fIsInteger = true;
         this.fStringValue = stringValue;
         this.fIntValue = intValue;
         this.fDoubleValue = intValue;
@@ -51,7 +51,7 @@ final class DiptraceDoubleAttribute implements DiptraceAttribute {
         final String stringValue,
         final double doubleValue) {
         
-        this.isInteger = false;
+        this.fIsInteger = false;
         this.fStringValue = stringValue;
         this.fDoubleValue = doubleValue;
     }
@@ -62,7 +62,7 @@ final class DiptraceDoubleAttribute implements DiptraceAttribute {
      */
     @Override
     public DiptraceAttribute duplicate() {
-        if (isInteger) {
+        if (fIsInteger) {
             return new DiptraceDoubleAttribute(
                 fStringValue, fIntValue);
         } else {
@@ -111,7 +111,7 @@ final class DiptraceDoubleAttribute implements DiptraceAttribute {
      * @throws NumberFormatException if the attribute is a double
      */
     public void setInt(final int value) {
-        if (!isInteger) {
+        if (!fIsInteger) {
             throw new NumberFormatException(
                 "This value is a double");
         }
@@ -129,7 +129,7 @@ final class DiptraceDoubleAttribute implements DiptraceAttribute {
      */
     public void setDouble(final double value) {
         
-        if (isInteger) {
+        if (fIsInteger) {
             throw new NumberFormatException(
                 "This value is possibly an integer");
         }
@@ -146,7 +146,7 @@ final class DiptraceDoubleAttribute implements DiptraceAttribute {
      * @param value the value
      */
     public void forceSetDouble(final double value) {
-        isInteger = false;
+        fIsInteger = false;
         fIntValue = (int) Math.round(value);
         fDoubleValue = value;
         fStringValue = String.format(Locale.ROOT, "%1.3f", value);

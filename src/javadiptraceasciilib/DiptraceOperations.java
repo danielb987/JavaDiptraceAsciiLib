@@ -43,7 +43,7 @@ final class DiptraceOperations {
         
         List<DiptraceItem> diptraceItems = new ArrayList<>();
         
-        for (DiptraceItem child : parent.getSubItems()) {
+        for (DiptraceItem child : parent.getChildren()) {
             if (matchItem.match(child)) {
                 diptraceItems.add(child);
             }
@@ -212,7 +212,7 @@ final class DiptraceOperations {
     public DiptraceItem duplicateItem(final DiptraceItem item) {
         DiptraceItem newItem = item.duplicate(item.getParent());
         
-        item.getSubItems().add(newItem);
+        item.getChildren().add(newItem);
         
         return newItem;
     }
@@ -253,7 +253,7 @@ final class DiptraceOperations {
                 .get(0))
                     .setInt(newHiddenIdentifier);
         
-        parent.getSubItems().add(newItem);
+        parent.getChildren().add(newItem);
         
         return newItem;
     }
@@ -288,7 +288,7 @@ final class DiptraceOperations {
                 .get(0))
                     .setInt(newNumber);
         
-        parent.getSubItems().add(newItem);
+        parent.getChildren().add(newItem);
         
         return newItem;
     }

@@ -68,7 +68,7 @@ public final class DiptraceComponent {
         
         for (DiptraceItem componentPart : fSchematicsComponentParts) {
             DiptraceItem pinsItem = componentPart.getSubItem("Pins");
-            for (DiptraceItem pinItem : pinsItem.getSubItems()) {
+            for (DiptraceItem pinItem : pinsItem.getChildren()) {
                 DiptraceAttribute pinNoAttr
                     = ((DiptraceGenericItem) pinItem).getAttributes().get(0);
                 int tempPinNo = ((DiptraceDoubleAttribute) pinNoAttr).getInt();

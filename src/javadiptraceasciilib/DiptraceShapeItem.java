@@ -37,7 +37,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
         for (DiptraceAttribute attribute : getAttributes()) {
             newAttributes.add(attribute.duplicate());
         }
-        for (DiptraceItem subItem : getSubItems()) {
+        for (DiptraceItem subItem : getChildren()) {
             newItem.addSubItem(subItem.duplicate(newItem));
         }
         return newItem;
@@ -112,7 +112,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
             DiptraceGenericItem item
                 = ((DiptraceGenericItem) getSubItem("Points"));
             
-            for (DiptraceItem subItem : item.getSubItems()) {
+            for (DiptraceItem subItem : item.getChildren()) {
                 DiptraceGenericItem subGenericItem = (DiptraceGenericItem) subItem;
                 // Attributet kan ibland vara en double och ibland vara en integer !!!!!!!!!!!!!!!0
                 double posX
@@ -138,12 +138,12 @@ class DiptraceShapeItem extends DiptraceGenericItem {
         return points;
     }
     
-    double getPoint(final int pointNo) {
-        return pointNo;
+//    double getPoint(final int pointNo) {
+//        return pointNo;
 //        return
 //            ((DiptraceDoubleAttribute) this.getAttributes().get(3 + pointNo))
 //                .getDouble();
-    }
+//    }
     
     /**
      * Get a string representation of this object.
@@ -176,9 +176,11 @@ class DiptraceShapeItem extends DiptraceGenericItem {
     
     static enum DrawingType {
         //CHECKSTYLE.OFF: JavadocVariable - Self explaining enums
+        // At this point, I don't know which feature has which number,
+        // so I give the features numbers like -901. / Daniel
         NONE_1(-1, -901),
         NONE_2(0, -902),
-        LINE(1, -903),
+        LINE(1, 0),
         RECTANGLE(2, 2),
         ELLIPSE(3, -905),
         FILLED_RECTANGLE(4, -906),

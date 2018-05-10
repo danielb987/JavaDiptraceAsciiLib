@@ -6,7 +6,6 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
-import javadiptraceasciilib.DiptraceShapeItem.PlacementLayer;
 
 /**
  * Draw a schematics or a pcb on a Java Graphics2D object.
@@ -32,7 +31,7 @@ public final class DiptraceGraphics {
      * @param graphics the graphics to drawPCB on
      * @param item the item to draw
      */
-    public void drawShape(final Graphics2D graphics, final DiptraceItem item) {
+    void drawShape(final Graphics2D graphics, final DiptraceItem item) {
         
         DiptraceShapeItem shapeItem = (DiptraceShapeItem) item;
         
@@ -44,7 +43,7 @@ public final class DiptraceGraphics {
 //            return;
 //        }
         
-        System.out.println("Shape: "+shapeItem.getString());
+        System.out.println("Shape: " + shapeItem.getString());
         
 //        DiptraceShapeItem.DrawingType t = shapeItem.getDrawingType();
         
@@ -56,50 +55,81 @@ public final class DiptraceGraphics {
                 // Nothing to do.
                 break;
             case LINE:
+                points = shapeItem.getPoints();
                 graphics.setColor(Color.BLACK);
-                graphics.draw(new Line2D.Double(shapeItem.getPoint(0), shapeItem.getPoint(1), shapeItem.getPoint(2), shapeItem.getPoint(3)));
+                System.out.format(
+                    "Line: %1.0f, %1.0f, %1.0f, %1.0f%n",
+                    points.get(0).x, points.get(0).y,
+                    points.get(1).x, points.get(1).y);
+                graphics.draw(
+                    new Line2D.Double(
+                        points.get(0).x, points.get(0).y,
+                        points.get(1).x, points.get(1).y));
+//                    new Line2D.Double(
+//                        shapeItem.getPoint(0), shapeItem.getPoint(1),
+//                        shapeItem.getPoint(2), shapeItem.getPoint(3)));
                 break;
             case RECTANGLE:
                 graphics.setColor(Color.RED);
                 points = shapeItem.getPoints();
-                System.out.format("%1.0f, %1.0f, %1.0f, %1.0f%n", points.get(0).x, points.get(0).y, points.get(1).x, points.get(1).y);
-//                graphics.draw(new Rectangle2D.Double(points.get(0).x, points.get(0).y, points.get(1).x, points.get(1).y));
-                graphics.draw(new Rectangle2D.Double(points.get(0).x, -points.get(0).y, points.get(1).x, -points.get(1).y));
-                graphics.setColor(Color.BLUE);
-                graphics.draw(new Rectangle2D.Double(-10, -10, 20, 20));
-//                graphics.draw(new Rectangle2D.Double(points.get(0).x, points.get(1).y, points.get(1).x, points.get(0).y));
-//                graphics.draw(new Rectangle2D.Double(shapeItem.getPoint(0), shapeItem.getPoint(1), shapeItem.getPoint(2), shapeItem.getPoint(3)));
+                System.out.format(
+                    "Rectangle: %1.0f, %1.0f, %1.0f, %1.0f%n",
+                    points.get(0).x, points.get(0).y,
+                    points.get(1).x, points.get(1).y);
+                graphics.draw(new Rectangle2D.Double(
+                    points.get(0).x,
+                    points.get(0).y,
+                    points.get(1).x-points.get(0).x,
+                    points.get(1).y-points.get(0).y));
                 break;
             case ELLIPSE:
                 graphics.setColor(Color.BLUE);
-                graphics.draw(new Rectangle2D.Double(shapeItem.getPoint(0), shapeItem.getPoint(1), shapeItem.getPoint(2), shapeItem.getPoint(3)));
+//                graphics.draw(
+//                    new Rectangle2D.Double(
+//                        shapeItem.getPoint(0), shapeItem.getPoint(1),
+//                        shapeItem.getPoint(2), shapeItem.getPoint(3)));
                 break;
             case FILLED_RECTANGLE:
                 graphics.setColor(Color.GREEN);
-                graphics.draw(new Rectangle2D.Double(shapeItem.getPoint(0), shapeItem.getPoint(1), shapeItem.getPoint(2), shapeItem.getPoint(3)));
+//                graphics.draw(
+//                    new Rectangle2D.Double(
+//                        shapeItem.getPoint(0), shapeItem.getPoint(1),
+//                        shapeItem.getPoint(2), shapeItem.getPoint(3)));
                 break;
             case FILLED_ELLIPSE:
                 graphics.setColor(Color.CYAN);
-                graphics.draw(new Rectangle2D.Double(shapeItem.getPoint(0), shapeItem.getPoint(1), shapeItem.getPoint(2), shapeItem.getPoint(3)));
+//                graphics.draw(
+//                    new Rectangle2D.Double(
+//                        shapeItem.getPoint(0), shapeItem.getPoint(1),
+//                        shapeItem.getPoint(2), shapeItem.getPoint(3)));
                 break;
             case ARC:
                 graphics.setColor(Color.ORANGE);
-                graphics.draw(new Rectangle2D.Double(shapeItem.getPoint(0), shapeItem.getPoint(1), shapeItem.getPoint(2), shapeItem.getPoint(3)));
+//                graphics.draw(
+//                    new Rectangle2D.Double(
+//                        shapeItem.getPoint(0), shapeItem.getPoint(1),
+//                        shapeItem.getPoint(2), shapeItem.getPoint(3)));
                 break;
             case TEXT:
                 graphics.setColor(Color.PINK);
                 points = shapeItem.getPoints();
-//                graphics.draw(new Rectangle2D.Double(shapeItem.getPoint(0), shapeItem.getPoint(1), shapeItem.getPoint(2), shapeItem.getPoint(3)));
+//                graphics.draw(
+//                    new Rectangle2D.Double(
+//                        shapeItem.getPoint(0), shapeItem.getPoint(1),
+//                        shapeItem.getPoint(2), shapeItem.getPoint(3)));
                 break;
             case POLYLINE:
-//                graphics.setColor(Color.GREEN);
-//                double[] pointsX = {shapeItem.getPoint(0), shapeItem.getPoint(1), shapeItem.getPoint(2), shapeItem.getPoint(3), shapeItem.getPoint(4), shapeItem.getPoint(5)};
-//                double[] pointsY = {shapeItem.getPoint(0), shapeItem.getPoint(1), shapeItem.getPoint(2), shapeItem.getPoint(3), shapeItem.getPoint(4), shapeItem.getPoint(5)};
-//                graphics.draw(new Rectangle2D.Double(shapeItem.getPoint(0), shapeItem.getPoint(1), shapeItem.getPoint(2), shapeItem.getPoint(3)));
+//                graphics.draw(
+//                    new Rectangle2D.Double(
+//                        shapeItem.getPoint(0), shapeItem.getPoint(1),
+//                        shapeItem.getPoint(2), shapeItem.getPoint(3)));
                 break;
             case FILLED_PLYGONE:
                 graphics.setColor(Color.YELLOW);
-                graphics.draw(new Rectangle2D.Double(shapeItem.getPoint(0), shapeItem.getPoint(1), shapeItem.getPoint(2), shapeItem.getPoint(3)));
+//                graphics.draw(
+//                    new Rectangle2D.Double(
+//                        shapeItem.getPoint(0), shapeItem.getPoint(1),
+//                        shapeItem.getPoint(2), shapeItem.getPoint(3)));
                 break;
             default:
                 throw new RuntimeException(
@@ -120,7 +150,7 @@ public final class DiptraceGraphics {
             drawShape(graphics, item);
         }
         
-        for (DiptraceItem subItem : item.getSubItems()) {
+        for (DiptraceItem subItem : item.getChildren()) {
             drawItem(graphics, subItem);
         }
         
