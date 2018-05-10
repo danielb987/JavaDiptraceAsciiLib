@@ -57,12 +57,15 @@ class DiptraceShapeItem extends DiptraceGenericItem {
                     .getInt();
 //            typeNo = 6;
             System.out.format("Type: %d%n", typeNo);
-            System.out.format("Type: %d, name: %s%n", typeNo, DrawingType.getItemTypeByNo(typeNo).name());
-            return DrawingType.getItemTypeByNo(typeNo);
+            System.out.format(
+                "Type: %d, name: %s%n",
+                typeNo,
+                DrawingType.getTypeByItemNo(typeNo).name());
+            return DrawingType.getTypeByItemNo(typeNo);
         } else {
             typeNo
                 = ((DiptraceDoubleAttribute) getAttributes().get(0)).getInt();
-            return DrawingType.getAttrTypeByNo(typeNo);
+            return DrawingType.getTypeByAttrNo(typeNo);
         }
     }
     
@@ -76,10 +79,12 @@ class DiptraceShapeItem extends DiptraceGenericItem {
             DiptraceGenericItem item
                 = ((DiptraceGenericItem) getSubItem("Locked"));
             locked
-                = ((DiptraceStringAttribute) item.getAttributes().get(0)).getString();
+                = ((DiptraceStringAttribute) item.getAttributes().get(0))
+                    .getString();
         } else {
             locked
-                = ((DiptraceStringAttribute) getAttributes().get(1)).getString();
+                = ((DiptraceStringAttribute) getAttributes().get(1))
+                    .getString();
         }
         return locked.equals("Y");
     }
@@ -113,25 +118,30 @@ class DiptraceShapeItem extends DiptraceGenericItem {
                 = ((DiptraceGenericItem) getSubItem("Points"));
             
             for (DiptraceItem subItem : item.getChildren()) {
-                DiptraceGenericItem subGenericItem = (DiptraceGenericItem) subItem;
-                // Attributet kan ibland vara en double och ibland vara en integer !!!!!!!!!!!!!!!0
+                DiptraceGenericItem subGenericItem
+                    = (DiptraceGenericItem) subItem;
                 double posX
-                    = ((DiptraceDoubleAttribute) subGenericItem.getAttributes().get(0))
-                        .getDouble();
+                    = ((DiptraceDoubleAttribute) subGenericItem.getAttributes()
+                        .get(0))
+                            .getDouble();
                 double posY
-                    = ((DiptraceDoubleAttribute) subGenericItem.getAttributes().get(1))
-                        .getDouble();
+                    = ((DiptraceDoubleAttribute) subGenericItem.getAttributes()
+                        .get(1))
+                            .getDouble();
                 points.add(new Point2D.Double(posX, posY));
-//                points.add(new Point2D.Double(10.3, 32.12));
             }
-//            layerNo
-//                = ((DiptraceDoubleAttribute) item.getAttributes().get(0))
-//                    .getInt();
         } else {
             for (int i = 0; i < 3; i++) {
-                points.add(new Point2D.Double(10.3, 32.12));
-//                points.add(
-//                    new Point2D.Double((DiptraceDoubleAttribute) getAttributes().get(3 + i)).getDouble(), ((DiptraceDoubleAttribute) getAttributes().get(3 + i + 1)).getDouble());
+                final int baseX = 3;
+                final int baseY = 4;
+                points.add(
+                    new Point2D.Double(
+                        ((DiptraceDoubleAttribute) getAttributes()
+                            .get(baseX + i))
+                                .getDouble(),
+                        ((DiptraceDoubleAttribute) getAttributes()
+                            .get(baseY + i))
+                                .getDouble()));
             }
         }
         
@@ -162,7 +172,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
             DiptraceAttribute attribute = getAttributes().get(i);
             sb.append(" ").append(attribute.getString());
 //            sb.append(" ");
-//            if (attribute.getAttrType() == DiptraceTokenType.STRING) {
+//            if (attribute.getAttrNo() == DiptraceTokenType.STRING) {
 //                sb.append("\"").append(attribute.getValue()).append("\"");
 //            } else {
 //                sb.append(attribute.getValue());
@@ -174,6 +184,9 @@ class DiptraceShapeItem extends DiptraceGenericItem {
     
     
     
+    /**
+     * Type of thing to draw.
+     */
     static enum DrawingType {
         //CHECKSTYLE.OFF: JavadocVariable - Self explaining enums
         // At this point, I don't know which feature has which number,
@@ -192,9 +205,15 @@ class DiptraceShapeItem extends DiptraceGenericItem {
         ;
         //CHECKSTYLE.ON: JavadocVariable - Self explaining enums
         
+        /**
+         * A map of the drawing types and their attribute number.
+         */
         private static final Map<Integer, DrawingType> fDrawingAttrTypeMap
             = new HashMap<>();
         
+        /**
+         * A map of the drawing types and their item number.
+         */
         private static final Map<Integer, DrawingType> fDrawingItemTypeMap
             = new HashMap<>();
         
@@ -202,39 +221,68 @@ class DiptraceShapeItem extends DiptraceGenericItem {
         {
             for (DrawingType type : EnumSet.allOf(DrawingType.class))
             {
-                fDrawingAttrTypeMap.put(type.fAttrTypeNo, type);
-                fDrawingItemTypeMap.put(type.fItemTypeNo, type);
+                fDrawingAttrTypeMap.put(type.fAttrNo, type);
+                fDrawingItemTypeMap.put(type.fItemNo, type);
             }
         }
         
-        static DrawingType getAttrTypeByNo(int typeNo) {
+        /**
+         * Get the drawing type by the attribute number.
+         */
+        static DrawingType getTypeByAttrNo(int typeNo) {
             return fDrawingAttrTypeMap.get(typeNo);
         }
         
-        static DrawingType getItemTypeByNo(int typeNo) {
+        /**
+         * Get the drawing type by the item number.
+         */
+        static DrawingType getTypeByItemNo(int typeNo) {
             return fDrawingItemTypeMap.get(typeNo);
         }
         
-        private final int fAttrTypeNo;
-        private final int fItemTypeNo;
+        /**
+         * The drawing type attribute number.
+         */
+        private final int fAttrNo;
         
-        DrawingType(final int attrType, final int itemType) {
-            fAttrTypeNo = attrType;
-            fItemTypeNo = itemType;
+        /**
+         * The drawing type item number.
+         */
+        private final int fItemNo;
+        
+        /**
+         * Initialize a DrawingType object.
+         * @param attrNo the attribute number
+         * @param itemNo the item number
+         */
+        DrawingType(final int attrNo, final int itemNo) {
+            fAttrNo = attrNo;
+            fItemNo = itemNo;
         }
         
-        int getAttrType() {
-            return fAttrTypeNo;
+        /**
+         * Get the attribute number.
+         * @return the number
+         */
+        int getAttrNo() {
+            return fAttrNo;
         }
         
-        int getItemType() {
-            return fItemTypeNo;
+        /**
+         * Get the attribute number.
+         * @return the number
+         */
+        int getItemNo() {
+            return fItemNo;
         }
         
     }
     
     
     
+    /**
+     * The layers.
+     */
     static enum PlacementLayer {
         //CHECKSTYLE.OFF: JavadocVariable - Self explaining enums
         NO_LAYER(-1, -1),
@@ -254,9 +302,15 @@ class DiptraceShapeItem extends DiptraceGenericItem {
         ;
         //CHECKSTYLE.ON: JavadocVariable - Self explaining enums
         
+        /**
+         * A map of the layers and their attribute number.
+         */
         private static final Map<Integer, PlacementLayer>
             fPlacementLayerMapAttributes = new HashMap<>();
         
+        /**
+         * A map of the markings and their item number.
+         */
         private static final Map<Integer, PlacementLayer>
             fPlacementLayerMapItems = new HashMap<>();
         
@@ -264,41 +318,70 @@ class DiptraceShapeItem extends DiptraceGenericItem {
         {
             for (PlacementLayer layerNo : EnumSet.allOf(PlacementLayer.class))
             {
-                fPlacementLayerMapAttributes.put(layerNo.fTypeAttrNo, layerNo);
-                fPlacementLayerMapItems.put(layerNo.fTypeItemNo, layerNo);
+                fPlacementLayerMapAttributes.put(layerNo.fAttrNo, layerNo);
+                fPlacementLayerMapItems.put(layerNo.fItemNo, layerNo);
             }
         }
         
+        /**
+         * Get the layer by the attribute number.
+         */
         static PlacementLayer getTypeByAttrNo(final int layerAttrNo) {
             
             return fPlacementLayerMapAttributes.get(layerAttrNo);
         }
         
+        /**
+         * Get the layer by the item number.
+         */
         static PlacementLayer getTypeByItemNo(final int layerItemNo) {
             
             return fPlacementLayerMapItems.get(layerItemNo);
         }
         
-        private final int fTypeAttrNo;
-        private final int fTypeItemNo;
+        /**
+         * The layer attribute number.
+         */
+        private final int fAttrNo;
         
-        PlacementLayer(final int layerAttrNo, final int layerItemNo) {
-            fTypeAttrNo = layerAttrNo;
-            fTypeItemNo = layerItemNo;
+        /**
+         * The layer item number.
+         */
+        private final int fItemNo;
+        
+        /**
+         * Initialize a PlacementLayer object.
+         * @param attrNo the attribute number
+         * @param itemNo the item number
+         */
+        PlacementLayer(final int attrNo, final int itemNo) {
+            fAttrNo = attrNo;
+            fItemNo = itemNo;
         }
         
-        int getLayerAttrNo() {
-            return fTypeAttrNo;
+        /**
+         * Get the attribute number.
+         * @return the number
+         */
+        int getAttrNo() {
+            return fAttrNo;
         }
         
-        int getLayerItemNo() {
-            return fTypeItemNo;
+        /**
+         * Get the item number.
+         * @return the number
+         */
+        int getItemNo() {
+            return fItemNo;
         }
         
     }
     
     
     
+    /**
+     * The different markings.
+     */
     static enum MarkingType {
         //CHECKSTYLE.OFF: JavadocVariable - Self explaining enums
         TEXT(0),
@@ -308,6 +391,9 @@ class DiptraceShapeItem extends DiptraceGenericItem {
         ;
         //CHECKSTYLE.ON: JavadocVariable - Self explaining enums
         
+        /**
+         * A map of the markings and their number.
+         */
         private static final Map<Integer, MarkingType> fMarkingTypeMap
             = new HashMap<>();
         
@@ -320,16 +406,31 @@ class DiptraceShapeItem extends DiptraceGenericItem {
             }
         }
         
+        /**
+         * Get the marking type by the number.
+         */
         static MarkingType getType(int typeNo) {
             return fMarkingTypeMap.get(typeNo);
         }
         
+        /**
+         * The marking type number.
+         */
         private final int fTypeNo;
         
+        /**
+         * Initialize a MarkingType object.
+         * @param attrNo the attribute number
+         * @param itemNo the item number
+         */
         MarkingType(final int type) {
             fTypeNo = type;
         }
         
+        /**
+         * Get the type number.
+         * @return the number
+         */
         int getType() {
             return fTypeNo;
         }
