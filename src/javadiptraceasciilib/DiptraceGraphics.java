@@ -17,29 +17,58 @@ import javadiptraceasciilib.DiptraceShapeItem.PlacementLayer;
  */
 public final class DiptraceGraphics {
     
+    /**
+     * The side of the PCB.
+     */
     public enum Side {
+        //CHECKSTYLE.OFF: JavadocVariable - Self explaining enums
         TOP,
         BOTTOM,
         BOTH,
+        //CHECKSTYLE.ON: JavadocVariable - Self explaining enums
     }
     
+    /**
+     * Should the other side of the PCB be visible?
+     */
     public enum SideTransparency {
+        
+        /**
+         * Don't show the opposite side.
+         */
         NONE,
+        
+        /**
+         * Show the opposite side with some transparency.
+         */
         PART,
+        
+        /**
+         * Show the other side clear.
+         */
         FULL,
     }
     
+    /**
+     * A map with the side of the PCB for each layer.
+     */
     private static final Map<PlacementLayer, Side> LAYER_SIDE_MAP
         = new HashMap<>();
     
+    /**
+     * A map with the color of the shapes on the PCB for each layer when the
+     * layer is on the viewer's point of view of the PCB.
+     */
     private static final Map<PlacementLayer, Color> LAYER_FULL_COLOR_MAP
         = new HashMap<>();
     
+    /**
+     * A map with the color of the shapes on the PCB for each layer when the
+     * layer is on the opposite side of the PCB from the viewer's point of
+     * view.
+     */
     private static final Map<PlacementLayer, Color> LAYER_DIM_COLOR_MAP
         = new HashMap<>();
-    
-//    private static final Map<PlacementLayer, LayerColor> LAYER_COLOR_MAP
-//        = new HashMap<>();
     
     static {
         
@@ -56,45 +85,59 @@ public final class DiptraceGraphics {
         LAYER_SIDE_MAP.put(PlacementLayer.BOARD_CUTOUT, Side.BOTH);
         LAYER_SIDE_MAP.put(PlacementLayer.PLACE_KEEPOUT, Side.TOP);
         
-        LAYER_FULL_COLOR_MAP.put(PlacementLayer.TOP_PASTE, new Color(153, 132, 47));
-        LAYER_FULL_COLOR_MAP.put(PlacementLayer.TOP_ASSY, new Color(138, 138, 138));
-        LAYER_FULL_COLOR_MAP.put(PlacementLayer.TOP_SILK, new Color(0, 180, 0));
-        LAYER_FULL_COLOR_MAP.put(PlacementLayer.TOP_MASK, new Color(46, 71, 86));
-        LAYER_FULL_COLOR_MAP.put(PlacementLayer.SIGNAL_PLANE, new Color(255, 255, 170));
-        LAYER_FULL_COLOR_MAP.put(PlacementLayer.ROUTE_KEEPOUT, new Color(80, 60, 60));
-        LAYER_FULL_COLOR_MAP.put(PlacementLayer.BOTTOM_PASTE, new Color(153, 132, 47));
-        LAYER_FULL_COLOR_MAP.put(PlacementLayer.BOTTOM_MASK, new Color(46, 71, 86));
-        LAYER_FULL_COLOR_MAP.put(PlacementLayer.BOTTOM_SILK, new Color(53, 53, 255));
-        LAYER_FULL_COLOR_MAP.put(PlacementLayer.BOTTOM_ASSY, new Color(138, 138, 138));
-        LAYER_FULL_COLOR_MAP.put(PlacementLayer.BOARD_CUTOUT, new Color(128, 0, 188));
-        LAYER_FULL_COLOR_MAP.put(PlacementLayer.PLACE_KEEPOUT, new Color(80, 80, 60));
+        //CHECKSTYLE.OFF: MagicNumber - These numbers are constants, but
+        // checkstyle doesn't look at it that way.
+        LAYER_FULL_COLOR_MAP
+            .put(PlacementLayer.TOP_PASTE, new Color(153, 132, 47));
+        LAYER_FULL_COLOR_MAP
+            .put(PlacementLayer.TOP_ASSY, new Color(138, 138, 138));
+        LAYER_FULL_COLOR_MAP
+            .put(PlacementLayer.TOP_SILK, new Color(0, 180, 0));
+        LAYER_FULL_COLOR_MAP
+            .put(PlacementLayer.TOP_MASK, new Color(46, 71, 86));
+        LAYER_FULL_COLOR_MAP
+            .put(PlacementLayer.SIGNAL_PLANE, new Color(255, 255, 170));
+        LAYER_FULL_COLOR_MAP
+            .put(PlacementLayer.ROUTE_KEEPOUT, new Color(80, 60, 60));
+        LAYER_FULL_COLOR_MAP
+            .put(PlacementLayer.BOTTOM_PASTE, new Color(153, 132, 47));
+        LAYER_FULL_COLOR_MAP
+            .put(PlacementLayer.BOTTOM_MASK, new Color(46, 71, 86));
+        LAYER_FULL_COLOR_MAP
+            .put(PlacementLayer.BOTTOM_SILK, new Color(53, 53, 255));
+        LAYER_FULL_COLOR_MAP
+            .put(PlacementLayer.BOTTOM_ASSY, new Color(138, 138, 138));
+        LAYER_FULL_COLOR_MAP
+            .put(PlacementLayer.BOARD_CUTOUT, new Color(128, 0, 188));
+        LAYER_FULL_COLOR_MAP
+            .put(PlacementLayer.PLACE_KEEPOUT, new Color(80, 80, 60));
         
-        LAYER_DIM_COLOR_MAP.put(PlacementLayer.TOP_PASTE, new Color(31, 26, 9));
-        LAYER_DIM_COLOR_MAP.put(PlacementLayer.TOP_ASSY, new Color(28, 28, 28));
-        LAYER_DIM_COLOR_MAP.put(PlacementLayer.TOP_SILK, new Color(0, 36, 0));
-        LAYER_DIM_COLOR_MAP.put(PlacementLayer.TOP_MASK, new Color(9, 14, 17));
-        LAYER_DIM_COLOR_MAP.put(PlacementLayer.SIGNAL_PLANE, new Color(255, 255, 170));
-        LAYER_DIM_COLOR_MAP.put(PlacementLayer.ROUTE_KEEPOUT, new Color(80, 60, 60));
-        LAYER_DIM_COLOR_MAP.put(PlacementLayer.BOTTOM_PASTE, new Color(31, 26, 9));
-        LAYER_DIM_COLOR_MAP.put(PlacementLayer.BOTTOM_MASK, new Color(9, 14, 17));
-        LAYER_DIM_COLOR_MAP.put(PlacementLayer.BOTTOM_SILK, new Color(53, 53, 255));
-        LAYER_DIM_COLOR_MAP.put(PlacementLayer.BOTTOM_ASSY, new Color(28, 28, 28));
-        LAYER_DIM_COLOR_MAP.put(PlacementLayer.BOARD_CUTOUT, new Color(128, 0, 188));
-        LAYER_DIM_COLOR_MAP.put(PlacementLayer.PLACE_KEEPOUT, new Color(80, 80, 60));
-/*
-        LAYER_COLOR_MAP.put(PlacementLayer.TOP_PASTE, new LayerColor(new Color(153, 132, 47), new Color(153, 132, 47), new Color(153, 132, 47)));
-        LAYER_COLOR_MAP.put(PlacementLayer.TOP_ASSY, new LayerColor(new Color(138, 138, 138), new Color(138, 138, 138), new Color(138, 138, 138)));
-        LAYER_COLOR_MAP.put(PlacementLayer.TOP_SILK, new LayerColor(new Color(0, 180, 0), new Color(0, 180, 0), new Color(0, 180, 0)));
-        LAYER_COLOR_MAP.put(PlacementLayer.TOP_MASK, new LayerColor(new Color(46, 71, 86), new Color(46, 71, 86), new Color(46, 71, 86)));
-        LAYER_COLOR_MAP.put(PlacementLayer.SIGNAL_PLANE, new LayerColor(new Color(255, 255, 170), new Color(255, 255, 170), new Color(255, 255, 170)));
-        LAYER_COLOR_MAP.put(PlacementLayer.ROUTE_KEEPOUT, new LayerColor(new Color(80, 60, 60), new Color(80, 60, 60), new Color(80, 60, 60)));
-        LAYER_COLOR_MAP.put(PlacementLayer.BOTTOM_PASTE, new LayerColor(new Color(153, 132, 47), new Color(153, 132, 47), new Color(153, 132, 47)));
-        LAYER_COLOR_MAP.put(PlacementLayer.BOTTOM_MASK, new LayerColor(new Color(46, 71, 86), new Color(46, 71, 86), new Color(46, 71, 86)));
-        LAYER_COLOR_MAP.put(PlacementLayer.BOTTOM_SILK, new LayerColor(new Color(53, 53, 255), new Color(53, 53, 255), new Color(53, 53, 255)));
-        LAYER_COLOR_MAP.put(PlacementLayer.BOTTOM_ASSY, new LayerColor(new Color(138, 138, 138), new Color(138, 138, 138), new Color(138, 138, 138)));
-        LAYER_COLOR_MAP.put(PlacementLayer.BOARD_CUTOUT, new LayerColor(new Color(128, 0, 188), new Color(128, 0, 188), new Color(128, 0, 188)));
-        LAYER_COLOR_MAP.put(PlacementLayer.PLACE_KEEPOUT, new LayerColor(new Color(80, 80, 60), new Color(80, 80, 60), new Color(80, 80, 60)));
-*/
+        LAYER_DIM_COLOR_MAP
+            .put(PlacementLayer.TOP_PASTE, new Color(31, 26, 9));
+        LAYER_DIM_COLOR_MAP
+            .put(PlacementLayer.TOP_ASSY, new Color(28, 28, 28));
+        LAYER_DIM_COLOR_MAP
+            .put(PlacementLayer.TOP_SILK, new Color(0, 36, 0));
+        LAYER_DIM_COLOR_MAP
+            .put(PlacementLayer.TOP_MASK, new Color(9, 14, 17));
+        LAYER_DIM_COLOR_MAP
+            .put(PlacementLayer.SIGNAL_PLANE, new Color(255, 255, 170));
+        LAYER_DIM_COLOR_MAP
+            .put(PlacementLayer.ROUTE_KEEPOUT, new Color(80, 60, 60));
+        LAYER_DIM_COLOR_MAP
+            .put(PlacementLayer.BOTTOM_PASTE, new Color(31, 26, 9));
+        LAYER_DIM_COLOR_MAP
+            .put(PlacementLayer.BOTTOM_MASK, new Color(9, 14, 17));
+        LAYER_DIM_COLOR_MAP
+            .put(PlacementLayer.BOTTOM_SILK, new Color(53, 53, 255));
+        LAYER_DIM_COLOR_MAP
+            .put(PlacementLayer.BOTTOM_ASSY, new Color(28, 28, 28));
+        LAYER_DIM_COLOR_MAP
+            .put(PlacementLayer.BOARD_CUTOUT, new Color(128, 0, 188));
+        LAYER_DIM_COLOR_MAP
+            .put(PlacementLayer.PLACE_KEEPOUT, new Color(80, 80, 60));
+        //CHECKSTYLE.ON: MagicNumber - These numbers are constants, but
+        // checkstyle doesn't look at it that way.
     }
     
     /**
@@ -115,6 +158,9 @@ public final class DiptraceGraphics {
      * Draw a shape.
      * @param graphics the graphics to drawPCB on
      * @param item the item to draw
+     * @param side the side that is in front of the viewer
+     * @param sideToDraw the side to draw now
+     * @param sideTransparency the transparency for the other side
      */
     void drawShape(
         final Graphics2D graphics,
@@ -125,59 +171,8 @@ public final class DiptraceGraphics {
         
         DiptraceShapeItem shapeItem = (DiptraceShapeItem) item;
         
-//        if (shapeItem.getAttributes().isEmpty()) {
-//            System.out.println("shapeItem has no attributes");
-//            return;
-//        }
-//        if (shapeItem.getPlacementLayer() == PlacementLayer.TOP_ASSY) {
-//            return;
-//        }
-        
         System.out.println("Shape: " + shapeItem.getString());
         
-//        DiptraceShapeItem.DrawingType t = shapeItem.getDrawingType();
-/*
-        switch (shapeItem.getPlacementLayer()) {
-            case TOP_PASTE:
-                graphics.setColor(Color.PINK);
-                break;
-            case TOP_ASSY:
-                graphics.setColor(new Color(138, 138, 138));
-                break;
-            case TOP_SILK:
-                graphics.setColor(Color.GREEN);
-                break;
-            case TOP_MASK:
-                graphics.setColor(Color.PINK);
-                break;
-            case SIGNAL_PLANE:
-                graphics.setColor(Color.PINK);
-                break;
-            case ROUTE_KEEPOUT:
-                graphics.setColor(Color.PINK);
-                break;
-            case BOTTOM_PASTE:
-                graphics.setColor(Color.PINK);
-                break;
-            case BOTTOM_MASK:
-                graphics.setColor(Color.PINK);
-                break;
-            case BOTTOM_SILK:
-                graphics.setColor(Color.PINK);
-                break;
-            case BOTTOM_ASSY:
-                graphics.setColor(Color.PINK);
-                break;
-            case BOARD_CUTOUT:
-                graphics.setColor(Color.PINK);
-                break;
-            case PLACE_KEEPOUT:
-                graphics.setColor(Color.PINK);
-                break;
-            default:
-                throw new RuntimeException(String.format("Unknow layer %s", shapeItem.getPlacementLayer()));
-        }
-*/
 //        System.out.print(shapeItem.getPlacementLayer()+": ");
 //        System.out.println(LAYER_COLOR_MAP.get(shapeItem.getPlacementLayer()));
         
@@ -352,6 +347,9 @@ public final class DiptraceGraphics {
      * Draw an item.
      * @param graphics the graphics to drawPCB on
      * @param item the item to draw
+     * @param side the side that is in front of the viewer
+     * @param sideToDraw the side to draw now
+     * @param sideTransparency the transparency for the other side
      */
     void drawItem(
         final Graphics2D graphics,
@@ -375,7 +373,10 @@ public final class DiptraceGraphics {
      * @param side the side to show up
      * @param sideTransparency the transparency
      */
-    public void drawPCB(final Graphics2D graphics, final Side side, final SideTransparency sideTransparency) {
+    public void drawPCB(
+        final Graphics2D graphics,
+        final Side side,
+        final SideTransparency sideTransparency) {
         
         if (fProject == null) {
             return;
