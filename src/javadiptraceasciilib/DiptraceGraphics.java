@@ -308,11 +308,13 @@ public final class DiptraceGraphics {
         final SideTransparency sideTransparency) {
         
         if (item.getIdentifier().equals("Shape")) {
-            drawShape(graphics, item, layerInFocus, layerToDraw, sideTransparency);
+            drawShape(
+                graphics, item, layerInFocus, layerToDraw, sideTransparency);
         }
         
         for (DiptraceItem subItem : item.getChildren()) {
-            drawItem(graphics, subItem, layerInFocus, layerToDraw, sideTransparency);
+            drawItem(
+                graphics, subItem, layerInFocus, layerToDraw, sideTransparency);
         }
     }
     
