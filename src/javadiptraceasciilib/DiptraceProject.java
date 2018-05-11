@@ -115,6 +115,10 @@ public final class DiptraceProject {
         return fPCBRoot;
     }
     
+    /**
+     * Get the list of the PCB layers.
+     * @return the list of the layers
+     */
     public List<DiptraceLayer> getDiptraceLayers() {
         return fDiptraceLayers;
     }

@@ -89,6 +89,8 @@ public final class DiptraceGraphics {
         LAYER_SIDE_MAP.put(PlacementLayer.BOARD_CUTOUT, Side.BOTH);
         LAYER_SIDE_MAP.put(PlacementLayer.PLACE_KEEPOUT, Side.TOP);
         
+        //CHECKSTYLE.OFF: LineLength - Long lines are bad, but these lines are
+        // only a bunch of constants in a map.
         //CHECKSTYLE.OFF: MagicNumber - These numbers are constants, but
         // checkstyle doesn't look at it that way.
         LAYER_FULL_COLOR_MAP.put(PlacementLayer.TOP_PASTE, new Color(153, 132, 47));
@@ -118,6 +120,8 @@ public final class DiptraceGraphics {
         LAYER_DIM_COLOR_MAP.put(PlacementLayer.PLACE_KEEPOUT, new Color(16, 16, 12));
         //CHECKSTYLE.ON: MagicNumber - These numbers are constants, but
         // checkstyle doesn't look at it that way.
+        //CHECKSTYLE.ON: LineLength - Long lines are bad, but these lines are
+        // only a bunch of constants in a map.
     }
     
     /**
@@ -350,26 +354,32 @@ public final class DiptraceGraphics {
             
             int layerNo = layer.getLayerNo();
             if (layerInFocus != layerNo) {
-                System.out.format("AA: layerInFocus: %d, layerNo: %d%n", layerInFocus, layerNo);
+                System.out.format(
+                    "AA: layerInFocus: %d, layerNo: %d%n",
+                    layerInFocus, layerNo);
                 
-                if (1==0)
+                if (1 == 0) {
                 drawItem(
                     graphics,
                     (DiptraceItem) fProject.getPCBRoot(),
                     layerInFocus,
                     layerNo,
                     sideTransparency);
+                }
             }
         }
         
-        System.out.format("BB: layerInFocus: %d, layerNo: %d%n", layerInFocus, layerInFocus);
-        if (1==1)
+        System.out.format(
+            "BB: layerInFocus: %d, layerNo: %d%n", layerInFocus, layerInFocus);
+        
+        if (1 == 1) {
         drawItem(
             graphics,
             (DiptraceItem) fProject.getPCBRoot(),
             layerInFocus,
             layerInFocus,
             sideTransparency);
+        }
     }
     
 }
