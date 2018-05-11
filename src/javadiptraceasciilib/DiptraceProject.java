@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,6 +81,11 @@ public final class DiptraceProject {
     private int fLastNetNumber = 0;
     
     /**
+     * The list of layers on the PCB.
+     */
+    private final List<DiptraceLayer> fDiptraceLayers = new ArrayList<>();
+    
+    /**
      * Constructs a DiptraceProject.
      */
     public DiptraceProject() {
@@ -107,6 +113,10 @@ public final class DiptraceProject {
      */
     public DiptraceTreeNode getPCBRoot() {
         return fPCBRoot;
+    }
+    
+    public List<DiptraceLayer> getDiptraceLayers() {
+        return fDiptraceLayers;
     }
     
     /**
@@ -302,6 +312,14 @@ public final class DiptraceProject {
             int number = ((DiptraceDoubleAttribute) numberAttr).getInt();
             updateLastNetNumber(number);
             fPCBNetNumberMap.put(number, net);
+        }
+        
+        fDiptraceLayers.clear();
+        DiptraceItem layersItem
+            = fPCBRoot.getSubItem("Board").getSubItem("Layers");
+        
+        for (DiptraceItem layerItem : layersItem.getChildren()) {
+            fDiptraceLayers.add(new DiptraceLayer(layerItem));
         }
     }
     
