@@ -14,6 +14,10 @@ import javadiptraceasciilib.DiptraceShapeItem.PlacementLayer;
 
 /**
  * Draw a schematics or a pcb on a Java Graphics2D object.
+ * Note that there may be a slight difference between the graphics produced
+ * by Diptrace and the graphics produced by this class. The content is the
+ * same, but the size of some shapes may differ slight and the fonts may
+ * differ.
  */
 public final class DiptraceGraphics {
     
