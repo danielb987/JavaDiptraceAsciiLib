@@ -8,6 +8,13 @@ and edit the contents of the file in a simple way.
 ## License
 The library is licensed under MIT License. Copyright Daniel Bergqvist.
 
+## Documentation
+Javadoc:
+https://danielb987.github.io/JavaDiptraceAsciiLib.Documentation/javadoc/
+
+Example:
+https://github.com/danielb987/JavaDiptraceAsciiLib/blob/master/src/examples/javadiptraceasciilib/FlashLight.java
+
 ## Contributors
 A main goal is to keep the library simple and easy to use. If fancy features are wanted, it's recommended to place those features in a "DiptraceAdvanced" class or something similar.
 
