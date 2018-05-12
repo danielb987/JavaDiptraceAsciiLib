@@ -93,7 +93,28 @@ class DiptraceShapeItem extends DiptraceGenericItem {
     }
     
     /**
-     * Get the drawing type of this shape.
+     * Get the layer number of this shape.
+     * @return the drawing type
+     */
+    int getLayerNo() {
+        
+        int layerNo;
+        
+        if (getAttributes().isEmpty()) {
+            DiptraceGenericItem item
+                = ((DiptraceGenericItem) getSubItem("Layer"));
+            layerNo
+                = ((DiptraceDoubleAttribute) item.getAttributes().get(0))
+                    .getInt();
+        } else {
+            layerNo
+                = ((DiptraceDoubleAttribute) getAttributes().get(0)).getInt();
+        }
+        return layerNo;
+    }
+    
+    /**
+     * Get the layer type of this shape.
      * @return the drawing type
      */
     PlacementLayer getPlacementLayer() {
@@ -211,6 +232,14 @@ class DiptraceShapeItem extends DiptraceGenericItem {
 //        StringBuilder sb = new StringBuilder(getIdentifier());
         StringBuilder sb = new StringBuilder();
         
+        String layerName;
+        PlacementLayer layer = getPlacementLayer();
+        if (layer != null) {
+            layerName = getPlacementLayer().name();
+        } else {
+            layerName = "Shape has no placement layer";
+        }
+        
         sb.append(getDrawingType().name());
         sb.append(" ");
         if (getLocked()) {
@@ -218,7 +247,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
         } else {
             sb.append('N');
         }
-        sb.append(" ").append(getPlacementLayer().name());
+        sb.append(" ").append(layerName);
 //        sb.append(" ").append(getAttributes().get(1));
 //        for (DiptraceAttribute attribute : fAttributes) {
         for (Point2D.Double point : getPoints()) {
