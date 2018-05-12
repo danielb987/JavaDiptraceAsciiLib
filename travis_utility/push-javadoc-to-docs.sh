@@ -81,6 +81,8 @@ if [ "$TRAVIS_REPO_SLUG" == "danielb987/JavaDiptraceAsciiLib" ] && [ "$TRAVIS_PU
   cd $DIR
 #  rm -Rf dist/javadoc
   ant clean
+  ant
+  ant test
   ant javadoc_develop
   mv dist/javadoc dist/javadoc_develop
   cd $HOME/temp/JavaDiptraceAsciiLib.Documentation/docs
