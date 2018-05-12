@@ -1298,7 +1298,7 @@ is divided into following sections:
         <nbbrowse file="${dist.javadoc.dir}/index.html"/>
     </target>
     <target depends="init,-javadoc-build,-javadoc-browse" description="Build Javadoc." name="javadoc"/>
-    <target depends="init,-javadoc-develop-build,-javadoc-browse" description="Build Javadoc." name="javadoc_develop"/>
+    <target depends="init,-javadoc-develop-build" description="Build Javadoc." name="javadoc_develop"/>
     <!--
                 =========================
                 TEST COMPILATION SECTION
