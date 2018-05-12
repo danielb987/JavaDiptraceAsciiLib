@@ -319,7 +319,7 @@ public final class DiptraceGraphics {
     }
     
     /**
-     * Draw a schematics or pcb on a Java Graphics2D object.
+     * Draw a pcb on a Java Graphics2D object.
      * @param graphics the graphics to drawPCB on
      * @param layerInFocus the side that is in front of the viewer
      * @param sideTransparency the transparency
