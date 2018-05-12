@@ -67,6 +67,7 @@ if [ "$TRAVIS_REPO_SLUG" == "danielb987/JavaDiptraceAsciiLib" ] && [ "$TRAVIS_PU
 
   # Run javadoc and generate package private classes and methods
   cd $DIR
+  rm -Rf dist/javadoc
   ant javadoc_develop
   mv dist/javadoc dist/javadoc_develop
   cd $HOME/temp/JavaDiptraceAsciiLib.Documentation/docs
