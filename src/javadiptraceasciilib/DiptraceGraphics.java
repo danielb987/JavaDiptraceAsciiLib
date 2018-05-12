@@ -24,7 +24,7 @@ public final class DiptraceGraphics {
     /**
      * The side of the PCB.
      */
-    public enum Side {
+    enum Side {
         //CHECKSTYLE.OFF: JavadocVariable - Self explaining enums
         TOP,
         BOTTOM,
