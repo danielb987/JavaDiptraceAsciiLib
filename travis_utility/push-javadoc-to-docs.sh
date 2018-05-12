@@ -65,16 +65,6 @@ if [ "$TRAVIS_REPO_SLUG" == "danielb987/JavaDiptraceAsciiLib" ] && [ "$TRAVIS_PU
   rm -Rf javadoc
   cp -R $DIR/dist/javadoc .
 
-  # Run javadoc and generate package private classes and methods
-  cd $DIR
-#  rm -Rf dist/javadoc
-  ant clean
-  ant javadoc_develop
-  mv dist/javadoc dist/javadoc_develop
-  cd $HOME/temp/JavaDiptraceAsciiLib.Documentation/docs
-  rm -Rf javadoc_develop
-  cp -R $DIR/dist/javadoc_develop .
-
   # Remove the checkstyle folder and copy the checkstyle report to the checkstyle folder
   rm -Rf checkstyle
   mkdir checkstyle
@@ -86,6 +76,16 @@ if [ "$TRAVIS_REPO_SLUG" == "danielb987/JavaDiptraceAsciiLib" ] && [ "$TRAVIS_PU
 
   # Copy the checkstyle report
   cp $DIR/build/findbugs/findbugs.html .
+
+  # Run javadoc and generate package private classes and methods
+  cd $DIR
+#  rm -Rf dist/javadoc
+  ant clean
+  ant javadoc_develop
+  mv dist/javadoc dist/javadoc_develop
+  cd $HOME/temp/JavaDiptraceAsciiLib.Documentation/docs
+  rm -Rf javadoc_develop
+  cp -R $DIR/dist/javadoc_develop .
 
   # Upload the distribution and javadoc to the master branch at GitHub
   git add -f .
