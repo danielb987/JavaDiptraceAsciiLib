@@ -373,20 +373,21 @@ class DiptraceShapeItem extends DiptraceGenericItem {
      */
     enum PlacementLayer {
         //CHECKSTYLE.OFF: JavadocVariable - Self explaining enums
-        NO_LAYER(-1, -1),
-        TOP_SILK(0, 1),
-        TOP_ASSY(1, 0),
-        TOP_MASK(2, 6),
-        TOP_PASTE(3, 7),
-        BOTTOM_PASTE(4, 8),
-        BOTTOM_MASK(5, 9),
-        BOTTOM_ASSY(6, 5),
-        BOTTOM_SILK(7, 4),
-        SIGNAL_PLANE(8, 3),
-        ROUTE_KEEPOUT(9, 2),
-        PLACE_KEEPOUT(10, 11),
+        NO_LAYER(-1, -1, Side.UNKNOWN),
+        TOP_SILK(0, 1, Side.TOP),
+        TOP_ASSY(1, 0, Side.TOP),
+        TOP_MASK(2, 6, Side.TOP),
+        TOP_PASTE(3, 7, Side.TOP),
+        BOTTOM_PASTE(4, 8, Side.BOTTOM),
+        BOTTOM_MASK(5, 9, Side.BOTTOM),
+        BOTTOM_ASSY(6, 5, Side.BOTTOM),
+        BOTTOM_SILK(7, 4, Side.BOTTOM),
+        SIGNAL_PLANE(8, 3, Side.UNKNOWN),
+        ROUTE_KEEPOUT(9, 2, Side.UNKNOWN),
+        PLACE_KEEPOUT(10, 11, Side.UNKNOWN),
 //        BOTTOM_SIGNAL(11, ),
-        BOARD_CUTOUT(12, 10);
+        BOARD_CUTOUT(12, 10, Side.BOTH),
+        USER_NON_SIGNAL_LAYER(-901, 15, Side.UNKNOWN);
         //CHECKSTYLE.ON: JavadocVariable - Self explaining enums
         
         /**
@@ -440,13 +441,19 @@ class DiptraceShapeItem extends DiptraceGenericItem {
         private final int fItemNo;
         
         /**
+         * The side of the PCB there this shape will be.
+         */
+        private final Side fSide;
+        
+        /**
          * Initialize a PlacementLayer object.
          * @param attrNo the attribute number
          * @param itemNo the item number
          */
-        PlacementLayer(final int attrNo, final int itemNo) {
+        PlacementLayer(final int attrNo, final int itemNo, Side side) {
             fAttrNo = attrNo;
             fItemNo = itemNo;
+            fSide = side;
         }
         
         /**
@@ -463,6 +470,14 @@ class DiptraceShapeItem extends DiptraceGenericItem {
          */
         int getItemNo() {
             return fItemNo;
+        }
+        
+        /**
+         * Get the side of the PCB.
+         * @return the side
+         */
+        Side getSide() {
+            return fSide;
         }
         
     }

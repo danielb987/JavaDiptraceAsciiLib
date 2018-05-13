@@ -21,16 +21,6 @@ import javadiptraceasciilib.DiptraceShapeItem.PlacementLayer;
  */
 public final class DiptraceGraphics {
     
-    /**
-     * The side of the PCB.
-     */
-    enum Side {
-        //CHECKSTYLE.OFF: JavadocVariable - Self explaining enums
-        TOP,
-        BOTTOM,
-        BOTH,
-        //CHECKSTYLE.ON: JavadocVariable - Self explaining enums
-    }
     
     /**
      * Should the other side of the PCB be visible?
@@ -164,8 +154,29 @@ public final class DiptraceGraphics {
                     layerInFocus.name()));
         }
 */
-        int layer = shapeItem.getLayerNo();
+        int layer;
         PlacementLayer placementLayer = shapeItem.getPlacementLayer();
+        switch (placementLayer.getSide()) {
+            case TOP:
+                layer = 0;
+//                layer = shapeItem.getLayerNo();
+                break;
+            case BOTTOM:
+                layer = 1;
+//                layer = shapeItem.getLayerNo();
+                break;
+            case BOTH:
+                layer = layerInFocus;
+                break;
+            case UNKNOWN:
+                layer = shapeItem.getLayerNo();
+                break;
+            default:
+                throw new RuntimeException(
+                    String.format(
+                        "Side %s is unknown",
+                        placementLayer.getSide().name()));
+        }
         
 //        Side layerSide = LAYER_SIDE_MAP.get(placementLayer);
         
@@ -198,6 +209,12 @@ public final class DiptraceGraphics {
                             "Unknow transparency %s",
                             sideTransparency.name()));
             }
+        }
+        if (color == null) {
+            throw new RuntimeException(
+                String.format(
+                    "Color is unknown for placement layer %s",
+                    placementLayer.name()));
         }
         
         graphics.setColor(color);
@@ -360,7 +377,7 @@ public final class DiptraceGraphics {
                     "AA: layerInFocus: %d, layerNo: %d%n",
                     layerInFocus, layerNo);
                 
-                if (1 == 0) {
+                if (1 == 1) {
                 drawItem(
                     graphics,
                     (DiptraceItem) fProject.getPCBRoot(),
@@ -373,6 +390,19 @@ public final class DiptraceGraphics {
         
         System.out.format(
             "BB: layerInFocus: %d, layerNo: %d%n", layerInFocus, layerInFocus);
+        
+        // Draw the zero layer, which is the layer of things that means
+        // "any layer".
+/*
+        if (1 == 1) {
+        drawItem(
+            graphics,
+            (DiptraceItem) fProject.getPCBRoot(),
+            layerInFocus,
+            0,
+            sideTransparency);
+        }
+*/
         
         if (1 == 1) {
         drawItem(
