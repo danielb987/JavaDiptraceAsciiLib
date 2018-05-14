@@ -58,11 +58,11 @@ class DiptraceShapeItem extends DiptraceGenericItem {
                 = ((DiptraceDoubleAttribute) item.getAttributes().get(0))
                     .getInt();
 //            typeNo = 6;
-            System.out.format("Type: %d%n", typeNo);
-            System.out.format(
-                "Type: %d, name: %s%n",
-                typeNo,
-                DrawingType.getTypeByItemNo(typeNo).name());
+//            System.out.format("Type: %d%n", typeNo);
+//            System.out.format(
+//                "Type: %d, name: %s%n",
+//                typeNo,
+//                DrawingType.getTypeByItemNo(typeNo).name());
             return DrawingType.getTypeByItemNo(typeNo);
         } else {
             typeNo

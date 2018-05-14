@@ -211,7 +211,7 @@ public final class DiptraceGraphics {
         }
         
         if (layerToDraw != layerNo) {
-            System.out.format("layerNo: %d%n", layerNo);
+//            System.out.format("layerNo: %d%n", layerNo);
             // We want to draw all items on the sides that are not in focus
             // before we draw all the items on the side that is in focus.
             return;
@@ -299,10 +299,10 @@ public final class DiptraceGraphics {
             case TEXT:
                 String name = shapeItem.getName();
                 points = shapeItem.getPoints();
-                System.out.format(
-                    "Font: %s, size: %d. Text: %s%n",
-                    shapeItem.getFontName(),
-                    shapeItem.getFontSize(), name);
+//                System.out.format(
+//                    "Font: %s, size: %d. Text: %s%n",
+//                    shapeItem.getFontName(),
+//                    shapeItem.getFontSize(), name);
                 Font font = new Font(
                     shapeItem.getFontName(),
                     Font.PLAIN,

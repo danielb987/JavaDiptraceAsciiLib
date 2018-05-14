@@ -22,8 +22,8 @@ public final class DiptracePCBNonSignalLayer {
         for (DiptraceAttribute attr
             : ((DiptraceGenericItem) layerItem).getAttributes()) {
             
-            System.out.format(
-                "Name: %s, Number: %d%n", getLayerName(), getLayerNo());
+//            System.out.format(
+//                "Name: %s, Number: %d%n", getLayerName(), getLayerNo());
         }
     }
     
