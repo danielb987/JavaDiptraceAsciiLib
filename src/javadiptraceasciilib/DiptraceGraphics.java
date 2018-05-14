@@ -103,16 +103,6 @@ public final class DiptraceGraphics {
     }
     
     /*
-     * Draw a shape.
-     * @param graphics the graphics to drawPCB on
-     * @param item the item to paint
-     * @param layerInFocus the side that is in front of the viewer
-     * @param layerToDraw the layer to paint now
-     * @param sideTransparency the transparency for the other side
-     *./
-    // C__HECKSTYLE.OFF: MethodLength - Yes, this method is way to long.
-    // It should be fixed.
-    void drawShape(
         final Graphics2D graphics,
         final DiptraceItem item,
         final int layerInFocus,

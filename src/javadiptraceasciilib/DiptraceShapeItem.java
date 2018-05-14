@@ -245,7 +245,8 @@ class DiptraceShapeItem extends DiptraceGenericItem {
             DiptraceGenericItem item
                 = ((DiptraceGenericItem) getSubItem("FontSize"));
             fontSize
-                = ((DiptraceDoubleAttribute) item.getAttributes().get(0)).getInt();
+                = ((DiptraceDoubleAttribute) item.getAttributes().get(0))
+                    .getInt();
         } else {
             final int fontSizeAttrNo = 12;
             fontSize = ((DiptraceDoubleAttribute) getAttributes()
