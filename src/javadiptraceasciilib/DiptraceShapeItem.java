@@ -449,8 +449,13 @@ class DiptraceShapeItem extends DiptraceGenericItem {
          * Initialize a PlacementLayer object.
          * @param attrNo the attribute number
          * @param itemNo the item number
+         * @param side the side that this layer is on
          */
-        PlacementLayer(final int attrNo, final int itemNo, DiptracePCBSide side) {
+        PlacementLayer(
+            final int attrNo,
+            final int itemNo,
+            final DiptracePCBSide side) {
+            
             fAttrNo = attrNo;
             fItemNo = itemNo;
             fSide = side;

@@ -55,15 +55,20 @@ public final class DiptracePCBLayer {
      * Get the color of this layer.
      * @return the color
      */
+/*
     public Color getLayerColor() {
 //        DiptraceItem numberItem = fLayerItem.getSubItem("Number");
         
         DiptraceAttribute attr
             = ((DiptraceGenericItem) fLayerItem).getAttributes().get(0);
         
-        System.out.format("Colors: Num attributes: %d, %s%n", ((DiptraceGenericItem) fLayerItem).getAttributes().size(), ((DiptraceGenericItem) fLayerItem).getAttributes().get(0).getString());
+        System.out.format("Colors: Num attributes: %d, %s%n",
+            ((DiptraceGenericItem) fLayerItem).getAttributes().size(),
+            ((DiptraceGenericItem) fLayerItem)
+                .getAttributes().get(0).getString());
 //        return ((DiptraceDoubleAttribute) attr).getInt();
         return Color.BLACK;
     }
+*/
     
 }

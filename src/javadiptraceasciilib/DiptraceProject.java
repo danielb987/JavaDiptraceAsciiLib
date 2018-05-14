@@ -135,7 +135,7 @@ public final class DiptraceProject {
      * @return the layer
      * @throws DiptraceNotFoundException if not found
      */
-    public DiptracePCBLayer getPCBLayer(int layerNo)
+    public DiptracePCBLayer getPCBLayer(final int layerNo)
         throws DiptraceNotFoundException {
         
         for (DiptracePCBLayer pcbLayer : fPCBLayers) {
@@ -164,7 +164,7 @@ public final class DiptraceProject {
      * @return the layer
      * @throws DiptraceNotFoundException if not found
      */
-    public DiptracePCBNonSignalLayer getPCBNonSignalLayer(int layerNo)
+    public DiptracePCBNonSignalLayer getPCBNonSignalLayer(final int layerNo)
         throws DiptraceNotFoundException {
         
         for (DiptracePCBNonSignalLayer pcbLayer : fPCBNonSignalLayers) {

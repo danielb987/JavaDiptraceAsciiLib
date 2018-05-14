@@ -50,7 +50,8 @@ final class DiptraceOperations {
         }
         
         if (diptraceItems.isEmpty()) {
-            throw new DiptraceNotFoundException(String.format("No item is not found"));
+            throw new DiptraceNotFoundException(
+                String.format("No item is not found"));
         }
         
         return diptraceItems;

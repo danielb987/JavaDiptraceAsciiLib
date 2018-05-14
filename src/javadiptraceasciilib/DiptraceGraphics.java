@@ -147,14 +147,7 @@ public final class DiptraceGraphics {
         DiptraceShapeItem shapeItem = (DiptraceShapeItem) item;
         
         System.out.println("Shape: " + shapeItem.getString());
-/*
-        if ((layerInFocus != DiptracePCBSide.TOP) && (layerInFocus != DiptracePCBSide.BOTTOM)) {
-            throw new IllegalArgumentException(
-                String.format(
-                    "Argument 'side' must be TOP or BOTTOM and not %s",
-                    layerInFocus.name()));
-        }
-*/
+        
         int layerNo;
         PlacementLayer placementLayer = shapeItem.getPlacementLayer();
         switch (placementLayer.getSide()) {
@@ -179,13 +172,9 @@ public final class DiptraceGraphics {
                         placementLayer.getSide().name()));
         }
         
-//        DiptracePCBSide layerSide = LAYER_SIDE_MAP.get(placementLayer);
-        
-//        if (layerToDraw != layerSide) {
         if (layerToDraw != layerNo) {
-            // We want to draw all items on one side before we draw all the
-            // items on the other side.
-            // The side that is farest away from us is drawn first.
+            // We want to draw all items on the sides that are not in focus
+            // before we draw all the items on the side that is in focus.
             return;
         }
         
@@ -195,8 +184,6 @@ public final class DiptraceGraphics {
             try {
                 fullColor
                     = fProject.getPCBNonSignalLayer(layerNo).getLayerColor();
-//                    = fProject.getPCBNonSignalLayer(0).getLayerColor();
-//                fullColor = fProject.getPCBLayer(layerNo).getLayerColor();
             } catch (DiptraceNotFoundException ex) {
                 throw new RuntimeException(
                     String.format(
@@ -215,14 +202,14 @@ public final class DiptraceGraphics {
                     placementLayer.name()));
         }
         
+        final int dimValue = 5;
         Color dimColor
             = new Color(
-                Math.round(fullColor.getRed()/5),
-                Math.round(fullColor.getGreen()/5),
-                Math.round(fullColor.getBlue()/5));
+                Math.round(fullColor.getRed() / dimValue),
+                Math.round(fullColor.getGreen() / dimValue),
+                Math.round(fullColor.getBlue() / dimValue));
         
         Color color;
-//        if (placementLayer == layerSide) {
         if (layerNo == layerInFocus) {
             color = fullColor;
         } else {
@@ -261,10 +248,6 @@ public final class DiptraceGraphics {
                 break;
             case LINE:
                 points = shapeItem.getPoints();
-                System.out.format(
-                    "Line: %1.0f, %1.0f, %1.0f, %1.0f%n",
-                    points.get(0).x, points.get(0).y,
-                    points.get(1).x, points.get(1).y);
                 graphics.draw(
                     new Line2D.Double(
                         points.get(0).x, points.get(0).y,
@@ -272,10 +255,6 @@ public final class DiptraceGraphics {
                 break;
             case RECTANGLE:
                 points = shapeItem.getPoints();
-                System.out.format(
-                    "Rectangle: %1.0f, %1.0f, %1.0f, %1.0f%n",
-                    points.get(0).x, points.get(0).y,
-                    points.get(1).x, points.get(1).y);
                 graphics.draw(new Rectangle2D.Double(
                     points.get(0).x,
                     points.get(0).y,
