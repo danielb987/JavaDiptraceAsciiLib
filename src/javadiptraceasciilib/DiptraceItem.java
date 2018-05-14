@@ -295,6 +295,16 @@ abstract class DiptraceItem implements DiptraceTreeNode {
      */
     private DiptraceItem createItemByIdentifier(final DiptraceToken token) {
         
+        if (("Component".equals(token.getValue())
+            && ("Components".equals(getIdentifier())))) {
+            
+            return new DiptraceComponentItem(this, token.getValue());
+        } else if ("Shape".equals(token.getValue())) {
+            return new DiptraceShapeItem(this, token.getValue());
+        } else {
+            return new DiptraceGenericItem(this, token.getValue());
+        }
+/*
         switch (token.getValue()) {
 /*
             case "Source":
@@ -325,7 +335,7 @@ abstract class DiptraceItem implements DiptraceTreeNode {
             case "Ypos":
             case "Ypos":
             case "Ypos":
-*/
+*./
             case "Component":
                 return new DiptraceComponentItem(this, token.getValue());
                 
@@ -335,6 +345,7 @@ abstract class DiptraceItem implements DiptraceTreeNode {
             default:
                 return new DiptraceGenericItem(this, token.getValue());
         }
+*/
     }
     
     

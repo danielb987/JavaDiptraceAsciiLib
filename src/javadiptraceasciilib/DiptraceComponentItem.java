@@ -42,6 +42,30 @@ class DiptraceComponentItem extends DiptraceGenericItem {
     }
     
     /**
+     * Get the X coordinate
+     * @return the x coordinate
+     */
+    double getX() {
+        
+        DiptraceGenericItem item = ((DiptraceGenericItem) getSubItem("X"));
+        System.out.format("This: %s, %d%n", this.getIdentifier(), this.getChildren().size());
+        System.out.format("Item: %s%n", item);
+        return ((DiptraceDoubleAttribute) item.getAttributes().get(0))
+            .getDouble();
+    }
+    
+    /**
+     * Get the X coordinate
+     * @return the x coordinate
+     */
+    double getY() {
+        
+        DiptraceGenericItem item = ((DiptraceGenericItem) getSubItem("Y"));
+        return ((DiptraceDoubleAttribute) item.getAttributes().get(0))
+            .getDouble();
+    }
+    
+    /**
      * Paint this item.
      * Note that this method may change the transform for its children, and
      * therefore the caller must restore the transform after calling this
@@ -61,7 +85,7 @@ class DiptraceComponentItem extends DiptraceGenericItem {
         final int layerToDraw,
         final SideTransparency sideTransparency) {
         
-        
+        graphics.translate(getX(), getY());
     }
     
 }
