@@ -92,8 +92,9 @@ class DiptraceShapeItem extends DiptraceGenericItem {
                 = ((DiptraceStringAttribute) item.getAttributes().get(0))
                     .getString();
         } else {
+            final int lockedAttrNo = 1;
             locked
-                = ((DiptraceStringAttribute) getAttributes().get(1))
+                = ((DiptraceStringAttribute) getAttributes().get(lockedAttrNo))
                     .getString();
         }
         return locked.equals("Y");
@@ -206,7 +207,8 @@ class DiptraceShapeItem extends DiptraceGenericItem {
             name = ((DiptraceStringAttribute) item.getAttributes().get(0))
                 .getString();
         } else {
-            name = ((DiptraceStringAttribute) getAttributes().get(9))
+            final int nameAttrNo = 9;
+            name = ((DiptraceStringAttribute) getAttributes().get(nameAttrNo))
                 .getString();
         }
         return name;
@@ -225,8 +227,10 @@ class DiptraceShapeItem extends DiptraceGenericItem {
                 = ((DiptraceStringAttribute) item.getAttributes().get(0))
                     .getString();
         } else {
-            fontName = ((DiptraceStringAttribute) getAttributes().get(10))
-                .getString();
+            final int fontNameAttrNo = 10;
+            fontName = ((DiptraceStringAttribute) getAttributes()
+                .get(fontNameAttrNo))
+                    .getString();
         }
         return fontName;
     }
@@ -243,8 +247,10 @@ class DiptraceShapeItem extends DiptraceGenericItem {
             fontSize
                 = ((DiptraceDoubleAttribute) item.getAttributes().get(0)).getInt();
         } else {
-            fontSize = ((DiptraceDoubleAttribute) getAttributes().get(12))
-                .getInt();
+            final int fontSizeAttrNo = 12;
+            fontSize = ((DiptraceDoubleAttribute) getAttributes()
+                .get(fontSizeAttrNo))
+                    .getInt();
         }
         return fontSize;
     }
@@ -465,6 +471,8 @@ class DiptraceShapeItem extends DiptraceGenericItem {
      * @param layerToDraw the layer to paint now
      * @param sideTransparency the transparency for the other side
      */
+    //CHECKSTYLE.OFF: MethodLength - Yes, this method is way to long.
+    // It should be fixed.
     @Override
     void paint(
         final Graphics2D graphics,
@@ -672,5 +680,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
                         shapeItem.getDrawingType().name()));
         }
     }
+    //CHECKSTYLE.ON: MethodLength - Yes, this method is way to long.
+    // It should be fixed.
     
 }

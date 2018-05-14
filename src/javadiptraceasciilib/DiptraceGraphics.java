@@ -102,7 +102,7 @@ public final class DiptraceGraphics {
         this.fProject = project;
     }
     
-    /*..*
+    /*
      * Draw a shape.
      * @param graphics the graphics to drawPCB on
      * @param item the item to paint
@@ -110,7 +110,7 @@ public final class DiptraceGraphics {
      * @param layerToDraw the layer to paint now
      * @param sideTransparency the transparency for the other side
      *./
-    //CHECKSTYLE.OFF: MethodLength - Yes, this method is way to long.
+    // C__HECKSTYLE.OFF: MethodLength - Yes, this method is way to long.
     // It should be fixed.
     void drawShape(
         final Graphics2D graphics,
@@ -318,7 +318,7 @@ public final class DiptraceGraphics {
                         shapeItem.getDrawingType().name()));
         }
     }
-    //CHECKSTYLE.ON: MethodLength - Yes, this method is way to long.
+    // C__HECKSTYLE.ON: MethodLength - Yes, this method is way to long.
     // It should be fixed.
     
     /**
