@@ -1,5 +1,7 @@
 package javadiptraceasciilib;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
@@ -11,6 +13,19 @@ import java.util.Map;
  * This class is the base class for items in the DipTrace ascii file.
  */
 abstract class DiptraceItem implements DiptraceTreeNode {
+    
+    /**
+     * A map with the side of the PCB for each layer.
+     */
+//    static final Map<PlacementLayer, DiptracePCBSide> LAYER_SIDE_MAP
+//        = new HashMap<>();
+    
+    /**
+     * A map with the color of the shapes on the PCB for each layer when the
+     * layer is on the viewer's point of view of the PCB.
+     */
+    static final Map<PlacementLayer, Color> LAYER_COLOR_MAP
+        = new HashMap<>();
     
     /**
      * The parent of this item.
@@ -38,6 +53,60 @@ abstract class DiptraceItem implements DiptraceTreeNode {
      */
     private final Map<String, DiptraceItem> fSubItemsMap = new HashMap<>();
     
+    static {
+        
+/*
+        LAYER_SIDE_MAP.put(PlacementLayer.TOP_PASTE, DiptracePCBSide.TOP);
+        LAYER_SIDE_MAP.put(PlacementLayer.TOP_ASSY, DiptracePCBSide.TOP);
+        LAYER_SIDE_MAP.put(PlacementLayer.TOP_SILK, DiptracePCBSide.TOP);
+        LAYER_SIDE_MAP.put(PlacementLayer.TOP_MASK, DiptracePCBSide.TOP);
+        LAYER_SIDE_MAP.put(PlacementLayer.SIGNAL_PLANE, DiptracePCBSide.TOP);
+        LAYER_SIDE_MAP.put(PlacementLayer.ROUTE_KEEPOUT, DiptracePCBSide.TOP);
+        LAYER_SIDE_MAP.put(PlacementLayer.BOTTOM_PASTE, DiptracePCBSide.BOTTOM);
+        LAYER_SIDE_MAP.put(PlacementLayer.BOTTOM_MASK, DiptracePCBSide.BOTTOM);
+        LAYER_SIDE_MAP.put(PlacementLayer.BOTTOM_SILK, DiptracePCBSide.BOTTOM);
+        LAYER_SIDE_MAP.put(PlacementLayer.BOTTOM_ASSY, DiptracePCBSide.BOTTOM);
+        LAYER_SIDE_MAP.put(PlacementLayer.BOARD_CUTOUT, DiptracePCBSide.BOTH);
+        LAYER_SIDE_MAP.put(PlacementLayer.PLACE_KEEPOUT, DiptracePCBSide.TOP);
+*/
+        
+        //CHECKSTYLE.OFF: LineLength - Long lines are bad, but these lines are
+        // only a bunch of constants in a map.
+        //CHECKSTYLE.OFF: MagicNumber - These numbers are constants, but
+        // checkstyle doesn't look at it that way.
+        LAYER_COLOR_MAP.put(PlacementLayer.TOP_PASTE, new Color(153, 132, 47));
+        LAYER_COLOR_MAP.put(PlacementLayer.TOP_ASSY, new Color(138, 138, 138));
+        LAYER_COLOR_MAP.put(PlacementLayer.TOP_SILK, new Color(0, 180, 0));
+        LAYER_COLOR_MAP.put(PlacementLayer.TOP_MASK, new Color(46, 71, 86));
+        LAYER_COLOR_MAP.put(PlacementLayer.SIGNAL_PLANE, new Color(255, 255, 170));
+        LAYER_COLOR_MAP.put(PlacementLayer.ROUTE_KEEPOUT, new Color(80, 60, 60));
+        LAYER_COLOR_MAP.put(PlacementLayer.BOTTOM_PASTE, new Color(153, 132, 47));
+        LAYER_COLOR_MAP.put(PlacementLayer.BOTTOM_MASK, new Color(46, 71, 86));
+        LAYER_COLOR_MAP.put(PlacementLayer.BOTTOM_SILK, new Color(53, 53, 255));
+        LAYER_COLOR_MAP.put(PlacementLayer.BOTTOM_ASSY, new Color(138, 138, 138));
+        LAYER_COLOR_MAP.put(PlacementLayer.BOARD_CUTOUT, new Color(128, 0, 188));
+        LAYER_COLOR_MAP.put(PlacementLayer.PLACE_KEEPOUT, new Color(80, 80, 60));
+/*
+        LAYER_DIM_COLOR_MAP.put(PlacementLayer.TOP_PASTE, new Color(31, 26, 9));
+        LAYER_DIM_COLOR_MAP.put(PlacementLayer.TOP_ASSY, new Color(28, 28, 28));
+        LAYER_DIM_COLOR_MAP.put(PlacementLayer.TOP_SILK, new Color(0, 36, 0));
+        LAYER_DIM_COLOR_MAP.put(PlacementLayer.TOP_MASK, new Color(9, 14, 17));
+        LAYER_DIM_COLOR_MAP.put(PlacementLayer.SIGNAL_PLANE, new Color(51, 51, 34));
+        LAYER_DIM_COLOR_MAP.put(PlacementLayer.ROUTE_KEEPOUT, new Color(16, 12, 12));
+        LAYER_DIM_COLOR_MAP.put(PlacementLayer.BOTTOM_PASTE, new Color(31, 26, 9));
+        LAYER_DIM_COLOR_MAP.put(PlacementLayer.BOTTOM_MASK, new Color(9, 14, 17));
+        LAYER_DIM_COLOR_MAP.put(PlacementLayer.BOTTOM_SILK, new Color(53, 53, 255));
+        LAYER_DIM_COLOR_MAP.put(PlacementLayer.BOTTOM_ASSY, new Color(28, 28, 28));
+        LAYER_DIM_COLOR_MAP.put(PlacementLayer.BOARD_CUTOUT, new Color(128, 0, 188));
+        LAYER_DIM_COLOR_MAP.put(PlacementLayer.PLACE_KEEPOUT, new Color(16, 16, 12));
+*/
+        //CHECKSTYLE.ON: MagicNumber - These numbers are constants, but
+        // checkstyle doesn't look at it that way.
+        //CHECKSTYLE.ON: LineLength - Long lines are bad, but these lines are
+        // only a bunch of constants in a map.
+    }
+    
+    
     /**
      * Initializes a DiptraceItem object with an identifier.
      * @param parent the parent of this item
@@ -54,6 +123,14 @@ abstract class DiptraceItem implements DiptraceTreeNode {
      * @return the copy of this item
      */
     abstract DiptraceItem duplicate(DiptraceItem parent);
+    
+    /**
+     * Returns the project.
+     * @return the project
+     */
+    DiptraceProject getProject() {
+        return fParent.getProject();
+    }
     
     /**
      * Returns the parent.
@@ -284,9 +361,29 @@ abstract class DiptraceItem implements DiptraceTreeNode {
     
     /**
      * Returns a string representation of this object.
+     * This method is abstract in order to force the child classes to
+     * declare this method.
      * @return a string
      */
     @Override
     public abstract String toString();
+    
+    /**
+     * Paint this item.
+     * Note that this method may change the transform for its children, and
+     * therefore the caller must restore the transform after calling this
+     * method on this object and this objects children.
+     * @param graphics the graphics to drawPCB on
+     * @param item the item to paint
+     * @param layerInFocus the side that is in front of the viewer
+     * @param layerToDraw the layer to paint now
+     * @param sideTransparency the transparency for the other side
+     */
+    abstract void paint(
+        final Graphics2D graphics,
+        final DiptraceItem item,
+        final int layerInFocus,
+        final int layerToDraw,
+        final SideTransparency sideTransparency);
     
 }

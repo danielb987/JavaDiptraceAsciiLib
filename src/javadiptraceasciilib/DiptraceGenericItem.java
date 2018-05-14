@@ -1,5 +1,7 @@
 package javadiptraceasciilib;
 
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
@@ -227,6 +229,22 @@ class DiptraceGenericItem extends DiptraceItem {
         }
         
         return sb.toString();
+    }
+
+    /**
+     * Paint this item.
+     * Note that this method may change the transform for its children, and
+     * therefore the caller must restore the transform after calling this
+     * method on this object and this objects children.
+     * @param graphics the graphics to drawPCB on
+     * @param item the item to paint
+     * @param layerInFocus the side that is in front of the viewer
+     * @param layerToDraw the layer to paint now
+     * @param sideTransparency the transparency for the other side
+     */
+    @Override
+    void paint(Graphics2D graphics, DiptraceItem item, int layerInFocus, int layerToDraw, SideTransparency sideTransparency) {
+        // Do nothing.
     }
     
 }
