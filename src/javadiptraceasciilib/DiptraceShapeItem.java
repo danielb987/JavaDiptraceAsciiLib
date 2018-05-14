@@ -466,7 +466,13 @@ class DiptraceShapeItem extends DiptraceGenericItem {
      * @param sideTransparency the transparency for the other side
      */
     @Override
-    void paint(Graphics2D graphics, DiptraceItem item, int layerInFocus, int layerToDraw, SideTransparency sideTransparency) {
+    void paint(
+        final Graphics2D graphics,
+        final DiptraceItem item,
+        final int layerInFocus,
+        final int layerToDraw,
+        final SideTransparency sideTransparency) {
+        
         DiptraceShapeItem shapeItem = (DiptraceShapeItem) item;
         
         System.out.println("Shape: " + shapeItem.getString());
