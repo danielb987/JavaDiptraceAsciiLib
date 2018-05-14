@@ -96,7 +96,6 @@ final class DiptraceRootItem extends DiptraceItem {
     @Override
     void paint(
         final Graphics2D graphics,
-        final DiptraceItem item,
         final int layerInFocus,
         final int layerToDraw,
         final SideTransparency sideTransparency) {

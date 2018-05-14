@@ -326,6 +326,9 @@ abstract class DiptraceItem implements DiptraceTreeNode {
             case "Ypos":
             case "Ypos":
 */
+            case "Component":
+                return new DiptraceComponentItem(this, token.getValue());
+                
             case "Shape":
                 return new DiptraceShapeItem(this, token.getValue());
                 
@@ -381,7 +384,6 @@ abstract class DiptraceItem implements DiptraceTreeNode {
      */
     abstract void paint(
         Graphics2D graphics,
-        DiptraceItem item,
         int layerInFocus,
         int layerToDraw,
         SideTransparency sideTransparency);

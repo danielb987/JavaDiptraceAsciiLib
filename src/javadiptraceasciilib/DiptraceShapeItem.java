@@ -477,22 +477,21 @@ class DiptraceShapeItem extends DiptraceGenericItem {
     @Override
     void paint(
         final Graphics2D graphics,
-        final DiptraceItem item,
         final int layerInFocus,
         final int layerToDraw,
         final SideTransparency sideTransparency) {
         
-        DiptraceShapeItem shapeItem = (DiptraceShapeItem) item;
+//        DiptraceShapeItem shapeItem = (DiptraceShapeItem) item;
         
-        System.out.println("Shape: " + shapeItem.getString());
+        System.out.println("Shape: " + getString());
         
-        if (shapeItem.getDrawingType() == DrawingType.NONE) {
+        if (getDrawingType() == DrawingType.NONE) {
             // I don't know what this is.
             return;
         }
         
         int layerNo;
-        PlacementLayer placementLayer = shapeItem.getPlacementLayer();
+        PlacementLayer placementLayer = getPlacementLayer();
         DiptracePCBNonSignalLayer pcbNonSignalLayer = null;
         
         Color fullColor;
@@ -500,7 +499,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
         if (placementLayer == PlacementLayer.USER_NON_SIGNAL_LAYER) {
             try {
                 pcbNonSignalLayer
-                    = getProject().getPCBNonSignalLayer(shapeItem.getLayerNo());
+                    = getProject().getPCBNonSignalLayer(getLayerNo());
                 
                 layerNo = pcbNonSignalLayer.getLayerSide();
                 if (layerNo == 0) {
@@ -513,7 +512,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
                 throw new RuntimeException(
                     String.format(
                         "The layer %d is not found",
-                        shapeItem.getLayerNo()),
+                        getLayerNo()),
                     ex);
             }
             
@@ -522,17 +521,17 @@ class DiptraceShapeItem extends DiptraceGenericItem {
             switch (placementLayer.getSide()) {
                 case TOP:
                     layerNo = 0;
-    //                layer = shapeItem.getLayerNo();
+    //                layer = getLayerNo();
                     break;
                 case BOTTOM:
                     layerNo = 1;
-    //                layer = shapeItem.getLayerNo();
+    //                layer = getLayerNo();
                     break;
                 case BOTH:
                     layerNo = layerInFocus;
                     break;
                 case UNKNOWN:
-                    layerNo = shapeItem.getLayerNo();
+                    layerNo = getLayerNo();
                     break;
                 default:
                     throw new RuntimeException(
@@ -546,7 +545,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
             if (fullColor == null) {
 //                if (1==1)
 //                    return;
-                System.out.format("Shape: %s%n", shapeItem.getString());
+                System.out.format("Shape: %s%n", getString());
                 throw new RuntimeException(
                     String.format(
                         "Color for placement layer %s is unknown",
@@ -594,20 +593,20 @@ class DiptraceShapeItem extends DiptraceGenericItem {
         
         List<Point2D.Double> points;
         
-        switch (shapeItem.getDrawingType()) {
+        switch (getDrawingType()) {
             case NONE:
             case NONE_2:
                 // Nothing to do.
                 break;
             case LINE:
-                points = shapeItem.getPoints();
+                points = getPoints();
                 graphics.draw(
                     new Line2D.Double(
                         points.get(0).x, points.get(0).y,
                         points.get(1).x, points.get(1).y));
                 break;
             case RECTANGLE:
-                points = shapeItem.getPoints();
+                points = getPoints();
                 graphics.draw(new Rectangle2D.Double(
                     points.get(0).x,
                     points.get(0).y,
@@ -617,11 +616,11 @@ class DiptraceShapeItem extends DiptraceGenericItem {
             case ELLIPSE:
 //                graphics.paint(
 //                    new Rectangle2D.Double(
-//                        shapeItem.getPoint(0), shapeItem.getPoint(1),
-//                        shapeItem.getPoint(2), shapeItem.getPoint(3)));
+//                        getPoint(0), getPoint(1),
+//                        getPoint(2), getPoint(3)));
                 break;
             case FILLED_RECTANGLE:
-                points = shapeItem.getPoints();
+                points = getPoints();
                 graphics.fill(new Rectangle2D.Double(
                     points.get(0).x,
                     points.get(0).y,
@@ -631,28 +630,28 @@ class DiptraceShapeItem extends DiptraceGenericItem {
             case FILLED_ELLIPSE:
 //                graphics.paint(
 //                    new Rectangle2D.Double(
-//                        shapeItem.getPoint(0), shapeItem.getPoint(1),
-//                        shapeItem.getPoint(2), shapeItem.getPoint(3)));
+//                        getPoint(0), getPoint(1),
+//                        getPoint(2), getPoint(3)));
                 break;
             case ARC:
 //                graphics.paint(
 //                    new Rectangle2D.Double(
-//                        shapeItem.getPoint(0), shapeItem.getPoint(1),
-//                        shapeItem.getPoint(2), shapeItem.getPoint(3)));
+//                        getPoint(0), getPoint(1),
+//                        getPoint(2), getPoint(3)));
                 break;
             case TEXT:
 //                if (1==1)
 //                    return;
-                String name = shapeItem.getName();
-                points = shapeItem.getPoints();
+                String name = getName();
+                points = getPoints();
 //                System.out.format(
 //                    "Font: %s, size: %d. Text: %s%n",
-//                    shapeItem.getFontName(),
-//                    shapeItem.getFontSize(), name);
+//                    getFontName(),
+//                    getFontSize(), name);
                 Font font = new Font(
-                    shapeItem.getFontName(),
+                    getFontName(),
                     Font.PLAIN,
-                    shapeItem.getFontSize());
+                    getFontSize());
                 graphics.setFont(font);
                 FontMetrics fontMetrics = graphics.getFontMetrics(font);
                 Rectangle2D bounds
@@ -665,20 +664,20 @@ class DiptraceShapeItem extends DiptraceGenericItem {
             case POLYLINE:
 //                graphics.paint(
 //                    new Rectangle2D.Double(
-//                        shapeItem.getPoint(0), shapeItem.getPoint(1),
-//                        shapeItem.getPoint(2), shapeItem.getPoint(3)));
+//                        getPoint(0), getPoint(1),
+//                        getPoint(2), getPoint(3)));
                 break;
             case FILLED_PLYGONE:
 //                graphics.paint(
 //                    new Rectangle2D.Double(
-//                        shapeItem.getPoint(0), shapeItem.getPoint(1),
-//                        shapeItem.getPoint(2), shapeItem.getPoint(3)));
+//                        getPoint(0), getPoint(1),
+//                        getPoint(2), getPoint(3)));
                 break;
             default:
                 throw new RuntimeException(
                     String.format(
                         "DrawingType %s is unknown",
-                        shapeItem.getDrawingType().name()));
+                        getDrawingType().name()));
         }
     }
     //CHECKSTYLE.ON: MethodLength - Yes, this method is way to long.

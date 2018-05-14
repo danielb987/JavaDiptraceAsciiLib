@@ -342,7 +342,7 @@ public final class DiptraceGraphics {
 //        if (! item.getClass().equals(DiptraceGenericItem.class))
 //            System.out.format("Item: %s%n", item.getClass().getName());
         
-        item.paint(graphics, item, layerInFocus, layerToDraw, sideTransparency);
+        item.paint(graphics, layerInFocus, layerToDraw, sideTransparency);
 /*
         if (item.getIdentifier().equals("Shape")) {
             drawShape(
