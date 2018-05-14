@@ -59,7 +59,7 @@ public final class DiptracePCBNonSignalLayer {
      */
     public Color getLayerColor() {
         
-        final int colorAttrNo = 2;
+        final int colorAttrNo = 1;
         
         DiptraceAttribute attr
             = ((DiptraceGenericItem) fLayerItem)
@@ -67,7 +67,10 @@ public final class DiptracePCBNonSignalLayer {
         
         int colorNo = ((DiptraceDoubleAttribute) attr).getInt();
         
-        return new Color(colorNo);
+        return new Color(
+            (colorNo & 0x0000ff),           // Red
+            (colorNo & 0x00ff00) >> 8,      // Green
+            (colorNo & 0xff0000) >> 16);    // Blue
     }
     
 }

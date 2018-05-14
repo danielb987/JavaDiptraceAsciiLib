@@ -282,7 +282,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
         LINE(1, 0),
         RECTANGLE(2, 2),
         ELLIPSE(3, -905),
-        FILLED_RECTANGLE(4, -906),
+        FILLED_RECTANGLE(4, 3),
         FILLED_ELLIPSE(5, -907),
         ARC(6, -908),
         TEXT(7, 6),

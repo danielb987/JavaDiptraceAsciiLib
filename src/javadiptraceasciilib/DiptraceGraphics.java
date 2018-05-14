@@ -262,10 +262,12 @@ public final class DiptraceGraphics {
 //                        shapeItem.getPoint(2), shapeItem.getPoint(3)));
                 break;
             case FILLED_RECTANGLE:
-//                graphics.draw(
-//                    new Rectangle2D.Double(
-//                        shapeItem.getPoint(0), shapeItem.getPoint(1),
-//                        shapeItem.getPoint(2), shapeItem.getPoint(3)));
+                points = shapeItem.getPoints();
+                graphics.fill(new Rectangle2D.Double(
+                    points.get(0).x,
+                    points.get(0).y,
+                    points.get(1).x - points.get(0).x,
+                    points.get(1).y - points.get(0).y));
                 break;
             case FILLED_ELLIPSE:
 //                graphics.draw(
@@ -354,72 +356,25 @@ public final class DiptraceGraphics {
         final int layerInFocus,
         final SideTransparency sideTransparency) {
         
-        if (fProject == null) {
-            return;
-        }
-/*
-        DiptracePCBSide firstSide;
-        DiptracePCBSide secondSide;
-        
-        switch (side) {
-            case TOP:
-                firstSide = DiptracePCBSide.BOTTOM;
-                secondSide = DiptracePCBSide.TOP;
-                break;
-            case BOTTOM:
-                firstSide = DiptracePCBSide.TOP;
-                secondSide = DiptracePCBSide.BOTTOM;
-                break;
-            default:
-                throw new IllegalArgumentException(
-                    String.format(
-                        "Argument 'side' must be TOP or BOTTOM and not %s",
-                        side.name()));
-        }
-*/
         for (DiptracePCBLayer layer : fProject.getPCBLayers()) {
             
             int layerNo = layer.getLayerNo();
             if (layerInFocus != layerNo) {
-                System.out.format(
-                    "AA: layerInFocus: %d, layerNo: %d%n",
-                    layerInFocus, layerNo);
-                
-                if (1 == 1) {
                 drawItem(
                     graphics,
                     (DiptraceItem) fProject.getPCBRoot(),
                     layerInFocus,
                     layerNo,
                     sideTransparency);
-                }
             }
         }
         
-        System.out.format(
-            "BB: layerInFocus: %d, layerNo: %d%n", layerInFocus, layerInFocus);
-        
-        // Draw the zero layer, which is the layer of things that means
-        // "any layer".
-/*
-        if (1 == 1) {
-        drawItem(
-            graphics,
-            (DiptraceItem) fProject.getPCBRoot(),
-            layerInFocus,
-            0,
-            sideTransparency);
-        }
-*/
-        
-        if (1 == 1) {
         drawItem(
             graphics,
             (DiptraceItem) fProject.getPCBRoot(),
             layerInFocus,
             layerInFocus,
             sideTransparency);
-        }
     }
     
 }
