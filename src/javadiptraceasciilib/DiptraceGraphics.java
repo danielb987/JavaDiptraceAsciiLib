@@ -188,7 +188,7 @@ public final class DiptraceGraphics {
                     = fProject.getPCBNonSignalLayer(layerNo).getLayerColor();
             } catch (DiptraceNotFoundException ex) {
                 throw new RuntimeException(
-                    String.format("The layer %d is not found",layerNo),
+                    String.format("The layer %d is not found", layerNo),
                     ex);
             }
         } else {
