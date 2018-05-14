@@ -54,12 +54,27 @@ public final class DiptracePCBNonSignalLayer {
     }
     
     /**
+     * Get the side of this layer.
+     * @return the side
+     */
+    public int getLayerSide() {
+        
+        final int sideAttrNo = 3;
+        
+        DiptraceAttribute attr
+            = ((DiptraceGenericItem) fLayerItem)
+                .getAttributes().get(sideAttrNo);
+        
+        return ((DiptraceDoubleAttribute) attr).getInt();
+    }
+    
+    /**
      * Get the color of this layer.
      * @return the color
      */
     public Color getLayerColor() {
         
-        final int colorAttrNo = 2;
+        final int colorAttrNo = 1;
         
         DiptraceAttribute attr
             = ((DiptraceGenericItem) fLayerItem)
@@ -67,7 +82,12 @@ public final class DiptracePCBNonSignalLayer {
         
         int colorNo = ((DiptraceDoubleAttribute) attr).getInt();
         
-        return new Color(colorNo);
+        //CHECKSTYLE.OFF: MagicNumber - Self explaining magic numbers
+        return new Color(
+            (colorNo & 0x0000ff),           // Red
+            (colorNo & 0x00ff00) >> 8,      // Green
+            (colorNo & 0xff0000) >> 16);    // Blue
+        //CHECKSTYLE.ON: MagicNumber - Self explaining magic numbers
     }
     
 }
