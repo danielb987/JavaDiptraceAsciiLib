@@ -19,12 +19,11 @@ public final class DiptracePCBNonSignalLayer {
     DiptracePCBNonSignalLayer(final DiptraceItem layerItem) {
         this.fLayerItem = layerItem;
         
-        for (DiptraceAttribute attr
-            : ((DiptraceGenericItem) layerItem).getAttributes()) {
-            
+//        for (DiptraceAttribute attr
+//            : ((DiptraceGenericItem) layerItem).getAttributes()) {
 //            System.out.format(
 //                "Name: %s, Number: %d%n", getLayerName(), getLayerNo());
-        }
+//        }
     }
     
     /**

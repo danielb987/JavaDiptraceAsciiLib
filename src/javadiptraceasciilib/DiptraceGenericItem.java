@@ -1,7 +1,6 @@
 package javadiptraceasciilib;
 
 import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;

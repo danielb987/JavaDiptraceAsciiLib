@@ -380,10 +380,10 @@ abstract class DiptraceItem implements DiptraceTreeNode {
      * @param sideTransparency the transparency for the other side
      */
     abstract void paint(
-        final Graphics2D graphics,
-        final DiptraceItem item,
-        final int layerInFocus,
-        final int layerToDraw,
-        final SideTransparency sideTransparency);
+        Graphics2D graphics,
+        DiptraceItem item,
+        int layerInFocus,
+        int layerToDraw,
+        SideTransparency sideTransparency);
     
 }

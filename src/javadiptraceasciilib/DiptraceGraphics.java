@@ -1,18 +1,7 @@
 package javadiptraceasciilib;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javadiptraceasciilib.DiptraceShapeItem.DrawingType;
-import javadiptraceasciilib.PlacementLayer;
 
 /**
  * Draw a schematics or a pcb on a Java Graphics2D object.
@@ -113,7 +102,7 @@ public final class DiptraceGraphics {
         this.fProject = project;
     }
     
-    /**
+    /*..*
      * Draw a shape.
      * @param graphics the graphics to drawPCB on
      * @param item the item to paint

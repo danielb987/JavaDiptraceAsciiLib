@@ -19,6 +19,7 @@ final class DiptraceRootItem extends DiptraceItem {
     
     /**
      * Initializes the DiptraceRootItem object.
+     * @param project the project
      */
     DiptraceRootItem(final DiptraceProject project) {
         super(null, "root");
