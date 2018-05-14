@@ -54,6 +54,21 @@ public final class DiptracePCBNonSignalLayer {
     }
     
     /**
+     * Get the side of this layer.
+     * @return the side
+     */
+    public int getLayerSide() {
+        
+        final int sideAttrNo = 3;
+        
+        DiptraceAttribute attr
+            = ((DiptraceGenericItem) fLayerItem)
+                .getAttributes().get(sideAttrNo);
+        
+        return ((DiptraceDoubleAttribute) attr).getInt();
+    }
+    
+    /**
      * Get the color of this layer.
      * @return the color
      */

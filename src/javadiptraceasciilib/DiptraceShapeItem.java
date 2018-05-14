@@ -94,7 +94,7 @@ class DiptraceShapeItem extends DiptraceGenericItem {
     
     /**
      * Get the layer number of this shape.
-     * @return the drawing type
+     * @return the layer number
      */
     int getLayerNo() {
         

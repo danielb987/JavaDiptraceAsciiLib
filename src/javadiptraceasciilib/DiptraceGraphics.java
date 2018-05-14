@@ -152,54 +152,69 @@ public final class DiptraceGraphics {
         
         int layerNo;
         PlacementLayer placementLayer = shapeItem.getPlacementLayer();
-        switch (placementLayer.getSide()) {
-            case TOP:
-                layerNo = 0;
-//                layer = shapeItem.getLayerNo();
-                break;
-            case BOTTOM:
-                layerNo = 1;
-//                layer = shapeItem.getLayerNo();
-                break;
-            case BOTH:
-                layerNo = layerInFocus;
-                break;
-            case UNKNOWN:
-                layerNo = shapeItem.getLayerNo();
-                break;
-            default:
-                throw new RuntimeException(
-                    String.format(
-                        "Side %s is unknown",
-                        placementLayer.getSide().name()));
-        }
-        
-        if (layerToDraw != layerNo) {
-            // We want to draw all items on the sides that are not in focus
-            // before we draw all the items on the side that is in focus.
-            return;
-        }
+        DiptracePCBNonSignalLayer pcbNonSignalLayer = null;
         
         Color fullColor;
         
         if (placementLayer == PlacementLayer.USER_NON_SIGNAL_LAYER) {
             try {
-                fullColor
-                    = fProject.getPCBNonSignalLayer(layerNo).getLayerColor();
+                pcbNonSignalLayer
+                    = fProject.getPCBNonSignalLayer(shapeItem.getLayerNo());
+                
+                layerNo = pcbNonSignalLayer.getLayerSide();
+                if (layerNo == 0) {
+                    // layerNo == 0 means "no layer"
+                    layerNo = layerInFocus;
+                } else {
+                    layerNo--;
+                }
             } catch (DiptraceNotFoundException ex) {
                 throw new RuntimeException(
-                    String.format("The layer %d is not found", layerNo),
+                    String.format(
+                        "The layer %d is not found",
+                        shapeItem.getLayerNo()),
                     ex);
             }
+            
+            fullColor = pcbNonSignalLayer.getLayerColor();
         } else {
+            switch (placementLayer.getSide()) {
+                case TOP:
+                    layerNo = 0;
+    //                layer = shapeItem.getLayerNo();
+                    break;
+                case BOTTOM:
+                    layerNo = 1;
+    //                layer = shapeItem.getLayerNo();
+                    break;
+                case BOTH:
+                    layerNo = layerInFocus;
+                    break;
+                case UNKNOWN:
+                    layerNo = shapeItem.getLayerNo();
+                    break;
+                default:
+                    throw new RuntimeException(
+                        String.format(
+                            "Side %s is unknown",
+                            placementLayer.getSide().name()));
+            }
+            
             fullColor = LAYER_COLOR_MAP.get(placementLayer);
+            
+            if (fullColor == null) {
+                throw new RuntimeException(
+                    String.format(
+                        "Color for placement layer %s is unknown",
+                        placementLayer.name()));
+            }
         }
         
-        if (fullColor == null) {
-            throw new RuntimeException(
-                String.format(
-                    "Color for placement layer %s is unknown",
-                    placementLayer.name()));
+        if (layerToDraw != layerNo) {
+            System.out.format("layerNo: %d%n", layerNo);
+            // We want to draw all items on the sides that are not in focus
+            // before we draw all the items on the side that is in focus.
+            return;
         }
         
         final int dimValue = 5;
@@ -284,6 +299,7 @@ public final class DiptraceGraphics {
             case TEXT:
                 String name = shapeItem.getName();
                 points = shapeItem.getPoints();
+                System.out.format("Font: %s, size: %d. Text: %s%n", shapeItem.getFontName(), shapeItem.getFontSize(), name);
                 Font font = new Font(
                     shapeItem.getFontName(),
                     Font.PLAIN,
