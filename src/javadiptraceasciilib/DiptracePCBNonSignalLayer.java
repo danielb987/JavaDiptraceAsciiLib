@@ -82,10 +82,12 @@ public final class DiptracePCBNonSignalLayer {
         
         int colorNo = ((DiptraceDoubleAttribute) attr).getInt();
         
+        //CHECKSTYLE.OFF: MagicNumber - Self explaining magic numbers
         return new Color(
             (colorNo & 0x0000ff),           // Red
             (colorNo & 0x00ff00) >> 8,      // Green
             (colorNo & 0xff0000) >> 16);    // Blue
+        //CHECKSTYLE.ON: MagicNumber - Self explaining magic numbers
     }
     
 }

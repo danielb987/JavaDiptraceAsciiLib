@@ -299,7 +299,10 @@ public final class DiptraceGraphics {
             case TEXT:
                 String name = shapeItem.getName();
                 points = shapeItem.getPoints();
-                System.out.format("Font: %s, size: %d. Text: %s%n", shapeItem.getFontName(), shapeItem.getFontSize(), name);
+                System.out.format(
+                    "Font: %s, size: %d. Text: %s%n",
+                    shapeItem.getFontName(),
+                    shapeItem.getFontSize(), name);
                 Font font = new Font(
                     shapeItem.getFontName(),
                     Font.PLAIN,
