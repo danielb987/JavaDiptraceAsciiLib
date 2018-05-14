@@ -137,6 +137,8 @@ public final class DiptraceGraphics {
      * @param layerToDraw the layer to draw now
      * @param sideTransparency the transparency for the other side
      */
+    //CHECKSTYLE.OFF: MethodLength - Yes, this method is way to long.
+    // It should be fixed.
     void drawShape(
         final Graphics2D graphics,
         final DiptraceItem item,
@@ -320,6 +322,8 @@ public final class DiptraceGraphics {
                         shapeItem.getDrawingType().name()));
         }
     }
+    //CHECKSTYLE.ON: MethodLength - Yes, this method is way to long.
+    // It should be fixed.
     
     /**
      * Draw an item.

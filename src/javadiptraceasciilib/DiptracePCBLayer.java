@@ -1,7 +1,5 @@
 package javadiptraceasciilib;
 
-import java.awt.Color;
-
 /**
  * A layer on the PCB.
  */
