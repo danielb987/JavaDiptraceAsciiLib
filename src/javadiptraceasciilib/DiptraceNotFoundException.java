@@ -3,12 +3,12 @@ package javadiptraceasciilib;
 /**
  * Item not found exception.
  */
-public class NotFoundException extends Exception {
+public class DiptraceNotFoundException extends Exception {
 
     /**
      * Creates a new instance of <code>NotFound</code> without detail message.
      */
-    public NotFoundException() {
+    public DiptraceNotFoundException() {
     }
 
     /**
@@ -17,7 +17,7 @@ public class NotFoundException extends Exception {
      *
      * @param msg the detail message.
      */
-    public NotFoundException(final String msg) {
+    public DiptraceNotFoundException(final String msg) {
         super(msg);
     }
     

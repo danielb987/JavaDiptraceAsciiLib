@@ -7,7 +7,7 @@ import javadiptraceasciilib.DiptraceNet;
 import javadiptraceasciilib.DiptraceNetNameAlreadyExistsException;
 import javadiptraceasciilib.DiptraceProject;
 import javadiptraceasciilib.DiptraceRefDesAlreadyExistsException;
-import javadiptraceasciilib.NotFoundException;
+import javadiptraceasciilib.DiptraceNotFoundException;
 
 /**
  * Create a flash light PCB.
@@ -173,8 +173,10 @@ public final class FlashLight {
             
         // Since thise is an example, we don't do any fancy error handling.
         } catch (DiptraceRefDesAlreadyExistsException
-            | DiptraceNetNameAlreadyExistsException | NotFoundException
+            | DiptraceNetNameAlreadyExistsException
+            | DiptraceNotFoundException
             | IOException ex) {
+            
             ex.printStackTrace();
         }
     }

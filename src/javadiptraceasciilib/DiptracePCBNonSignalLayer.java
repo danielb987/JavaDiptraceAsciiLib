@@ -1,9 +1,11 @@
 package javadiptraceasciilib;
 
+import java.awt.Color;
+
 /**
- * A layer on the PCB.
+ * A non signal layer on the PCB.
  */
-public final class DiptraceLayer {
+public final class DiptracePCBNonSignalLayer {
     
     /**
      * The item that has this layer.
@@ -14,7 +16,7 @@ public final class DiptraceLayer {
      * Initialize a DiptraceLayer object.
      * @param layerItem the layer item
      */
-    DiptraceLayer(final DiptraceItem layerItem) {
+    DiptracePCBNonSignalLayer(final DiptraceItem layerItem) {
         this.fLayerItem = layerItem;
         
         for (DiptraceAttribute attr
@@ -41,12 +43,31 @@ public final class DiptraceLayer {
      * @return the number
      */
     public int getLayerNo() {
-        DiptraceItem numberItem = fLayerItem.getSubItem("Number");
+        
+        final int layerAttrNo = 2;
         
         DiptraceAttribute attr
-            = ((DiptraceGenericItem) numberItem).getAttributes().get(0);
+            = ((DiptraceGenericItem) fLayerItem)
+                .getAttributes().get(layerAttrNo);
         
         return ((DiptraceDoubleAttribute) attr).getInt();
+    }
+    
+    /**
+     * Get the color of this layer.
+     * @return the color
+     */
+    public Color getLayerColor() {
+        
+        final int colorAttrNo = 2;
+        
+        DiptraceAttribute attr
+            = ((DiptraceGenericItem) fLayerItem)
+                .getAttributes().get(colorAttrNo);
+        
+        int colorNo = ((DiptraceDoubleAttribute) attr).getInt();
+        
+        return new Color(colorNo);
     }
     
 }

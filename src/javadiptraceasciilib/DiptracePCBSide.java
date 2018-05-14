@@ -4,7 +4,7 @@ package javadiptraceasciilib;
 /**
  * The side of the PCB.
  */
-enum Side {
+enum DiptracePCBSide {
      
      /**
       * Top side of the PCB.
