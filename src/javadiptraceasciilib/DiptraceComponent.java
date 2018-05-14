@@ -59,10 +59,10 @@ public final class DiptraceComponent {
      * Get a pin of this component.
      * @param pinNo the pin number
      * @return the pin
-     * @throws NotFoundException thrown in the pin is not found
+     * @throws DiptraceNotFoundException thrown in the pin is not found
      */
     public DiptraceComponentPin getPin(final int pinNo)
-        throws NotFoundException {
+        throws DiptraceNotFoundException {
         
         DiptraceItem schematicsItem = null;
         
@@ -78,7 +78,7 @@ public final class DiptraceComponent {
             }
         }
         if (schematicsItem == null) {
-            throw new NotFoundException(
+            throw new DiptraceNotFoundException(
                 String.format("Pin %d is not found on schematics", pinNo));
         }
         DiptraceItem pcbItem = null;

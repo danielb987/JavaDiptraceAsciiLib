@@ -34,12 +34,12 @@ final class DiptraceOperations {
      * @param parent the parent DiptraceItem
      * @param matchItem an object that tells if this item is a match
      * @return the part
-     * @throws NotFoundException if the component part is not found
+     * @throws DiptraceNotFoundException if the component part is not found
      */
     private List<DiptraceItem> getDiptraceItems(
         final DiptraceItem parent,
         final MatchDiptraceItem matchItem)
-        throws NotFoundException {
+        throws DiptraceNotFoundException {
         
         List<DiptraceItem> diptraceItems = new ArrayList<>();
         
@@ -50,7 +50,8 @@ final class DiptraceOperations {
         }
         
         if (diptraceItems.isEmpty()) {
-            throw new NotFoundException(String.format("No item is not found"));
+            throw new DiptraceNotFoundException(
+                String.format("No item is not found"));
         }
         
         return diptraceItems;
@@ -60,14 +61,13 @@ final class DiptraceOperations {
      * Get the component part in the schematics by its part name.
      * @param name the name of the part
      * @return the part
-     * @throws NotFoundException if the component part is not found
+     * @throws DiptraceNotFoundException if the component part is not found
      */
     public List<DiptraceItem> getSchematicsComponentParts(final String name)
-        throws NotFoundException {
+        throws DiptraceNotFoundException {
         
         List<DiptraceItem> list
-            = getDiptraceItems(
-                fProject.getSchematicsComponents(),
+            = getDiptraceItems(fProject.getSchematicsComponents(),
                 (DiptraceItem item) -> {
                     DiptraceGenericItem genericItem
                         = (DiptraceGenericItem) item;
@@ -76,7 +76,7 @@ final class DiptraceOperations {
                 });
         
         if (list.isEmpty()) {
-            throw new NotFoundException(
+            throw new DiptraceNotFoundException(
                 String.format("PCB Component %s is not found", name));
         }
         
@@ -87,14 +87,13 @@ final class DiptraceOperations {
      * Get the component part in the schematics by its part name.
      * @param name the name of the part
      * @return the part
-     * @throws NotFoundException if the component part is not found
+     * @throws DiptraceNotFoundException if the component part is not found
      */
     public DiptraceItem getPCBComponent(final String name)
-        throws NotFoundException {
+        throws DiptraceNotFoundException {
         
         List<DiptraceItem> list
-            = getDiptraceItems(
-                fProject.getPCBComponents(),
+            = getDiptraceItems(fProject.getPCBComponents(),
                 (DiptraceItem item) -> {
                     DiptraceGenericItem genericItem
                         = (DiptraceGenericItem) item;
@@ -103,7 +102,7 @@ final class DiptraceOperations {
                 });
         
         if (list.isEmpty()) {
-            throw new NotFoundException(
+            throw new DiptraceNotFoundException(
                 String.format("PCB Component %s is not found", name));
         }
         
@@ -120,7 +119,7 @@ final class DiptraceOperations {
         try {
             List<DiptraceItem> list = getSchematicsComponentParts(refDes);
             DiptraceItem item = getPCBComponent(refDes);
-        } catch (NotFoundException ex) {
+        } catch (DiptraceNotFoundException ex) {
             // The RefDes is not found
             return false;
         }
@@ -133,14 +132,13 @@ final class DiptraceOperations {
      * Get the net in the schematics by its name.
      * @param name the name of the net
      * @return the net
-     * @throws NotFoundException if the net is not found
+     * @throws DiptraceNotFoundException if the net is not found
      */
     public DiptraceItem getSchematicsNet(final String name)
-        throws NotFoundException {
+        throws DiptraceNotFoundException {
         
         List<DiptraceItem> list
-            = getDiptraceItems(
-                fProject.getSchematicsNets(),
+            = getDiptraceItems(fProject.getSchematicsNets(),
                 (DiptraceItem item) -> {
                     DiptraceGenericItem genericItem
                         = (DiptraceGenericItem) item;
@@ -149,7 +147,7 @@ final class DiptraceOperations {
                 });
         
         if (list.isEmpty()) {
-            throw new NotFoundException(
+            throw new DiptraceNotFoundException(
                 String.format("Schematics net %s is not found", name));
         }
         
@@ -160,14 +158,13 @@ final class DiptraceOperations {
      * Get the net in the schematics by its name.
      * @param name the name of the net
      * @return the net
-     * @throws NotFoundException if the net is not found
+     * @throws DiptraceNotFoundException if the net is not found
      */
     public DiptraceItem getPCBNet(final String name)
-        throws NotFoundException {
+        throws DiptraceNotFoundException {
         
         List<DiptraceItem> list
-            = getDiptraceItems(
-                fProject.getPCBNets(),
+            = getDiptraceItems(fProject.getPCBNets(),
                 (DiptraceItem item) -> {
                     DiptraceGenericItem genericItem
                         = (DiptraceGenericItem) item;
@@ -177,7 +174,7 @@ final class DiptraceOperations {
                 });
         
         if (list.isEmpty()) {
-            throw new NotFoundException(
+            throw new DiptraceNotFoundException(
                 String.format("PCB net %s is not found", name));
         }
         
@@ -194,7 +191,7 @@ final class DiptraceOperations {
         try {
             getSchematicsNet(name);
             getPCBNet(name);
-        } catch (NotFoundException ex) {
+        } catch (DiptraceNotFoundException ex) {
             // The name is not found
             return false;
         }

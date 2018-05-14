@@ -83,7 +83,13 @@ public final class DiptraceProject {
     /**
      * The list of layers on the PCB.
      */
-    private final List<DiptraceLayer> fDiptraceLayers = new ArrayList<>();
+    private final List<DiptracePCBLayer> fPCBLayers = new ArrayList<>();
+    
+    /**
+     * The list of non signal layers on the PCB.
+     */
+    private final List<DiptracePCBNonSignalLayer> fPCBNonSignalLayers
+        = new ArrayList<>();
     
     /**
      * Constructs a DiptraceProject.
@@ -119,8 +125,58 @@ public final class DiptraceProject {
      * Get the list of the PCB layers.
      * @return the list of the layers
      */
-    public List<DiptraceLayer> getDiptraceLayers() {
-        return fDiptraceLayers;
+    public List<DiptracePCBLayer> getPCBLayers() {
+        return fPCBLayers;
+    }
+    
+    /**
+     * Get the PCB layer by its number.
+     * @param layerNo the layer number
+     * @return the layer
+     * @throws DiptraceNotFoundException if not found
+     */
+    public DiptracePCBLayer getPCBLayer(final int layerNo)
+        throws DiptraceNotFoundException {
+        
+        for (DiptracePCBLayer pcbLayer : fPCBLayers) {
+            if (pcbLayer.getLayerNo() == layerNo) {
+                return pcbLayer;
+            }
+        }
+        
+        throw new DiptraceNotFoundException(
+            String.format(
+                "PCB layer %d is not found",
+                layerNo));
+    }
+    
+    /**
+     * Get the list of the PCB layers.
+     * @return the list of the layers
+     */
+    public List<DiptracePCBNonSignalLayer> getPCBNonSignalLayers() {
+        return fPCBNonSignalLayers;
+    }
+    
+    /**
+     * Get the PCB layer by its number.
+     * @param layerNo the layer number
+     * @return the layer
+     * @throws DiptraceNotFoundException if not found
+     */
+    public DiptracePCBNonSignalLayer getPCBNonSignalLayer(final int layerNo)
+        throws DiptraceNotFoundException {
+        
+        for (DiptracePCBNonSignalLayer pcbLayer : fPCBNonSignalLayers) {
+            if (pcbLayer.getLayerNo() == layerNo) {
+                return pcbLayer;
+            }
+        }
+        
+        throw new DiptraceNotFoundException(
+            String.format(
+                "PCB non signal layer %d is not found",
+                layerNo));
     }
     
     /**
@@ -216,7 +272,7 @@ public final class DiptraceProject {
     /**
      * Get the components of the schematics.
      * @return the DiptraceItem that has all the components as DiptraceItem
-     * children
+ children
      */
     DiptraceItem getSchematicsComponents() {
         return fSchematicsRoot.getSubItem("Schematic").getSubItem("Components");
@@ -225,7 +281,7 @@ public final class DiptraceProject {
     /**
      * Get the components of the pcb.
      * @return the DiptraceItem that has all the components as DiptraceItem
-     * children
+ children
      */
     DiptraceItem getPCBComponents() {
         return fPCBRoot.getSubItem("Board").getSubItem("Components");
@@ -234,7 +290,7 @@ public final class DiptraceProject {
     /**
      * Get the nets of the schematics.
      * @return the DiptraceItem that has all the nets as DiptraceItem
-     * children
+ children
      */
     DiptraceItem getSchematicsNets() {
         return fSchematicsRoot.getSubItem("Schematic").getSubItem("Nets");
@@ -243,7 +299,7 @@ public final class DiptraceProject {
     /**
      * Get the nets of the pcb.
      * @return the DiptraceItem that has all the nets as DiptraceItem
-     * children
+ children
      */
     DiptraceItem getPCBNets() {
         return fPCBRoot.getSubItem("Board").getSubItem("Nets");
@@ -318,12 +374,21 @@ public final class DiptraceProject {
             fPCBNetNumberMap.put(number, net);
         }
         
-        fDiptraceLayers.clear();
+        fPCBLayers.clear();
         DiptraceItem layersItem
             = fPCBRoot.getSubItem("Board").getSubItem("Layers");
         
         for (DiptraceItem layerItem : layersItem.getChildren()) {
-            fDiptraceLayers.add(new DiptraceLayer(layerItem));
+            fPCBLayers.add(new DiptracePCBLayer(layerItem));
+        }
+        
+        fPCBNonSignalLayers.clear();
+        layersItem
+            = fPCBRoot.getSubItem("Board").getSubItem("NonSignals");
+//            = fPCBRoot.getSubItem("Board").getSubItem("Layers");
+        
+        for (DiptraceItem layerItem : layersItem.getChildren()) {
+            fPCBNonSignalLayers.add(new DiptracePCBNonSignalLayer(layerItem));
         }
     }
     
@@ -414,10 +479,10 @@ public final class DiptraceProject {
      * Get a component by RefDes.
      * @param refDes the RefDes of the component
      * @return the component
-     * @throws NotFoundException if component not found
+     * @throws DiptraceNotFoundException if component not found
      */
     public DiptraceComponent getComponentByRefDes(final String refDes)
-        throws NotFoundException {
+        throws DiptraceNotFoundException {
         
         List<DiptraceItem> schematicsComponentParts
             = fDiptraceOperations.getSchematicsComponentParts(refDes);
@@ -435,10 +500,10 @@ public final class DiptraceProject {
      * Get a net by name.
      * @param name the name of the net
      * @return the net
-     * @throws NotFoundException if the net is not found
+     * @throws DiptraceNotFoundException if the net is not found
      */
     public DiptraceNet getNetByName(final String name)
-        throws NotFoundException {
+        throws DiptraceNotFoundException {
         
         DiptraceItem schematicsNet
             = fDiptraceOperations.getSchematicsNet(name);

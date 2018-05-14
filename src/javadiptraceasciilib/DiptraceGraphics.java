@@ -21,16 +21,6 @@ import javadiptraceasciilib.DiptraceShapeItem.PlacementLayer;
  */
 public final class DiptraceGraphics {
     
-    /**
-     * The side of the PCB.
-     */
-    enum Side {
-        //CHECKSTYLE.OFF: JavadocVariable - Self explaining enums
-        TOP,
-        BOTTOM,
-        BOTH,
-        //CHECKSTYLE.ON: JavadocVariable - Self explaining enums
-    }
     
     /**
      * Should the other side of the PCB be visible?
@@ -56,14 +46,14 @@ public final class DiptraceGraphics {
     /**
      * A map with the side of the PCB for each layer.
      */
-    private static final Map<PlacementLayer, Side> LAYER_SIDE_MAP
+    private static final Map<PlacementLayer, DiptracePCBSide> LAYER_SIDE_MAP
         = new HashMap<>();
     
     /**
      * A map with the color of the shapes on the PCB for each layer when the
      * layer is on the viewer's point of view of the PCB.
      */
-    private static final Map<PlacementLayer, Color> LAYER_FULL_COLOR_MAP
+    private static final Map<PlacementLayer, Color> LAYER_COLOR_MAP
         = new HashMap<>();
     
     /**
@@ -71,41 +61,41 @@ public final class DiptraceGraphics {
      * layer is on the opposite side of the PCB from the viewer's point of
      * view.
      */
-    private static final Map<PlacementLayer, Color> LAYER_DIM_COLOR_MAP
-        = new HashMap<>();
+//    private static final Map<PlacementLayer, Color> LAYER_DIM_COLOR_MAP
+//        = new HashMap<>();
     
     static {
         
-        LAYER_SIDE_MAP.put(PlacementLayer.TOP_PASTE, Side.TOP);
-        LAYER_SIDE_MAP.put(PlacementLayer.TOP_ASSY, Side.TOP);
-        LAYER_SIDE_MAP.put(PlacementLayer.TOP_SILK, Side.TOP);
-        LAYER_SIDE_MAP.put(PlacementLayer.TOP_MASK, Side.TOP);
-        LAYER_SIDE_MAP.put(PlacementLayer.SIGNAL_PLANE, Side.TOP);
-        LAYER_SIDE_MAP.put(PlacementLayer.ROUTE_KEEPOUT, Side.TOP);
-        LAYER_SIDE_MAP.put(PlacementLayer.BOTTOM_PASTE, Side.BOTTOM);
-        LAYER_SIDE_MAP.put(PlacementLayer.BOTTOM_MASK, Side.BOTTOM);
-        LAYER_SIDE_MAP.put(PlacementLayer.BOTTOM_SILK, Side.BOTTOM);
-        LAYER_SIDE_MAP.put(PlacementLayer.BOTTOM_ASSY, Side.BOTTOM);
-        LAYER_SIDE_MAP.put(PlacementLayer.BOARD_CUTOUT, Side.BOTH);
-        LAYER_SIDE_MAP.put(PlacementLayer.PLACE_KEEPOUT, Side.TOP);
+        LAYER_SIDE_MAP.put(PlacementLayer.TOP_PASTE, DiptracePCBSide.TOP);
+        LAYER_SIDE_MAP.put(PlacementLayer.TOP_ASSY, DiptracePCBSide.TOP);
+        LAYER_SIDE_MAP.put(PlacementLayer.TOP_SILK, DiptracePCBSide.TOP);
+        LAYER_SIDE_MAP.put(PlacementLayer.TOP_MASK, DiptracePCBSide.TOP);
+        LAYER_SIDE_MAP.put(PlacementLayer.SIGNAL_PLANE, DiptracePCBSide.TOP);
+        LAYER_SIDE_MAP.put(PlacementLayer.ROUTE_KEEPOUT, DiptracePCBSide.TOP);
+        LAYER_SIDE_MAP.put(PlacementLayer.BOTTOM_PASTE, DiptracePCBSide.BOTTOM);
+        LAYER_SIDE_MAP.put(PlacementLayer.BOTTOM_MASK, DiptracePCBSide.BOTTOM);
+        LAYER_SIDE_MAP.put(PlacementLayer.BOTTOM_SILK, DiptracePCBSide.BOTTOM);
+        LAYER_SIDE_MAP.put(PlacementLayer.BOTTOM_ASSY, DiptracePCBSide.BOTTOM);
+        LAYER_SIDE_MAP.put(PlacementLayer.BOARD_CUTOUT, DiptracePCBSide.BOTH);
+        LAYER_SIDE_MAP.put(PlacementLayer.PLACE_KEEPOUT, DiptracePCBSide.TOP);
         
         //CHECKSTYLE.OFF: LineLength - Long lines are bad, but these lines are
         // only a bunch of constants in a map.
         //CHECKSTYLE.OFF: MagicNumber - These numbers are constants, but
         // checkstyle doesn't look at it that way.
-        LAYER_FULL_COLOR_MAP.put(PlacementLayer.TOP_PASTE, new Color(153, 132, 47));
-        LAYER_FULL_COLOR_MAP.put(PlacementLayer.TOP_ASSY, new Color(138, 138, 138));
-        LAYER_FULL_COLOR_MAP.put(PlacementLayer.TOP_SILK, new Color(0, 180, 0));
-        LAYER_FULL_COLOR_MAP.put(PlacementLayer.TOP_MASK, new Color(46, 71, 86));
-        LAYER_FULL_COLOR_MAP.put(PlacementLayer.SIGNAL_PLANE, new Color(255, 255, 170));
-        LAYER_FULL_COLOR_MAP.put(PlacementLayer.ROUTE_KEEPOUT, new Color(80, 60, 60));
-        LAYER_FULL_COLOR_MAP.put(PlacementLayer.BOTTOM_PASTE, new Color(153, 132, 47));
-        LAYER_FULL_COLOR_MAP.put(PlacementLayer.BOTTOM_MASK, new Color(46, 71, 86));
-        LAYER_FULL_COLOR_MAP.put(PlacementLayer.BOTTOM_SILK, new Color(53, 53, 255));
-        LAYER_FULL_COLOR_MAP.put(PlacementLayer.BOTTOM_ASSY, new Color(138, 138, 138));
-        LAYER_FULL_COLOR_MAP.put(PlacementLayer.BOARD_CUTOUT, new Color(128, 0, 188));
-        LAYER_FULL_COLOR_MAP.put(PlacementLayer.PLACE_KEEPOUT, new Color(80, 80, 60));
-        
+        LAYER_COLOR_MAP.put(PlacementLayer.TOP_PASTE, new Color(153, 132, 47));
+        LAYER_COLOR_MAP.put(PlacementLayer.TOP_ASSY, new Color(138, 138, 138));
+        LAYER_COLOR_MAP.put(PlacementLayer.TOP_SILK, new Color(0, 180, 0));
+        LAYER_COLOR_MAP.put(PlacementLayer.TOP_MASK, new Color(46, 71, 86));
+        LAYER_COLOR_MAP.put(PlacementLayer.SIGNAL_PLANE, new Color(255, 255, 170));
+        LAYER_COLOR_MAP.put(PlacementLayer.ROUTE_KEEPOUT, new Color(80, 60, 60));
+        LAYER_COLOR_MAP.put(PlacementLayer.BOTTOM_PASTE, new Color(153, 132, 47));
+        LAYER_COLOR_MAP.put(PlacementLayer.BOTTOM_MASK, new Color(46, 71, 86));
+        LAYER_COLOR_MAP.put(PlacementLayer.BOTTOM_SILK, new Color(53, 53, 255));
+        LAYER_COLOR_MAP.put(PlacementLayer.BOTTOM_ASSY, new Color(138, 138, 138));
+        LAYER_COLOR_MAP.put(PlacementLayer.BOARD_CUTOUT, new Color(128, 0, 188));
+        LAYER_COLOR_MAP.put(PlacementLayer.PLACE_KEEPOUT, new Color(80, 80, 60));
+/*
         LAYER_DIM_COLOR_MAP.put(PlacementLayer.TOP_PASTE, new Color(31, 26, 9));
         LAYER_DIM_COLOR_MAP.put(PlacementLayer.TOP_ASSY, new Color(28, 28, 28));
         LAYER_DIM_COLOR_MAP.put(PlacementLayer.TOP_SILK, new Color(0, 36, 0));
@@ -118,6 +108,7 @@ public final class DiptraceGraphics {
         LAYER_DIM_COLOR_MAP.put(PlacementLayer.BOTTOM_ASSY, new Color(28, 28, 28));
         LAYER_DIM_COLOR_MAP.put(PlacementLayer.BOARD_CUTOUT, new Color(128, 0, 188));
         LAYER_DIM_COLOR_MAP.put(PlacementLayer.PLACE_KEEPOUT, new Color(16, 16, 12));
+*/
         //CHECKSTYLE.ON: MagicNumber - These numbers are constants, but
         // checkstyle doesn't look at it that way.
         //CHECKSTYLE.ON: LineLength - Long lines are bad, but these lines are
@@ -146,6 +137,8 @@ public final class DiptraceGraphics {
      * @param layerToDraw the layer to draw now
      * @param sideTransparency the transparency for the other side
      */
+    //CHECKSTYLE.OFF: MethodLength - Yes, this method is way to long.
+    // It should be fixed.
     void drawShape(
         final Graphics2D graphics,
         final DiptraceItem item,
@@ -156,41 +149,79 @@ public final class DiptraceGraphics {
         DiptraceShapeItem shapeItem = (DiptraceShapeItem) item;
         
         System.out.println("Shape: " + shapeItem.getString());
-/*
-        if ((layerInFocus != Side.TOP) && (layerInFocus != Side.BOTTOM)) {
-            throw new IllegalArgumentException(
-                String.format(
-                    "Argument 'side' must be TOP or BOTTOM and not %s",
-                    layerInFocus.name()));
-        }
-*/
-        int layer = shapeItem.getLayerNo();
+        
+        int layerNo;
         PlacementLayer placementLayer = shapeItem.getPlacementLayer();
+        switch (placementLayer.getSide()) {
+            case TOP:
+                layerNo = 0;
+//                layer = shapeItem.getLayerNo();
+                break;
+            case BOTTOM:
+                layerNo = 1;
+//                layer = shapeItem.getLayerNo();
+                break;
+            case BOTH:
+                layerNo = layerInFocus;
+                break;
+            case UNKNOWN:
+                layerNo = shapeItem.getLayerNo();
+                break;
+            default:
+                throw new RuntimeException(
+                    String.format(
+                        "Side %s is unknown",
+                        placementLayer.getSide().name()));
+        }
         
-//        Side layerSide = LAYER_SIDE_MAP.get(placementLayer);
-        
-//        if (layerToDraw != layerSide) {
-        if (layerToDraw != layer) {
-            // We want to draw all items on one side before we draw all the
-            // items on the other side.
-            // The side that is farest away from us is drawn first.
+        if (layerToDraw != layerNo) {
+            // We want to draw all items on the sides that are not in focus
+            // before we draw all the items on the side that is in focus.
             return;
         }
         
+        Color fullColor;
+        
+        if (placementLayer == PlacementLayer.USER_NON_SIGNAL_LAYER) {
+            try {
+                fullColor
+                    = fProject.getPCBNonSignalLayer(layerNo).getLayerColor();
+            } catch (DiptraceNotFoundException ex) {
+                throw new RuntimeException(
+                    String.format("The layer %d is not found", layerNo),
+                    ex);
+            }
+        } else {
+            fullColor = LAYER_COLOR_MAP.get(placementLayer);
+        }
+        
+        if (fullColor == null) {
+            throw new RuntimeException(
+                String.format(
+                    "Color for placement layer %s is unknown",
+                    placementLayer.name()));
+        }
+        
+        final int dimValue = 5;
+        Color dimColor
+            = new Color(
+                fullColor.getRed() / dimValue,
+                fullColor.getGreen() / dimValue,
+                fullColor.getBlue() / dimValue);
+        
         Color color;
-//        if (placementLayer == layerSide) {
-        if (layer == layerInFocus) {
-            color = LAYER_FULL_COLOR_MAP.get(placementLayer);
+        if (layerNo == layerInFocus) {
+            color = fullColor;
         } else {
             switch (sideTransparency) {
                 case NONE:
                     // Don't draw this shape at all
                     return;
                 case PART:
-                    color = LAYER_DIM_COLOR_MAP.get(placementLayer);
+                    color = dimColor;
                     break;
                 case FULL:
-                    color = LAYER_FULL_COLOR_MAP.get(placementLayer);
+                    color = fullColor;
                     break;
                 default:
                     throw new RuntimeException(
@@ -211,10 +242,6 @@ public final class DiptraceGraphics {
                 break;
             case LINE:
                 points = shapeItem.getPoints();
-                System.out.format(
-                    "Line: %1.0f, %1.0f, %1.0f, %1.0f%n",
-                    points.get(0).x, points.get(0).y,
-                    points.get(1).x, points.get(1).y);
                 graphics.draw(
                     new Line2D.Double(
                         points.get(0).x, points.get(0).y,
@@ -222,10 +249,6 @@ public final class DiptraceGraphics {
                 break;
             case RECTANGLE:
                 points = shapeItem.getPoints();
-                System.out.format(
-                    "Rectangle: %1.0f, %1.0f, %1.0f, %1.0f%n",
-                    points.get(0).x, points.get(0).y,
-                    points.get(1).x, points.get(1).y);
                 graphics.draw(new Rectangle2D.Double(
                     points.get(0).x,
                     points.get(0).y,
@@ -291,6 +314,8 @@ public final class DiptraceGraphics {
                         shapeItem.getDrawingType().name()));
         }
     }
+    //CHECKSTYLE.ON: MethodLength - Yes, this method is way to long.
+    // It should be fixed.
     
     /**
      * Draw an item.
@@ -333,17 +358,17 @@ public final class DiptraceGraphics {
             return;
         }
 /*
-        Side firstSide;
-        Side secondSide;
+        DiptracePCBSide firstSide;
+        DiptracePCBSide secondSide;
         
         switch (side) {
             case TOP:
-                firstSide = Side.BOTTOM;
-                secondSide = Side.TOP;
+                firstSide = DiptracePCBSide.BOTTOM;
+                secondSide = DiptracePCBSide.TOP;
                 break;
             case BOTTOM:
-                firstSide = Side.TOP;
-                secondSide = Side.BOTTOM;
+                firstSide = DiptracePCBSide.TOP;
+                secondSide = DiptracePCBSide.BOTTOM;
                 break;
             default:
                 throw new IllegalArgumentException(
@@ -352,7 +377,7 @@ public final class DiptraceGraphics {
                         side.name()));
         }
 */
-        for (DiptraceLayer layer : fProject.getDiptraceLayers()) {
+        for (DiptracePCBLayer layer : fProject.getPCBLayers()) {
             
             int layerNo = layer.getLayerNo();
             if (layerInFocus != layerNo) {
@@ -360,7 +385,7 @@ public final class DiptraceGraphics {
                     "AA: layerInFocus: %d, layerNo: %d%n",
                     layerInFocus, layerNo);
                 
-                if (1 == 0) {
+                if (1 == 1) {
                 drawItem(
                     graphics,
                     (DiptraceItem) fProject.getPCBRoot(),
@@ -373,6 +398,19 @@ public final class DiptraceGraphics {
         
         System.out.format(
             "BB: layerInFocus: %d, layerNo: %d%n", layerInFocus, layerInFocus);
+        
+        // Draw the zero layer, which is the layer of things that means
+        // "any layer".
+/*
+        if (1 == 1) {
+        drawItem(
+            graphics,
+            (DiptraceItem) fProject.getPCBRoot(),
+            layerInFocus,
+            0,
+            sideTransparency);
+        }
+*/
         
         if (1 == 1) {
         drawItem(

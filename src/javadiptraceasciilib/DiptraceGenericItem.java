@@ -162,6 +162,13 @@ class DiptraceGenericItem extends DiptraceItem {
                     tokenizer.previewNextToken().getPrecededWithNewline());
             }
         }
+        
+//        System.out.format("Parse DiptraceGenericItem: %s ::: (",
+//            getIdentifier());
+//        for (DiptraceAttribute attr : fAttributes) {
+//            System.out.format("%s, ", attr.getString());
+//        }
+//        System.out.format(")%n");
     }
     //CHECKSTYLE.ON: InnerAssignment - Allow assignment in while loop
     
