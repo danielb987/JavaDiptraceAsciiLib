@@ -30,12 +30,12 @@ public final class DiptraceProject {
     /**
      * Root of the diptrace schematics item tree.
      */
-    private final DiptraceRootItem fSchematicsRoot = new DiptraceRootItem();
+    private final DiptraceRootItem fSchematicsRoot = new DiptraceRootItem(this);
     
     /**
      * Root of the diptrace pcb item tree.
      */
-    private final DiptraceRootItem fPCBRoot = new DiptraceRootItem();
+    private final DiptraceRootItem fPCBRoot = new DiptraceRootItem(this);
     
     /**
      * Map of the components in the schematics where the key is the component's

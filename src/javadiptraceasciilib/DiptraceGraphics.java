@@ -1,16 +1,7 @@
 package javadiptraceasciilib;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics2D;
-import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javadiptraceasciilib.DiptraceShapeItem.PlacementLayer;
+import java.awt.geom.AffineTransform;
 
 /**
  * Draw a schematics or a pcb on a Java Graphics2D object.
@@ -22,39 +13,19 @@ import javadiptraceasciilib.DiptraceShapeItem.PlacementLayer;
 public final class DiptraceGraphics {
     
     
-    /**
-     * Should the other side of the PCB be visible?
-     */
-    public enum SideTransparency {
-        
-        /**
-         * Don't show the opposite side.
-         */
-        NONE,
-        
-        /**
-         * Show the opposite side with some transparency.
-         */
-        PART,
-        
-        /**
-         * Show the other side clear.
-         */
-        FULL,
-    }
     
     /**
      * A map with the side of the PCB for each layer.
      */
-    private static final Map<PlacementLayer, DiptracePCBSide> LAYER_SIDE_MAP
-        = new HashMap<>();
+//    private static final Map<PlacementLayer, DiptracePCBSide> LAYER_SIDE_MAP
+//        = new HashMap<>();
     
     /**
      * A map with the color of the shapes on the PCB for each layer when the
      * layer is on the viewer's point of view of the PCB.
      */
-    private static final Map<PlacementLayer, Color> LAYER_COLOR_MAP
-        = new HashMap<>();
+//    private static final Map<PlacementLayer, Color> LAYER_COLOR_MAP
+//        = new HashMap<>();
     
     /**
      * A map with the color of the shapes on the PCB for each layer when the
@@ -64,6 +35,7 @@ public final class DiptraceGraphics {
 //    private static final Map<PlacementLayer, Color> LAYER_DIM_COLOR_MAP
 //        = new HashMap<>();
     
+/*
     static {
         
         LAYER_SIDE_MAP.put(PlacementLayer.TOP_PASTE, DiptracePCBSide.TOP);
@@ -108,12 +80,13 @@ public final class DiptraceGraphics {
         LAYER_DIM_COLOR_MAP.put(PlacementLayer.BOTTOM_ASSY, new Color(28, 28, 28));
         LAYER_DIM_COLOR_MAP.put(PlacementLayer.BOARD_CUTOUT, new Color(128, 0, 188));
         LAYER_DIM_COLOR_MAP.put(PlacementLayer.PLACE_KEEPOUT, new Color(16, 16, 12));
-*/
+*./
         //CHECKSTYLE.ON: MagicNumber - These numbers are constants, but
         // checkstyle doesn't look at it that way.
         //CHECKSTYLE.ON: LineLength - Long lines are bad, but these lines are
         // only a bunch of constants in a map.
     }
+*/
     
     /**
      * The Diptrace project.
@@ -129,14 +102,14 @@ public final class DiptraceGraphics {
         this.fProject = project;
     }
     
-    /**
+    /*
      * Draw a shape.
      * @param graphics the graphics to drawPCB on
-     * @param item the item to draw
+     * @param item the item to paint
      * @param layerInFocus the side that is in front of the viewer
-     * @param layerToDraw the layer to draw now
+     * @param layerToDraw the layer to paint now
      * @param sideTransparency the transparency for the other side
-     */
+     *./
     //CHECKSTYLE.OFF: MethodLength - Yes, this method is way to long.
     // It should be fixed.
     void drawShape(
@@ -149,6 +122,11 @@ public final class DiptraceGraphics {
         DiptraceShapeItem shapeItem = (DiptraceShapeItem) item;
         
         System.out.println("Shape: " + shapeItem.getString());
+        
+        if (shapeItem.getDrawingType() == DrawingType.NONE) {
+            // I don't know what this is.
+            return;
+        }
         
         int layerNo;
         PlacementLayer placementLayer = shapeItem.getPlacementLayer();
@@ -203,6 +181,9 @@ public final class DiptraceGraphics {
             fullColor = LAYER_COLOR_MAP.get(placementLayer);
             
             if (fullColor == null) {
+//                if (1==1)
+//                    return;
+                System.out.format("Shape: %s%n", shapeItem.getString());
                 throw new RuntimeException(
                     String.format(
                         "Color for placement layer %s is unknown",
@@ -211,9 +192,9 @@ public final class DiptraceGraphics {
         }
         
         if (layerToDraw != layerNo) {
-            System.out.format("layerNo: %d%n", layerNo);
-            // We want to draw all items on the sides that are not in focus
-            // before we draw all the items on the side that is in focus.
+//            System.out.format("layerNo: %d%n", layerNo);
+            // We want to paint all items on the sides that are not in focus
+            // before we paint all the items on the side that is in focus.
             return;
         }
         
@@ -230,7 +211,7 @@ public final class DiptraceGraphics {
         } else {
             switch (sideTransparency) {
                 case NONE:
-                    // Don't draw this shape at all
+                    // Don't paint this shape at all
                     return;
                 case PART:
                     color = dimColor;
@@ -251,7 +232,7 @@ public final class DiptraceGraphics {
         List<Point2D.Double> points;
         
         switch (shapeItem.getDrawingType()) {
-            case NONE_1:
+            case NONE:
             case NONE_2:
                 // Nothing to do.
                 break;
@@ -271,7 +252,7 @@ public final class DiptraceGraphics {
                     points.get(1).y - points.get(0).y));
                 break;
             case ELLIPSE:
-//                graphics.draw(
+//                graphics.paint(
 //                    new Rectangle2D.Double(
 //                        shapeItem.getPoint(0), shapeItem.getPoint(1),
 //                        shapeItem.getPoint(2), shapeItem.getPoint(3)));
@@ -285,24 +266,26 @@ public final class DiptraceGraphics {
                     points.get(1).y - points.get(0).y));
                 break;
             case FILLED_ELLIPSE:
-//                graphics.draw(
+//                graphics.paint(
 //                    new Rectangle2D.Double(
 //                        shapeItem.getPoint(0), shapeItem.getPoint(1),
 //                        shapeItem.getPoint(2), shapeItem.getPoint(3)));
                 break;
             case ARC:
-//                graphics.draw(
+//                graphics.paint(
 //                    new Rectangle2D.Double(
 //                        shapeItem.getPoint(0), shapeItem.getPoint(1),
 //                        shapeItem.getPoint(2), shapeItem.getPoint(3)));
                 break;
             case TEXT:
+//                if (1==1)
+//                    return;
                 String name = shapeItem.getName();
                 points = shapeItem.getPoints();
-                System.out.format(
-                    "Font: %s, size: %d. Text: %s%n",
-                    shapeItem.getFontName(),
-                    shapeItem.getFontSize(), name);
+//                System.out.format(
+//                    "Font: %s, size: %d. Text: %s%n",
+//                    shapeItem.getFontName(),
+//                    shapeItem.getFontSize(), name);
                 Font font = new Font(
                     shapeItem.getFontName(),
                     Font.PLAIN,
@@ -317,13 +300,13 @@ public final class DiptraceGraphics {
                     (float) (points.get(0).y + bounds.getHeight()));
                 break;
             case POLYLINE:
-//                graphics.draw(
+//                graphics.paint(
 //                    new Rectangle2D.Double(
 //                        shapeItem.getPoint(0), shapeItem.getPoint(1),
 //                        shapeItem.getPoint(2), shapeItem.getPoint(3)));
                 break;
             case FILLED_PLYGONE:
-//                graphics.draw(
+//                graphics.paint(
 //                    new Rectangle2D.Double(
 //                        shapeItem.getPoint(0), shapeItem.getPoint(1),
 //                        shapeItem.getPoint(2), shapeItem.getPoint(3)));
@@ -337,13 +320,14 @@ public final class DiptraceGraphics {
     }
     //CHECKSTYLE.ON: MethodLength - Yes, this method is way to long.
     // It should be fixed.
+*/
     
     /**
      * Draw an item.
      * @param graphics the graphics to drawPCB on
-     * @param item the item to draw
+     * @param item the item to paint
      * @param layerInFocus the side that is in front of the viewer
-     * @param layerToDraw the layer to draw now
+     * @param layerToDraw the layer to paint now
      * @param sideTransparency the transparency for the other side
      */
     void drawItem(
@@ -353,15 +337,25 @@ public final class DiptraceGraphics {
         final int layerToDraw,
         final SideTransparency sideTransparency) {
         
+        AffineTransform oldTransform = graphics.getTransform();
+        
+//        if (! item.getClass().equals(DiptraceGenericItem.class))
+//            System.out.format("Item: %s%n", item.getClass().getName());
+        
+        item.paint(graphics, item, layerInFocus, layerToDraw, sideTransparency);
+/*
         if (item.getIdentifier().equals("Shape")) {
             drawShape(
                 graphics, item, layerInFocus, layerToDraw, sideTransparency);
         }
+*/
         
         for (DiptraceItem subItem : item.getChildren()) {
             drawItem(
                 graphics, subItem, layerInFocus, layerToDraw, sideTransparency);
         }
+        
+        graphics.setTransform(oldTransform);
     }
     
     /**

@@ -1,6 +1,12 @@
 package javadiptraceasciilib;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
+import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -58,15 +64,16 @@ class DiptraceShapeItem extends DiptraceGenericItem {
                 = ((DiptraceDoubleAttribute) item.getAttributes().get(0))
                     .getInt();
 //            typeNo = 6;
-            System.out.format("Type: %d%n", typeNo);
-            System.out.format(
-                "Type: %d, name: %s%n",
-                typeNo,
-                DrawingType.getTypeByItemNo(typeNo).name());
+//            System.out.format("AA: Type: %d%n", typeNo);
+//            System.out.format(
+//                "Type: %d, name: %s%n",
+//                typeNo,
+//                DrawingType.getTypeByItemNo(typeNo).name());
             return DrawingType.getTypeByItemNo(typeNo);
         } else {
             typeNo
                 = ((DiptraceDoubleAttribute) getAttributes().get(0)).getInt();
+//            System.out.format("BB: Type: %d%n", typeNo);
             return DrawingType.getTypeByAttrNo(typeNo);
         }
     }
@@ -85,8 +92,9 @@ class DiptraceShapeItem extends DiptraceGenericItem {
                 = ((DiptraceStringAttribute) item.getAttributes().get(0))
                     .getString();
         } else {
+            final int lockedAttrNo = 1;
             locked
-                = ((DiptraceStringAttribute) getAttributes().get(1))
+                = ((DiptraceStringAttribute) getAttributes().get(lockedAttrNo))
                     .getString();
         }
         return locked.equals("Y");
@@ -191,10 +199,18 @@ class DiptraceShapeItem extends DiptraceGenericItem {
      * @return the name
      */
     String getName() {
-        DiptraceGenericItem item = ((DiptraceGenericItem) getSubItem("Name"));
-        String name
-            = ((DiptraceStringAttribute) item.getAttributes().get(0))
+        String name;
+        if (getAttributes().isEmpty()) {
+            DiptraceGenericItem item
+                = ((DiptraceGenericItem) getSubItem("Name"));
+            
+            name = ((DiptraceStringAttribute) item.getAttributes().get(0))
                 .getString();
+        } else {
+            final int nameAttrNo = 9;
+            name = ((DiptraceStringAttribute) getAttributes().get(nameAttrNo))
+                .getString();
+        }
         return name;
     }
     
@@ -203,12 +219,20 @@ class DiptraceShapeItem extends DiptraceGenericItem {
      * @return the name of the font
      */
     String getFontName() {
-        DiptraceGenericItem item
-            = ((DiptraceGenericItem) getSubItem("FontName"));
-        String name
-            = ((DiptraceStringAttribute) item.getAttributes().get(0))
-                .getString();
-        return name;
+        String fontName;
+        if (getAttributes().isEmpty()) {
+            DiptraceGenericItem item
+                = ((DiptraceGenericItem) getSubItem("FontName"));
+            fontName
+                = ((DiptraceStringAttribute) item.getAttributes().get(0))
+                    .getString();
+        } else {
+            final int fontNameAttrNo = 10;
+            fontName = ((DiptraceStringAttribute) getAttributes()
+                .get(fontNameAttrNo))
+                    .getString();
+        }
+        return fontName;
     }
     
     /**
@@ -216,10 +240,19 @@ class DiptraceShapeItem extends DiptraceGenericItem {
      * @return the size of the font
      */
     int getFontSize() {
-        DiptraceGenericItem item
-            = ((DiptraceGenericItem) getSubItem("FontSize"));
-        int fontSize
-            = ((DiptraceDoubleAttribute) item.getAttributes().get(0)).getInt();
+        int fontSize;
+        if (getAttributes().isEmpty()) {
+            DiptraceGenericItem item
+                = ((DiptraceGenericItem) getSubItem("FontSize"));
+            fontSize
+                = ((DiptraceDoubleAttribute) item.getAttributes().get(0))
+                    .getInt();
+        } else {
+            final int fontSizeAttrNo = 12;
+            fontSize = ((DiptraceDoubleAttribute) getAttributes()
+                .get(fontSizeAttrNo))
+                    .getInt();
+        }
         return fontSize;
     }
     
@@ -271,13 +304,13 @@ class DiptraceShapeItem extends DiptraceGenericItem {
     
     
     /**
-     * Type of thing to draw.
+     * Type of thing to paint.
      */
     enum DrawingType {
         //CHECKSTYLE.OFF: JavadocVariable - Self explaining enums
         // At this point, I don't know which feature has which number,
         // so I give the features numbers like -901. / Daniel
-        NONE_1(-1, -901),
+        NONE(-1, -901),     // I don't know what this is, but it's in the file.
         NONE_2(0, -902),
         LINE(1, 0),
         RECTANGLE(2, 2),
@@ -368,124 +401,6 @@ class DiptraceShapeItem extends DiptraceGenericItem {
     
     
     
-    /**
-     * The layers.
-     */
-    enum PlacementLayer {
-        //CHECKSTYLE.OFF: JavadocVariable - Self explaining enums
-        NO_LAYER(-1, -1, DiptracePCBSide.UNKNOWN),
-        TOP_SILK(0, 1, DiptracePCBSide.TOP),
-        TOP_ASSY(1, 0, DiptracePCBSide.TOP),
-        TOP_MASK(2, 6, DiptracePCBSide.TOP),
-        TOP_PASTE(3, 7, DiptracePCBSide.TOP),
-        BOTTOM_PASTE(4, 8, DiptracePCBSide.BOTTOM),
-        BOTTOM_MASK(5, 9, DiptracePCBSide.BOTTOM),
-        BOTTOM_ASSY(6, 5, DiptracePCBSide.BOTTOM),
-        BOTTOM_SILK(7, 4, DiptracePCBSide.BOTTOM),
-        SIGNAL_PLANE(8, 3, DiptracePCBSide.UNKNOWN),
-        ROUTE_KEEPOUT(9, 2, DiptracePCBSide.UNKNOWN),
-        PLACE_KEEPOUT(10, 11, DiptracePCBSide.UNKNOWN),
-//        BOTTOM_SIGNAL(11, ),
-        BOARD_CUTOUT(12, 10, DiptracePCBSide.BOTH),
-        USER_NON_SIGNAL_LAYER(-901, 15, DiptracePCBSide.UNKNOWN);
-        //CHECKSTYLE.ON: JavadocVariable - Self explaining enums
-        
-        /**
-         * A map of the layers and their attribute number.
-         */
-        private static final Map<Integer, PlacementLayer>
-            PLACEMENT_LAYER_MAP_ATTRIBUTES = new HashMap<>();
-        
-        /**
-         * A map of the markings and their item number.
-         */
-        private static final Map<Integer, PlacementLayer>
-            PLACEMENT_LAYER_MAP_ITEMS = new HashMap<>();
-        
-        static {
-            
-            for (PlacementLayer layerNo : EnumSet.allOf(PlacementLayer.class)) {
-                PLACEMENT_LAYER_MAP_ATTRIBUTES.put(layerNo.fAttrNo, layerNo);
-                PLACEMENT_LAYER_MAP_ITEMS.put(layerNo.fItemNo, layerNo);
-            }
-        }
-        
-        /**
-         * Get the layer by the attribute number.
-         * @param layerAttrNo the layer number
-         * @return the layer
-         */
-        static PlacementLayer getTypeByAttrNo(final int layerAttrNo) {
-            
-            return PLACEMENT_LAYER_MAP_ATTRIBUTES.get(layerAttrNo);
-        }
-        
-        /**
-         * Get the layer by the item number.
-         * @param layerItemNo the layer number
-         * @return the layer
-         */
-        static PlacementLayer getTypeByItemNo(final int layerItemNo) {
-            
-            return PLACEMENT_LAYER_MAP_ITEMS.get(layerItemNo);
-        }
-        
-        /**
-         * The layer attribute number.
-         */
-        private final int fAttrNo;
-        
-        /**
-         * The layer item number.
-         */
-        private final int fItemNo;
-        
-        /**
-         * The side of the PCB there this shape will be.
-         */
-        private final DiptracePCBSide fSide;
-        
-        /**
-         * Initialize a PlacementLayer object.
-         * @param attrNo the attribute number
-         * @param itemNo the item number
-         * @param side the side that this layer is on
-         */
-        PlacementLayer(
-            final int attrNo,
-            final int itemNo,
-            final DiptracePCBSide side) {
-            
-            fAttrNo = attrNo;
-            fItemNo = itemNo;
-            fSide = side;
-        }
-        
-        /**
-         * Get the attribute number.
-         * @return the number
-         */
-        int getAttrNo() {
-            return fAttrNo;
-        }
-        
-        /**
-         * Get the item number.
-         * @return the number
-         */
-        int getItemNo() {
-            return fItemNo;
-        }
-        
-        /**
-         * Get the side of the PCB.
-         * @return the side
-         */
-        DiptracePCBSide getSide() {
-            return fSide;
-        }
-        
-    }
     
     
     
@@ -545,5 +460,228 @@ class DiptraceShapeItem extends DiptraceGenericItem {
         }
         
     }
+    
+    /**
+     * Paint this item.
+     * Note that this method may change the transform for its children, and
+     * therefore the caller must restore the transform after calling this
+     * method on this object and this objects children.
+     * @param graphics the graphics to drawPCB on
+     * @param item the item to paint
+     * @param layerInFocus the side that is in front of the viewer
+     * @param layerToDraw the layer to paint now
+     * @param sideTransparency the transparency for the other side
+     */
+    //CHECKSTYLE.OFF: MethodLength - Yes, this method is way to long.
+    // It should be fixed.
+    @Override
+    void paint(
+        final Graphics2D graphics,
+        final DiptraceItem item,
+        final int layerInFocus,
+        final int layerToDraw,
+        final SideTransparency sideTransparency) {
+        
+        DiptraceShapeItem shapeItem = (DiptraceShapeItem) item;
+        
+        System.out.println("Shape: " + shapeItem.getString());
+        
+        if (shapeItem.getDrawingType() == DrawingType.NONE) {
+            // I don't know what this is.
+            return;
+        }
+        
+        int layerNo;
+        PlacementLayer placementLayer = shapeItem.getPlacementLayer();
+        DiptracePCBNonSignalLayer pcbNonSignalLayer = null;
+        
+        Color fullColor;
+        
+        if (placementLayer == PlacementLayer.USER_NON_SIGNAL_LAYER) {
+            try {
+                pcbNonSignalLayer
+                    = getProject().getPCBNonSignalLayer(shapeItem.getLayerNo());
+                
+                layerNo = pcbNonSignalLayer.getLayerSide();
+                if (layerNo == 0) {
+                    // layerNo == 0 means "no layer"
+                    layerNo = layerInFocus;
+                } else {
+                    layerNo--;
+                }
+            } catch (DiptraceNotFoundException ex) {
+                throw new RuntimeException(
+                    String.format(
+                        "The layer %d is not found",
+                        shapeItem.getLayerNo()),
+                    ex);
+            }
+            
+            fullColor = pcbNonSignalLayer.getLayerColor();
+        } else {
+            switch (placementLayer.getSide()) {
+                case TOP:
+                    layerNo = 0;
+    //                layer = shapeItem.getLayerNo();
+                    break;
+                case BOTTOM:
+                    layerNo = 1;
+    //                layer = shapeItem.getLayerNo();
+                    break;
+                case BOTH:
+                    layerNo = layerInFocus;
+                    break;
+                case UNKNOWN:
+                    layerNo = shapeItem.getLayerNo();
+                    break;
+                default:
+                    throw new RuntimeException(
+                        String.format(
+                            "Side %s is unknown",
+                            placementLayer.getSide().name()));
+            }
+            
+            fullColor = LAYER_COLOR_MAP.get(placementLayer);
+            
+            if (fullColor == null) {
+//                if (1==1)
+//                    return;
+                System.out.format("Shape: %s%n", shapeItem.getString());
+                throw new RuntimeException(
+                    String.format(
+                        "Color for placement layer %s is unknown",
+                        placementLayer.name()));
+            }
+        }
+        
+        if (layerToDraw != layerNo) {
+//            System.out.format("layerNo: %d%n", layerNo);
+            // We want to paint all items on the sides that are not in focus
+            // before we paint all the items on the side that is in focus.
+            return;
+        }
+        
+        final int dimValue = 5;
+        Color dimColor
+            = new Color(
+                fullColor.getRed() / dimValue,
+                fullColor.getGreen() / dimValue,
+                fullColor.getBlue() / dimValue);
+        
+        Color color;
+        if (layerNo == layerInFocus) {
+            color = fullColor;
+        } else {
+            switch (sideTransparency) {
+                case NONE:
+                    // Don't paint this shape at all
+                    return;
+                case PART:
+                    color = dimColor;
+                    break;
+                case FULL:
+                    color = fullColor;
+                    break;
+                default:
+                    throw new RuntimeException(
+                        String.format(
+                            "Unknow transparency %s",
+                            sideTransparency.name()));
+            }
+        }
+        
+        graphics.setColor(color);
+        
+        List<Point2D.Double> points;
+        
+        switch (shapeItem.getDrawingType()) {
+            case NONE:
+            case NONE_2:
+                // Nothing to do.
+                break;
+            case LINE:
+                points = shapeItem.getPoints();
+                graphics.draw(
+                    new Line2D.Double(
+                        points.get(0).x, points.get(0).y,
+                        points.get(1).x, points.get(1).y));
+                break;
+            case RECTANGLE:
+                points = shapeItem.getPoints();
+                graphics.draw(new Rectangle2D.Double(
+                    points.get(0).x,
+                    points.get(0).y,
+                    points.get(1).x - points.get(0).x,
+                    points.get(1).y - points.get(0).y));
+                break;
+            case ELLIPSE:
+//                graphics.paint(
+//                    new Rectangle2D.Double(
+//                        shapeItem.getPoint(0), shapeItem.getPoint(1),
+//                        shapeItem.getPoint(2), shapeItem.getPoint(3)));
+                break;
+            case FILLED_RECTANGLE:
+                points = shapeItem.getPoints();
+                graphics.fill(new Rectangle2D.Double(
+                    points.get(0).x,
+                    points.get(0).y,
+                    points.get(1).x - points.get(0).x,
+                    points.get(1).y - points.get(0).y));
+                break;
+            case FILLED_ELLIPSE:
+//                graphics.paint(
+//                    new Rectangle2D.Double(
+//                        shapeItem.getPoint(0), shapeItem.getPoint(1),
+//                        shapeItem.getPoint(2), shapeItem.getPoint(3)));
+                break;
+            case ARC:
+//                graphics.paint(
+//                    new Rectangle2D.Double(
+//                        shapeItem.getPoint(0), shapeItem.getPoint(1),
+//                        shapeItem.getPoint(2), shapeItem.getPoint(3)));
+                break;
+            case TEXT:
+//                if (1==1)
+//                    return;
+                String name = shapeItem.getName();
+                points = shapeItem.getPoints();
+//                System.out.format(
+//                    "Font: %s, size: %d. Text: %s%n",
+//                    shapeItem.getFontName(),
+//                    shapeItem.getFontSize(), name);
+                Font font = new Font(
+                    shapeItem.getFontName(),
+                    Font.PLAIN,
+                    shapeItem.getFontSize());
+                graphics.setFont(font);
+                FontMetrics fontMetrics = graphics.getFontMetrics(font);
+                Rectangle2D bounds
+                    = fontMetrics.getStringBounds(name, graphics);
+                graphics.drawString(
+                    name,
+                    (float) points.get(0).x,
+                    (float) (points.get(0).y + bounds.getHeight()));
+                break;
+            case POLYLINE:
+//                graphics.paint(
+//                    new Rectangle2D.Double(
+//                        shapeItem.getPoint(0), shapeItem.getPoint(1),
+//                        shapeItem.getPoint(2), shapeItem.getPoint(3)));
+                break;
+            case FILLED_PLYGONE:
+//                graphics.paint(
+//                    new Rectangle2D.Double(
+//                        shapeItem.getPoint(0), shapeItem.getPoint(1),
+//                        shapeItem.getPoint(2), shapeItem.getPoint(3)));
+                break;
+            default:
+                throw new RuntimeException(
+                    String.format(
+                        "DrawingType %s is unknown",
+                        shapeItem.getDrawingType().name()));
+        }
+    }
+    //CHECKSTYLE.ON: MethodLength - Yes, this method is way to long.
+    // It should be fixed.
     
 }
