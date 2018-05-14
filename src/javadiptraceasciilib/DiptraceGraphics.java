@@ -188,10 +188,8 @@ public final class DiptraceGraphics {
                     = fProject.getPCBNonSignalLayer(layerNo).getLayerColor();
             } catch (DiptraceNotFoundException ex) {
                 throw new RuntimeException(
-                    String.format(
-                        "The layer %d is not found",
-                        layerNo,
-                        ex));
+                    String.format("The layer %d is not found",layerNo),
+                    ex);
             }
         } else {
             fullColor = LAYER_COLOR_MAP.get(placementLayer);
@@ -207,9 +205,9 @@ public final class DiptraceGraphics {
         final int dimValue = 5;
         Color dimColor
             = new Color(
-                Math.round(fullColor.getRed() / dimValue),
-                Math.round(fullColor.getGreen() / dimValue),
-                Math.round(fullColor.getBlue() / dimValue));
+                fullColor.getRed() / dimValue,
+                fullColor.getGreen() / dimValue,
+                fullColor.getBlue() / dimValue);
         
         Color color;
         if (layerNo == layerInFocus) {
@@ -231,12 +229,6 @@ public final class DiptraceGraphics {
                             "Unknow transparency %s",
                             sideTransparency.name()));
             }
-        }
-        if (color == null) {
-            throw new RuntimeException(
-                String.format(
-                    "Color is unknown for placement layer %s",
-                    placementLayer.name()));
         }
         
         graphics.setColor(color);
