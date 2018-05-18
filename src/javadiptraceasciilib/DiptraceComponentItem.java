@@ -1,7 +1,12 @@
 
 package javadiptraceasciilib;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
 import java.util.List;
 
 /**
@@ -45,6 +50,16 @@ class DiptraceComponentItem extends DiptraceGenericItem {
      * Get the X coordinate
      * @return the x coordinate
      */
+    String getRefDes() {
+        
+        final int refDesAttr = 1;
+        return getAttributes().get(refDesAttr).getString();
+    }
+    
+    /**
+     * Get the X coordinate
+     * @return the x coordinate
+     */
     double getX() {
         
         DiptraceGenericItem item = ((DiptraceGenericItem) getSubItem("X"));
@@ -61,6 +76,32 @@ class DiptraceComponentItem extends DiptraceGenericItem {
     double getY() {
         
         DiptraceGenericItem item = ((DiptraceGenericItem) getSubItem("Y"));
+        return ((DiptraceDoubleAttribute) item.getAttributes().get(0))
+            .getDouble();
+    }
+    
+    /**
+     * Get the width of the component
+     * @return the width
+     */
+    double getWidth() {
+        
+        DiptraceGenericItem item = ((DiptraceGenericItem) getSubItem("Width"));
+        System.out.format("This: %s, %d%n", this.getIdentifier(), this.getChildren().size());
+        System.out.format("Item: %s%n", item);
+        return ((DiptraceDoubleAttribute) item.getAttributes().get(0))
+            .getDouble();
+    }
+    
+    /**
+     * Get the height of the component
+     * @return the width
+     */
+    double getHeight() {
+        
+        DiptraceGenericItem item = ((DiptraceGenericItem) getSubItem("Height"));
+        System.out.format("This: %s, %d%n", this.getIdentifier(), this.getChildren().size());
+        System.out.format("Item: %s%n", item);
         return ((DiptraceDoubleAttribute) item.getAttributes().get(0))
             .getDouble();
     }
@@ -86,6 +127,63 @@ class DiptraceComponentItem extends DiptraceGenericItem {
         final SideTransparency sideTransparency) {
         
         graphics.translate(getX(), getY());
+        
+        System.out.format("AAAA: Attr(0): %s%n", getAttributes().get(1).getString());
+        
+        double width = getWidth();
+        double height = getHeight();
+        double x0 = 0 - width/2;
+        double y0 = 0 - height/2;
+//        double x1 = width;
+//        double y1 = height;
+        
+        String refDes = getRefDes();
+        double refDesX = 0;
+        double refDesY = 0 - height/2;
+//                System.out.format(
+//                    "Font: %s, size: %d. Text: %s%n",
+//                    getFontName(),
+//                    getFontSize(), name);
+        
+        graphics.setColor(Color.red);
+        
+//        Font font = new Font(
+//            getFontName(),
+//            Font.PLAIN,
+//            getFontSize());
+        Font font = new Font(
+            "Arial",
+            Font.PLAIN,
+            4);
+        graphics.setFont(font);
+        FontMetrics fontMetrics = graphics.getFontMetrics(font);
+        Rectangle2D bounds
+            = fontMetrics.getStringBounds(refDes, graphics);
+        graphics.drawString(
+            refDes,
+            (float) refDesX,
+            (float) (refDesY));
+//            (float) (refDesY - bounds.getHeight()/2));
+//            (float) (refDesY + bounds.getHeight()));
+        
+        graphics.draw(new Rectangle2D.Double(
+            x0,
+            y0,
+            width,
+            height));
+        
+        graphics.draw(
+            new Line2D.Double(
+                x0,
+                y0,
+                x0+width,
+                y0+height));
+        graphics.draw(
+            new Line2D.Double(
+                x0,
+                y0+height,
+                x0+width,
+                y0));
     }
     
 }

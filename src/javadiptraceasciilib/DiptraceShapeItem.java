@@ -612,6 +612,20 @@ class DiptraceShapeItem extends DiptraceGenericItem {
                     points.get(0).y,
                     points.get(1).x - points.get(0).x,
                     points.get(1).y - points.get(0).y));
+/*
+                graphics.draw(
+                    new Line2D.Double(
+                        points.get(0).x,
+                        points.get(0).y,
+                        points.get(1).x,
+                        points.get(1).y));
+                graphics.draw(
+                    new Line2D.Double(
+                        points.get(0).x,
+                        points.get(1).y,
+                        points.get(1).x,
+                        points.get(0).y));
+*/
                 break;
             case ELLIPSE:
 //                graphics.paint(
