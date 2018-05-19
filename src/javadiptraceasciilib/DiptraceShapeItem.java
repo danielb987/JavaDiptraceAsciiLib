@@ -1,17 +1,8 @@
 package javadiptraceasciilib;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics2D;
-import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * A Diptrace shape item.
@@ -83,6 +74,7 @@ class DiptraceShapeItem extends DiptraceSuperShapeItem {
      * Get whenether this shape is locked.
      * @return true if locked
      */
+    @Override
     boolean getLocked() {
         
         String locked;
@@ -105,6 +97,7 @@ class DiptraceShapeItem extends DiptraceSuperShapeItem {
      * Get the layer number of this shape.
      * @return the layer number
      */
+    @Override
     int getLayerNo() {
         
         int layerNo;

@@ -47,7 +47,7 @@ class DiptraceComponentItem extends DiptraceGenericItem {
     }
     
     /**
-     * Get the X coordinate
+     * Get the X coordinate.
      * @return the x coordinate
      */
     String getRefDes() {
@@ -57,8 +57,8 @@ class DiptraceComponentItem extends DiptraceGenericItem {
     }
     
     /**
-     * Get the X coordinate.
-     * @return the x coordinate
+     * Get the Y coordinate.
+     * @return the y coordinate
      */
     double getX() {
         
