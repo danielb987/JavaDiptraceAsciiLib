@@ -19,7 +19,7 @@ class DiptraceComponentItem extends DiptraceGenericItem {
      * @param parent the parent
      * @param identifier the identifier
      */
-    DiptraceComponentItem(DiptraceItem parent, String identifier) {
+    DiptraceComponentItem(final DiptraceItem parent, final String identifier) {
         super(parent, identifier);
     }
     
@@ -57,21 +57,22 @@ class DiptraceComponentItem extends DiptraceGenericItem {
     }
     
     /**
-     * Get the X coordinate
+     * Get the X coordinate.
      * @return the x coordinate
      */
     double getX() {
         
         DiptraceGenericItem item = ((DiptraceGenericItem) getSubItem("X"));
-        System.out.format("This: %s, %d%n", this.getIdentifier(), this.getChildren().size());
+        System.out.format(
+            "This: %s, %d%n", this.getIdentifier(), this.getChildren().size());
         System.out.format("Item: %s%n", item);
         return ((DiptraceDoubleAttribute) item.getAttributes().get(0))
             .getDouble();
     }
     
     /**
-     * Get the X coordinate
-     * @return the x coordinate
+     * Get the Y coordinate.
+     * @return the y coordinate
      */
     double getY() {
         
@@ -81,26 +82,28 @@ class DiptraceComponentItem extends DiptraceGenericItem {
     }
     
     /**
-     * Get the width of the component
+     * Get the width of the component.
      * @return the width
      */
     double getWidth() {
         
         DiptraceGenericItem item = ((DiptraceGenericItem) getSubItem("Width"));
-        System.out.format("This: %s, %d%n", this.getIdentifier(), this.getChildren().size());
+        System.out.format(
+            "This: %s, %d%n", this.getIdentifier(), this.getChildren().size());
         System.out.format("Item: %s%n", item);
         return ((DiptraceDoubleAttribute) item.getAttributes().get(0))
             .getDouble();
     }
     
     /**
-     * Get the height of the component
+     * Get the height of the component.
      * @return the width
      */
     double getHeight() {
         
         DiptraceGenericItem item = ((DiptraceGenericItem) getSubItem("Height"));
-        System.out.format("This: %s, %d%n", this.getIdentifier(), this.getChildren().size());
+        System.out.format(
+            "This: %s, %d%n", this.getIdentifier(), this.getChildren().size());
         System.out.format("Item: %s%n", item);
         return ((DiptraceDoubleAttribute) item.getAttributes().get(0))
             .getDouble();
@@ -112,7 +115,6 @@ class DiptraceComponentItem extends DiptraceGenericItem {
      * therefore the caller must restore the transform after calling this
      * method on this object and this objects children.
      * @param graphics the graphics to drawPCB on
-     * @param item the item to paint
      * @param layerInFocus the side that is in front of the viewer
      * @param layerToDraw the layer to paint now
      * @param sideTransparency the transparency for the other side
@@ -128,18 +130,19 @@ class DiptraceComponentItem extends DiptraceGenericItem {
         
         graphics.translate(getX(), getY());
         
-        System.out.format("AAAA: Attr(0): %s%n", getAttributes().get(1).getString());
+        System.out.format(
+            "AAAA: Attr(0): %s%n", getAttributes().get(1).getString());
         
         double width = getWidth();
         double height = getHeight();
-        double x0 = 0 - width/2;
-        double y0 = 0 - height/2;
+        double x0 = 0 - width / 2;
+        double y0 = 0 - height / 2;
 //        double x1 = width;
 //        double y1 = height;
         
         String refDes = getRefDes();
         double refDesX = 0;
-        double refDesY = 0 - height/2;
+        double refDesY = 0 - height / 2;
 //                System.out.format(
 //                    "Font: %s, size: %d. Text: %s%n",
 //                    getFontName(),
@@ -151,10 +154,11 @@ class DiptraceComponentItem extends DiptraceGenericItem {
 //            getFontName(),
 //            Font.PLAIN,
 //            getFontSize());
+        final int tempFontSize = 4;
         Font font = new Font(
             "Arial",
             Font.PLAIN,
-            4);
+            tempFontSize);
         graphics.setFont(font);
         FontMetrics fontMetrics = graphics.getFontMetrics(font);
         Rectangle2D bounds
@@ -176,14 +180,32 @@ class DiptraceComponentItem extends DiptraceGenericItem {
             new Line2D.Double(
                 x0,
                 y0,
-                x0+width,
-                y0+height));
+                x0 + width,
+                y0 + height));
         graphics.draw(
             new Line2D.Double(
                 x0,
-                y0+height,
-                x0+width,
+                y0 + height,
+                x0 + width,
                 y0));
     }
+    
+    
+    /**
+     * Creates and returns an instance of a class that inherits DiptraceItem.
+     * It decides what type of class by the identifier of the token.
+     * @param token the token
+     * @return an instance of a sub class to DiptraceItem
+     */
+    @Override
+    protected DiptraceItem createItemByIdentifier(final DiptraceToken token) {
+        
+        if ("Shape".equals(token.getValue())) {
+            return new DiptraceComponentShapeItem(this, token.getValue());
+        } else {
+            return super.createItemByIdentifier(token);
+        }
+    }
+    
     
 }

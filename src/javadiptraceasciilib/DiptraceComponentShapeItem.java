@@ -1,29 +1,23 @@
 package javadiptraceasciilib;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics2D;
-import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * A Diptrace shape item.
  */
-class DiptraceShapeItem extends DiptraceSuperShapeItem {
+class DiptraceComponentShapeItem extends DiptraceSuperShapeItem {
 
     /**
      * Initialize a DiptraceShapeItem.
      * @param parent the parent
      * @param identifier the identifier
      */
-    DiptraceShapeItem(final DiptraceItem parent, final String identifier) {
+    DiptraceComponentShapeItem(
+        final DiptraceItem parent,
+        final String identifier) {
+        
         super(parent, identifier);
     }
 
@@ -126,7 +120,6 @@ class DiptraceShapeItem extends DiptraceSuperShapeItem {
      * Get the layer type of this shape.
      * @return the drawing type
      */
-    @Override
     PlacementLayer getPlacementLayer() {
         
         int layerNo;
@@ -154,37 +147,18 @@ class DiptraceShapeItem extends DiptraceSuperShapeItem {
         
         List<Point2D.Double> points = new ArrayList<>();
         
-        if (getAttributes().isEmpty()) {
-            DiptraceGenericItem item
-                = ((DiptraceGenericItem) getSubItem("Points"));
-            
-            for (DiptraceItem subItem : item.getChildren()) {
-                DiptraceGenericItem subGenericItem
-                    = (DiptraceGenericItem) subItem;
-                double posX
-                    = ((DiptraceDoubleAttribute) subGenericItem.getAttributes()
-                        .get(0))
-                            .getDouble();
-                double posY
-                    = ((DiptraceDoubleAttribute) subGenericItem.getAttributes()
-                        .get(1))
-                            .getDouble();
-                points.add(new Point2D.Double(posX, posY));
-            }
-        } else {
-            final int numPointsInAttribute = 3;
-            for (int i = 0; i < numPointsInAttribute; i++) {
-                final int baseX = 3;
-                final int baseY = 4;
-                points.add(
-                    new Point2D.Double(
-                        ((DiptraceDoubleAttribute) getAttributes()
-                            .get(baseX + i))
-                                .getDouble(),
-                        ((DiptraceDoubleAttribute) getAttributes()
-                            .get(baseY + i))
-                                .getDouble()));
-            }
+        final int numPointsInAttribute = 3;
+        for (int i = 0; i < numPointsInAttribute; i++) {
+            final int baseX = 3;
+            final int baseY = 4;
+            points.add(
+                new Point2D.Double(
+                    ((DiptraceDoubleAttribute) getAttributes()
+                        .get(baseX + i))
+                            .getDouble(),
+                    ((DiptraceDoubleAttribute) getAttributes()
+                        .get(baseY + i))
+                            .getDouble()));
         }
         
         return points;
@@ -196,11 +170,10 @@ class DiptraceShapeItem extends DiptraceSuperShapeItem {
      */
     @Override
     String getName() {
-        DiptraceGenericItem item
-            = ((DiptraceGenericItem) getSubItem("Name"));
-
-        String name = ((DiptraceStringAttribute) item.getAttributes().get(0))
-            .getString();
+        final int nameAttrNo = 9;
+        String name
+            = ((DiptraceStringAttribute) getAttributes().get(nameAttrNo))
+                .getString();
         return name;
     }
     
@@ -210,10 +183,9 @@ class DiptraceShapeItem extends DiptraceSuperShapeItem {
      */
     @Override
     String getFontName() {
-        DiptraceGenericItem item
-            = ((DiptraceGenericItem) getSubItem("FontName"));
-        String fontName
-            = ((DiptraceStringAttribute) item.getAttributes().get(0))
+        final int fontNameAttrNo = 10;
+        String fontName = ((DiptraceStringAttribute) getAttributes()
+            .get(fontNameAttrNo))
                 .getString();
         return fontName;
     }
@@ -224,11 +196,9 @@ class DiptraceShapeItem extends DiptraceSuperShapeItem {
      */
     @Override
     int getFontSize() {
-        int fontSize;
-        DiptraceGenericItem item
-            = ((DiptraceGenericItem) getSubItem("FontSize"));
-        fontSize
-            = ((DiptraceDoubleAttribute) item.getAttributes().get(0))
+        final int fontSizeAttrNo = 12;
+        int fontSize = ((DiptraceDoubleAttribute) getAttributes()
+            .get(fontSizeAttrNo))
                 .getInt();
         return fontSize;
     }

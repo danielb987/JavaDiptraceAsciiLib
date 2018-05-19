@@ -293,7 +293,7 @@ abstract class DiptraceItem implements DiptraceTreeNode {
      * @param token the token
      * @return an instance of a sub class to DiptraceItem
      */
-    private DiptraceItem createItemByIdentifier(final DiptraceToken token) {
+    protected DiptraceItem createItemByIdentifier(final DiptraceToken token) {
         
         if (("Component".equals(token.getValue())
             && ("Components".equals(getIdentifier())))) {
