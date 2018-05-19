@@ -1,7 +1,7 @@
 package javadiptraceasciilib;
 
 /**
- *
+ * The 'Shapes' item in the PCB ascii file when part of a 'Component'.
  */
 class DiptraceComponentShapesCollectionItem extends DiptraceGenericItem {
 
