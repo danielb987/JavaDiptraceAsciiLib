@@ -77,21 +77,15 @@ class DiptraceComponentShapeItem extends DiptraceSuperShapeItem {
      * Get whenether this shape is locked.
      * @return true if locked
      */
+    @Override
     boolean getLocked() {
         
-        String locked;
-        if (getAttributes().isEmpty()) {
-            DiptraceGenericItem item
-                = ((DiptraceGenericItem) getSubItem("Locked"));
-            locked
-                = ((DiptraceStringAttribute) item.getAttributes().get(0))
-                    .getString();
-        } else {
-            final int lockedAttrNo = 1;
-            locked
-                = ((DiptraceStringAttribute) getAttributes().get(lockedAttrNo))
-                    .getString();
-        }
+        final int lockedAttrNo = 1;
+        
+        String locked
+            = ((DiptraceStringAttribute) getAttributes().get(lockedAttrNo))
+                .getString();
+        
         return locked.equals("Y");
     }
     
@@ -99,43 +93,23 @@ class DiptraceComponentShapeItem extends DiptraceSuperShapeItem {
      * Get the layer number of this shape.
      * @return the layer number
      */
+    @Override
     int getLayerNo() {
         
-        int layerNo;
-        
-        if (getAttributes().isEmpty()) {
-            DiptraceGenericItem item
-                = ((DiptraceGenericItem) getSubItem("Layer"));
-            layerNo
-                = ((DiptraceDoubleAttribute) item.getAttributes().get(0))
-                    .getInt();
-        } else {
-            layerNo
-                = ((DiptraceDoubleAttribute) getAttributes().get(0)).getInt();
-        }
-        return layerNo;
+        return ((DiptraceDoubleAttribute) getAttributes().get(0)).getInt();
     }
     
     /**
      * Get the layer type of this shape.
      * @return the drawing type
      */
+    @Override
     PlacementLayer getPlacementLayer() {
         
-        int layerNo;
+        int layerNo
+            = ((DiptraceDoubleAttribute) getAttributes().get(0)).getInt();
         
-        if (getAttributes().isEmpty()) {
-            DiptraceGenericItem item
-                = ((DiptraceGenericItem) getSubItem("Type"));
-            layerNo
-                = ((DiptraceDoubleAttribute) item.getAttributes().get(0))
-                    .getInt();
-            return PlacementLayer.getTypeByItemNo(layerNo);
-        } else {
-            layerNo
-                = ((DiptraceDoubleAttribute) getAttributes().get(0)).getInt();
-            return PlacementLayer.getTypeByAttrNo(layerNo);
-        }
+        return PlacementLayer.getTypeByAttrNo(layerNo);
     }
     
     /**

@@ -48,26 +48,18 @@ class DiptraceShapeItem extends DiptraceSuperShapeItem {
     @Override
     DrawingType getDrawingType() {
         
-        int typeNo;
-        if (getAttributes().isEmpty()) {
-            DiptraceGenericItem item
-                = ((DiptraceGenericItem) getSubItem("ShapeType"));
-            typeNo
-                = ((DiptraceDoubleAttribute) item.getAttributes().get(0))
-                    .getInt();
-//            typeNo = 6;
-//            System.out.format("AA: Type: %d%n", typeNo);
-//            System.out.format(
-//                "Type: %d, name: %s%n",
-//                typeNo,
-//                DrawingType.getTypeByItemNo(typeNo).name());
-            return DrawingType.getTypeByItemNo(typeNo);
-        } else {
-            typeNo
-                = ((DiptraceDoubleAttribute) getAttributes().get(0)).getInt();
-//            System.out.format("BB: Type: %d%n", typeNo);
-            return DrawingType.getTypeByAttrNo(typeNo);
-        }
+        DiptraceGenericItem item
+            = ((DiptraceGenericItem) getSubItem("ShapeType"));
+        int typeNo
+            = ((DiptraceDoubleAttribute) item.getAttributes().get(0))
+                .getInt();
+//        typeNo = 6;
+//        System.out.format("AA: Type: %d%n", typeNo);
+//        System.out.format(
+//            "Type: %d, name: %s%n",
+//            typeNo,
+//            DrawingType.getTypeByItemNo(typeNo).name());
+        return DrawingType.getTypeByItemNo(typeNo);
     }
     
     /**
@@ -77,19 +69,13 @@ class DiptraceShapeItem extends DiptraceSuperShapeItem {
     @Override
     boolean getLocked() {
         
-        String locked;
-        if (getAttributes().isEmpty()) {
-            DiptraceGenericItem item
-                = ((DiptraceGenericItem) getSubItem("Locked"));
-            locked
-                = ((DiptraceStringAttribute) item.getAttributes().get(0))
-                    .getString();
-        } else {
-            final int lockedAttrNo = 1;
-            locked
-                = ((DiptraceStringAttribute) getAttributes().get(lockedAttrNo))
-                    .getString();
-        }
+        DiptraceGenericItem item
+            = ((DiptraceGenericItem) getSubItem("Locked"));
+        
+        String locked
+            = ((DiptraceStringAttribute) item.getAttributes().get(0))
+                .getString();
+        
         return locked.equals("Y");
     }
     
@@ -100,18 +86,13 @@ class DiptraceShapeItem extends DiptraceSuperShapeItem {
     @Override
     int getLayerNo() {
         
-        int layerNo;
+        DiptraceGenericItem item
+            = ((DiptraceGenericItem) getSubItem("Layer"));
         
-        if (getAttributes().isEmpty()) {
-            DiptraceGenericItem item
-                = ((DiptraceGenericItem) getSubItem("Layer"));
-            layerNo
-                = ((DiptraceDoubleAttribute) item.getAttributes().get(0))
-                    .getInt();
-        } else {
-            layerNo
-                = ((DiptraceDoubleAttribute) getAttributes().get(0)).getInt();
-        }
+        int layerNo
+            = ((DiptraceDoubleAttribute) item.getAttributes().get(0))
+                .getInt();
+        
         return layerNo;
     }
     
@@ -122,20 +103,14 @@ class DiptraceShapeItem extends DiptraceSuperShapeItem {
     @Override
     PlacementLayer getPlacementLayer() {
         
-        int layerNo;
+        DiptraceGenericItem item
+            = ((DiptraceGenericItem) getSubItem("Type"));
         
-        if (getAttributes().isEmpty()) {
-            DiptraceGenericItem item
-                = ((DiptraceGenericItem) getSubItem("Type"));
-            layerNo
-                = ((DiptraceDoubleAttribute) item.getAttributes().get(0))
-                    .getInt();
-            return PlacementLayer.getTypeByItemNo(layerNo);
-        } else {
-            layerNo
-                = ((DiptraceDoubleAttribute) getAttributes().get(0)).getInt();
-            return PlacementLayer.getTypeByAttrNo(layerNo);
-        }
+        int layerNo
+            = ((DiptraceDoubleAttribute) item.getAttributes().get(0))
+                .getInt();
+        
+        return PlacementLayer.getTypeByItemNo(layerNo);
     }
     
     /**
@@ -147,37 +122,21 @@ class DiptraceShapeItem extends DiptraceSuperShapeItem {
         
         List<Point2D.Double> points = new ArrayList<>();
         
-        if (getAttributes().isEmpty()) {
-            DiptraceGenericItem item
-                = ((DiptraceGenericItem) getSubItem("Points"));
-            
-            for (DiptraceItem subItem : item.getChildren()) {
-                DiptraceGenericItem subGenericItem
-                    = (DiptraceGenericItem) subItem;
-                double posX
-                    = ((DiptraceDoubleAttribute) subGenericItem.getAttributes()
-                        .get(0))
-                            .getDouble();
-                double posY
-                    = ((DiptraceDoubleAttribute) subGenericItem.getAttributes()
-                        .get(1))
-                            .getDouble();
-                points.add(new Point2D.Double(posX, posY));
-            }
-        } else {
-            final int numPointsInAttribute = 3;
-            for (int i = 0; i < numPointsInAttribute; i++) {
-                final int baseX = 3;
-                final int baseY = 4;
-                points.add(
-                    new Point2D.Double(
-                        ((DiptraceDoubleAttribute) getAttributes()
-                            .get(baseX + i))
-                                .getDouble(),
-                        ((DiptraceDoubleAttribute) getAttributes()
-                            .get(baseY + i))
-                                .getDouble()));
-            }
+        DiptraceGenericItem item
+            = ((DiptraceGenericItem) getSubItem("Points"));
+
+        for (DiptraceItem subItem : item.getChildren()) {
+            DiptraceGenericItem subGenericItem
+                = (DiptraceGenericItem) subItem;
+            double posX
+                = ((DiptraceDoubleAttribute) subGenericItem.getAttributes()
+                    .get(0))
+                        .getDouble();
+            double posY
+                = ((DiptraceDoubleAttribute) subGenericItem.getAttributes()
+                    .get(1))
+                        .getDouble();
+            points.add(new Point2D.Double(posX, posY));
         }
         
         return points;
@@ -217,12 +176,14 @@ class DiptraceShapeItem extends DiptraceSuperShapeItem {
      */
     @Override
     int getFontSize() {
-        int fontSize;
+        
         DiptraceGenericItem item
             = ((DiptraceGenericItem) getSubItem("FontSize"));
-        fontSize
+        
+        int fontSize
             = ((DiptraceDoubleAttribute) item.getAttributes().get(0))
                 .getInt();
+        
         return fontSize;
     }
     

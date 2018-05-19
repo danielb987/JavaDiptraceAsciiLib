@@ -200,8 +200,11 @@ class DiptraceComponentItem extends DiptraceGenericItem {
     @Override
     protected DiptraceItem createItemByIdentifier(final DiptraceToken token) {
         
-        if ("Shape".equals(token.getValue())) {
-            return new DiptraceComponentShapeItem(this, token.getValue());
+//        if ("Shape".equals(token.getValue())) {
+//            return new DiptraceComponentShapeItem(this, token.getValue());
+        if ("Shapes".equals(token.getValue())) {
+            return new DiptraceComponentShapesCollectionItem(
+                this, token.getValue());
         } else {
             return super.createItemByIdentifier(token);
         }
