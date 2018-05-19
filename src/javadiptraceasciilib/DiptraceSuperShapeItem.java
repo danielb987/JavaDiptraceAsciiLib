@@ -18,7 +18,7 @@ import java.util.Map;
 abstract class DiptraceSuperShapeItem extends DiptraceGenericItem {
 
     /**
-     * Initialize a DiptraceShapeItem.
+     * Initialize a DiptraceSuperShapeItem.
      * @param parent the parent
      * @param identifier the identifier
      */

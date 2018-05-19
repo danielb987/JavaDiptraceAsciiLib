@@ -4,7 +4,12 @@ package javadiptraceasciilib;
  * The 'Shapes' item in the PCB ascii file when part of a 'Component'.
  */
 class DiptraceComponentShapesCollectionItem extends DiptraceGenericItem {
-
+    
+    /**
+     * Initialize a DiptraceComponentShapesCollectionItem object.
+     * @param parent
+     * @param identifier 
+     */
     DiptraceComponentShapesCollectionItem(
         final DiptraceItem parent,
         final String identifier) {

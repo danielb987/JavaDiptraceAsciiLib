@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A Diptrace shape item.
+ * A Diptrace component shape item.
  */
 class DiptraceComponentShapeItem extends DiptraceSuperShapeItem {
 
     /**
-     * Initialize a DiptraceShapeItem.
+     * Initialize a DiptraceComponentShapeItem.
      * @param parent the parent
      * @param identifier the identifier
      */
