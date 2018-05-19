@@ -7,8 +7,8 @@ class DiptraceComponentShapesCollectionItem extends DiptraceGenericItem {
     
     /**
      * Initialize a DiptraceComponentShapesCollectionItem object.
-     * @param parent
-     * @param identifier 
+     * @param parent the parent
+     * @param identifier the identifier
      */
     DiptraceComponentShapesCollectionItem(
         final DiptraceItem parent,
