@@ -88,7 +88,6 @@ final class DiptraceRootItem extends DiptraceItem {
      * therefore the caller must restore the transform after calling this
      * method on this object and this objects children.
      * @param graphics the graphics to drawPCB on
-     * @param item the item to paint
      * @param layerInFocus the side that is in front of the viewer
      * @param layerToDraw the layer to paint now
      * @param sideTransparency the transparency for the other side
