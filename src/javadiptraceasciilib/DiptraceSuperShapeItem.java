@@ -25,29 +25,6 @@ abstract class DiptraceSuperShapeItem extends DiptraceGenericItem {
     DiptraceSuperShapeItem(final DiptraceItem parent, final String identifier) {
         super(parent, identifier);
     }
-
-    /**
-     * Duplicate this item and all its children.
-     * @param parent the parent of the new item
-     * @return the copy of this item
-     */
-    @Override
-    public DiptraceItem duplicate(final DiptraceItem parent) {
-        
-        DiptraceShapeItem newItem =
-            new DiptraceShapeItem(parent, getIdentifier());
-        
-        newItem.setMayHaveSubItems(this.getMayHaveSubItems());
-        
-        List<DiptraceAttribute> newAttributes = newItem.getAttributes();
-        for (DiptraceAttribute attribute : getAttributes()) {
-            newAttributes.add(attribute.duplicate());
-        }
-        for (DiptraceItem subItem : getChildren()) {
-            newItem.addSubItem(subItem.duplicate(newItem));
-        }
-        return newItem;
-    }
     
     /**
      * Get the drawing type of this shape.
@@ -103,166 +80,6 @@ abstract class DiptraceSuperShapeItem extends DiptraceGenericItem {
      */
     abstract String getString();
     
-    
-    
-    /**
-     * Type of thing to paint.
-     */
-    enum DrawingType {
-        //CHECKSTYLE.OFF: JavadocVariable - Self explaining enums
-        // At this point, I don't know which feature has which number,
-        // so I give the features numbers like -901. / Daniel
-        NONE(-1, -901),     // I don't know what this is, but it's in the file.
-        NONE_2(0, -902),
-        LINE(1, 0),
-        RECTANGLE(2, 2),
-        ELLIPSE(3, -905),
-        FILLED_RECTANGLE(4, 3),
-        FILLED_ELLIPSE(5, -907),
-        ARC(6, -908),
-        TEXT(7, 6),
-        POLYLINE(8, -910),
-        FILLED_PLYGONE(9, -911);
-        //CHECKSTYLE.ON: JavadocVariable - Self explaining enums
-        
-        /**
-         * A map of the drawing types and their attribute number.
-         */
-        private static final Map<Integer, DrawingType> DRAWING_ATTR_TYPE_MAP
-            = new HashMap<>();
-        
-        /**
-         * A map of the drawing types and their item number.
-         */
-        private static final Map<Integer, DrawingType> DRAWING_ITEM_TYPE_MAP
-            = new HashMap<>();
-        
-        static {
-            
-            for (DrawingType type : EnumSet.allOf(DrawingType.class)) {
-                DRAWING_ATTR_TYPE_MAP.put(type.fAttrNo, type);
-                DRAWING_ITEM_TYPE_MAP.put(type.fItemNo, type);
-            }
-        }
-        
-        /**
-         * Get the drawing type by the attribute number.
-         * @param typeNo the type number
-         * @return the drawing type
-         */
-        static DrawingType getTypeByAttrNo(final int typeNo) {
-            return DRAWING_ATTR_TYPE_MAP.get(typeNo);
-        }
-        
-        /**
-         * Get the drawing type by the item number.
-         * @param typeNo the type number
-         * @return the drawing type
-         */
-        static DrawingType getTypeByItemNo(final int typeNo) {
-            return DRAWING_ITEM_TYPE_MAP.get(typeNo);
-        }
-        
-        /**
-         * The drawing type attribute number.
-         */
-        private final int fAttrNo;
-        
-        /**
-         * The drawing type item number.
-         */
-        private final int fItemNo;
-        
-        /**
-         * Initialize a DrawingType object.
-         * @param attrNo the attribute number
-         * @param itemNo the item number
-         */
-        DrawingType(final int attrNo, final int itemNo) {
-            fAttrNo = attrNo;
-            fItemNo = itemNo;
-        }
-        
-        /**
-         * Get the attribute number.
-         * @return the number
-         */
-        int getAttrNo() {
-            return fAttrNo;
-        }
-        
-        /**
-         * Get the attribute number.
-         * @return the number
-         */
-        int getItemNo() {
-            return fItemNo;
-        }
-        
-    }
-    
-    
-    
-    
-    
-    
-    /**
-     * The different markings.
-     */
-    enum MarkingType {
-        //CHECKSTYLE.OFF: JavadocVariable - Self explaining enums
-        TEXT(0),
-        NAME(1),
-        REFDES(2),
-        VALUE(3);
-        //CHECKSTYLE.ON: JavadocVariable - Self explaining enums
-        
-        /**
-         * A map of the markings and their number.
-         */
-        private static final Map<Integer, MarkingType> MARKING_TYPE_MAP
-            = new HashMap<>();
-        
-        static {
-            
-            for (MarkingType type : EnumSet.allOf(MarkingType.class)) {
-                // Yes, use some appropriate locale in production code :)
-                MARKING_TYPE_MAP.put(type.fTypeNo, type);
-            }
-        }
-        
-        /**
-         * Get the marking type by the number.
-         * @param typeNo the type number
-         * @return the marking type
-         */
-        static MarkingType getType(final int typeNo) {
-            return MARKING_TYPE_MAP.get(typeNo);
-        }
-        
-        /**
-         * The marking type number.
-         */
-        private final int fTypeNo;
-        
-        /**
-         * Initialize a MarkingType object.
-         * @param typeNo the type number
-         */
-        MarkingType(final int typeNo) {
-            fTypeNo = typeNo;
-        }
-        
-        /**
-         * Get the type number.
-         * @return the number
-         */
-        int getType() {
-            return fTypeNo;
-        }
-        
-    }
-    
     /**
      * Paint this item.
      * Note that this method may change the transform for its children, and
@@ -276,7 +93,7 @@ abstract class DiptraceSuperShapeItem extends DiptraceGenericItem {
     //CHECKSTYLE.OFF: MethodLength - Yes, this method is way to long.
     // It should be fixed.
     @Override
-    void paint(
+    final void paint(
         final Graphics2D graphics,
         final int layerInFocus,
         final int layerToDraw,
@@ -497,5 +314,166 @@ abstract class DiptraceSuperShapeItem extends DiptraceGenericItem {
     }
     //CHECKSTYLE.ON: MethodLength - Yes, this method is way to long.
     // It should be fixed.
+    
+    
+    
+    
+    /**
+     * Type of thing to paint.
+     */
+    enum DrawingType {
+        //CHECKSTYLE.OFF: JavadocVariable - Self explaining enums
+        // At this point, I don't know which feature has which number,
+        // so I give the features numbers like -901. / Daniel
+        NONE(-1, -901),     // I don't know what this is, but it's in the file.
+        NONE_2(0, -902),
+        LINE(1, 0),
+        RECTANGLE(2, 2),
+        ELLIPSE(3, -905),
+        FILLED_RECTANGLE(4, 3),
+        FILLED_ELLIPSE(5, -907),
+        ARC(6, -908),
+        TEXT(7, 6),
+        POLYLINE(8, -910),
+        FILLED_PLYGONE(9, -911);
+        //CHECKSTYLE.ON: JavadocVariable - Self explaining enums
+        
+        /**
+         * A map of the drawing types and their attribute number.
+         */
+        private static final Map<Integer, DrawingType> DRAWING_ATTR_TYPE_MAP
+            = new HashMap<>();
+        
+        /**
+         * A map of the drawing types and their item number.
+         */
+        private static final Map<Integer, DrawingType> DRAWING_ITEM_TYPE_MAP
+            = new HashMap<>();
+        
+        static {
+            
+            for (DrawingType type : EnumSet.allOf(DrawingType.class)) {
+                DRAWING_ATTR_TYPE_MAP.put(type.fAttrNo, type);
+                DRAWING_ITEM_TYPE_MAP.put(type.fItemNo, type);
+            }
+        }
+        
+        /**
+         * Get the drawing type by the attribute number.
+         * @param typeNo the type number
+         * @return the drawing type
+         */
+        static DrawingType getTypeByAttrNo(final int typeNo) {
+            return DRAWING_ATTR_TYPE_MAP.get(typeNo);
+        }
+        
+        /**
+         * Get the drawing type by the item number.
+         * @param typeNo the type number
+         * @return the drawing type
+         */
+        static DrawingType getTypeByItemNo(final int typeNo) {
+            return DRAWING_ITEM_TYPE_MAP.get(typeNo);
+        }
+        
+        /**
+         * The drawing type attribute number.
+         */
+        private final int fAttrNo;
+        
+        /**
+         * The drawing type item number.
+         */
+        private final int fItemNo;
+        
+        /**
+         * Initialize a DrawingType object.
+         * @param attrNo the attribute number
+         * @param itemNo the item number
+         */
+        DrawingType(final int attrNo, final int itemNo) {
+            fAttrNo = attrNo;
+            fItemNo = itemNo;
+        }
+        
+        /**
+         * Get the attribute number.
+         * @return the number
+         */
+        int getAttrNo() {
+            return fAttrNo;
+        }
+        
+        /**
+         * Get the attribute number.
+         * @return the number
+         */
+        int getItemNo() {
+            return fItemNo;
+        }
+        
+    }
+    
+    
+    
+    
+    
+    
+    /**
+     * The different markings.
+     */
+    enum MarkingType {
+        //CHECKSTYLE.OFF: JavadocVariable - Self explaining enums
+        TEXT(0),
+        NAME(1),
+        REFDES(2),
+        VALUE(3);
+        //CHECKSTYLE.ON: JavadocVariable - Self explaining enums
+        
+        /**
+         * A map of the markings and their number.
+         */
+        private static final Map<Integer, MarkingType> MARKING_TYPE_MAP
+            = new HashMap<>();
+        
+        static {
+            
+            for (MarkingType type : EnumSet.allOf(MarkingType.class)) {
+                // Yes, use some appropriate locale in production code :)
+                MARKING_TYPE_MAP.put(type.fTypeNo, type);
+            }
+        }
+        
+        /**
+         * Get the marking type by the number.
+         * @param typeNo the type number
+         * @return the marking type
+         */
+        static MarkingType getType(final int typeNo) {
+            return MARKING_TYPE_MAP.get(typeNo);
+        }
+        
+        /**
+         * The marking type number.
+         */
+        private final int fTypeNo;
+        
+        /**
+         * Initialize a MarkingType object.
+         * @param typeNo the type number
+         */
+        MarkingType(final int typeNo) {
+            fTypeNo = typeNo;
+        }
+        
+        /**
+         * Get the type number.
+         * @return the number
+         */
+        int getType() {
+            return fTypeNo;
+        }
+        
+    }
     
 }
