@@ -160,9 +160,9 @@ class DiptraceComponentItem extends DiptraceGenericItem {
             Font.PLAIN,
             tempFontSize);
         graphics.setFont(font);
-        FontMetrics fontMetrics = graphics.getFontMetrics(font);
-        Rectangle2D bounds
-            = fontMetrics.getStringBounds(refDes, graphics);
+//        FontMetrics fontMetrics = graphics.getFontMetrics(font);
+//        Rectangle2D bounds
+//            = fontMetrics.getStringBounds(refDes, graphics);
         graphics.drawString(
             refDes,
             (float) refDesX,
