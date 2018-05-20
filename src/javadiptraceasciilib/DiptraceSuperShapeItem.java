@@ -51,6 +51,13 @@ abstract class DiptraceSuperShapeItem extends DiptraceGenericItem {
     abstract PlacementLayer getPlacementLayer();
     
     /**
+     * Is the points absolute coordinates or relative coordinates
+     * (width and height)?
+     * @return true if relative coordinates
+     */
+    abstract boolean isPointsRelative();
+    
+    /**
      * Get the points for this shape.
      * @return the points
      */
@@ -224,12 +231,29 @@ abstract class DiptraceSuperShapeItem extends DiptraceGenericItem {
                         points.get(1).x, points.get(1).y));
                 break;
             case RECTANGLE:
+                System.out.println("Rectangle");
                 points = getPoints();
-                graphics.draw(new Rectangle2D.Double(
-                    points.get(0).x,
-                    points.get(0).y,
-                    points.get(1).x - points.get(0).x,
-                    points.get(1).y - points.get(0).y));
+                
+                if (isPointsRelative()) {
+                    graphics.draw(new Rectangle2D.Double(
+                        points.get(0).x,
+                        points.get(0).y,
+                        points.get(1).x - points.get(0).x,
+                        points.get(1).y - points.get(0).y));
+                } else {
+                    graphics.draw(new Rectangle2D.Double(
+                        points.get(0).x,
+                        points.get(1).y,
+                        points.get(1).x,
+                        points.get(0).y));
+                    graphics.draw(new Rectangle2D.Double(
+                        points.get(0).x,
+                        points.get(1).y,
+                        10,
+                        10));
+//                        points.get(1).x,
+//                        points.get(1).y));
+                }
 /*
                 graphics.draw(
                     new Line2D.Double(
