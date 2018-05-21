@@ -143,7 +143,7 @@ class DiptraceComponentShapeItem extends DiptraceSuperShapeItem {
                             .getDouble() * width,
                     ((DiptraceDoubleAttribute) getAttributes()
                         .get(baseY + i * 2))
-                            .getDouble()*height));
+                            .getDouble() * height));
             
             System.out.format("%1.2f, %1.2f%n",
                     ((DiptraceDoubleAttribute) getAttributes()
