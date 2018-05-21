@@ -120,15 +120,15 @@ class DiptraceComponentShapeItem extends DiptraceSuperShapeItem {
     List<Point2D.Double> getPoints() {
         
         double width
-            = ((DiptraceComponentItem)getParent().getParent()).getWidth();
+            = ((DiptraceComponentItem) getParent().getParent()).getWidth();
         double height
-            = ((DiptraceComponentItem)getParent().getParent()).getHeight();
+            = ((DiptraceComponentItem) getParent().getParent()).getHeight();
         
         List<Point2D.Double> points = new ArrayList<>();
         
         if (1 == 0) {
-            points.add(new Point2D.Double(-width/2, height/2));
-            points.add(new Point2D.Double(width/2, height/2));
+            points.add(new Point2D.Double(-width / 2, height / 2));
+            points.add(new Point2D.Double(width / 2, height / 2));
             return points;
         }
         
@@ -139,18 +139,18 @@ class DiptraceComponentShapeItem extends DiptraceSuperShapeItem {
             points.add(
                 new Point2D.Double(
                     ((DiptraceDoubleAttribute) getAttributes()
-                        .get(baseX + i*2))
-                            .getDouble()*width,
+                        .get(baseX + i * 2))
+                            .getDouble() * width,
                     ((DiptraceDoubleAttribute) getAttributes()
-                        .get(baseY + i*2))
+                        .get(baseY + i * 2))
                             .getDouble()*height));
             
             System.out.format("%1.2f, %1.2f%n",
                     ((DiptraceDoubleAttribute) getAttributes()
-                        .get(baseX + i*2))
+                        .get(baseX + i * 2))
                             .getDouble(),
                     ((DiptraceDoubleAttribute) getAttributes()
-                        .get(baseY + i*2))
+                        .get(baseY + i * 2))
                             .getDouble());
         }
         

@@ -32,9 +32,6 @@ public final class DiptraceGraphics {
      * Draw an item.
      * @param graphics the graphics to drawPCB on
      * @param item the item to paint
-     * @param layerInFocus the side that is in front of the viewer
-     * @param layerToDraw the layer to paint now
-     * @param sideTransparency the transparency for the other side
      */
     void drawSchematicsItem(
         final Graphics2D graphics,
@@ -63,7 +60,7 @@ public final class DiptraceGraphics {
         final Graphics2D graphics) {
         
         // Not yet implemented.
-		throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Not supported yet.");
         
 //        drawSchematicsItem(
 //            graphics,

@@ -86,9 +86,6 @@ abstract class DiptraceSuperShapeItem extends DiptraceGenericItem {
      * therefore the caller must restore the transform after calling this
      * method on this object and this objects children.
      * @param graphics the graphics to drawPCB on
-     * @param layerInFocus the side that is in front of the viewer
-     * @param layerToDraw the layer to paint now
-     * @param sideTransparency the transparency for the other side
      */
     //CHECKSTYLE.OFF: MethodLength - Yes, this method is way to long.
     // It should be fixed.
