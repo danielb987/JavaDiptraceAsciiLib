@@ -114,17 +114,6 @@ class DiptraceShapeItem extends DiptraceSuperShapeItem {
     }
     
     /**
-     * Is the points absolute coordinates or relative coordinates
-     * (width and height)?
-     * @return true if relative coordinates
-     */
-    @Override
-    boolean isPointsRelative() {
-        // Points are relative.
-        return true;
-    }
-    
-    /**
      * Get the points for this shape.
      * @return the points
      */

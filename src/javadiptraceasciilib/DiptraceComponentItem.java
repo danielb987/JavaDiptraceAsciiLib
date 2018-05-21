@@ -63,9 +63,6 @@ class DiptraceComponentItem extends DiptraceGenericItem {
     double getX() {
         
         DiptraceGenericItem item = ((DiptraceGenericItem) getSubItem("X"));
-        System.out.format(
-            "This: %s, %d%n", this.getIdentifier(), this.getChildren().size());
-        System.out.format("Item: %s%n", item);
         return ((DiptraceDoubleAttribute) item.getAttributes().get(0))
             .getDouble();
     }
@@ -88,9 +85,6 @@ class DiptraceComponentItem extends DiptraceGenericItem {
     double getWidth() {
         
         DiptraceGenericItem item = ((DiptraceGenericItem) getSubItem("Width"));
-        System.out.format(
-            "This: %s, %d%n", this.getIdentifier(), this.getChildren().size());
-        System.out.format("Item: %s%n", item);
         return ((DiptraceDoubleAttribute) item.getAttributes().get(0))
             .getDouble();
     }
@@ -102,9 +96,6 @@ class DiptraceComponentItem extends DiptraceGenericItem {
     double getHeight() {
         
         DiptraceGenericItem item = ((DiptraceGenericItem) getSubItem("Height"));
-        System.out.format(
-            "This: %s, %d%n", this.getIdentifier(), this.getChildren().size());
-        System.out.format("Item: %s%n", item);
         return ((DiptraceDoubleAttribute) item.getAttributes().get(0))
             .getDouble();
     }

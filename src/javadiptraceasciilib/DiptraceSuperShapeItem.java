@@ -51,13 +51,6 @@ abstract class DiptraceSuperShapeItem extends DiptraceGenericItem {
     abstract PlacementLayer getPlacementLayer();
     
     /**
-     * Is the points absolute coordinates or relative coordinates
-     * (width and height)?
-     * @return true if relative coordinates
-     */
-    abstract boolean isPointsRelative();
-    
-    /**
      * Get the points for this shape.
      * @return the points
      */
@@ -108,7 +101,7 @@ abstract class DiptraceSuperShapeItem extends DiptraceGenericItem {
         
 //        DiptraceShapeItem shapeItem = (DiptraceShapeItem) item;
         
-        System.out.println("Shape: " + getString());
+//        System.out.println("Shape: " + getString());
         
         if (getDrawingType() == DrawingType.NONE) {
             // I don't know what this is.
@@ -223,6 +216,7 @@ abstract class DiptraceSuperShapeItem extends DiptraceGenericItem {
             case NONE_2:
                 // Nothing to do.
                 break;
+                
             case LINE:
                 points = getPoints();
                 graphics.draw(
@@ -230,51 +224,38 @@ abstract class DiptraceSuperShapeItem extends DiptraceGenericItem {
                         points.get(0).x, points.get(0).y,
                         points.get(1).x, points.get(1).y));
                 break;
+                
             case RECTANGLE:
                 System.out.println("Rectangle");
                 points = getPoints();
                 
-                if (isPointsRelative()) {
-                    graphics.draw(new Rectangle2D.Double(
-                        points.get(0).x,
-                        points.get(0).y,
-                        points.get(1).x - points.get(0).x,
-                        points.get(1).y - points.get(0).y));
-                } else {
-                    graphics.draw(new Rectangle2D.Double(
-                        points.get(0).x,
-                        points.get(1).y,
-                        points.get(1).x,
-                        points.get(0).y));
-                    graphics.draw(new Rectangle2D.Double(
-                        points.get(0).x,
-                        points.get(1).y,
-                        10,
-                        10));
-//                        points.get(1).x,
-//                        points.get(1).y));
+                double x0 = points.get(0).x;
+                double y0 = points.get(0).y;
+                double x1 = points.get(1).x;
+                double y1 = points.get(1).y;
+                
+                if (x1 < x0) {
+                    double tempX = x0;
+                    x0 = x1;
+                    x1 = tempX;
                 }
-/*
-                graphics.draw(
-                    new Line2D.Double(
-                        points.get(0).x,
-                        points.get(0).y,
-                        points.get(1).x,
-                        points.get(1).y));
-                graphics.draw(
-                    new Line2D.Double(
-                        points.get(0).x,
-                        points.get(1).y,
-                        points.get(1).x,
-                        points.get(0).y));
-*/
+                
+                if (y1 < y0) {
+                    double tempY = y0;
+                    y0 = y1;
+                    y1 = tempY;
+                }
+                
+                graphics.draw(new Rectangle2D.Double(x0, y0, x1 - x0, y1 - y0));
                 break;
+                
             case ELLIPSE:
 //                graphics.paint(
 //                    new Rectangle2D.Double(
 //                        getPoint(0), getPoint(1),
 //                        getPoint(2), getPoint(3)));
                 break;
+                
             case FILLED_RECTANGLE:
                 points = getPoints();
                 graphics.fill(new Rectangle2D.Double(
@@ -283,18 +264,21 @@ abstract class DiptraceSuperShapeItem extends DiptraceGenericItem {
                     points.get(1).x - points.get(0).x,
                     points.get(1).y - points.get(0).y));
                 break;
+                
             case FILLED_ELLIPSE:
 //                graphics.paint(
 //                    new Rectangle2D.Double(
 //                        getPoint(0), getPoint(1),
 //                        getPoint(2), getPoint(3)));
                 break;
+                
             case ARC:
 //                graphics.paint(
 //                    new Rectangle2D.Double(
 //                        getPoint(0), getPoint(1),
 //                        getPoint(2), getPoint(3)));
                 break;
+                
             case TEXT:
 //                if (1==1)
 //                    return;
@@ -317,18 +301,21 @@ abstract class DiptraceSuperShapeItem extends DiptraceGenericItem {
                     (float) points.get(0).x,
                     (float) (points.get(0).y + bounds.getHeight()));
                 break;
+                
             case POLYLINE:
 //                graphics.paint(
 //                    new Rectangle2D.Double(
 //                        getPoint(0), getPoint(1),
 //                        getPoint(2), getPoint(3)));
                 break;
+                
             case FILLED_PLYGONE:
 //                graphics.paint(
 //                    new Rectangle2D.Double(
 //                        getPoint(0), getPoint(1),
 //                        getPoint(2), getPoint(3)));
                 break;
+                
             default:
                 throw new RuntimeException(
                     String.format(

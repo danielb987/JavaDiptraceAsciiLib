@@ -113,17 +113,6 @@ class DiptraceComponentShapeItem extends DiptraceSuperShapeItem {
     }
     
     /**
-     * Is the points absolute coordinates or relative coordinates
-     * (width and height)?
-     * @return true if relative coordinates
-     */
-    @Override
-    boolean isPointsRelative() {
-        // Points are absolute.
-        return false;
-    }
-    
-    /**
      * Get the points for this shape.
      * @return the points
      */
@@ -133,9 +122,15 @@ class DiptraceComponentShapeItem extends DiptraceSuperShapeItem {
         double width
             = ((DiptraceComponentItem)getParent().getParent()).getWidth();
         double height
-            = ((DiptraceComponentItem)getParent().getParent()).getWidth();
+            = ((DiptraceComponentItem)getParent().getParent()).getHeight();
         
         List<Point2D.Double> points = new ArrayList<>();
+        
+        if (1 == 0) {
+            points.add(new Point2D.Double(-width/2, height/2));
+            points.add(new Point2D.Double(width/2, height/2));
+            return points;
+        }
         
         final int numPointsInAttribute = 3;
         for (int i = 0; i < numPointsInAttribute; i++) {
