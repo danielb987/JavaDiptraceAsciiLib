@@ -229,7 +229,20 @@ class DiptraceGenericItem extends DiptraceItem {
         
         return sb.toString();
     }
-
+    
+    /**
+     * Paint this item.
+     * Note that this method may change the transform for its children, and
+     * therefore the caller must restore the transform after calling this
+     * method on this object and this objects children.
+     * @param graphics the graphics to drawPCB on
+     */
+    @Override
+    void paint(final Graphics2D graphics) {
+        
+        // Do nothing.
+    }
+    
     /**
      * Paint this item.
      * Note that this method may change the transform for its children, and

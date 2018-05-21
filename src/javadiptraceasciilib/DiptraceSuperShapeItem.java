@@ -93,6 +93,254 @@ abstract class DiptraceSuperShapeItem extends DiptraceGenericItem {
     //CHECKSTYLE.OFF: MethodLength - Yes, this method is way to long.
     // It should be fixed.
     @Override
+    final void paint(final Graphics2D graphics) {
+        
+//        DiptraceShapeItem shapeItem = (DiptraceShapeItem) item;
+        
+//        System.out.println("Shape: " + getString());
+        
+        if (getDrawingType() == DrawingType.NONE) {
+            // I don't know what this is.
+            return;
+        }
+/*
+        int layerNo;
+        PlacementLayer placementLayer = getPlacementLayer();
+        DiptracePCBNonSignalLayer pcbNonSignalLayer = null;
+*/
+        Color fullColor;
+        
+        fullColor = Color.YELLOW;
+/*
+        if (placementLayer == PlacementLayer.USER_NON_SIGNAL_LAYER) {
+            try {
+                pcbNonSignalLayer
+                    = getProject().getPCBNonSignalLayer(getLayerNo());
+                
+                layerNo = pcbNonSignalLayer.getLayerSide();
+                if (layerNo == 0) {
+                    // layerNo == 0 means "no layer"
+                    layerNo = layerInFocus;
+                } else {
+                    layerNo--;
+                }
+            } catch (DiptraceNotFoundException ex) {
+                throw new RuntimeException(
+                    String.format(
+                        "The layer %d is not found",
+                        getLayerNo()),
+                    ex);
+            }
+            
+            fullColor = pcbNonSignalLayer.getLayerColor();
+        } else {
+            switch (placementLayer.getSide()) {
+                case TOP:
+                    layerNo = 0;
+    //                layer = getLayerNo();
+                    break;
+                case BOTTOM:
+                    layerNo = 1;
+    //                layer = getLayerNo();
+                    break;
+                case BOTH:
+                    layerNo = layerInFocus;
+                    break;
+                case UNKNOWN:
+                    layerNo = getLayerNo();
+                    break;
+                default:
+                    throw new RuntimeException(
+                        String.format(
+                            "Side %s is unknown",
+                            placementLayer.getSide().name()));
+            }
+            
+            fullColor = LAYER_COLOR_MAP.get(placementLayer);
+            
+            if (fullColor == null) {
+//                if (1==1)
+//                    return;
+                System.out.format("Shape: %s%n", getString());
+                throw new RuntimeException(
+                    String.format(
+                        "Color for placement layer %s is unknown",
+                        placementLayer.name()));
+            }
+        }
+        
+        if (layerToDraw != layerNo) {
+//            System.out.format("layerNo: %d%n", layerNo);
+            // We want to paint all items on the sides that are not in focus
+            // before we paint all the items on the side that is in focus.
+            return;
+        }
+        
+        final int dimValue = 5;
+        Color dimColor
+            = new Color(
+                fullColor.getRed() / dimValue,
+                fullColor.getGreen() / dimValue,
+                fullColor.getBlue() / dimValue);
+*/
+        Color color;
+        color = fullColor;
+/*
+        if (layerNo == layerInFocus) {
+            color = fullColor;
+        } else {
+            switch (sideTransparency) {
+                case NONE:
+                    // Don't paint this shape at all
+                    return;
+                case PART:
+                    color = dimColor;
+                    break;
+                case FULL:
+                    color = fullColor;
+                    break;
+                default:
+                    throw new RuntimeException(
+                        String.format(
+                            "Unknow transparency %s",
+                            sideTransparency.name()));
+            }
+        }
+*/
+        
+        graphics.setColor(color);
+        
+        List<Point2D.Double> points;
+        
+        switch (getDrawingType()) {
+            case NONE:
+            case NONE_2:
+                // Nothing to do.
+                break;
+                
+            case LINE:
+                points = getPoints();
+                graphics.draw(
+                    new Line2D.Double(
+                        points.get(0).x, points.get(0).y,
+                        points.get(1).x, points.get(1).y));
+                break;
+                
+            case RECTANGLE:
+                System.out.println("Rectangle");
+                points = getPoints();
+                
+                double x0 = points.get(0).x;
+                double y0 = points.get(0).y;
+                double x1 = points.get(1).x;
+                double y1 = points.get(1).y;
+                
+                if (x1 < x0) {
+                    double tempX = x0;
+                    x0 = x1;
+                    x1 = tempX;
+                }
+                
+                if (y1 < y0) {
+                    double tempY = y0;
+                    y0 = y1;
+                    y1 = tempY;
+                }
+                
+                graphics.draw(new Rectangle2D.Double(x0, y0, x1 - x0, y1 - y0));
+                break;
+                
+            case ELLIPSE:
+//                graphics.paint(
+//                    new Rectangle2D.Double(
+//                        getPoint(0), getPoint(1),
+//                        getPoint(2), getPoint(3)));
+                break;
+                
+            case FILLED_RECTANGLE:
+                points = getPoints();
+                graphics.fill(new Rectangle2D.Double(
+                    points.get(0).x,
+                    points.get(0).y,
+                    points.get(1).x - points.get(0).x,
+                    points.get(1).y - points.get(0).y));
+                break;
+                
+            case FILLED_ELLIPSE:
+//                graphics.paint(
+//                    new Rectangle2D.Double(
+//                        getPoint(0), getPoint(1),
+//                        getPoint(2), getPoint(3)));
+                break;
+                
+            case ARC:
+//                graphics.paint(
+//                    new Rectangle2D.Double(
+//                        getPoint(0), getPoint(1),
+//                        getPoint(2), getPoint(3)));
+                break;
+                
+            case TEXT:
+//                if (1==1)
+//                    return;
+                String name = getName();
+                points = getPoints();
+//                System.out.format(
+//                    "Font: %s, size: %d. Text: %s%n",
+//                    getFontName(),
+//                    getFontSize(), name);
+                Font font = new Font(
+                    getFontName(),
+                    Font.PLAIN,
+                    getFontSize());
+                graphics.setFont(font);
+                FontMetrics fontMetrics = graphics.getFontMetrics(font);
+                Rectangle2D bounds
+                    = fontMetrics.getStringBounds(name, graphics);
+                graphics.drawString(
+                    name,
+                    (float) points.get(0).x,
+                    (float) (points.get(0).y + bounds.getHeight()));
+                break;
+                
+            case POLYLINE:
+//                graphics.paint(
+//                    new Rectangle2D.Double(
+//                        getPoint(0), getPoint(1),
+//                        getPoint(2), getPoint(3)));
+                break;
+                
+            case FILLED_PLYGONE:
+//                graphics.paint(
+//                    new Rectangle2D.Double(
+//                        getPoint(0), getPoint(1),
+//                        getPoint(2), getPoint(3)));
+                break;
+                
+            default:
+                throw new RuntimeException(
+                    String.format(
+                        "DrawingType %s is unknown",
+                        getDrawingType().name()));
+        }
+    }
+    //CHECKSTYLE.ON: MethodLength - Yes, this method is way to long.
+    // It should be fixed.
+    
+    
+    /**
+     * Paint this item.
+     * Note that this method may change the transform for its children, and
+     * therefore the caller must restore the transform after calling this
+     * method on this object and this objects children.
+     * @param graphics the graphics to drawPCB on
+     * @param layerInFocus the side that is in front of the viewer
+     * @param layerToDraw the layer to paint now
+     * @param sideTransparency the transparency for the other side
+     */
+    //CHECKSTYLE.OFF: MethodLength - Yes, this method is way to long.
+    // It should be fixed.
+    @Override
     final void paint(
         final Graphics2D graphics,
         final int layerInFocus,

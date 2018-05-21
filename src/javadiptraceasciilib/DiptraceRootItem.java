@@ -81,7 +81,23 @@ final class DiptraceRootItem extends DiptraceItem {
     public String toString() {
         return getIdentifier();
     }
-
+    
+    /**
+     * Paint this item.
+     * Note that this method may change the transform for its children, and
+     * therefore the caller must restore the transform after calling this
+     * method on this object and this objects children.
+     * @param graphics the graphics to drawPCB on
+     * @param layerInFocus the side that is in front of the viewer
+     * @param layerToDraw the layer to paint now
+     * @param sideTransparency the transparency for the other side
+     */
+    @Override
+    void paint(final Graphics2D graphics) {
+        
+        // Do nothing.
+    }
+    
     /**
      * Paint this item.
      * Note that this method may change the transform for its children, and
