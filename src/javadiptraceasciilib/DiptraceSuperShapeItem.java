@@ -629,7 +629,14 @@ abstract class DiptraceSuperShapeItem extends DiptraceGenericItem {
          * @return the drawing type
          */
         static DrawingType getTypeByItemNo(final int typeNo) {
-            return DRAWING_ITEM_TYPE_MAP.get(typeNo);
+            DrawingType drawingType = DRAWING_ITEM_TYPE_MAP.get(typeNo);
+            
+            if (drawingType == null) {
+                throw new IllegalArgumentException(
+                    String.format("DrawingType %d is unknown", typeNo));
+            }
+            
+            return drawingType;
         }
         
         /**

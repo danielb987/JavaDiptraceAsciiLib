@@ -15,6 +15,21 @@ import java.util.Map;
 abstract class DiptraceItem implements DiptraceTreeNode {
     
     /**
+     * What kind of tree is this?
+     */
+    enum DiptraceTreeType {
+        /**
+         * Diptrace schematics.
+         */
+        SCHEMATICS,
+        
+        /**
+         * Diptrace PCB.
+         */
+        PCB,
+    }
+    
+    /**
      * A map with the side of the PCB for each layer.
      */
 //    static final Map<PlacementLayer, DiptracePCBSide> LAYER_SIDE_MAP
@@ -133,11 +148,27 @@ abstract class DiptraceItem implements DiptraceTreeNode {
     }
     
     /**
+     * Returns the root of the tree.
+     * @return the root
+     */
+    DiptraceItem getRoot() {
+        return fParent.getRoot();
+    }
+    
+    /**
      * Returns the parent.
      * @return the parent
      */
     final DiptraceItem getParent() {
         return fParent;
+    }
+    
+    /**
+     * Get the tree type.
+     * @return the tree type
+     */
+    DiptraceTreeType getTreeType() {
+        return getRoot().getTreeType();
     }
     
     /**

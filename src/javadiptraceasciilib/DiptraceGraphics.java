@@ -60,11 +60,11 @@ public final class DiptraceGraphics {
         final Graphics2D graphics) {
         
         // Not yet implemented.
-        throw new UnsupportedOperationException("Not supported yet.");
+//        throw new UnsupportedOperationException("Not supported yet.");
         
-//        drawSchematicsItem(
-//            graphics,
-//            (DiptraceItem) fProject.getSchematicsRoot());
+        drawSchematicsItem(
+            graphics,
+            (DiptraceItem) fProject.getSchematicsRoot());
     }
     
     

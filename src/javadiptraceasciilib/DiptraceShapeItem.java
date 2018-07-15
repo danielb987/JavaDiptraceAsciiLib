@@ -48,18 +48,36 @@ class DiptraceShapeItem extends DiptraceSuperShapeItem {
     @Override
     DrawingType getDrawingType() {
         
-        DiptraceGenericItem item
-            = ((DiptraceGenericItem) getSubItem("ShapeType"));
-        int typeNo
-            = ((DiptraceDoubleAttribute) item.getAttributes().get(0))
-                .getInt();
+        DiptraceGenericItem item;
+        int typeNo;
+        
+        switch (getTreeType()) {
+            case SCHEMATICS:
+                item = ((DiptraceGenericItem) getSubItem("Type"));
+                typeNo
+                    = ((DiptraceDoubleAttribute) item.getAttributes().get(0))
+                        .getInt();
+                return DrawingType.getTypeByAttrNo(typeNo);
+                
+            case PCB:
+                item = ((DiptraceGenericItem) getSubItem("ShapeType"));
+                typeNo
+                    = ((DiptraceDoubleAttribute) item.getAttributes().get(0))
+                        .getInt();
+                return DrawingType.getTypeByItemNo(typeNo);
+                
+            default:
+                throw new RuntimeException(
+                    String.format(
+                        "Invalid drawing type: '%s'", getTreeType().name()));
+        }
+        
 //        typeNo = 6;
 //        System.out.format("AA: Type: %d%n", typeNo);
 //        System.out.format(
 //            "Type: %d, name: %s%n",
 //            typeNo,
 //            DrawingType.getTypeByItemNo(typeNo).name());
-        return DrawingType.getTypeByItemNo(typeNo);
     }
     
     /**

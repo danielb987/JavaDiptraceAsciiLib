@@ -37,6 +37,36 @@ final class DiptraceRootItem extends DiptraceItem {
     }
     
     /**
+     * Returns the root of the tree.
+     * @return the root
+     */
+    @Override
+    DiptraceItem getRoot() {
+        return this;
+    }
+    
+    /**
+     * Get the tree type.
+     * @return the tree type
+     */
+    @Override
+    DiptraceTreeType getTreeType() {
+        String treeTypeStr
+            = ((DiptraceGenericItem) getSubItem("Source"))
+                .getAttributes().get(0).getString();
+        
+        switch (treeTypeStr) {
+            case "DipTrace-Schematic":
+                return DiptraceTreeType.SCHEMATICS;
+            case "DipTrace-PCB":
+                return DiptraceTreeType.PCB;
+            default:
+                throw new RuntimeException(
+                    String.format("Invalid tree type: '%s'", treeTypeStr));
+        }
+    }
+    
+    /**
      * Duplicate this item. This method always throws a RuntimeException since
      * the root must not be duplicated.
      * @param parent the parent of the new item
