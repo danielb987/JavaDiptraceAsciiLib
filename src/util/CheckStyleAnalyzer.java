@@ -250,7 +250,7 @@ public class CheckStyleAnalyzer {
             
             
             fWriter.println("<table>");
-//            writer.format(
+//            fWriter.format(
 //                    "<tr style=\"background-color: coral;\">" +
 //                    "<td>%</td><td>%s</td></tr>%n",
 //                    item.getValue().get(),
