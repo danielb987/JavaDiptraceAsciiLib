@@ -38,6 +38,7 @@ class DiptraceShapeItem extends DiptraceSuperShapeItem {
         for (DiptraceItem subItem : getChildren()) {
             newItem.addSubItem(subItem.duplicate(newItem));
         }
+        parent.getChildren().add(newItem);
         return newItem;
     }
     
@@ -53,11 +54,15 @@ class DiptraceShapeItem extends DiptraceSuperShapeItem {
         
         switch (getTreeType()) {
             case SCHEMATICS:
-                item = ((DiptraceGenericItem) getSubItem("Type"));
-                typeNo
-                    = ((DiptraceDoubleAttribute) item.getAttributes().get(0))
-                        .getInt();
-                return DrawingType.getTypeByAttrNo(typeNo);
+                try {
+                    item = ((DiptraceGenericItem) getSubItem("Type"));
+                    typeNo
+                        = ((DiptraceDoubleAttribute) item.getAttributes().get(0))
+                            .getInt();
+                    return DrawingType.getTypeByAttrNo(typeNo);
+                } catch (NullPointerException ex) {
+                    return DrawingType.NONE;
+                }
                 
             case PCB:
                 item = ((DiptraceGenericItem) getSubItem("ShapeType"));
@@ -136,7 +141,7 @@ class DiptraceShapeItem extends DiptraceSuperShapeItem {
      * @return the points
      */
     @Override
-    List<Point2D.Double> getPoints() {
+    public List<Point2D.Double> getPoints() {
         
         List<Point2D.Double> points = new ArrayList<>();
         
@@ -158,6 +163,20 @@ class DiptraceShapeItem extends DiptraceSuperShapeItem {
         }
         
         return points;
+    }
+    
+    @Override
+    public void setPoint(int index, Point2D.Double point) {
+        
+        DiptraceGenericItem item
+            = ((DiptraceGenericItem) (getSubItem("Points")).getChildren().get(index));
+
+        ((DiptraceDoubleAttribute) item.getAttributes()
+            .get(0))
+                .setDouble(point.x);
+        ((DiptraceDoubleAttribute) item.getAttributes()
+            .get(1))
+                .setDouble(point.y);
     }
     
     /**

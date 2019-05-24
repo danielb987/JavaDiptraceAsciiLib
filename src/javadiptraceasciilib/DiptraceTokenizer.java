@@ -6,7 +6,7 @@ import java.io.IOException;
 /**
  * This class has methods to parse a DipTrace ascii file into tokens.
  */
-final class DiptraceTokenizer {
+public final class DiptraceTokenizer {
     
     /**
      * The reader that the tokenizer reads from.

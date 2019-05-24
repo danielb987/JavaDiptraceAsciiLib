@@ -497,6 +497,35 @@ public final class DiptraceProject {
     }
     
     /**
+     * Get a component by RefDes.
+     * @param refDes the RefDes of the component
+     * @return the component
+     * @throws DiptraceNotFoundException if component not found
+     */
+    public DiptraceItem getShapeByRefDes(final String refDes)
+        throws DiptraceNotFoundException {
+        
+        DiptraceItem pcbShapes
+            = fPCBRoot.getSubItem("Board").getSubItem("Shapes");
+        
+        DiptraceItem pcbShape;
+        for (DiptraceItem item : pcbShapes.getChildren()) {
+            DiptraceGenericItem nameItem
+                = ((DiptraceGenericItem) item.getSubItem("Name"));
+
+            String name
+                = ((DiptraceStringAttribute) nameItem.getAttributes().get(0))
+                    .getString();
+            
+            if (refDes.equals(name)) {
+                return item;
+            }
+        }
+        
+        return null;
+    }
+    
+    /**
      * Get a net by name.
      * @param name the name of the net
      * @return the net

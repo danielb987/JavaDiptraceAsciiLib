@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.Map;
 /**
  * A Diptrace shape item.
  */
-abstract class DiptraceSuperShapeItem extends DiptraceGenericItem {
+public abstract class DiptraceSuperShapeItem extends DiptraceGenericItem {
 
     /**
      * Initialize a DiptraceSuperShapeItem.
@@ -54,7 +55,9 @@ abstract class DiptraceSuperShapeItem extends DiptraceGenericItem {
      * Get the points for this shape.
      * @return the points
      */
-    abstract List<Point2D.Double> getPoints();
+    public abstract List<Point2D.Double> getPoints();
+    
+    public abstract void setPoint(int index, Point2D.Double point);
     
     /**
      * Get the name of this shape.

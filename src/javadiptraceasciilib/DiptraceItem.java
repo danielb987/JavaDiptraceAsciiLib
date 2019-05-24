@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * This class is the base class for items in the DipTrace ascii file.
  */
-abstract class DiptraceItem implements DiptraceTreeNode {
+public abstract class DiptraceItem implements DiptraceTreeNode {
     
     /**
      * What kind of tree is this?
@@ -134,10 +134,18 @@ abstract class DiptraceItem implements DiptraceTreeNode {
     
     /**
      * Duplicate this item and all its children.
+     * @return the copy of this item
+     */
+    public DiptraceItem duplicate() {
+        return duplicate(fParent);
+    }
+    
+    /**
+     * Duplicate this item and all its children.
      * @param parent the parent of the new item
      * @return the copy of this item
      */
-    abstract DiptraceItem duplicate(DiptraceItem parent);
+    public abstract DiptraceItem duplicate(DiptraceItem parent);
     
     /**
      * Returns the project.

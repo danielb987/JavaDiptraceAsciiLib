@@ -10,7 +10,7 @@ import javadiptraceasciilib.DiptraceStringAttribute.UseQuotes;
 /**
  * This class is a generic class for items in the DipTrace ascii file.
  */
-class DiptraceGenericItem extends DiptraceItem {
+public class DiptraceGenericItem extends DiptraceItem {
     
     /**
      * The list of parameters.

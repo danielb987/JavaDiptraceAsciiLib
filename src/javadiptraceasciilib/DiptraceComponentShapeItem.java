@@ -117,7 +117,7 @@ class DiptraceComponentShapeItem extends DiptraceSuperShapeItem {
      * @return the points
      */
     @Override
-    List<Point2D.Double> getPoints() {
+    public List<Point2D.Double> getPoints() {
         
         double width
             = ((DiptraceComponentItem) getParent().getParent()).getWidth();
@@ -155,6 +155,25 @@ class DiptraceComponentShapeItem extends DiptraceSuperShapeItem {
         }
         
         return points;
+    }
+    
+    @Override
+    public void setPoint(int index, Point2D.Double point) {
+        
+        double width
+            = ((DiptraceComponentItem) getParent().getParent()).getWidth();
+        double height
+            = ((DiptraceComponentItem) getParent().getParent()).getHeight();
+        
+            final int baseX = 3;
+            final int baseY = 4;
+            
+            ((DiptraceDoubleAttribute) getAttributes()
+                .get(baseX + index * 2))
+                    .setDouble(point.x / width);
+            ((DiptraceDoubleAttribute) getAttributes()
+                .get(baseY + index * 2))
+                    .setDouble(point.y / height);
     }
     
     /**
